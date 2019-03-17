@@ -13,5 +13,12 @@
     <ClCompile Include="..\..\Summoners%27Aster\Summoners%27Aster\Main\Main.cpp">
       <Filter>Main</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Summoners%27Aster\Summoners%27Aster\SceneSwitcher\Scene\Scene.cpp">
+      <Filter>SceneSwitcher\Scene</Filter>
+    </ClCompile>
+  <ItemGroup>
+    <ClInclude Include="..\..\Summoners%27Aster\Summoners%27Aster\SceneSwitcher\Scene\Scene.h">
+      <Filter>SceneSwitcher\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
