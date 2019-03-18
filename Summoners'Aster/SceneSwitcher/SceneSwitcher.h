@@ -1,4 +1,4 @@
-#ifndef SCENE_SWITCHER_H
+ï»¿#ifndef SCENE_SWITCHER_H
 #define SCENE_SWITCHER_H
 
 #include <map>
@@ -14,83 +14,32 @@ class SceneSwitcher :public Singleton<SceneSwitcher>
 public:
 	friend Singleton<SceneSwitcher>;
 
-	~SceneSwitcher()
-	{
-		ReleaseSceneInstances;
-	}
+	~SceneSwitcher();
 
-	inline void Update()
-	{
-		if (m_shouldInitialize)
-		{
-			SwitchScene();
-		}
+	void Update();
+	
+	void Render();
 
-		m_pScenes[m_currentScene]->Update();
-	}
-
-	inline void Render()
-	{
-		m_pScenes[m_currentScene]->Render();
-	}
-
-	inline void RegisterNextScene(Scene::KINDS nextScene)
-	{
-		m_nextScene = nextScene;
-
-		m_shouldInitialize = true;
-	}
+	void RegisterNextScene(Scene::KINDS nextScene);
 
 private:
-	SceneSwitcher()
-	{
-		CreateSceneInstances();
-		SwitchScene();
-	}
+	SceneSwitcher();
 
-	inline void SwitchScene()
-	{
-		FinalizeCurrentScene();
+	void SwitchScene();
+	
+	void InitializeCurrentScene();
 
-		m_currentScene = m_nextScene;
-		InitializeCurrentScene();
+	void FinalizeCurrentScene();
 
-		m_shouldInitialize = false;
-	}
+	void CreateSceneInstances();
 
-	inline void InitializeCurrentScene()
-	{
-		m_pScenes[m_currentScene]->Initialize();
-	}
-
-	inline void FinalizeCurrentScene()
-	{
-		m_pScenes[m_currentScene]->Finalize();
-	}
-
-	inline void CreateSceneInstances()
-	{
-		m_pScenes[Scene::KINDS::TITLE]  = new TitleScene();
-		m_pScenes[Scene::KINDS::HOME]   = new HomeScene();
-		m_pScenes[Scene::KINDS::BATTLE] = new TitleScene();
-		m_pScenes[Scene::KINDS::RESULT] = new ResultScene();
-	}
-
-	inline void ReleaseSceneInstances()
-	{
-		for(auto pScene : m_pScenes)
-		{
-			pScene.second->Finalize();
-
-			delete pScene.second;
-		}
-	}
+	void ReleaseSceneInstances();
 
 	// <summary>
-	// ƒV[ƒ“‚Ì‰Šú‰»‚ğs‚¤‚×‚«‚©‚ğ”»’f‚·‚é
+	// ã‚·ãƒ¼ãƒ³ã®åˆæœŸåŒ–ã‚’è¡Œã†ã¹ãã‹ã‚’åˆ¤æ–­ã™ã‚‹
 	// </summary>
 	// <remarks>
-	// Œ»İ‚ÌƒV[ƒ“‚ğ‰Šú‰»‚·‚é•K—v‚ªo‚Ä‚«‚½‚É‘Î‰‚·‚é‚½‚ß
+	// ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ã‚’åˆæœŸåŒ–ã™ã‚‹å¿…è¦ãŒå‡ºã¦ããŸæ™‚ã«å¯¾å¿œã™ã‚‹ãŸã‚
 	// </remarks>
 	bool m_shouldInitialize = false;
 
