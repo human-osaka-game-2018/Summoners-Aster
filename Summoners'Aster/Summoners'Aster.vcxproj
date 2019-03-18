@@ -20,10 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Summoners%27Aster\Summoners%27Aster\Main\Main.cpp" />
+    <ClCompile Include="..\..\Summoners%27Aster\Summoners%27Aster\ObjectManager\Object\Object.cpp" />
     <ClCompile Include="..\..\Summoners%27Aster\Summoners%27Aster\SceneSwitcher\SceneSwitcher.cpp" />
     <ClCompile Include="..\..\Summoners%27Aster\Summoners%27Aster\SceneSwitcher\Scene\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Summoners%27Aster\Summoners%27Aster\ObjectManager\Object\Object.h" />
     <ClInclude Include="..\..\Summoners%27Aster\Summoners%27Aster\SceneSwitcher\SceneSwitcher.h" />
     <ClInclude Include="..\..\Summoners%27Aster\Summoners%27Aster\SceneSwitcher\Scene\Scene.h" />
   </ItemGroup>

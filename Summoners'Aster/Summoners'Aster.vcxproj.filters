@@ -25,12 +25,18 @@
     <ClCompile Include="..\..\Summoners%27Aster\Summoners%27Aster\SceneSwitcher\SceneSwitcher.cpp">
       <Filter>SceneSwitcher</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Summoners%27Aster\Summoners%27Aster\ObjectManager\Object\Object.cpp">
+      <Filter>ObjectManager\Object</Filter>
+    </ClCompile>
   <ItemGroup>
     <ClInclude Include="..\..\Summoners%27Aster\Summoners%27Aster\SceneSwitcher\Scene\Scene.h">
       <Filter>SceneSwitcher\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Summoners%27Aster\Summoners%27Aster\SceneSwitcher\SceneSwitcher.h">
       <Filter>SceneSwitcher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Summoners%27Aster\Summoners%27Aster\ObjectManager\Object\Object.h">
+      <Filter>ObjectManager\Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
