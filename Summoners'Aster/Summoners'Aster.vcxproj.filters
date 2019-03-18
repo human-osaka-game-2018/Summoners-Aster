@@ -8,6 +8,12 @@
     <Filter Include="Main">
       <UniqueIdentifier>{fca42471-4fa6-49b9-a3dd-59cafcc285f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SceneSwitcher">
+      <UniqueIdentifier>{88965dc1-b04a-4b46-8cde-83a8e4d46cc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene">
+      <UniqueIdentifier>{13a897f4-f8a0-4cd5-bb0c-9dc7eb8b337a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Summoners%27Aster\Summoners%27Aster\Main\Main.cpp">
@@ -16,9 +22,15 @@
     <ClCompile Include="..\..\Summoners%27Aster\Summoners%27Aster\SceneSwitcher\Scene\Scene.cpp">
       <Filter>SceneSwitcher\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Summoners%27Aster\Summoners%27Aster\SceneSwitcher\SceneSwitcher.cpp">
+      <Filter>SceneSwitcher</Filter>
+    </ClCompile>
   <ItemGroup>
     <ClInclude Include="..\..\Summoners%27Aster\Summoners%27Aster\SceneSwitcher\Scene\Scene.h">
       <Filter>SceneSwitcher\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Summoners%27Aster\Summoners%27Aster\SceneSwitcher\SceneSwitcher.h">
+      <Filter>SceneSwitcher</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
