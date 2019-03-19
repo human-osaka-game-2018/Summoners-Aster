@@ -1,12 +1,9 @@
 ﻿#include <Windows.h>
 #include <tchar.h>
 
-#include <Window/WindowParam.h>
-#include <Window/Window.h>
+#include <GameFramework.h>
 
-using WindowParam = gameframework::WindowParam;
-using Window = gameframework::Window;
-using RectSize = gameframework::RectSize;
+using namespace gameframework;
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 {
