@@ -1,7 +1,7 @@
 ﻿#ifndef SCENE_SWITCHER_H
 #define SCENE_SWITCHER_H
 
-#include <map>
+#include <unordered_map>
 
 #include <GameFramework.h>
 
@@ -48,7 +48,7 @@ namespace summonersaster
 		Scene::KINDS m_currentScene = Scene::KINDS::TITLE;
 		Scene::KINDS m_nextScene = Scene::KINDS::TITLE;
 
-		std::map<Scene::KINDS, Scene*> m_pScenes;
+		std::unordered_map<Scene::KINDS, Scene*> m_pScenes;
 	};
 } // namespace summonersaster
 
