@@ -22,7 +22,7 @@ namespace summonersaster
 		m_pScenes[m_currentScene]->Render();
 	}
 
-	void SceneSwitcher::RegisterNextScene(Scene::KINDS nextScene)
+	void SceneSwitcher::RegisterNextScene(Scene::KIND nextScene)
 	{
 		m_nextScene = nextScene;
 
@@ -57,10 +57,10 @@ namespace summonersaster
 
 	void SceneSwitcher::CreateSceneInstances()
 	{
-		/*m_pScenes[Scene::KINDS::TITLE]  = new TitleScene();
-		m_pScenes[Scene::KINDS::HOME]   = new HomeScene();
-		m_pScenes[Scene::KINDS::BATTLE] = new BattleScene();
-		m_pScenes[Scene::KINDS::RESULT] = new ResultScene();*/
+		/*m_pScenes[Scene::KIND::TITLE]  = new TitleScene();
+		m_pScenes[Scene::KIND::HOME]   = new HomeScene();
+		m_pScenes[Scene::KIND::BATTLE] = new BattleScene();
+		m_pScenes[Scene::KIND::RESULT] = new ResultScene();*/
 	}
 
 	void SceneSwitcher::ReleaseSceneInstances()

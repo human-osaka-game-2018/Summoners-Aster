@@ -6,7 +6,7 @@ namespace summonersaster
 	class Scene
 	{
 	public:
-		enum class KINDS
+		enum class KIND
 		{
 			TITLE,
 			HOME,

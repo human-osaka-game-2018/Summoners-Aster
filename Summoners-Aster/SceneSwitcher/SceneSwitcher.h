@@ -22,7 +22,7 @@ namespace summonersaster
 
 		void Render();
 
-		void RegisterNextScene(Scene::KINDS nextScene);
+		void RegisterNextScene(Scene::KIND nextScene);
 
 	private:
 		SceneSwitcher();
@@ -45,10 +45,10 @@ namespace summonersaster
 		// </remarks>
 		bool m_shouldInitialize = false;
 
-		Scene::KINDS m_currentScene = Scene::KINDS::TITLE;
-		Scene::KINDS m_nextScene = Scene::KINDS::TITLE;
+		Scene::KIND m_currentScene = Scene::KIND::TITLE;
+		Scene::KIND m_nextScene = Scene::KIND::TITLE;
 
-		std::unordered_map<Scene::KINDS, Scene*> m_pScenes;
+		std::unordered_map<Scene::KIND, Scene*> m_pScenes;
 	};
 } // namespace summonersaster
 
