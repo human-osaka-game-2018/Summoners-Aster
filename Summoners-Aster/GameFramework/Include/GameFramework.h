@@ -1,5 +1,5 @@
-﻿#ifndef GAME_FRAMEWORK_HEADDERS_H
-#define GAME_FRAMEWORK_HEADDERS_H
+﻿#ifndef GAME_FRAMEWORK_HEADERS_H
+#define GAME_FRAMEWORK_HEADERS_H
 
 #include "Singleton.h"
 #include "Algorithm.h"
@@ -18,4 +18,4 @@
 #include "GameFramework/Vertices.h"
 #include "GameFramework/Stream.h"
 
-#endif //!GAME_FRAMEWORK_HEADDERS_H
+#endif //!GAME_FRAMEWORK_HEADERS_H
