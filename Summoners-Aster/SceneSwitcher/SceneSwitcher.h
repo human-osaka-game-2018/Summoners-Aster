@@ -3,7 +3,7 @@
 
 #include <map>
 
-#include <Singleton.h>
+#include <GameFramework.h>
 
 #include "Scene/Scene.h"
 
