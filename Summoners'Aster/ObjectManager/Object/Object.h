@@ -4,7 +4,7 @@
 class Object
 {
 public:
-	~Object() {};
+	~Object();
 
 	virtual bool Initialize() = 0;
 	virtual bool LoadResource() = 0;
@@ -20,8 +20,9 @@ public:
 	}
 	
 protected:
-	Object(float z) : m_z(z) {};
+	Object(float z);
 
+	//描画順をセットする為の変数
 	float m_z = 1.0f;
 };
 
