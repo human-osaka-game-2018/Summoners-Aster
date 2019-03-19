@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{67909a9e-4389-47ab-a7e4-48170e7da9a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher">
+      <UniqueIdentifier>{22b01504-ccdd-4865-88ad-add6ce58c177}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene">
+      <UniqueIdentifier>{2e231b9a-96b9-4c3c-a759-3434d13a896d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SceneSwitcher\SceneSwitcher.h">
+      <Filter>SceneSwitcher</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\Scene.h">
+      <Filter>SceneSwitcher\Scene</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SceneSwitcher\SceneSwitcher.cpp">
+      <Filter>SceneSwitcher</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\Scene.cpp">
+      <Filter>SceneSwitcher\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\Main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
