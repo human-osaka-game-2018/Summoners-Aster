@@ -1,13 +1,13 @@
-﻿#include "Scene.h"
+#include "Object.h"
 
 namespace summonersaster
 {
-	Scene::~Scene()
+	Object::~Object()
 	{
 
 	}
 
-	Scene::Scene()
+	Object::Object(float z) : m_z(z)
 	{
 
 	}

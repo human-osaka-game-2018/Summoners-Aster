@@ -1,7 +1,7 @@
 ﻿#ifndef SCENE_SWITCHER_H
 #define SCENE_SWITCHER_H
 
-#include <map>
+#include <unordered_map>
 
 #include <GameFramework.h>
 
@@ -9,44 +9,78 @@
 
 using gameframework::Singleton;
 
-class SceneSwitcher :public Singleton<SceneSwitcher>
+namespace summonersaster
 {
-public:
-	friend Singleton<SceneSwitcher>;
+	/// <summary>
+	/// シーンを切り替えるクラス
+	/// </summary>
+	class SceneSwitcher :public Singleton<SceneSwitcher>
+	{
+	public:
+		friend Singleton<SceneSwitcher>;
 
-	~SceneSwitcher();
+		~SceneSwitcher();
 
-	void Update();
-	
-	void Render();
+		/// <summary>
+		/// 現在のシーンの更新処理を行う
+		/// </summary>
+		/// <remarks>
+		/// シーンを切り替える関数を呼ぶ
+		/// </remarks>
+		void Update();
 
-	void RegisterNextScene(Scene::KINDS nextScene);
+		/// <summary>
+		/// 現在のシーンの描画処理を行う
+		/// </summary>
+		void Render();
 
-private:
-	SceneSwitcher();
+		/// <summary>
+		/// 次のフレームから呼ばれるシーンを登録する
+		/// </summary>
+		/// <param name="nextScene">登録するシーン</param>
+		void RegisterNextScene(Scene::KIND nextScene);
 
-	void SwitchScene();
-	
-	void InitializeCurrentScene();
+	private:
+		SceneSwitcher();
 
-	void FinalizeCurrentScene();
+		/// <summary>
+		/// シーンを切り替える
+		/// </summary>
+		void SwitchScene();
 
-	void CreateSceneInstances();
+		/// <summary>
+		/// 現在のシーンの初期化処理を行う
+		/// </summary>
+		void InitializeCurrentScene();
 
-	void ReleaseSceneInstances();
+		/// <summary>
+		/// 現在のシーンの終了処理を行う
+		/// </summary>
+		void FinalizeCurrentScene();
 
-	// <summary>
-	// シーンの初期化を行うべきかを判断する
-	// </summary>
-	// <remarks>
-	// 現在のシーンを初期化する必要が出てきた時に対応するため
-	// </remarks>
-	bool m_shouldInitialize = false;
+		/// <summary>
+		/// 全てのシーンのインスタンスを生成する
+		/// </summary>
+		void CreateSceneInstances();
 
-	Scene::KINDS m_currentScene = Scene::KINDS::TITLE;
-	Scene::KINDS m_nextScene    = Scene::KINDS::TITLE;
-	
-	std::map<Scene::KINDS, Scene*> m_pScenes;
-};
+		/// <summary>
+		/// 全てのシーンのインスタンスを開放する
+		/// </summary>
+		void ReleaseSceneInstances();
+
+		/// <summary>
+		/// シーンの初期化を行うべきかを判断する
+		/// </summary>
+		/// <remarks>
+		/// 現在のシーンを初期化する必要が出てきた時に対応するため
+		/// </remarks>
+		bool m_shouldInitialize = false;
+
+		Scene::KIND m_currentScene = Scene::KIND::TITLE;
+		Scene::KIND m_nextScene = Scene::KIND::TITLE;
+
+		std::unordered_map<Scene::KIND, Scene*> m_pScenes;
+	};
+} // namespace summonersaster
 
 #endif //!SCENE_SWITCHER_H
