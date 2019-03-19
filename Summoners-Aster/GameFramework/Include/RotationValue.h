@@ -173,7 +173,7 @@ namespace gameframework
 			Normalize(amount);
 		}
 
-		virtual ~RotationValue() = 0;
+		virtual ~RotationValue() {};
 
 		/// <summary>
 		/// 最小値と最大値の間に角度を正規化する

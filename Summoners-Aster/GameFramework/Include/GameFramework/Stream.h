@@ -14,7 +14,7 @@
 /// 基礎構築に関するものをまとめた名前空間
 /// </summary>
 namespace gameframework
-{	
+{
 	/// <summary>
 	/// 表示用文字列の基底クラス
 	/// </summary>
@@ -35,8 +35,8 @@ namespace gameframework
 
 		inline void Flash(int flashFrameMax, BYTE alphaMin, BYTE alphaMax)
 		{
-			algorithm::CountUp(&m_flashFrameCount, flashFrameMax);
 			m_color.m_alpha = static_cast<BYTE>(algorithm::SwitchMinBetweenMax(m_flashFrameCount, flashFrameMax, alphaMin, alphaMax));
+			algorithm::CountUp(&m_flashFrameCount, flashFrameMax);
 		}
 
 		/// <summary>
@@ -45,8 +45,32 @@ namespace gameframework
 		/// <param name="pFont">描画する際に扱うフォント</param>
 		virtual void Render(const LPFONT pFont, UINT format) = 0;
 
+		/// <summary>
+		/// 文字列を代入する
+		/// </summary>
+		/// <param name="rhs">代入するTCHARのポインタ</param>
+		/// <returns>thisの参照</returns>
+		Stream& operator=(const TCHAR* rhs)
+		{
+			tstring* pThisString = static_cast<tstring*>(this);
+
+			(*pThisString) = rhs;
+		}
+
+		/// <summary>
+		/// 文字列を代入する
+		/// </summary>
+		/// <param name="rhs">代入する文字列</param>
+		/// <returns>thisの参照</returns>
+		Stream& operator=(const tstring& rhs)
+		{
+			tstring* pThisString = static_cast<tstring*>(this);
+
+			(*pThisString) = rhs;
+		}
+
 	protected:
-		Stream() 
+		Stream()
 		{
 			DirectXParam::GetDirectXGraphicDevice()->Get(&m_pDirectXGraphicDevice);
 		}

@@ -17,7 +17,7 @@ namespace gameframework
 	public:
 		Input()
 		{
-			GameFrameFactory::Create(&m_pDirectInput);
+			GameFrameworkFactory::Create(&m_pDirectInput);
 		}
 
 		~Input()

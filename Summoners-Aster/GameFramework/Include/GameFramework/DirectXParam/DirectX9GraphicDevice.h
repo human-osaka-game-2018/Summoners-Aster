@@ -16,7 +16,7 @@
 /// </summary>
 namespace gameframework
 {
-	#ifdef DIRECT_X_VERSOIN_9
+#ifdef DIRECT_X_VERSOIN_9
 
 	/// <summary>
 	/// DirectX9のグラフィックデバイスクラス
@@ -27,6 +27,7 @@ namespace gameframework
 		DirectX9GraphicDevice(DirectXDevice* pDirectXDevice)
 		{
 			Create(pDirectXDevice);
+			InitializeViewPort();
 		}
 
 		virtual ~DirectX9GraphicDevice()
@@ -41,7 +42,7 @@ namespace gameframework
 		/// </summary>
 		class DirectXPresentParam
 		{
-		public:			
+		public:
 			/// <summary>
 			/// ウィンドウモード時のデータを取得
 			/// </summary>
@@ -52,7 +53,7 @@ namespace gameframework
 
 				pD3DPRESENT_PARAMETERS->Windowed = true;
 			}
-			
+
 			/// <summary>
 			/// フルスクリーンモード時のデータを取得
 			/// </summary>
@@ -83,6 +84,23 @@ namespace gameframework
 
 		DirectX9GraphicDevice(const DirectX9GraphicDevice& rhs) = delete;
 
+		/// <summary>
+		/// ビューポートを初期化する
+		/// </summary>
+		inline void InitializeViewPort()
+		{
+			D3DPRESENT_PARAMETERS directXPresentParams;
+			DirectXPresentParam::GetWindowModeParam(&directXPresentParams);
+
+			D3DVIEWPORT9 viewPort;
+			viewPort.Width = directXPresentParams.BackBufferWidth;
+			viewPort.Height = directXPresentParams.BackBufferHeight;
+			viewPort.MinZ = 0.0f;
+			viewPort.MaxZ = 1.0f;
+			viewPort.X = viewPort.Y = 0;
+			HRESULT hr = m_pDirectXGraphicDevice->SetViewport(&viewPort);
+		}
+
 		DirectX9GraphicDevice& operator=(const DirectX9GraphicDevice& rhs) = delete;
 
 		/// <summary>
@@ -92,7 +110,7 @@ namespace gameframework
 		void Create(DirectXDevice* pDirectXDevice);
 	};
 
-	#endif //DIRECT_X_VERSOIN_9
+#endif //DIRECT_X_VERSOIN_9
 }
 
 #endif //!DIRECT_X_GRAPHIC_DEVICE_H

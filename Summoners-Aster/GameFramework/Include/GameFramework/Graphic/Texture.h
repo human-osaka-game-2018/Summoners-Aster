@@ -34,8 +34,11 @@ namespace gameframework
 
 		inline void Release()
 		{
-			m_pTexture->Release();
-			delete m_pTexture;
+			if (m_pTexture)
+			{
+				m_pTexture->Release();
+			}
+
 			m_pTexture = nullptr;
 		}
 		

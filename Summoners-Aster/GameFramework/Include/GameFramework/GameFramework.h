@@ -172,7 +172,7 @@ namespace gameframework
 		/// <returns>フォントのポインタ</returns>
 		inline LPFONT GetFont(const TCHAR* pFontKey)
 		{
-			m_graphic.GetFont(pFontKey);
+			return m_graphic.GetFont(pFontKey);
 		}
 
 		/// <summary>

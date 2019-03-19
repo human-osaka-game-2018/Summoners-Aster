@@ -6,7 +6,7 @@
 #include <dinput.h>
 
 #include "Direct8InputDevice.h"
-#include "DirectXParam.h"
+#include "../DirectXParam/DirectXParam.h"
 #include "../../Window/WindowParam.h"
 
 /// <summary>

@@ -39,7 +39,7 @@ namespace gameframework
 		{
 			if (Exists(pTextureKey)) return;
 
-			GameFrameFactory::Create(&m_textures[pTextureKey]);
+			GameFrameworkFactory::Create(&m_textures[pTextureKey]);
 
 			m_textures[pTextureKey]->Reset(pTexturePath);
 		}
@@ -87,7 +87,7 @@ namespace gameframework
 		/// <returns>テクスチャのポインタ</returns>
 		inline LPTEXTURE Get(const TCHAR* pTextureKey)
 		{
-			if (!Exists(pTextureKey)) return;
+			if (!Exists(pTextureKey)) return nullptr;
 
 			return m_textures[pTextureKey]->Get(); 
 		}

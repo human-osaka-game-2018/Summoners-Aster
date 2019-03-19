@@ -88,8 +88,8 @@ namespace gameframework
 		{
 			float progressRatio = static_cast<float>(val) / static_cast<float>(cycleVal);
 
-			//!cos波を調整し0~1を行き来する値を作成
-			return (cos(2.0f * D3DX_PI * progressRatio) + 1.0f) * 0.5f;
+			//sin波を調整し0~1を行き来する値を作成
+			return sin(D3DX_PI * progressRatio);
 		}
 
 		/// <summary>
@@ -132,6 +132,17 @@ namespace gameframework
 		/// <param name="pFunc">最大値に達したときに呼ぶ関数のポインタ</param>
 		/// <remarks>pFuncがnullptrなら何も呼ばない</remarks>
 		void CountUp_sec(float* pCnt_sec, float cntMax_sec, std::function<void(void)> pFunc = nullptr);
+
+		/// <summary>
+		/// 三項演算子
+		/// </summary>
+		template<typename T>
+		inline T Tertiary(bool isTrue, T trueReturn, T falseReturn)
+		{
+			if (isTrue) return trueReturn;
+
+			return falseReturn;
+		}
 	}
 }
 

@@ -23,8 +23,8 @@ namespace gameframework
 	public:
 		Graphic() 
 		{
-			GameFrameFactory::Create(&m_pRenderer);
-			GameFrameFactory::Create(&m_pColorBlender);
+			GameFrameworkFactory::Create(&m_pRenderer);
+			GameFrameworkFactory::Create(&m_pColorBlender);
 		}
 
 		~Graphic()
@@ -183,7 +183,7 @@ namespace gameframework
 		/// <returns>フォントのポインタ</returns>
 		inline LPFONT GetFont(const TCHAR* pFontKey)
 		{
-			m_fontManager.Get(pFontKey);
+			return m_fontManager.Get(pFontKey);
 		}
 
 		/// <summary>
