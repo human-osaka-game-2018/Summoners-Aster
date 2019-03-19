@@ -1,10 +1,10 @@
 ﻿#include "SceneSwitcher.h"
 
-namespace summoners_aster
+namespace summonersaster
 {
 	SceneSwitcher::~SceneSwitcher()
 	{
-		ReleaseSceneInstances;
+		ReleaseSceneInstances();
 	}
 
 	void SceneSwitcher::Update()
@@ -72,4 +72,4 @@ namespace summoners_aster
 			delete pScene.second;
 		}
 	}
-}
+} // namespace summonersaster

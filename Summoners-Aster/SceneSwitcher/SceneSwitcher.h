@@ -9,7 +9,7 @@
 
 using gameframework::Singleton;
 
-namespace summoners_aster
+namespace summonersaster
 {
 	class SceneSwitcher :public Singleton<SceneSwitcher>
 	{
@@ -50,6 +50,6 @@ namespace summoners_aster
 
 		std::map<Scene::KINDS, Scene*> m_pScenes;
 	};
-}
+} // namespace summonersaster
 
 #endif //!SCENE_SWITCHER_H

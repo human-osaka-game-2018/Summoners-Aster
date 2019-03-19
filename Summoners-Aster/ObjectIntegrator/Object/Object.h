@@ -1,7 +1,7 @@
 ﻿#ifndef OBJECT_H
 #define OBJECT_H
 
-namespace summoners_aster
+namespace summonersaster
 {
 	class Object
 	{
@@ -27,6 +27,6 @@ namespace summoners_aster
 		//描画順を決める際に扱う変数
 		float m_z = 1.0f;
 	};
-}
+} // namespace summonersaster
 
 #endif //!OBJECT_H

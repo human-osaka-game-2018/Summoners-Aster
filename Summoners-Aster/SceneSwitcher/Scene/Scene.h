@@ -1,7 +1,7 @@
 ﻿#ifndef SCENE_H
 #define SCENE_H
 
-namespace summoners_aster
+namespace summonersaster
 {
 	class Scene
 	{
@@ -27,6 +27,6 @@ namespace summoners_aster
 	protected:
 		Scene();
 	};
-}
+} // namespace summonersaster
 
 #endif //!SCENE_H

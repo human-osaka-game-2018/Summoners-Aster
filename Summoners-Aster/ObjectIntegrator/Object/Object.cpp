@@ -1,6 +1,6 @@
 #include "Object.h"
 
-namespace summoners_aster
+namespace summonersaster
 {
 	Object::~Object()
 	{
@@ -11,4 +11,4 @@ namespace summoners_aster
 	{
 
 	}
-}
+} // namespace summonersaster

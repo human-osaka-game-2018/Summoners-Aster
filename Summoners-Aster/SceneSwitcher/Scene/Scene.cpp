@@ -1,6 +1,6 @@
 ﻿#include "Scene.h"
 
-namespace summoners_aster
+namespace summonersaster
 {
 	Scene::~Scene()
 	{
@@ -11,4 +11,4 @@ namespace summoners_aster
 	{
 
 	}
-}
+} // namespace summonersaster
