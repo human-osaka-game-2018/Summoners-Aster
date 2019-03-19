@@ -21,13 +21,13 @@
 /// </summary>
 namespace gameframework
 {
-	class GameFrameFactory
+	class GameFrameworkFactory
 	{
 	public:
 		template<typename T>
 		static void Create(T** ppT)
 		{
-			pT = new T();
+			*ppT = new T();
 		}
 
 		template<>
@@ -102,6 +102,7 @@ namespace gameframework
 			#endif
 		}
 
+		template<>
 		static void Create<Texture>(Texture** ppTexture)
 		{
 			#ifdef DIRECT_X_VERSION_11
@@ -114,12 +115,12 @@ namespace gameframework
 		}
 
 	private:
-		GameFrameFactory() {};
-		GameFrameFactory(const GameFrameFactory& rhs) = delete;
+		GameFrameworkFactory() {};
+		GameFrameworkFactory(const GameFrameworkFactory& rhs) = delete;
 
-		~GameFrameFactory() {};
+		~GameFrameworkFactory() {};
 
-		GameFrameFactory& operator=(const GameFrameFactory& rhs) = delete;
+		GameFrameworkFactory& operator=(const GameFrameworkFactory& rhs) = delete;
 	};
 }
 

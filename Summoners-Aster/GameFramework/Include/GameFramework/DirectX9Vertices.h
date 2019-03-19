@@ -20,35 +20,29 @@
 /// </summary>
 namespace gameframework
 {
-	#ifdef DIRECT_X_VERSOIN_9
+#ifdef DIRECT_X_VERSOIN_9
 
 	class DirectX9Vertices :public Vertices
 	{
 	public:
-		DirectX9Vertices() {};
+		DirectX9Vertices();
 
-		DirectX9Vertices(const D3DXVECTOR3& center, const RectSize& halfScale) :Vertices(center, halfScale) {};
+		DirectX9Vertices(const D3DXVECTOR3& center, const RectSize& size);
 
-		DirectX9Vertices(const D3DXVECTOR3& center, const RectSize& halfScale, const Color& color)
-			: Vertices(center, halfScale, color)
-		{};
+		DirectX9Vertices(const D3DXVECTOR3& center, const RectSize& size, const Color& color);
 
-		DirectX9Vertices(const D3DXVECTOR3& center, const RectSize& halfScale, const Color& color, const TextureUVs& textureUVs)
-			: Vertices(center, halfScale, color, textureUVs)
-		{};
+		DirectX9Vertices(const D3DXVECTOR3& center, const RectSize& size, const Color& color, const TextureUVs& textureUVs);
 
-		DirectX9Vertices(const D3DXVECTOR3& center, const RectSize& halfScale, const Color& color, const TextureUVs& textureUVs,
-			const Degree& rotationX_deg, const Degree& rotationY_deg, const Degree& rotationZ_deg)
-			: Vertices(center, halfScale, color, textureUVs, rotationX_deg, rotationY_deg, rotationZ_deg)
-		{};
+		DirectX9Vertices(const D3DXVECTOR3& center, const RectSize& size, const Color& color, const TextureUVs& textureUVs,
+			const Degree& rotationX_deg, const Degree& rotationY_deg, const Degree& rotationZ_deg);
 
-		~DirectX9Vertices() {};
-		
+		~DirectX9Vertices();
+
 		/// <summary>
 		/// 描画を行う
 		/// </summary>
 		/// <param name="pTexture">描画する際に扱うテクスチャ</param>
-		void Render(const Texture* pTexture);
+		void Render(const LPTEXTURE pTexture);
 
 	private:
 		/// <summary>
@@ -67,7 +61,7 @@ namespace gameframework
 		void Rotate(CustomVertex* pCustomVertices, const D3DXVECTOR3& relativeRotateCenter, const D3DXMATRIX& rRotate) const;
 	};
 
-	#endif //DIRECT_X_VERSOIN_9
+#endif //DIRECT_X_VERSOIN_9
 }
 
 #endif //!DIRECT_X_9_VERTICES_H

@@ -22,7 +22,7 @@ namespace gameframework
 		template<typename T>
 		static void Create(T** ppT)
 		{
-			pT = new T();
+			*ppT = new T();
 		}
 
 		template<>

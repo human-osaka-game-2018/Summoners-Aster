@@ -18,26 +18,19 @@ namespace gameframework
 	/// </summary>
 	class TextureUVs
 	{
-	public:		
+	public:
 		/// <remarks>
 		/// アニメーションを使わない場合やデフォルトのTuTvを扱う場合はこちらを使う
 		/// </remarks>
-		TextureUVs() 
-		{
-			ResizeTextureUVsForRect();
-		}
-		
+		TextureUVs();
+
 		/// <param name="topLeft">テクスチャの左上のピクセル位置</param>
 		/// <param name="textureSize">テクスチャ一枚の大きさ</param>
 		/// <param name="oneDivideSize">統合ファイルの一区切りの大きさ</param>
 		/// <param name="dividesNumMax">アニメーション枚数</param>
-		TextureUVs(const D3DXVECTOR2& topLeft, const RectSize& textureSize, const RectSize& oneDivideSize, int dividesNumMax)
-		{
-			ResizeTextureUVsForRect();
-			SetTextureUVsParams(topLeft, textureSize, oneDivideSize, dividesNumMax);
-		}
+		TextureUVs(const D3DXVECTOR2& topLeft, const RectSize& textureSize, const RectSize& oneDivideSize, int dividesNumMax);
 
-		~TextureUVs() {};
+		~TextureUVs();
 
 		inline void SetTextureUVsParams(const D3DXVECTOR2& topLeft, const RectSize& textureSize, const RectSize& oneDivideSize, int dividesNumMax)
 		{
@@ -46,7 +39,7 @@ namespace gameframework
 			m_oneDivideSize = oneDivideSize;
 			m_dividesNumMax = dividesNumMax;
 		}
-		
+
 		/// <summary>
 		/// テクスチャ座標vectorのアドレスを返す
 		/// </summary>
@@ -57,7 +50,7 @@ namespace gameframework
 
 			return &m_textureUVs;
 		}
-		
+
 		/// <summary>
 		/// テクスチャ座標を次にずらす
 		/// </summary>
@@ -90,15 +83,11 @@ namespace gameframework
 			return (index == 2 || index == 3);
 		}
 
-	private:		
+	private:
 		/// <summary>
 		/// テクスチャ座標を必要数分確保する
 		/// </summary>
-		inline void ResizeTextureUVsForRect()
-		{
-			//矩形の頂点数分確保するこれ以上は増やさないし減らさない
-			m_textureUVs.resize(4);
-		}
+		void ResizeTextureUVsForRect();
 
 		/// <summary>
 		/// テクスチャ座標の正規化を行う
@@ -106,10 +95,10 @@ namespace gameframework
 		void Normalize();
 
 		std::vector<D3DXVECTOR2> m_textureUVs;
-		D3DXVECTOR2 m_topLeft	 = { 0.0f, 0.0f };
-		RectSize m_textureSize   = { 1.0f, 1.0f };
+		D3DXVECTOR2 m_topLeft = { 0.0f, 0.0f };
+		RectSize m_textureSize = { 1.0f, 1.0f };
 		RectSize m_oneDivideSize = { 1.0f, 1.0f };
-		
+
 		/// <summary>
 		/// 現在のアニメーションの番号 1始まり
 		/// </summary>

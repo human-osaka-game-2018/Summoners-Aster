@@ -32,9 +32,9 @@ namespace gameframework
 		/// <param name="pTexturePath">フォントのパス</param>
 		inline void Create(const TCHAR* pFontKey, const RectSize& scale, const TCHAR* pFontName, UINT thickness = 0)
 		{
-			if (!Exists(pFontKey)) return;
+			if (Exists(pFontKey)) return;
 
-			GameFrameFactory::Create(&m_fonts[pFontKey]);
+			GameFrameworkFactory::Create(&m_fonts[pFontKey]);
 
 			m_fonts[pFontKey]->Reset(scale, pFontName, thickness);
 		}
@@ -80,7 +80,7 @@ namespace gameframework
 		/// <returns>フォントのポインタ</returns>
 		inline LPFONT Get(const TCHAR* pFontKey)
 		{
-			if (!Exists(pFontKey)) return;
+			if (!Exists(pFontKey)) return nullptr;
 
 			return m_fonts[pFontKey]->Get(); 
 		}

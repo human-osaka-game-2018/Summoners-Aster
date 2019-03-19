@@ -1,7 +1,7 @@
 ﻿#ifndef DIRECT_INPUT_H
 #define DIRECT_INPUT_H
 
-#include <Window.h>
+#include <Windows.h>
 
 /// <summary>
 /// 基礎構築に関するものをまとめた名前空間

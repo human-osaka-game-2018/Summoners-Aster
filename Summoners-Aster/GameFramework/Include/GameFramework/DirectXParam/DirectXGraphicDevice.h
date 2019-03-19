@@ -12,13 +12,13 @@
 /// </summary>
 namespace gameframework
 {
-	#ifdef DIRECT_X_VERSION_11
+#ifdef DIRECT_X_VERSION_11
 	using LPDIRECT3DDEVICE = LPDIRECT3DDEVICE9;
-	#elif defined DIRECT_X_VERSOIN_9
+#elif defined DIRECT_X_VERSOIN_9
 	using LPDIRECT3DDEVICE = LPDIRECT3DDEVICE9;
-	#else
-	#error "DirectXのバージョンを定義してください"
-	#endif
+#else
+#error "DirectXのバージョンを定義してください"
+#endif
 
 	/// <summary>
 	/// DirectXのグラフィックデバイスクラス
@@ -45,6 +45,11 @@ namespace gameframework
 		/// </summary>
 		/// <param name="pDirectXDevice">DirectXのデバイスクラスのポインタ</param>
 		virtual void Create(DirectXDevice* pDirectXDevice) = 0;
+
+		/// <summary>
+		/// ビューポートを初期化する
+		/// </summary>
+		virtual void InitializeViewPort() = 0;
 
 		LPDIRECT3DDEVICE m_pDirectXGraphicDevice = nullptr;
 
