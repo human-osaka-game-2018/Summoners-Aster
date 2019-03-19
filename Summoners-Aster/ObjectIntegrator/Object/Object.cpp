@@ -1,11 +1,14 @@
 #include "Object.h"
 
-Object::~Object()
+namespace summoners_aster
 {
+	Object::~Object()
+	{
 
-}
+	}
 
-Object::Object(float z) : m_z(z)
-{
+	Object::Object(float z) : m_z(z)
+	{
 
+	}
 }
