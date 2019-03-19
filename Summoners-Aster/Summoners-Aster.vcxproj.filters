@@ -14,6 +14,12 @@
     <Filter Include="SceneSwitcher\Scene">
       <UniqueIdentifier>{2e231b9a-96b9-4c3c-a759-3434d13a896d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ObjectIntegrator">
+      <UniqueIdentifier>{edab391c-7862-4c43-98dd-af7e11b19188}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectIntegrator\Object">
+      <UniqueIdentifier>{3b3a01e3-004e-41c3-ba66-d85a5fb3bea5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneSwitcher\SceneSwitcher.h">
@@ -21,6 +27,12 @@
     </ClInclude>
     <ClInclude Include="SceneSwitcher\Scene\Scene.h">
       <Filter>SceneSwitcher\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager\ObjectIntegrator.h">
+      <Filter>ObjectIntegrator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Summoners%27Aster\Summoners-Aster\ObjectManager\Object\Object.h">
+      <Filter>ObjectIntegrator\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -32,6 +44,12 @@
     </ClCompile>
     <ClCompile Include="Main\Main.cpp">
       <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager\ObjectIntegrator.cpp">
+      <Filter>ObjectIntegrator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Summoners%27Aster\Summoners-Aster\ObjectManager\Object\Object.cpp">
+      <Filter>ObjectIntegrator\Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
