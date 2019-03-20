@@ -14,12 +14,12 @@ namespace summonersaster
 		/// <summary>
 		/// 初期化を行う
 		/// </summary>
-		virtual bool Initialize() = 0;
+		virtual void Initialize() = 0;
 
 		/// <summary>
 		/// 外部からのファイル読み込みを行う
 		/// </summary>
-		virtual bool LoadResource() = 0;
+		virtual void LoadResource() = 0;
 
 		/// <summary>
 		/// 終了処理を行う
@@ -29,7 +29,7 @@ namespace summonersaster
 		/// <summary>
 		/// 更新を行う
 		/// </summary>
-		virtual void Update() = 0;
+		virtual void Update();
 
 		/// <summary>
 		/// 描画を行う
