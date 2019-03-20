@@ -20,6 +20,9 @@
     <Filter Include="ObjectIntegrator\Object">
       <UniqueIdentifier>{3b3a01e3-004e-41c3-ba66-d85a5fb3bea5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SceneSwitcher\Scene\TitleScene">
+      <UniqueIdentifier>{430508bb-bda3-4c38-9f77-8cf21b1b219e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneSwitcher\SceneSwitcher.h">
@@ -39,6 +42,24 @@
     </ClInclude>
     <ClInclude Include="ObjectIntegrator\TaskScheduler.h">
       <Filter>ObjectIntegrator</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\TitleScene\TitleScene.h">
+      <Filter>SceneSwitcher\Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\TitleScene\TeamLogo.h">
+      <Filter>SceneSwitcher\Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\TitleScene\GameTitle.h">
+      <Filter>SceneSwitcher\Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\TitleScene\GameTitleStar.h">
+      <Filter>SceneSwitcher\Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\TitleScene\TitleBack.h">
+      <Filter>SceneSwitcher\Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\TitleScene\InputPrompt.h">
+      <Filter>SceneSwitcher\Scene\TitleScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -62,6 +83,24 @@
     </ClCompile>
     <ClCompile Include="ObjectIntegrator\TaskScheduler.cpp">
       <Filter>ObjectIntegrator</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\TitleScene\TitleScene.cpp">
+      <Filter>SceneSwitcher\Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\TitleScene\TeamLogo.cpp">
+      <Filter>SceneSwitcher\Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\TitleScene\GameTitle.cpp">
+      <Filter>SceneSwitcher\Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\TitleScene\GameTitleStar.cpp">
+      <Filter>SceneSwitcher\Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\TitleScene\TitleBack.cpp">
+      <Filter>SceneSwitcher\Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\TitleScene\InputPrompt.cpp">
+      <Filter>SceneSwitcher\Scene\TitleScene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
