@@ -23,7 +23,7 @@ namespace gameframework
 	public:
 		virtual ~Stream() {};
 
-		inline void SetTopLeft(D3DXVECTOR2& topLeft)
+		inline void SetTopLeft(const D3DXVECTOR2& topLeft)
 		{
 			m_topLeft = topLeft;
 		}
@@ -55,6 +55,8 @@ namespace gameframework
 			tstring* pThisString = static_cast<tstring*>(this);
 
 			(*pThisString) = rhs;
+
+			return *this;
 		}
 
 		/// <summary>
@@ -67,6 +69,8 @@ namespace gameframework
 			tstring* pThisString = static_cast<tstring*>(this);
 
 			(*pThisString) = rhs;
+
+			return *this;
 		}
 
 	protected:
