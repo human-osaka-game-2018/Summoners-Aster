@@ -37,7 +37,11 @@ namespace summonersaster
 
 	void TaskScheduler::Render()
 	{
-		for (auto& task : m_tasks)
+		std::vector<TaskData> tasksForZSort;
+		tasksForZSort = m_tasks;
+		std::sort(tasksForZSort.begin(), tasksForZSort.end(), IsFarther);
+
+		for (auto& task : tasksForZSort)
 		{
 			if (!task.m_canRunning) continue;
 
@@ -51,6 +55,17 @@ namespace summonersaster
 		{
 			(task.m_pTask)->LoadResource();
 		}
+	}
+
+	void TaskScheduler::ReleaseAll()
+	{
+		for (auto& task : m_tasks)
+		{
+			delete task.m_pTask;
+		}
+
+		m_tasks.clear();
+		m_tasks.shrink_to_fit();
 	}
 
 	void TaskScheduler::UpdateCanRunning()
@@ -92,17 +107,6 @@ namespace summonersaster
 		return false;
 	}
 
-	void TaskScheduler::ReleaseAll()
-	{
-		for (auto& task : m_tasks)
-		{
-			delete task.m_pTask;
-		}
-
-		m_tasks.clear();
-		m_tasks.shrink_to_fit();
-	}
-
 	void TaskScheduler::ReleaseNotUsingTasks()
 	{
 		for (int i = static_cast<int>(m_tasks.size() - 1); i >= 0; --i)
@@ -128,4 +132,10 @@ namespace summonersaster
 
 		return true;
 	}
+
+	bool TaskScheduler::IsFarther(const TaskData& compares, const TaskData& compared)
+	{
+		return (compares.m_pTask->GetZ() > compared.m_pTask->GetZ());
+	}
+
 } // namespace summonersaster

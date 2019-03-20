@@ -43,6 +43,11 @@ namespace summonersaster
 		/// </summary>
 		void ReloadResources();
 
+		/// <summary>
+		/// 全てのタスクを開放する
+		/// </summary>
+		void ReleaseAll();
+
 	private:
 		/// <summary>
 		/// タスクとタスクに必要な情報をまとめた構造体
@@ -99,11 +104,6 @@ namespace summonersaster
 		bool CanRunning(TaskData& task);
 
 		/// <summary>
-		/// 全てのタスクを開放する
-		/// </summary>
-		void ReleaseAll();
-
-		/// <summary>
 		/// 終了し動かす必要もないタスクを開放する
 		/// </summary>
 		void ReleaseNotUsingTasks();
@@ -114,6 +114,14 @@ namespace summonersaster
 		/// <param name="taskData">調べたいタスク</param>
 		/// <returns>もう使わないのならture</returns>
 		bool IsNotUsingTask(const TaskData& taskData);
+
+		/// <summary>
+		/// 引数のオブジェクトを比較してどちらが遠いか判断する
+		/// </summary>
+		/// <param name="compares">比較する方</param>
+		/// <param name="compared">比較される方</param>
+		/// <returns>遠ければtrue</returns>
+		static bool IsFarther(const TaskData& compares, const TaskData& compared);
 
 		std::vector<TaskData> m_tasks;
 	};
