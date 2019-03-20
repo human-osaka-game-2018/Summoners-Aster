@@ -19,15 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Summoners%27Aster\Summoners-Aster\ObjectManager\Object\Object.cpp" />
-    <ClCompile Include="ObjectManager\ObjectIntegrator.cpp" />
     <ClCompile Include="Main\Main.cpp" />
+    <ClCompile Include="ObjectIntegrator\ObjectIntegrator.cpp" />
+    <ClCompile Include="ObjectIntegrator\Object\Object.cpp" />
     <ClCompile Include="SceneSwitcher\SceneSwitcher.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Summoners%27Aster\Summoners-Aster\ObjectManager\Object\Object.h" />
-    <ClInclude Include="ObjectManager\ObjectIntegrator.h" />
+    <ClInclude Include="ObjectIntegrator\ObjectIntegrator.h" />
+    <ClInclude Include="ObjectIntegrator\Object\Object.h" />
     <ClInclude Include="SceneSwitcher\SceneSwitcher.h" />
     <ClInclude Include="SceneSwitcher\Scene\Scene.h" />
   </ItemGroup>
