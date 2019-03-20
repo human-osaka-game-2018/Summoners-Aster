@@ -28,10 +28,10 @@
     <ClInclude Include="SceneSwitcher\Scene\Scene.h">
       <Filter>SceneSwitcher\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectManager\ObjectIntegrator.h">
+    <ClInclude Include="ObjectIntegrator\ObjectIntegrator.h">
       <Filter>ObjectIntegrator</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Summoners%27Aster\Summoners-Aster\ObjectManager\Object\Object.h">
+    <ClInclude Include="ObjectIntegrator\Object\Object.h">
       <Filter>ObjectIntegrator\Object</Filter>
     </ClInclude>
   </ItemGroup>
@@ -45,10 +45,10 @@
     <ClCompile Include="Main\Main.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectManager\ObjectIntegrator.cpp">
+    <ClCompile Include="ObjectIntegrator\ObjectIntegrator.cpp">
       <Filter>ObjectIntegrator</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Summoners%27Aster\Summoners-Aster\ObjectManager\Object\Object.cpp">
+    <ClCompile Include="ObjectIntegrator\Object\Object.cpp">
       <Filter>ObjectIntegrator\Object</Filter>
     </ClCompile>
   </ItemGroup>
