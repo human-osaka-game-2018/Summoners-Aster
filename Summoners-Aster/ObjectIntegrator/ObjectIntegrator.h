@@ -50,6 +50,7 @@ namespace summonersaster
 		/// <param name="pCompared">比較される方</param>
 		/// <returns>遠ければtrue</returns>
 		static bool IsFarther(const Object* pCompares, const Object* pCompared);
+
 		std::vector<Object*> m_pObjects;
 	};
 } // namespace summonersaster
