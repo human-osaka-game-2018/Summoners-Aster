@@ -9,6 +9,9 @@ namespace summonersaster
 	class Scene
 	{
 	public:
+		/// <summary>
+		/// シーンの種類
+		/// </summary>
 		enum class KIND
 		{
 			TITLE,
@@ -20,8 +23,8 @@ namespace summonersaster
 		virtual ~Scene();
 
 		/// <summary>
-	    /// 初期化を行う
-	    /// </summary>
+		/// 初期化を行う
+		/// </summary>
 		virtual void Initialize() = 0;
 
 		/// <summary>
