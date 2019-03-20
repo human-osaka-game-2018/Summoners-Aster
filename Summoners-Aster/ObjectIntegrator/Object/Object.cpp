@@ -7,6 +7,11 @@ namespace summonersaster
 
 	}
 
+	void Object::Update()
+	{
+
+	}
+
 	Object::Object(float z) : m_z(z)
 	{
 

@@ -34,6 +34,9 @@
     <ClInclude Include="ObjectIntegrator\Object\Object.h">
       <Filter>ObjectIntegrator\Object</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectIntegrator\Object\Task.h">
+      <Filter>ObjectIntegrator\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneSwitcher\SceneSwitcher.cpp">
@@ -49,6 +52,9 @@
       <Filter>ObjectIntegrator</Filter>
     </ClCompile>
     <ClCompile Include="ObjectIntegrator\Object\Object.cpp">
+      <Filter>ObjectIntegrator\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectIntegrator\Object\Task.cpp">
       <Filter>ObjectIntegrator\Object</Filter>
     </ClCompile>
   </ItemGroup>
