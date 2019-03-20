@@ -1,4 +1,6 @@
-﻿#ifndef OBJECT_H
+﻿#include <GameFramework.h>
+
+#ifndef OBJECT_H
 #define OBJECT_H
 
 namespace summonersaster
@@ -48,6 +50,11 @@ namespace summonersaster
 		/// 描画順を決める際に扱う変数
 		/// </summary>
 		float m_z = 1.0f;
+
+		gameframework::RectSize m_windowSize;
+		D3DXVECTOR2 m_windowCenter = { 0.0f,0.0f };
+
+		gameframework::GameFramework& m_rGameFramework = gameframework::GameFramework::GetRef();
 	};
 } // namespace summonersaster
 
