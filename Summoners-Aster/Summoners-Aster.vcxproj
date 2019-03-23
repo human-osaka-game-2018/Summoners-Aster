@@ -24,7 +24,7 @@
     <ClCompile Include="ObjectIntegrator\Object\Object.cpp" />
     <ClCompile Include="ObjectIntegrator\Object\Task.cpp" />
     <ClCompile Include="ObjectIntegrator\TaskScheduler.cpp" />
-    <ClCompile Include="SceneSwitcher\SceneEventPostOffice.cpp" />
+    <ClCompile Include="SceneSwitcher\SceneEventMediater.cpp" />
     <ClCompile Include="SceneSwitcher\SceneSwitcher.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\Scene.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\TitleScene\GameTitle.cpp" />
@@ -39,7 +39,7 @@
     <ClInclude Include="ObjectIntegrator\Object\Object.h" />
     <ClInclude Include="ObjectIntegrator\Object\Task.h" />
     <ClInclude Include="ObjectIntegrator\TaskScheduler.h" />
-    <ClInclude Include="SceneSwitcher\SceneEventPostOffice.h" />
+    <ClInclude Include="SceneSwitcher\SceneEventMediater.h" />
     <ClInclude Include="SceneSwitcher\SceneSwitcher.h" />
     <ClInclude Include="SceneSwitcher\Scene\Scene.h" />
     <ClInclude Include="SceneSwitcher\Scene\TitleScene\GameTitle.h" />

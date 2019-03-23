@@ -61,7 +61,7 @@
     <ClInclude Include="SceneSwitcher\Scene\TitleScene\InputPrompt.h">
       <Filter>SceneSwitcher\Scene\TitleScene</Filter>
     </ClInclude>
-    <ClInclude Include="SceneSwitcher\SceneEventPostOffice.h">
+    <ClInclude Include="SceneSwitcher\SceneEventMediater.h">
       <Filter>SceneSwitcher</Filter>
     </ClInclude>
   </ItemGroup>
@@ -105,7 +105,7 @@
     <ClCompile Include="SceneSwitcher\Scene\TitleScene\InputPrompt.cpp">
       <Filter>SceneSwitcher\Scene\TitleScene</Filter>
     </ClCompile>
-    <ClCompile Include="SceneSwitcher\SceneEventPostOffice.cpp">
+    <ClCompile Include="SceneSwitcher\SceneEventMediater.cpp">
       <Filter>SceneSwitcher</Filter>
     </ClCompile>
   </ItemGroup>
