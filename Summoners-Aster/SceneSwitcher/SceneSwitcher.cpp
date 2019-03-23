@@ -9,7 +9,7 @@ namespace summonersaster
 
 	void SceneSwitcher::Update()
 	{
-		if (m_shouldInitialize)
+		if (m_sceneSwitchEventPost.m_shouldSwitch)
 		{
 			SwitchScene();
 		}
@@ -22,27 +22,21 @@ namespace summonersaster
 		m_pScenes[m_currentScene]->Render();
 	}
 
-	void SceneSwitcher::RegisterNextScene(Scene::KIND nextScene)
-	{
-		m_nextScene = nextScene;
-
-		m_shouldInitialize = true;
-	}
-
 	SceneSwitcher::SceneSwitcher()
 	{
 		CreateSceneInstances();
 		SwitchScene();
+		SceneEventPostOffice::RegisterReceiver(&m_sceneSwitchEventPost);
 	}
 
 	void SceneSwitcher::SwitchScene()
 	{
 		FinalizeCurrentScene();
 
-		m_currentScene = m_nextScene;
+		m_currentScene = m_sceneSwitchEventPost.m_nextScene;
 		InitializeCurrentScene();
 
-		m_shouldInitialize = false;
+		m_sceneSwitchEventPost.m_shouldSwitch = false;
 	}
 
 	void SceneSwitcher::InitializeCurrentScene()
