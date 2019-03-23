@@ -5,6 +5,7 @@ namespace summonersaster
 	SceneSwitcher::~SceneSwitcher()
 	{
 		ReleaseSceneInstances();
+		SceneEventPostOffice::UnregisterReceiver(&m_sceneSwitchEventPost);
 	}
 
 	void SceneSwitcher::Update()

@@ -9,7 +9,7 @@ namespace summonersaster
 		m_pSceneSwitchEventPosts.push_back(pSceneSwitchEventPost);
 	}
 
-	void SceneEventPostOffice::UnRegisterReceiver(SceneSwitchEvent* pSceneSwitchEventPost)
+	void SceneEventPostOffice::UnregisterReceiver(SceneSwitchEvent* pSceneSwitchEventPost)
 	{
 		for (auto pPost : m_pSceneSwitchEventPosts)
 		{
