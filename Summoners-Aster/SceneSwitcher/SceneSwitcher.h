@@ -6,7 +6,7 @@
 #include <GameFramework.h>
 
 #include "Scene/Scene.h"
-#include "SceneEventPostOffice.h"
+#include "SceneEventMediater.h"
 
 using gameframework::Singleton;
 

@@ -1,5 +1,5 @@
-﻿#ifndef SCENE_EVENT_POST_OFFICE_H
-#define SCENE_EVENT_POST_OFFICE_H
+﻿#ifndef SCENE_EVENT_MEDIATER_H
+#define SCENE_EVENT_MEDIATER_H
 
 #include <vector>
 
@@ -28,7 +28,7 @@ namespace summonersaster
 	/// <summary>
 	/// シーンに関するイベント伝達の仲介クラス
 	/// </summary>
-	class SceneEventPostOffice
+	class SceneEventMediater
 	{
 	public:
 		/// <summary>
@@ -50,11 +50,11 @@ namespace summonersaster
 		static void SendSceneSwitchEvent(Scene::KIND nextScene);
 
 	private:
-		SceneEventPostOffice();
-		~SceneEventPostOffice();
+		SceneEventMediater();
+		~SceneEventMediater();
 
 		static std::vector<SceneSwitchEvent*> m_pSceneSwitchEventPosts;
 	};
 } // namespace summonersaster
 
-#endif //!SCENE_EVENT_POST_OFFICE_H
+#endif //!SCENE_EVENT_MEDIATER_H

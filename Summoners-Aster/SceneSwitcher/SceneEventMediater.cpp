@@ -1,15 +1,15 @@
-﻿#include "SceneEventPostOffice.h"
+﻿#include "SceneEventMediater.h"
 
 namespace summonersaster
 {
-	std::vector<SceneSwitchEvent*> SceneEventPostOffice::m_pSceneSwitchEventPosts;
+	std::vector<SceneSwitchEvent*> SceneEventMediater::m_pSceneSwitchEventPosts;
 
-	void SceneEventPostOffice::RegisterReceiver(SceneSwitchEvent* pSceneSwitchEventPost)
+	void SceneEventMediater::RegisterReceiver(SceneSwitchEvent* pSceneSwitchEventPost)
 	{
 		m_pSceneSwitchEventPosts.push_back(pSceneSwitchEventPost);
 	}
 
-	void SceneEventPostOffice::UnregisterReceiver(SceneSwitchEvent* pSceneSwitchEventPost)
+	void SceneEventMediater::UnregisterReceiver(SceneSwitchEvent* pSceneSwitchEventPost)
 	{
 		for (auto pPost : m_pSceneSwitchEventPosts)
 		{
@@ -25,7 +25,7 @@ namespace summonersaster
 		}
 	}
 
-	void SceneEventPostOffice::SendSceneSwitchEvent(Scene::KIND nextScene)
+	void SceneEventMediater::SendSceneSwitchEvent(Scene::KIND nextScene)
 	{
 		for (auto pPost : m_pSceneSwitchEventPosts)
 		{
@@ -34,12 +34,12 @@ namespace summonersaster
 		}
 	}
 
-	SceneEventPostOffice::SceneEventPostOffice()
+	SceneEventMediater::SceneEventMediater()
 	{
 
 	}
 
-	SceneEventPostOffice::~SceneEventPostOffice()
+	SceneEventMediater::~SceneEventMediater()
 	{
 
 	}
