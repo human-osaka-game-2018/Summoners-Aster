@@ -3,6 +3,8 @@
 
 #include <GameFramework.h>
 
+#include "Scene/HomeScene/HomeScene.h"
+
 using namespace gameframework;
 using namespace summonersaster;
 
@@ -23,6 +25,7 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 
 	GameFramework& rGameFramework = GameFramework::CreateAndGetRef();
 
+	HomeScene homescene;
 
 	while (!pWindow->ReceivedQuitMessage())
 	{
@@ -32,6 +35,8 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 
 		rGameFramework.PrepareInFrame();
 
+		homescene.Update();
+		homescene.Render();
 
 		rGameFramework.FinishInFrame();
 	}
