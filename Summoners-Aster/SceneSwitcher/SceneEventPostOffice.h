@@ -41,7 +41,7 @@ namespace summonersaster
 		/// イベント受け取りの解除
 		/// </summary>
 		/// <param name="pSceneSwitchEventPost">イベントを受け取っているポインタ</param>
-		static void UnRegisterReceiver(SceneSwitchEvent* pSceneSwitchEventPost);
+		static void UnregisterReceiver(SceneSwitchEvent* pSceneSwitchEventPost);
 
 		/// <summary>
 		/// 登録されている受取先全てにシーン切り替えイベントを送る
