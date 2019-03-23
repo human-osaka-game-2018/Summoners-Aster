@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -26,6 +26,14 @@
     <ClCompile Include="ObjectIntegrator\TaskScheduler.cpp" />
     <ClCompile Include="SceneSwitcher\SceneEventMediater.cpp" />
     <ClCompile Include="SceneSwitcher\SceneSwitcher.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\HomeScene\ConnectButton.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\HomeScene\CPUButton.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\HomeScene\DeckButton.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\HomeScene\HomeBack.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\HomeScene\HomeScene.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\HomeScene\MenuButton.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\HomeScene\Player.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\HomeScene\PlayerName.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\Scene.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\TitleScene\GameTitle.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\TitleScene\GameTitleStar.cpp" />
@@ -41,6 +49,14 @@
     <ClInclude Include="ObjectIntegrator\TaskScheduler.h" />
     <ClInclude Include="SceneSwitcher\SceneEventMediater.h" />
     <ClInclude Include="SceneSwitcher\SceneSwitcher.h" />
+    <ClInclude Include="SceneSwitcher\Scene\HomeScene\ConnectButton.h" />
+    <ClInclude Include="SceneSwitcher\Scene\HomeScene\CPUButton.h" />
+    <ClInclude Include="SceneSwitcher\Scene\HomeScene\DeckButton.h" />
+    <ClInclude Include="SceneSwitcher\Scene\HomeScene\HomeBack.h" />
+    <ClInclude Include="SceneSwitcher\Scene\HomeScene\HomeScene.h" />
+    <ClInclude Include="SceneSwitcher\Scene\HomeScene\MenuButton.h" />
+    <ClInclude Include="SceneSwitcher\Scene\HomeScene\Player.h" />
+    <ClInclude Include="SceneSwitcher\Scene\HomeScene\PlayerName.h" />
     <ClInclude Include="SceneSwitcher\Scene\Scene.h" />
     <ClInclude Include="SceneSwitcher\Scene\TitleScene\GameTitle.h" />
     <ClInclude Include="SceneSwitcher\Scene\TitleScene\GameTitleStar.h" />

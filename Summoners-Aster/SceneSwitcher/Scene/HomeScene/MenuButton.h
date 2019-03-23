@@ -1,17 +1,17 @@
-﻿#include <GameFramework.h>
+﻿#ifndef MENU_BUTTON_H
+#define MENU_BUTTON_H
+
+#include <GameFramework.h>
 
 #include "Task.h"
 
-#ifndef TITLE_BACK_H
-#define TITLE_BACK_H
-
 namespace summonersaster
 {
-	class TitleBack :public Task
+	class MenuButton :public Task
 	{
 	public:
-		TitleBack();
-		~TitleBack();
+		MenuButton();
+		~MenuButton();
 
 		/// <summary>
 		/// 初期化する
@@ -39,12 +39,12 @@ namespace summonersaster
 		void Render()override;
 
 	private:
-		TitleBack(TitleBack& titleBack) = delete;
+		MenuButton(MenuButton& menuButton) = delete;
 
-		TitleBack& operator=(TitleBack& titleBack) = delete;
+		MenuButton& operator=(MenuButton& menuButton) = delete;
 
 		gameframework::Vertices* m_pRect = nullptr;
 	};
 } // namespace summonersaster
 
-#endif // !TITLE_BACK_H
+#endif // !MENU_BUTTON_H

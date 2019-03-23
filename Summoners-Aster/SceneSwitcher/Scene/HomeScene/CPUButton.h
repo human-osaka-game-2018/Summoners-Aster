@@ -1,17 +1,17 @@
-﻿#include <GameFramework.h>
+﻿#ifndef CPU_BUTTON_H
+#define CPU_BUTTON_H
+
+#include <GameFramework.h>
 
 #include "Task.h"
 
-#ifndef TITLE_BACK_H
-#define TITLE_BACK_H
-
 namespace summonersaster
 {
-	class TitleBack :public Task
+	class CPUButton :public Task
 	{
 	public:
-		TitleBack();
-		~TitleBack();
+		CPUButton();
+		~CPUButton();
 
 		/// <summary>
 		/// 初期化する
@@ -39,12 +39,13 @@ namespace summonersaster
 		void Render()override;
 
 	private:
-		TitleBack(TitleBack& titleBack) = delete;
+		CPUButton(CPUButton& cpuButton) = delete;
 
-		TitleBack& operator=(TitleBack& titleBack) = delete;
+		CPUButton& operator=(CPUButton& cpuButton) = delete;
 
 		gameframework::Vertices* m_pRect = nullptr;
 	};
 } // namespace summonersaster
 
-#endif // !TITLE_BACK_H
+#endif // !CPU_BUTTON_H
+

@@ -1,17 +1,17 @@
-﻿#include <GameFramework.h>
+﻿#ifndef PLAYER_NAME_H
+#define PLAYER_NAME_H
+
+#include <GameFramework.h>
 
 #include "Task.h"
 
-#ifndef TITLE_BACK_H
-#define TITLE_BACK_H
-
 namespace summonersaster
 {
-	class TitleBack :public Task
+	class PlayerName :public Task
 	{
 	public:
-		TitleBack();
-		~TitleBack();
+		PlayerName();
+		~PlayerName();
 
 		/// <summary>
 		/// 初期化する
@@ -39,12 +39,13 @@ namespace summonersaster
 		void Render()override;
 
 	private:
-		TitleBack(TitleBack& titleBack) = delete;
+		PlayerName(PlayerName& playerName) = delete;
 
-		TitleBack& operator=(TitleBack& titleBack) = delete;
+		PlayerName& operator=(PlayerName& playerName) = delete;
 
 		gameframework::Vertices* m_pRect = nullptr;
 	};
 } // namespace summonersaster
 
-#endif // !TITLE_BACK_H
+#endif // !PLAYER_NAME_H
+
