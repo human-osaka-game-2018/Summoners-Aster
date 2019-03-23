@@ -6,6 +6,7 @@
 #include <GameFramework.h>
 
 #include "Scene/Scene.h"
+#include "SceneEventPostOffice.h"
 
 using gameframework::Singleton;
 
@@ -33,12 +34,6 @@ namespace summonersaster
 		/// 現在のシーンの描画処理を行う
 		/// </summary>
 		void Render();
-
-		/// <summary>
-		/// 次のフレームから呼ばれるシーンを登録する
-		/// </summary>
-		/// <param name="nextScene">登録するシーン</param>
-		void RegisterNextScene(Scene::KIND nextScene);
 
 	private:
 		SceneSwitcher();
@@ -68,16 +63,8 @@ namespace summonersaster
 		/// </summary>
 		void ReleaseSceneInstances();
 
-		/// <summary>
-		/// シーンの初期化を行うべきかを判断する
-		/// </summary>
-		/// <remarks>
-		/// 現在のシーンを初期化する必要が出てきた時に対応するため
-		/// </remarks>
-		bool m_shouldInitialize = false;
-
 		Scene::KIND m_currentScene = Scene::KIND::TITLE;
-		Scene::KIND m_nextScene = Scene::KIND::TITLE;
+		SceneSwitchEvent m_sceneSwitchEventPost = { Scene::KIND::TITLE, false };
 
 		std::unordered_map<Scene::KIND, Scene*> m_pScenes;
 	};
