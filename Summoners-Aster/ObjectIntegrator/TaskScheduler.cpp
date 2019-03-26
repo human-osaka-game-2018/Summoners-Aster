@@ -86,9 +86,9 @@ namespace summonersaster
 		/// <returns>処理することができるならtrue</returns>
 		auto CanRunningInTermsOfFrameCount = [&]() -> bool
 		{
-			if ((task.m_frameTakesToStartCount++) < task.m_frameTakesToStart) return false;
+			if ((task.m_frameTakesToStart--) > 0) return false;
 
-			task.m_frameTakesToStartCount = task.m_frameTakesToStart;
+			task.m_frameTakesToStart = 0;
 
 			return true;
 		};

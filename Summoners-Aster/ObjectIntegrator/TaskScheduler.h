@@ -71,14 +71,6 @@ namespace summonersaster
 			bool m_continuedEvenIfFinished = false;
 
 			/// <summary>
-			/// 前のタスクが終了してから経過しているフレーム数
-			/// </summary>
-			/// <remarks>
-			/// 最大値はm_frameTakesToStartと同じ
-			/// </remarks>
-			int m_frameTakesToStartCount = 0;
-
-			/// <summary>
 			/// 動かせるかどうか
 			/// </summary>
 			/// <remarks>
