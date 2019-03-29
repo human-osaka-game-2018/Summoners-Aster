@@ -4,12 +4,12 @@ namespace summonersaster
 {
 	TitleScene::TitleScene()
 	{
-		Initialize();
+
 	}
 
 	TitleScene::~TitleScene()
 	{
-		Finalize();
+
 	}
 
 	void TitleScene::Initialize()

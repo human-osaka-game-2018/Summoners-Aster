@@ -1,4 +1,4 @@
-﻿#include "../Scene.h"
+﻿#include "Scene/Scene.h"
 #include "TaskScheduler.h"
 #include "TeamLogo.h"
 #include "TitleBack.h"
