@@ -38,9 +38,9 @@ namespace gameframework
 
 			m_fonts[pFontKey]->Reset(scale, pFontName, thickness);
 		}
-		
+
 		/// <summary>
-		/// テクスチャを再読み込み
+		/// フォントを再読み込み
 		/// </summary>
 		/// <param name="pFontKey">フォントにつけるキー</param>
 		/// <param name="pTexturePath">フォントのパス</param>
@@ -48,7 +48,7 @@ namespace gameframework
 		{
 			m_fonts[pFontKey]->Reset(scale, pFontName, thickness);
 		}
-		
+
 		/// <summary>
 		/// 指定したフォントの開放
 		/// </summary>
@@ -58,6 +58,8 @@ namespace gameframework
 			if (!Exists(pFontKey)) return;
 
 			m_fonts[pFontKey]->Release();
+
+			m_fonts.erase(pFontKey);
 		}
 
 		/// <summary>
@@ -72,7 +74,7 @@ namespace gameframework
 				delete i.second;
 			}
 		}
-		
+
 		/// <summary>
 		/// フォントの取得
 		/// </summary>
@@ -82,9 +84,9 @@ namespace gameframework
 		{
 			if (!Exists(pFontKey)) return nullptr;
 
-			return m_fonts[pFontKey]->Get(); 
+			return m_fonts[pFontKey]->Get();
 		}
-		
+
 		/// <summary>
 		/// フォントのサイズの取得
 		/// </summary>
@@ -96,9 +98,9 @@ namespace gameframework
 
 			m_fonts[pFontKey]->GetSize(pFontSize);
 		}
-		
+
 		/// <summary>
-		/// テクスチャが存在しているか判断する
+		/// フォントが存在しているか判断する
 		/// </summary>
 		/// <param name="pFontKey">フォントのキー</param>
 		/// <returns>存在していたらtrue</returns>
