@@ -43,7 +43,7 @@ namespace gameframework
 
 			m_textures[pTextureKey]->Reset(pTexturePath);
 		}
-		
+
 		/// <summary>
 		/// テクスチャを再読み込み
 		/// </summary>
@@ -55,7 +55,7 @@ namespace gameframework
 
 			m_textures[pTextureKey]->Reset(pTexturePath);
 		}
-		
+
 		/// <summary>
 		/// 指定したテクスチャの開放
 		/// </summary>
@@ -65,6 +65,8 @@ namespace gameframework
 			if (!Exists(pTextureKey)) return;
 
 			m_textures[pTextureKey]->Release();
+
+			m_textures.erase(pTextureKey);
 		}
 
 		/// <summary>
@@ -79,7 +81,7 @@ namespace gameframework
 				delete i.second;
 			}
 		}
-		
+
 		/// <summary>
 		/// テクスチャの取得
 		/// </summary>
@@ -89,9 +91,9 @@ namespace gameframework
 		{
 			if (!Exists(pTextureKey)) return nullptr;
 
-			return m_textures[pTextureKey]->Get(); 
+			return m_textures[pTextureKey]->Get();
 		}
-		
+
 		/// <summary>
 		/// テクスチャのサイズの取得
 		/// </summary>
@@ -103,7 +105,7 @@ namespace gameframework
 
 			m_textures[pTextureKey]->GetSize(pTextureSize);
 		}
-		
+
 		/// <summary>
 		/// テクスチャが存在しているか判断する
 		/// </summary>

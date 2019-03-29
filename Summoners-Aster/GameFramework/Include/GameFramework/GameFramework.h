@@ -129,6 +129,14 @@ namespace gameframework
 		}
 
 		/// <summary>
+		/// デフォルトの色合成を使用する ウィンドウモードを切り替えた時には再設定する必要がある
+		/// </summary>
+		inline void SetDefaultColorBlending() const
+		{
+			m_graphic.SetDefaultColorBlending();
+		}
+
+		/// <summary>
 		/// フォントの作成
 		/// </summary>
 		/// <param name="pFontKey">フォントにつけるキー</param>
@@ -139,7 +147,7 @@ namespace gameframework
 		}
 
 		/// <summary>
-		/// テクスチャを再読み込み
+		/// フォントを再読み込み
 		/// </summary>
 		/// <param name="pFontKey">フォントにつけるキー</param>
 		/// <param name="pTexturePath">フォントのパス</param>
@@ -186,7 +194,7 @@ namespace gameframework
 		}
 
 		/// <summary>
-		/// テクスチャが存在しているか判断する
+		/// フォントが存在しているか判断する
 		/// </summary>
 		/// <param name="pFontKey">フォントのキー</param>
 		/// <returns>存在していたらtrue</returns>

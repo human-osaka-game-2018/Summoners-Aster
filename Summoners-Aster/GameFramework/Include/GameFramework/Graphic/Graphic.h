@@ -150,7 +150,7 @@ namespace gameframework
 		}
 
 		/// <summary>
-		/// テクスチャを再読み込み
+		/// フォントを再読み込み
 		/// </summary>
 		/// <param name="pFontKey">フォントにつけるキー</param>
 		/// <param name="pTexturePath">フォントのパス</param>
@@ -197,7 +197,7 @@ namespace gameframework
 		}
 
 		/// <summary>
-		/// テクスチャが存在しているか判断する
+		/// フォントが存在しているか判断する
 		/// </summary>
 		/// <param name="pFontKey">フォントのキー</param>
 		/// <returns>存在していたらtrue</returns>
