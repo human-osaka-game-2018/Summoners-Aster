@@ -1,7 +1,7 @@
 ﻿#ifndef HOME_SCENE_H
 #define HOME_SCENE_H
 
-#include "../Scene.h"
+#include "Scene/Scene.h"
 #include "TaskScheduler.h"
 #include "HomeBack.h"
 #include "MenuButton.h"

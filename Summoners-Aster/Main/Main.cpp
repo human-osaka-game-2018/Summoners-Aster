@@ -3,7 +3,7 @@
 
 #include <GameFramework.h>
 
-#include "Scene/HomeScene/HomeScene.h"
+#include "SceneSwitcher.h"
 
 using namespace gameframework;
 using namespace summonersaster;
@@ -25,7 +25,7 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 
 	GameFramework& rGameFramework = GameFramework::CreateAndGetRef();
 
-	HomeScene homescene;
+	SceneSwitcher& sceneSwitcher = SceneSwitcher::CreateAndGetRef();
 
 	while (!pWindow->ReceivedQuitMessage())
 	{
@@ -34,9 +34,8 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 		if (!rGameFramework.CanStartNextFrame()) continue;
 
 		rGameFramework.PrepareInFrame();
-
-		homescene.Update();
-		homescene.Render();
+		sceneSwitcher.Update();
+		sceneSwitcher.Render();
 
 		rGameFramework.FinishInFrame();
 	}

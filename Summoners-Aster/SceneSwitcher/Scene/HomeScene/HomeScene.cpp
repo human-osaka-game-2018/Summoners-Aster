@@ -4,12 +4,10 @@ namespace summonersaster
 {
 	HomeScene::HomeScene()
 	{
-		Initialize();
 	}
 
 	HomeScene::~HomeScene()
 	{
-		Finalize();
 	}
 
 	void HomeScene::Initialize()

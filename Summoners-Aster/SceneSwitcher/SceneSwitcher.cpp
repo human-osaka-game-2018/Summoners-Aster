@@ -1,4 +1,6 @@
 ﻿#include "SceneSwitcher.h"
+#include "Scene/TitleScene/TitleScene.h"
+#include "Scene/HomeScene/HomeScene.h"
 
 namespace summonersaster
 {
@@ -52,9 +54,9 @@ namespace summonersaster
 
 	void SceneSwitcher::CreateSceneInstances()
 	{
-		/*m_pScenes[Scene::KIND::TITLE]  = new TitleScene();
+		m_pScenes[Scene::KIND::TITLE]  = new TitleScene();
 		m_pScenes[Scene::KIND::HOME]   = new HomeScene();
-		m_pScenes[Scene::KIND::BATTLE] = new BattleScene();
+		/*m_pScenes[Scene::KIND::BATTLE] = new BattleScene();
 		m_pScenes[Scene::KIND::RESULT] = new ResultScene();*/
 	}
 
