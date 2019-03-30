@@ -1,5 +1,10 @@
 ﻿#include "TitleScene.h"
 
+#include <GameFramework.h>
+
+#include "SceneEventMediater.h"
+
+
 namespace summonersaster
 {
 	TitleScene::TitleScene()
@@ -29,6 +34,12 @@ namespace summonersaster
 	void TitleScene::Update()
 	{
 		m_taskScheduler.Update();
+		gameframework::GameFramework& rGameFramework = gameframework::GameFramework::CreateAndGetRef();
+
+		if (rGameFramework.KeyboardIsPressed(DIK_D))
+		{
+			SceneEventMediater::SendSceneSwitchEvent(KIND::HOME);
+		}
 	}
 
 	void TitleScene::Render()
