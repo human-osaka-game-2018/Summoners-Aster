@@ -1,4 +1,6 @@
 ﻿#include "HomeScene.h"
+#include <GameFramework.h>
+#include "SceneEventMediater.h"
 
 namespace summonersaster
 {
@@ -29,6 +31,12 @@ namespace summonersaster
 	void HomeScene::Update()
 	{
 		m_taskScheduler.Update();
+		gameframework::GameFramework& rGameFramework = gameframework::GameFramework::CreateAndGetRef();
+
+		if (rGameFramework.KeyboardIsPressed(DIK_F))
+		{
+			SceneEventMediater::SendSceneSwitchEvent(KIND::TITLE);
+		}
 	}
 
 	void HomeScene::Render()
