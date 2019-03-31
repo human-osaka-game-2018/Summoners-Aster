@@ -6,6 +6,7 @@
 #include "Graphic/Graphic.h"
 #include "Input/Input.h"
 #include "TimerManager.h"
+#include "../Collision.h"
 
 /// <summary>
 /// 基礎構築に関するものをまとめた名前空間
@@ -35,6 +36,20 @@ namespace gameframework
 		{
 			m_graphic.FinishInFrame();
 			m_input.FinishInFrame();
+		}
+
+		/// <summary>
+		/// マウスカーソルが矩形の上にあるか
+		/// </summary>
+		/// <param name="vertices">矩形クラス</param>
+		/// <returns>上にあればtrue</returns>
+		inline bool IsCursorOnRect(Vertices& vertices)
+		{
+			POINT cursorPoint;
+			CursorPos(&cursorPoint);
+			D3DXVECTOR3 cursorPos(static_cast<float>(cursorPoint.x), static_cast<float>(cursorPoint.y), 0.0f);
+
+			return collision::IsInner(vertices, cursorPos);
 		}
 
 		/// <summary>
@@ -129,14 +144,6 @@ namespace gameframework
 		}
 
 		/// <summary>
-		/// デフォルトの色合成を使用する ウィンドウモードを切り替えた時には再設定する必要がある
-		/// </summary>
-		inline void SetDefaultColorBlending() const
-		{
-			m_graphic.SetDefaultColorBlending();
-		}
-
-		/// <summary>
 		/// フォントの作成
 		/// </summary>
 		/// <param name="pFontKey">フォントにつけるキー</param>
@@ -201,6 +208,39 @@ namespace gameframework
 		inline bool FontExists(const TCHAR* pFontKey)
 		{
 			return m_graphic.FontExists(pFontKey);
+		}
+
+		/// <summary>
+		/// エフェクトの登録
+		/// </summary>
+		/// <param name="pGraphicEffect">登録するエフェクトのポインタ</param>
+		void RegisterGraphicEffect(GraphicEffect* pGraphicEffect)
+		{
+			m_graphic.RegisterEffect(pGraphicEffect);
+		}
+
+		/// <summary>
+		/// エフェクトの全開放
+		/// </summary>
+		void ReleaseAllGraphicEffect()
+		{
+			m_graphic.ReleaseAllEffect();
+		}
+
+		/// <summary>
+		/// 全てのエフェクトを更新する
+		/// </summary>
+		void UpdateGraphicEffects()
+		{
+			m_graphic.UpdateEffects();
+		}
+
+		/// <summary>
+		/// 全てのエフェクトを描画する
+		/// </summary>
+		void RenderGraphicEffects()
+		{
+			m_graphic.RenderEffects();
 		}
 
 		/// <summary>

@@ -48,17 +48,7 @@ namespace gameframework
 		/// <summary>
 		/// CustomVertexの形に正規化する
 		/// </summary>
-		void Normalize();
-
-		void RotateXYZ();
-
-		void RotateX(CustomVertex* pCustomVertices, float deg, const D3DXVECTOR3& relativeRotateCenter) const;
-
-		void RotateY(CustomVertex* pCustomVertices, float deg, const D3DXVECTOR3& relativeRotateCenter) const;
-
-		void RotateZ(CustomVertex* pCustomVertices, float deg, const D3DXVECTOR3& relativeRotateCenter) const;
-
-		void Rotate(CustomVertex* pCustomVertices, const D3DXVECTOR3& relativeRotateCenter, const D3DXMATRIX& rRotate) const;
+		void CreateCustomVertices();
 	};
 
 #endif //DIRECT_X_VERSOIN_9

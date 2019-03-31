@@ -10,11 +10,11 @@
 /// </summary>
 namespace gameframework
 {
-	#ifdef DIRECT_X_VERSOIN_9
+#ifdef DIRECT_X_VERSOIN_9
 
 	/// <summary>
 	/// Direct8Inputクラスの
- 	/// </summary>
+	/// </summary>
 	class Direct8Input :public DirectInput
 	{
 	public:
@@ -36,7 +36,7 @@ namespace gameframework
 		/// </summary>
 		inline void FinishInFrame()
 		{
-			m_mouse.PrepareInFrame();
+			m_mouse.FinishInFrame();
 			m_keyboard.FinishInFrame();
 		}
 
@@ -128,14 +128,14 @@ namespace gameframework
 
 	private:
 		Direct8Input(const Direct8Input& rhs) = delete;
-		
+
 		Direct8Input& operator=(const Direct8Input& rhs) = delete;
-		
+
 		DirectX8Mouse m_mouse;
 		DirectX8Keyboard m_keyboard;
 	};
 
-	#endif //DIRECT_X_VERSOIN_9
+#endif //DIRECT_X_VERSOIN_9
 }
 
 #endif //!DIRECT_8_INPUT_H

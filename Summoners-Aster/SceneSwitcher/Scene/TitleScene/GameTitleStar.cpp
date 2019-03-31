@@ -56,7 +56,7 @@ namespace summonersaster
 
 	void GameTitleStar::FadeIn()
 	{
-		BYTE& rAlpha = (m_pRect->GetColor())[Color::COMPONENTS::ALPHA];
+		BYTE& rAlpha = (m_pRect->GetColor())[Color::COMPONENT::ALPHA];
 		rAlpha = min(rAlpha + 9, 255);
 
 		if (rAlpha >= 255)

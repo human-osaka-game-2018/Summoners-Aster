@@ -20,19 +20,19 @@ namespace gameframework
 		/// <summary>
 		/// 色の構成要素
 		/// </summary>
-		enum class COMPONENTS
+		enum class COMPONENT
 		{
 			ALPHA,
 			RED,
 			GREEN,
 			BLUE,
 		};
-		
+
 		/// <remarks>
 		/// 初期値は非透明の白0xFFFFFFFF
 		/// </remarks>
 		Color() {};
-		Color(DWORD colorCode) 
+		Color(DWORD colorCode)
 		{
 			(*this) = colorCode;
 		}
@@ -40,12 +40,12 @@ namespace gameframework
 		Color(BYTE alpha, BYTE red, BYTE green, BYTE blue)
 			:m_alpha(alpha), m_red(red), m_green(green), m_blue(blue)
 		{};
-		
+
 		inline DWORD GetColorCode() const
 		{
 			return D3DCOLOR_ARGB(m_alpha, m_red, m_green, m_blue);
 		}
-		
+
 		/// <summary>
 		/// thisと引数との平均のカラーコードを取得する
 		/// </summary>
@@ -57,7 +57,7 @@ namespace gameframework
 
 			return GetAverage(inColor).GetColorCode();
 		}
-		
+
 		/// <summary>
 		/// thisと引数との平均のカラー構造体を返す
 		/// </summary>
@@ -67,37 +67,37 @@ namespace gameframework
 		{
 			Color average(
 				(m_alpha + color.m_alpha) / 2,
-				(m_red   + color.m_red)   / 2,
+				(m_red + color.m_red) / 2,
 				(m_green + color.m_green) / 2,
-				(m_blue  + color.m_blue)  / 2);
+				(m_blue + color.m_blue) / 2);
 
 			return average;
 		}
 
 		BYTE m_alpha = 255;
-		BYTE m_red   = 255;
+		BYTE m_red = 255;
 		BYTE m_green = 255;
-		BYTE m_blue  = 255;
-		
+		BYTE m_blue = 255;
+
 		/// <summary>
 		/// 添え字でアクセスできる色を変える
 		/// </summary>
-		/// <param name="colorComponent">アクセスする色のCOMPONENTS</param>
+		/// <param name="colorComponent">アクセスする色のCOMPONENT</param>
 		/// <returns>アクセスした色の参照</returns>>
-		BYTE& operator[](COMPONENTS colorComponent)
+		BYTE& operator[](COMPONENT colorComponent)
 		{
 			switch (colorComponent)
 			{
-			case COMPONENTS::ALPHA:
+			case COMPONENT::ALPHA:
 				return m_alpha;
 
-			case COMPONENTS::RED:
+			case COMPONENT::RED:
 				return m_red;
 
-			case COMPONENTS::GREEN:
+			case COMPONENT::GREEN:
 				return m_green;
 
-			case COMPONENTS::BLUE:
+			case COMPONENT::BLUE:
 				return m_blue;
 
 			default:
@@ -108,7 +108,7 @@ namespace gameframework
 			}
 			}
 		}
-		
+
 		/// <summary>
 		/// カラーコードを分解し保存する
 		/// </summary>
@@ -120,12 +120,12 @@ namespace gameframework
 		/// </remarks>
 		Color& operator=(DWORD colorCode)
 		{
-			const std::vector<COMPONENTS> components =
+			const std::vector<COMPONENT> components =
 			{
-				COMPONENTS::BLUE,
-				COMPONENTS::GREEN,
-				COMPONENTS::RED,
-				COMPONENTS::ALPHA
+				COMPONENT::BLUE,
+				COMPONENT::GREEN,
+				COMPONENT::RED,
+				COMPONENT::ALPHA
 			};
 
 			for (auto& component : components) {
@@ -146,9 +146,9 @@ namespace gameframework
 		{
 			return Color(
 				Normalize(m_alpha + rhs.m_alpha),
-				Normalize(m_red   + rhs.m_red),
+				Normalize(m_red + rhs.m_red),
 				Normalize(m_green + rhs.m_green),
-				Normalize(m_blue  + rhs.m_blue)
+				Normalize(m_blue + rhs.m_blue)
 			);
 		}
 
@@ -166,9 +166,9 @@ namespace gameframework
 		{
 			return Color(
 				Normalize(m_alpha - rhs.m_alpha),
-				Normalize(m_red   - rhs.m_red),
+				Normalize(m_red - rhs.m_red),
 				Normalize(m_green - rhs.m_green),
-				Normalize(m_blue  - rhs.m_blue)
+				Normalize(m_blue - rhs.m_blue)
 			);
 		}
 
@@ -251,9 +251,9 @@ namespace gameframework
 		{
 			return Color(
 				Normalize(m_alpha / rhs),
-				Normalize(m_red   / rhs),
+				Normalize(m_red / rhs),
 				Normalize(m_green / rhs),
-				Normalize(m_blue  / rhs)
+				Normalize(m_blue / rhs)
 			);
 		}
 
