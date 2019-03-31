@@ -39,6 +39,6 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 
 		rGameFramework.FinishInFrame();
 	}
-
+	sceneSwitcher.ReleaseInstance();
 	return 0;
 }
