@@ -10,6 +10,7 @@
 #include "../TextureUVs.h"
 #include "../Degree.h"
 #include "../algorithm.h"
+#include "CustomVertex.h"
 #include "Graphic/Texture.h"
 #include "DirectXParam/DirectXGraphicDevice.h"
 #include "DirectXParam/DirectXParam.h"
@@ -19,50 +20,6 @@
 /// </summary>
 namespace gameframework
 {
-#ifdef DIRECT_X_VERSION_11
-	/// <summary>
-	/// DirectX9での頂点構造体
-	/// </summary>
-	struct CustomVertex
-	{
-	public:
-		D3DXVECTOR3 m_pos;
-
-		/// <summary>
-		/// 重みの逆数 基本1
-		/// </summary>
-		float m_rHW = 1.0f;
-
-		DWORD m_aRGB = 0xFFFFFFFF;
-
-		D3DXVECTOR2 m_texUV;
-
-		static const int RECT_VERTICES_NUM = 4;
-	};
-#elif defined DIRECT_X_VERSOIN_9
-	/// <summary>
-	/// DirectX9での頂点構造体
-	/// </summary>
-	struct CustomVertex
-	{
-	public:
-		D3DXVECTOR3 m_pos;
-
-		/// <summary>
-		/// 重みの逆数 基本1
-		/// </summary>
-		float m_rHW = 1.0f;
-
-		DWORD m_aRGB = 0xFFFFFFFF;
-
-		D3DXVECTOR2 m_texUV;
-
-		static const int RECT_VERTICES_NUM = 4;
-	};
-#else
-#error "DirectXのバージョンを定義してください"
-#endif
-
 	class Vertices
 	{
 	public:
@@ -143,6 +100,13 @@ namespace gameframework
 			return m_baseSize;
 		}
 
+		inline const RectSize& GetSizeForRender() const
+		{
+			if (!m_hasUpdatedSize) return m_baseSize;
+
+			return m_sizeForRender;
+		}
+
 		inline Color& GetColor()
 		{
 			return m_color;
@@ -153,6 +117,13 @@ namespace gameframework
 			return m_textureUVs;
 		}
 
+		inline CustomVertices& GetCustomVertex()
+		{
+			CreateCustomVertices();
+
+			return m_vertices;
+		}
+
 		/// <summary>
 		/// 矩形を点滅させる
 		/// </summary>
@@ -160,6 +131,15 @@ namespace gameframework
 		/// <param name="alphaMin">点滅のアルファ値の最大値</param>
 		/// <param name="alphaMax">点滅のアルファ値の最小値</param>
 		void Flash(int flashFrameMax, BYTE alphaMin, BYTE alphaMax);
+
+		/// <summary>
+		/// 矩形をフェードインさせる
+		/// </summary>
+		/// <param name="fadeInFrameMax">フェードインにかかる時間</param>
+		/// <param name="orginAlpha">初めのアルファ値</param>
+		/// <param name="destAlpha">終わりのアルファ値</param>
+		void FadeIn(int fadeInFrameMax, BYTE orginAlpha, BYTE destAlpha);
+		void FadeOut(int fadeOutFrameMax, BYTE orginAlpha, BYTE destAlpha);
 
 		/// <summary>
 		/// 矩形を拡縮させる
@@ -201,11 +181,6 @@ namespace gameframework
 		virtual void Render(const LPTEXTURE pTexture) = 0;
 
 	protected:
-		/// <summary>
-		/// 描画を行う際の矩形を作成する
-		/// </summary>
-		virtual void Normalize() = 0;
-
 		D3DXVECTOR3 m_center = { 0.0f, 0.0f, 0.0f };
 		RectSize m_baseSize;
 		RectSize m_sizeForRender;
@@ -215,13 +190,20 @@ namespace gameframework
 		Degree m_rotationY_deg;
 		Degree m_rotationZ_deg;
 		int m_flashFrameCount = 0;
+		int m_fadeInFrameCount = 0;
+		int m_fadeOutFrameCount = 0;
 		int m_additionalScaleFrameCount = 0;
 		bool m_hasUpdatedSize = false;
 
 		/// <summary>
+		/// 描画を行う際の矩形を作成する
+		/// </summary>
+		virtual void CreateCustomVertices() = 0;
+
+		/// <summary>
 		/// 矩形の頂点分のサイズ
 		/// </summary>
-		CustomVertex m_vertices[4];
+		CustomVertices m_vertices;
 
 		LPDIRECT3DDEVICE m_pDirectXGraphicDevice = nullptr;
 	};

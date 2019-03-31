@@ -89,7 +89,22 @@ namespace gameframework
 			float progressRatio = static_cast<float>(val) / static_cast<float>(cycleVal);
 
 			//sin波を調整し0~1を行き来する値を作成
-			return sin(D3DX_PI * progressRatio);
+			return fabsf(sin(D3DX_PI * progressRatio));
+		}
+
+		/// <summary>
+		/// <para>引数の比率によって0~1(近似値)の値を返す</para>
+		/// <para>比率が1.2の時戻り値は0.2</para>
+		/// </summary>
+		/// <param name="denominator">分母</param>
+		/// <param name="numerator">分子</param>
+		/// <returns>0~1(近似値)</returns>
+		template<typename T>
+		float ZeroToOneByRatio(T denominator, T numerator)
+		{
+			float normalizedDenominator = static_cast<float>(denominator - numerator * static_cast<int>(denominator / numerator));
+
+			return fabsf(normalizedDenominator / static_cast<float>(numerator));
 		}
 
 		/// <summary>
@@ -104,6 +119,21 @@ namespace gameframework
 		float SwitchMinBetweenMax(T1 val, T1 cycleVal, T2 switchingMin, T2 switchingMax)
 		{
 			return (switchingMax - switchingMin) * SwitchZeroBetweenOne(val, cycleVal) + switchingMin;
+		}
+
+		/// <summary>
+		/// <para>引数の範囲の値を比率によって返す</para>
+		/// <para>比率が0ならmin比率が1ならmaxを返す</para>
+		/// </summary>
+		/// <param name="denominator">分子</param>
+		/// <param name="numerator">分母</param>
+		/// <param name="minVal">戻り値の最小値</param>
+		/// <param name="maxVal">戻り値の最大値</param>
+		/// <returns>引数の範囲の値</returns>
+		template<typename T1, typename T2>
+		float MinToMaxByRatio(T1 denominator, T1 numerator, T2 minVal, T2 maxVal)
+		{
+			return (maxVal - minVal) * ZeroToOneByRatio(denominator, numerator) + minVal;
 		}
 
 		/// <summary>

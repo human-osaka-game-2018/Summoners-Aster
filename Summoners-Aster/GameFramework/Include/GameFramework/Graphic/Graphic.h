@@ -9,6 +9,7 @@
 #include "Renderer.h"
 #include "ColorBlender.h"
 #include "FontManager.h"
+#include "GraphicEffectManager/GraphicEffectManager.h"
 
 /// <summary>
 /// 基礎構築に関するものをまとめた名前空間
@@ -21,10 +22,12 @@ namespace gameframework
 	class Graphic
 	{
 	public:
-		Graphic() 
+		Graphic()
 		{
 			GameFrameworkFactory::Create(&m_pRenderer);
 			GameFrameworkFactory::Create(&m_pColorBlender);
+
+			Part::SetGraphicHelper(m_pColorBlender, &m_textureManager);
 		}
 
 		~Graphic()
@@ -206,6 +209,39 @@ namespace gameframework
 			return m_fontManager.Exists(pFontKey);
 		}
 
+		/// <summary>
+		/// エフェクトの登録
+		/// </summary>
+		/// <param name="pGraphicEffect">登録するエフェクトのポインタ</param>
+		void RegisterEffect(GraphicEffect* pGraphicEffect)
+		{
+			m_graphicEffectManager.Register(pGraphicEffect);
+		}
+
+		/// <summary>
+		/// エフェクトの全開放
+		/// </summary>
+		void ReleaseAllEffect()
+		{
+			m_graphicEffectManager.ReleaseAll();
+		}
+
+		/// <summary>
+		/// 全てのエフェクトを更新する
+		/// </summary>
+		void UpdateEffects()
+		{
+			m_graphicEffectManager.Update();
+		}
+
+		/// <summary>
+		/// 全てのエフェクトを描画する
+		/// </summary>
+		void RenderEffects()
+		{
+			m_graphicEffectManager.Render();
+		}
+
 	private:
 		Graphic(const Graphic& rhs) = delete;
 
@@ -215,6 +251,7 @@ namespace gameframework
 		ColorBlender* m_pColorBlender = nullptr;
 		TextureManager m_textureManager;
 		FontManager m_fontManager;
+		GraphicEffectManager m_graphicEffectManager;
 	};
 }
 
