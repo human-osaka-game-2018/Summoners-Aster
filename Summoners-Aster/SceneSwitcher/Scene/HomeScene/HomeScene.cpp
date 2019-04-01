@@ -1,6 +1,6 @@
 ﻿#include "HomeScene.h"
 #include <GameFramework.h>
-#include "SceneEventMediater.h"
+#include "SwitchEventMediatorBase.h"
 
 namespace summonersaster
 {
@@ -35,7 +35,7 @@ namespace summonersaster
 
 		if (rGameFramework.KeyboardIsPressed(DIK_F))
 		{
-			SceneEventMediater::SendSceneSwitchEvent(KIND::TITLE);
+			SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(_T("TITLE"));
 		}
 	}
 

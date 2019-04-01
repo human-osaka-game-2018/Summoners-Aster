@@ -24,7 +24,6 @@
     <ClCompile Include="ObjectIntegrator\Object\Object.cpp" />
     <ClCompile Include="ObjectIntegrator\Object\Task.cpp" />
     <ClCompile Include="ObjectIntegrator\TaskScheduler.cpp" />
-    <ClCompile Include="SceneSwitcher\SceneEventMediater.cpp" />
     <ClCompile Include="SceneSwitcher\SceneSwitcher.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\ConnectButton.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\CPUButton.cpp" />
@@ -41,13 +40,13 @@
     <ClCompile Include="SceneSwitcher\Scene\TitleScene\TeamLogo.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\TitleScene\TitleBack.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\TitleScene\TitleScene.cpp" />
+    <ClCompile Include="SwitcherBase\KindBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ObjectIntegrator\ObjectIntegrator.h" />
     <ClInclude Include="ObjectIntegrator\Object\Object.h" />
     <ClInclude Include="ObjectIntegrator\Object\Task.h" />
     <ClInclude Include="ObjectIntegrator\TaskScheduler.h" />
-    <ClInclude Include="SceneSwitcher\SceneEventMediater.h" />
     <ClInclude Include="SceneSwitcher\SceneSwitcher.h" />
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\ConnectButton.h" />
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\CPUButton.h" />
@@ -64,6 +63,9 @@
     <ClInclude Include="SceneSwitcher\Scene\TitleScene\TeamLogo.h" />
     <ClInclude Include="SceneSwitcher\Scene\TitleScene\TitleBack.h" />
     <ClInclude Include="SceneSwitcher\Scene\TitleScene\TitleScene.h" />
+    <ClInclude Include="SwitcherBase\KindBase.h" />
+    <ClInclude Include="SwitcherBase\SwitchEventMediatorBase.h" />
+    <ClInclude Include="SwitcherBase\SwitcherBase.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -153,7 +155,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>DIRECTINPUT_VERSION=0x0800;DIRECT_X_VERSOIN_9;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>SceneSwitcher;ObjectIntegrator;ObjectIntegrator\Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>SwitcherBase;SceneSwitcher;ObjectIntegrator;ObjectIntegrator\Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>d3dx9.lib;d3d9.lib;dinput8.lib;dxguid.lib;winmm.lib;GameFramework.lib;%(AdditionalDependencies)</AdditionalDependencies>

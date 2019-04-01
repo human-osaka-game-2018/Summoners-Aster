@@ -26,6 +26,9 @@
     <Filter Include="SceneSwitcher\Scene\HomeScene">
       <UniqueIdentifier>{70f030b0-ec76-4b17-ad07-30cb11fd78e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SwitcherBase">
+      <UniqueIdentifier>{b2fb9af3-0b8b-40ca-9498-51a163d3a8d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneSwitcher\SceneSwitcher.h">
@@ -64,9 +67,6 @@
     <ClInclude Include="SceneSwitcher\Scene\TitleScene\InputPrompt.h">
       <Filter>SceneSwitcher\Scene\TitleScene</Filter>
     </ClInclude>
-    <ClInclude Include="SceneSwitcher\SceneEventMediater.h">
-      <Filter>SceneSwitcher</Filter>
-    </ClInclude>
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\HomeScene.h">
       <Filter>SceneSwitcher\Scene\HomeScene</Filter>
     </ClInclude>
@@ -90,6 +90,15 @@
     </ClInclude>
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\Player.h">
       <Filter>SceneSwitcher\Scene\HomeScene</Filter>
+    </ClInclude>
+    <ClInclude Include="SwitcherBase\SwitcherBase.h">
+      <Filter>SwitcherBase</Filter>
+    </ClInclude>
+    <ClInclude Include="SwitcherBase\SwitchEventMediatorBase.h">
+      <Filter>SwitcherBase</Filter>
+    </ClInclude>
+    <ClInclude Include="SwitcherBase\KindBase.h">
+      <Filter>SwitcherBase</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -132,9 +141,6 @@
     <ClCompile Include="SceneSwitcher\Scene\TitleScene\InputPrompt.cpp">
       <Filter>SceneSwitcher\Scene\TitleScene</Filter>
     </ClCompile>
-    <ClCompile Include="SceneSwitcher\SceneEventMediater.cpp">
-      <Filter>SceneSwitcher</Filter>
-    </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\HomeScene.cpp">
       <Filter>SceneSwitcher\Scene\HomeScene</Filter>
     </ClCompile>
@@ -158,6 +164,9 @@
     </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\Player.cpp">
       <Filter>SceneSwitcher\Scene\HomeScene</Filter>
+    </ClCompile>
+    <ClCompile Include="SwitcherBase\KindBase.cpp">
+      <Filter>SwitcherBase</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
