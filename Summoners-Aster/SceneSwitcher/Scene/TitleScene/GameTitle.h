@@ -1,9 +1,9 @@
-﻿#include <GameFramework.h>
+﻿#ifndef GAME_TITLE_H
+#define GAME_TITLE_H
+
+#include <GameFramework.h>
 
 #include "Task.h"
-
-#ifndef GAME_TITLE_H
-#define GAME_TITLE_H
 
 namespace summonersaster
 {
