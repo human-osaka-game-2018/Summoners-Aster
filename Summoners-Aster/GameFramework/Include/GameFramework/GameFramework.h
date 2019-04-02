@@ -53,6 +53,20 @@ namespace gameframework
 		}
 
 		/// <summary>
+		/// マウスカーソルが円の上にあるか
+		/// </summary>
+		/// <param name="vertices">矩形クラス</param>
+		/// <returns>上にあればtrue</returns>
+		inline bool IsCursorOnCircle(Vertices& vertices)
+		{
+			POINT cursorPoint;
+			CursorPos(&cursorPoint);
+			D3DXVECTOR3 cursorPos(static_cast<float>(cursorPoint.x), static_cast<float>(cursorPoint.y), 0.0f);
+
+			return collision::Collides(vertices, cursorPos);
+		}
+
+		/// <summary>
 		/// テクスチャの作成
 		/// </summary>
 		/// <param name="pTextureKey">テクスチャにつけるキー</param>

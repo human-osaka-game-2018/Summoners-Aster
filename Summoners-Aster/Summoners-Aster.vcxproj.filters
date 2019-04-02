@@ -29,6 +29,9 @@
     <Filter Include="SwitcherBase">
       <UniqueIdentifier>{b2fb9af3-0b8b-40ca-9498-51a163d3a8d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Button">
+      <UniqueIdentifier>{1bedf941-59c3-4559-b94f-941cb14a76a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneSwitcher\SceneSwitcher.h">
@@ -100,6 +103,9 @@
     <ClInclude Include="SwitcherBase\KindBase.h">
       <Filter>SwitcherBase</Filter>
     </ClInclude>
+    <ClInclude Include="Button\Button.h">
+      <Filter>Button</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneSwitcher\SceneSwitcher.cpp">
@@ -167,6 +173,9 @@
     </ClCompile>
     <ClCompile Include="SwitcherBase\KindBase.cpp">
       <Filter>SwitcherBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Button\Button.cpp">
+      <Filter>Button</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
