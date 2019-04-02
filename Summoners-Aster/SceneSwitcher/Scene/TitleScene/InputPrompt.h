@@ -1,9 +1,9 @@
-﻿#include <GameFramework.h>
+﻿#ifndef INPUT_PROMPT_H
+#define INPUT_PROMPT_H
+
+#include <GameFramework.h>
 
 #include "Task.h"
-
-#ifndef INPUT_PROMPT_H
-#define INPUT_PROMPT_H
 
 namespace summonersaster
 {

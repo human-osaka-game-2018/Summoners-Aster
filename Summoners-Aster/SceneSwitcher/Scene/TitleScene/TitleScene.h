@@ -1,13 +1,13 @@
-﻿#include "Scene/Scene.h"
+﻿#ifndef TITLE_SCENE_H
+#define TITLE_SCENE_H
+
+#include "Scene/Scene.h"
 #include "TaskScheduler.h"
 #include "TeamLogo.h"
 #include "TitleBack.h"
 #include "GameTitle.h"
 #include "GameTitleStar.h"
 #include "InputPrompt.h"
-
-#ifndef TITLE_SCENE_H
-#define TITLE_SCENE_H
 
 namespace summonersaster
 {

@@ -1,9 +1,9 @@
-﻿#include <GameFramework.h>
+﻿#ifndef TEAM_LOGO_H
+#define TEAM_LOGO_H
+
+#include <GameFramework.h>
 
 #include "Task.h"
-
-#ifndef TEAM_LOGO_H
-#define TEAM_LOGO_H
 
 namespace summonersaster
 {
