@@ -24,7 +24,7 @@ namespace summonersaster
 
 	void InputPrompt::LoadResource()
 	{
-		m_rGameFramework.CreateFont(_T("INPUT_PROMPT"), RectSize(25.0f, 50.0f), _T("IPAex明朝"));
+		m_rGameFramework.CreateFont(_T("INPUT_PROMPT"), RectSize(m_windowCenter.x * 0.016f, m_windowCenter.x * 0.032f), _T("IPAex明朝"));
 	}
 
 	void InputPrompt::Finalize()
