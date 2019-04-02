@@ -22,6 +22,7 @@ namespace summonersaster
 	public:
 		virtual ~SwitcherBase()
 		{
+			SwitchEventMediatorBase<T>::ReleaseInstance();
 			ReleaseKindInstances();
 		}
 

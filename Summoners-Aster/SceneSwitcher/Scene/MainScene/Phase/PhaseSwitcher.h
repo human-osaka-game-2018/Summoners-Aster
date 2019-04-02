@@ -7,6 +7,9 @@
 
 #include "Phase.h"
 #include "SwitcherBase.h"
+#include "DrawPhase.h"
+#include "MainPhase.h"
+#include "EndPhase.h"
 
 namespace summonersaster
 {

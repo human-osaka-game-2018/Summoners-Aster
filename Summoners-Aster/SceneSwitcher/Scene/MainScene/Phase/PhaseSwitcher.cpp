@@ -16,9 +16,8 @@ namespace summonersaster
 
 	void PhaseSwitcher::CreateKindInstances()
 	{
-		//m_kinds[_T("TITLE")]  = new TitleScene();
-		//m_kinds[_T("HOME")]   = new HomeScene();
-		/*m_pScenes[Scene::KIND::BATTLE] = new BattleScene();
-		m_pScenes[Scene::KIND::RESULT] = new ResultScene();*/
+		m_kinds[_T("DRAW")] = new DrawPhase();
+		m_kinds[_T("MAIN")] = new MainPhase();
+		m_kinds[_T("END")]  = new EndPhase();
 	}
 } // namespace summonersaster
