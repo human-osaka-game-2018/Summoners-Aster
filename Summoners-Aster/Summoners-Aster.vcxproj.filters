@@ -29,6 +29,12 @@
     <Filter Include="SwitcherBase">
       <UniqueIdentifier>{b2fb9af3-0b8b-40ca-9498-51a163d3a8d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SceneSwitcher\Scene\MainScene">
+      <UniqueIdentifier>{9fbb0ed9-8f0b-4884-a21c-e1d021ebd3c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\MainScene\Phase">
+      <UniqueIdentifier>{be8b8195-cbe5-4084-a081-d9ad81e8c463}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Button">
       <UniqueIdentifier>{1bedf941-59c3-4559-b94f-941cb14a76a8}</UniqueIdentifier>
     </Filter>
@@ -103,8 +109,23 @@
     <ClInclude Include="SwitcherBase\KindBase.h">
       <Filter>SwitcherBase</Filter>
     </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\PhaseSwitcher.h">
+      <Filter>SceneSwitcher\Scene\MainScene\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\Phase.h">
+      <Filter>SceneSwitcher\Scene\MainScene\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\DrawPhase.h">
+      <Filter>SceneSwitcher\Scene\MainScene\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\MainPhase.h">
+      <Filter>SceneSwitcher\Scene\MainScene\Phase</Filter>
+    </ClInclude>
     <ClInclude Include="Button\Button.h">
       <Filter>Button</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\EndPhase.h">
+      <Filter>SceneSwitcher\Scene\MainScene\Phase</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -174,8 +195,23 @@
     <ClCompile Include="SwitcherBase\KindBase.cpp">
       <Filter>SwitcherBase</Filter>
     </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\PhaseSwitcher.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\Phase.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\DrawPhase.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\MainPhase.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\Phase</Filter>
+    </ClCompile>
     <ClCompile Include="Button\Button.cpp">
       <Filter>Button</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\EndPhase.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\Phase</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,11 +1,11 @@
-﻿#ifndef SCENE_SWITCHER_H
-#define SCENE_SWITCHER_H
+﻿#ifndef PHASE_SWITCHER_H
+#define PHASE_SWITCHER_H
 
 #include <unordered_map>
 
 #include <GameFramework.h>
 
-#include "Scene/Scene.h"
+#include "Phase.h"
 #include "SwitcherBase.h"
 
 namespace summonersaster
@@ -15,15 +15,15 @@ namespace summonersaster
 	/// <summary>
 	/// シーンを切り替えるクラス
 	/// </summary>
-	class SceneSwitcher :public Singleton<SceneSwitcher>, public SwitcherBase<Scene>
+	class PhaseSwitcher :public Singleton<PhaseSwitcher>, public SwitcherBase<Phase>
 	{
 	public:
-		friend Singleton<SceneSwitcher>;
+		friend Singleton<PhaseSwitcher>;
 
-		~SceneSwitcher();
+		~PhaseSwitcher();
 
 	private:
-		SceneSwitcher();
+		PhaseSwitcher();
 
 		/// <summary>
 		/// 全てのシーンのインスタンスを生成する
@@ -32,4 +32,4 @@ namespace summonersaster
 	};
 } // namespace summonersaster
 
-#endif //!SCENE_SWITCHER_H
+#endif //!PHASE_SWITCHER_H
