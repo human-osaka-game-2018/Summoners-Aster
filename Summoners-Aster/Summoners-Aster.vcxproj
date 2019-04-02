@@ -34,6 +34,11 @@
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\MenuButton.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\Player.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\PlayerName.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\DrawPhase.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\EndPhase.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\MainPhase.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\Phase.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\PhaseSwitcher.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\Scene.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\TitleScene\GameTitle.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\TitleScene\GameTitleStar.cpp" />
@@ -58,6 +63,11 @@
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\MenuButton.h" />
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\Player.h" />
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\PlayerName.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\DrawPhase.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\EndPhase.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\MainPhase.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\Phase.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\PhaseSwitcher.h" />
     <ClInclude Include="SceneSwitcher\Scene\Scene.h" />
     <ClInclude Include="SceneSwitcher\Scene\TitleScene\GameTitle.h" />
     <ClInclude Include="SceneSwitcher\Scene\TitleScene\GameTitleStar.h" />
