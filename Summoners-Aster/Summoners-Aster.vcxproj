@@ -26,6 +26,13 @@
     <ClCompile Include="ObjectIntegrator\Object\Task.cpp" />
     <ClCompile Include="ObjectIntegrator\TaskScheduler.cpp" />
     <ClCompile Include="SceneSwitcher\SceneSwitcher.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\BattleScene\BattleObject.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\BattleScene\Cemetery\Cemetery.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\BattleScene\Deck\Deck.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\BattleScene\Hand\Hand.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\BattleScene\HP\HP.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\BattleScene\MP\MP.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\BattleScene\Player\BattlePlayer.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\ConnectButton.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\CPUButton.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\DeckButton.cpp" />
@@ -67,6 +74,13 @@
     <ClInclude Include="ObjectIntegrator\Object\Task.h" />
     <ClInclude Include="ObjectIntegrator\TaskScheduler.h" />
     <ClInclude Include="SceneSwitcher\SceneSwitcher.h" />
+    <ClInclude Include="SceneSwitcher\Scene\BattleScene\BattleObject.h" />
+    <ClInclude Include="SceneSwitcher\Scene\BattleScene\Cemetery\Cemetery.h" />
+    <ClInclude Include="SceneSwitcher\Scene\BattleScene\Deck\Deck.h" />
+    <ClInclude Include="SceneSwitcher\Scene\BattleScene\Hand\Hand.h" />
+    <ClInclude Include="SceneSwitcher\Scene\BattleScene\HP\HP.h" />
+    <ClInclude Include="SceneSwitcher\Scene\BattleScene\MP\MP.h" />
+    <ClInclude Include="SceneSwitcher\Scene\BattleScene\Player\BattlePlayer.h" />
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\ConnectButton.h" />
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\CPUButton.h" />
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\DeckButton.h" />
@@ -163,7 +177,7 @@
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(DXSDK_DIR)Include;$(ProjectDir)GameFramework\Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(DXSDK_DIR)Include;$(ProjectDir)GameFramework\Include;$(ProjectDir);$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x64;$(ProjectDir)GameFramework\Lib\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
