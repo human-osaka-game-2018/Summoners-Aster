@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="リソース ファイル">
@@ -46,6 +46,27 @@
     </Filter>
     <Filter Include="SceneSwitcher\Scene\MainScene\Step\PlayerInformationRenderingStep">
       <UniqueIdentifier>{560267b3-fee4-4b98-b214-bf9cfe200206}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\BattleScene">
+      <UniqueIdentifier>{471de5b6-2536-417d-92bc-1e04c7239923}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\BattleScene\Deck">
+      <UniqueIdentifier>{dabd720e-8425-473a-a1a2-f152663b7ac5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\BattleScene\Hand">
+      <UniqueIdentifier>{73c81bd9-6d3e-4528-ad4b-75c52fcc0fa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\BattleScene\BattlePlayer">
+      <UniqueIdentifier>{045a0001-d10c-4ad1-a965-9e534eb99cf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\BattleScene\Cemetery">
+      <UniqueIdentifier>{46579633-df13-42cc-bcdd-f177eae0b80b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\BattleScene\HP">
+      <UniqueIdentifier>{4117ba4e-a27c-4c64-9da6-4ed705250692}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\BattleScene\MP">
+      <UniqueIdentifier>{b41754a4-e88d-43fc-9e1d-5f7871e29a50}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +193,27 @@
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\PlayersInformationRenderingStep\PlayersInformationRenderingStep.h">
       <Filter>SceneSwitcher\Scene\MainScene\Step\PlayerInformationRenderingStep</Filter>
     </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\BattleScene\Deck\Deck.h">
+      <Filter>SceneSwitcher\Scene\BattleScene\Deck</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\BattleScene\Hand\Hand.h">
+      <Filter>SceneSwitcher\Scene\BattleScene\Hand</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\BattleScene\Player\BattlePlayer.h">
+      <Filter>SceneSwitcher\Scene\BattleScene\BattlePlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\BattleScene\Cemetery\Cemetery.h">
+      <Filter>SceneSwitcher\Scene\BattleScene\Cemetery</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\BattleScene\HP\HP.h">
+      <Filter>SceneSwitcher\Scene\BattleScene\HP</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\BattleScene\MP\MP.h">
+      <Filter>SceneSwitcher\Scene\BattleScene\MP</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\BattleScene\BattleObject.h">
+      <Filter>SceneSwitcher\Scene\BattleScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneSwitcher\SceneSwitcher.cpp">
@@ -293,6 +335,27 @@
     </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\PlayersInformationRenderingStep\PlayersInformationRenderingStep.cpp">
       <Filter>SceneSwitcher\Scene\MainScene\Step\PlayerInformationRenderingStep</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\BattleScene\Deck\Deck.cpp">
+      <Filter>SceneSwitcher\Scene\BattleScene\Deck</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\BattleScene\Hand\Hand.cpp">
+      <Filter>SceneSwitcher\Scene\BattleScene\Hand</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\BattleScene\Player\BattlePlayer.cpp">
+      <Filter>SceneSwitcher\Scene\BattleScene\BattlePlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\BattleScene\Cemetery\Cemetery.cpp">
+      <Filter>SceneSwitcher\Scene\BattleScene\Cemetery</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\BattleScene\HP\HP.cpp">
+      <Filter>SceneSwitcher\Scene\BattleScene\HP</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\BattleScene\MP\MP.cpp">
+      <Filter>SceneSwitcher\Scene\BattleScene\MP</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\BattleScene\BattleObject.cpp">
+      <Filter>SceneSwitcher\Scene\BattleScene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
