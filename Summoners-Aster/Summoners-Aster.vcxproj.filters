@@ -38,6 +38,9 @@
     <Filter Include="Button">
       <UniqueIdentifier>{1bedf941-59c3-4559-b94f-941cb14a76a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SceneSwitcher\Scene\MainScene\Turn">
+      <UniqueIdentifier>{ee118cbd-3597-496b-b5ae-e0d1ba79c024}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneSwitcher\SceneSwitcher.h">
@@ -127,6 +130,18 @@
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\EndPhase.h">
       <Filter>SceneSwitcher\Scene\MainScene\Phase</Filter>
     </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Turn\PhaseOperationStage.h">
+      <Filter>SceneSwitcher\Scene\MainScene\Turn</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Turn\Turn.h">
+      <Filter>SceneSwitcher\Scene\MainScene\Turn</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Turn\TurnStage.h">
+      <Filter>SceneSwitcher\Scene\MainScene\Turn</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Turn\TurnUIRenderingStage.h">
+      <Filter>SceneSwitcher\Scene\MainScene\Turn</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneSwitcher\SceneSwitcher.cpp">
@@ -212,6 +227,18 @@
     </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\EndPhase.cpp">
       <Filter>SceneSwitcher\Scene\MainScene\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Turn\PhaseOperationStage.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\Turn</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Turn\Turn.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\Turn</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Turn\TurnStage.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\Turn</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Turn\TurnUIRenderingStage.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\Turn</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

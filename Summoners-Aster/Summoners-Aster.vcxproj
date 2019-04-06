@@ -39,6 +39,10 @@
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\MainPhase.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\Phase.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\PhaseSwitcher.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Turn\PhaseOperationStage.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Turn\Turn.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Turn\TurnStage.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Turn\TurnUIRenderingStage.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\Scene.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\TitleScene\GameTitle.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\TitleScene\GameTitleStar.cpp" />
@@ -68,6 +72,10 @@
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\MainPhase.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\Phase.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\PhaseSwitcher.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Turn\PhaseOperationStage.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Turn\Turn.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Turn\TurnStage.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Turn\TurnUIRenderingStage.h" />
     <ClInclude Include="SceneSwitcher\Scene\Scene.h" />
     <ClInclude Include="SceneSwitcher\Scene\TitleScene\GameTitle.h" />
     <ClInclude Include="SceneSwitcher\Scene\TitleScene\GameTitleStar.h" />
@@ -167,7 +175,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>DIRECTINPUT_VERSION=0x0800;DIRECT_X_VERSOIN_9;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>Button;SwitcherBase;SceneSwitcher;ObjectIntegrator;ObjectIntegrator\Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>SceneSwitcher\Scene\MainScene\Phase;Button;SwitcherBase;SceneSwitcher;ObjectIntegrator;ObjectIntegrator\Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>d3dx9.lib;d3d9.lib;dinput8.lib;dxguid.lib;winmm.lib;GameFramework.lib;%(AdditionalDependencies)</AdditionalDependencies>
