@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+?�<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="リソース ファイル">
@@ -44,6 +44,9 @@
     <Filter Include="SceneSwitcher\Scene\MainScene\Step">
       <UniqueIdentifier>{4c074a2d-f2d8-4a86-8be2-a4a2411dfd18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Card">
+      <UniqueIdentifier>{08590bd1-4f59-4b9b-b482-69139234c88f}</UniqueIdentifier>
+    </Filter>
     <Filter Include="SceneSwitcher\Scene\MainScene\Step\PlayerInformationRenderingStep">
       <UniqueIdentifier>{560267b3-fee4-4b98-b214-bf9cfe200206}</UniqueIdentifier>
     </Filter>
@@ -59,14 +62,36 @@
     <Filter Include="SceneSwitcher\Scene\MainScene\Hand">
       <UniqueIdentifier>{73c81bd9-6d3e-4528-ad4b-75c52fcc0fa2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SceneSwitcher\Scene\BattleScene\BattlePlayer">
+      <UniqueIdentifier>{045a0001-d10c-4ad1-a965-9e534eb99cf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\BattleScene\Cemetery">
+      <UniqueIdentifier>{46579633-df13-42cc-bcdd-f177eae0b80b}</UniqueIdentifier>
+    </Filter>
     <Filter Include="SceneSwitcher\Scene\MainScene\HP">
       <UniqueIdentifier>{4117ba4e-a27c-4c64-9da6-4ed705250692}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\BattleScene\BattlePlayer">
+      <UniqueIdentifier>{045a0001-d10c-4ad1-a965-9e534eb99cf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\BattleScene\Cemetery">
+      <UniqueIdentifier>{46579633-df13-42cc-bcdd-f177eae0b80b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Card\Follower">
+      <UniqueIdentifier>{4e9bd5ca-dc4b-441b-94e6-21a8043c0414}</UniqueIdentifier>
     </Filter>
     <Filter Include="SceneSwitcher\Scene\MainScene\MP">
       <UniqueIdentifier>{b41754a4-e88d-43fc-9e1d-5f7871e29a50}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Card\Spell">
+      <UniqueIdentifier>{cbfe243c-c55c-4d30-a1d2-ee7e31c5a2b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\BattleScene\MP">
     <Filter Include="SceneSwitcher\Scene\MainScene\BattlePlayer">
       <UniqueIdentifier>{045a0001-d10c-4ad1-a965-9e534eb99cf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Card\Weapon">
+      <UniqueIdentifier>{1f8a2190-ecf4-4678-b863-d53b82adea3f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -214,6 +239,9 @@
     <ClInclude Include="SceneSwitcher\Scene\MainScene\MP\MP.h">
       <Filter>SceneSwitcher\Scene\MainScene\MP</Filter>
     </ClInclude>
+    <ClInclude Include="Card\Card.h">
+      <Filter>Card</Filter>
+    </ClInclude>
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Hand\Hand.h">
       <Filter>SceneSwitcher\Scene\MainScene\Hand</Filter>
     </ClInclude>
@@ -228,6 +256,15 @@
     </ClInclude>
     <ClInclude Include="SceneSwitcher\Scene\MainScene\BattleObject.h">
       <Filter>SceneSwitcher\Scene\MainScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Card\Follower\Follower.h">
+      <Filter>Card\Follower</Filter>
+    </ClInclude>
+    <ClInclude Include="Card\Spell\Spell.h">
+      <Filter>Card\Spell</Filter>
+    </ClInclude>
+    <ClInclude Include="Card\Weapon\Weapon.h">
+      <Filter>Card\Weapon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -383,6 +420,18 @@
     </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\MainScene\BattleObject.cpp">
       <Filter>SceneSwitcher\Scene\MainScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Card\Card.cpp">
+      <Filter>Card</Filter>
+    </ClCompile>
+    <ClCompile Include="Card\Follower\Follower.cpp">
+      <Filter>Card\Follower</Filter>
+    </ClCompile>
+    <ClCompile Include="Card\Spell\Spell.cpp">
+      <Filter>Card\Spell</Filter>
+    </ClCompile>
+    <ClCompile Include="Card\Weapon\Weapon.cpp">
+      <Filter>Card\Weapon</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
