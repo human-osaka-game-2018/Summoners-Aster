@@ -34,11 +34,19 @@
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\MenuButton.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\Player.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\PlayerName.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\MainScene.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\DrawPhase.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\EndPhase.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\MainPhase.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\Phase.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\PhaseSwitcher.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\BattlePreparingStep.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\BattleStep.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\PlayersInfomationRenderingStep\PlayerIcon.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\PlayersInfomationRenderingStep\PlayersInfomationRenderingStep.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\ResultStep.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\Step.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\StepSwitcher.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Turn\PhaseOperationStage.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Turn\Turn.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Turn\TurnStage.cpp" />
@@ -67,11 +75,19 @@
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\MenuButton.h" />
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\Player.h" />
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\PlayerName.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\MainScene.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\DrawPhase.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\EndPhase.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\MainPhase.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\Phase.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\PhaseSwitcher.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\BattlePreparingStep.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\BattleStep.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\PlayersInfomationRenderingStep\PlayerIcon.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\PlayersInfomationRenderingStep\PlayersInfomationRenderingStep.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\ResultStep.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\Step.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\StepSwitcher.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Turn\PhaseOperationStage.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Turn\Turn.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Turn\TurnStage.h" />
@@ -175,7 +191,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>DIRECTINPUT_VERSION=0x0800;DIRECT_X_VERSOIN_9;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>SceneSwitcher\Scene\MainScene\Phase;Button;SwitcherBase;SceneSwitcher;ObjectIntegrator;ObjectIntegrator\Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>SceneSwitcher\Scene\MainScene\Turn;SceneSwitcher\Scene\MainScene\Step;SceneSwitcher\Scene\MainScene\Phase;Button;SwitcherBase;SceneSwitcher;ObjectIntegrator;ObjectIntegrator\Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>d3dx9.lib;d3d9.lib;dinput8.lib;dxguid.lib;winmm.lib;GameFramework.lib;%(AdditionalDependencies)</AdditionalDependencies>
