@@ -42,8 +42,8 @@
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\PhaseSwitcher.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\BattlePreparingStep.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\BattleStep.cpp" />
-    <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\PlayersInfomationRenderingStep\PlayerIcon.cpp" />
-    <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\PlayersInfomationRenderingStep\PlayersInfomationRenderingStep.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\PlayersInformationRenderingStep\PlayerIcon.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\PlayersInformationRenderingStep\PlayersInformationRenderingStep.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\ResultStep.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\Step.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\StepSwitcher.cpp" />
@@ -83,8 +83,8 @@
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\PhaseSwitcher.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\BattlePreparingStep.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\BattleStep.h" />
-    <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\PlayersInfomationRenderingStep\PlayerIcon.h" />
-    <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\PlayersInfomationRenderingStep\PlayersInfomationRenderingStep.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\PlayersInformationRenderingStep\PlayerIcon.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\PlayersInformationRenderingStep\PlayersInformationRenderingStep.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\ResultStep.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\Step.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\StepSwitcher.h" />

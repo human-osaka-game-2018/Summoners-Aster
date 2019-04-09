@@ -41,7 +41,7 @@ namespace summonersaster
 
 		MainPhase& operator=(MainPhase& mainPhase) = delete;
 
-		void UpdateButton();
+		void LocaleButton();
 
 		Button* m_pEndButton = nullptr;
 	};

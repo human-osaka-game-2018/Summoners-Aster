@@ -44,7 +44,7 @@
     <Filter Include="SceneSwitcher\Scene\MainScene\Step">
       <UniqueIdentifier>{4c074a2d-f2d8-4a86-8be2-a4a2411dfd18}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SceneSwitcher\Scene\MainScene\Step\PlayerInfomationRenderingStep">
+    <Filter Include="SceneSwitcher\Scene\MainScene\Step\PlayerInformationRenderingStep">
       <UniqueIdentifier>{560267b3-fee4-4b98-b214-bf9cfe200206}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -154,12 +154,6 @@
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\StepSwitcher.h">
       <Filter>SceneSwitcher\Scene\MainScene\Step</Filter>
     </ClInclude>
-    <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\PlayersInfomationRenderingStep\PlayerIcon.h">
-      <Filter>SceneSwitcher\Scene\MainScene\Step\PlayerInfomationRenderingStep</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\PlayersInfomationRenderingStep\PlayersInfomationRenderingStep.h">
-      <Filter>SceneSwitcher\Scene\MainScene\Step\PlayerInfomationRenderingStep</Filter>
-    </ClInclude>
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\BattlePreparingStep.h">
       <Filter>SceneSwitcher\Scene\MainScene\Step</Filter>
     </ClInclude>
@@ -171,6 +165,12 @@
     </ClInclude>
     <ClInclude Include="SceneSwitcher\Scene\MainScene\MainScene.h">
       <Filter>SceneSwitcher\Scene\MainScene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\PlayersInformationRenderingStep\PlayerIcon.h">
+      <Filter>SceneSwitcher\Scene\MainScene\Step\PlayerInformationRenderingStep</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\PlayersInformationRenderingStep\PlayersInformationRenderingStep.h">
+      <Filter>SceneSwitcher\Scene\MainScene\Step\PlayerInformationRenderingStep</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -258,9 +258,6 @@
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\EndPhase.cpp">
       <Filter>SceneSwitcher\Scene\MainScene\Phase</Filter>
     </ClCompile>
-    <ClCompile Include="SceneSwitcher\Scene\MainScene\Turn\PhaseOperationStage.cpp">
-      <Filter>SceneSwitcher\Scene\MainScene\Turn</Filter>
-    </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Turn\Turn.cpp">
       <Filter>SceneSwitcher\Scene\MainScene\Turn</Filter>
     </ClCompile>
@@ -276,12 +273,6 @@
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\StepSwitcher.cpp">
       <Filter>SceneSwitcher\Scene\MainScene\Step</Filter>
     </ClCompile>
-    <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\PlayersInfomationRenderingStep\PlayersInfomationRenderingStep.cpp">
-      <Filter>SceneSwitcher\Scene\MainScene\Step\PlayerInfomationRenderingStep</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\PlayersInfomationRenderingStep\PlayerIcon.cpp">
-      <Filter>SceneSwitcher\Scene\MainScene\Step\PlayerInfomationRenderingStep</Filter>
-    </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\BattlePreparingStep.cpp">
       <Filter>SceneSwitcher\Scene\MainScene\Step</Filter>
     </ClCompile>
@@ -293,6 +284,15 @@
     </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\MainScene\MainScene.cpp">
       <Filter>SceneSwitcher\Scene\MainScene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Turn\PhaseOperationStage.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\Turn</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\PlayersInformationRenderingStep\PlayerIcon.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\Step\PlayerInformationRenderingStep</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\PlayersInformationRenderingStep\PlayersInformationRenderingStep.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\Step\PlayerInformationRenderingStep</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

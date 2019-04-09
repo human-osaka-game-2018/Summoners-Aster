@@ -6,7 +6,8 @@ namespace summonersaster
 
 	MainPhase::MainPhase()
 	{
-		
+		m_pEndButton = new Button(0xFF888888, true);
+		LocaleButton();
 	}
 
 	MainPhase::~MainPhase()
@@ -16,7 +17,7 @@ namespace summonersaster
 
 	void MainPhase::Initialize()
 	{
-		m_pEndButton = new Button(0xFF888888, true);
+		
 	}
 
 	void MainPhase::Finalize()
@@ -26,8 +27,6 @@ namespace summonersaster
 
 	void MainPhase::Update()
 	{
-		UpdateButton();
-
 		static bool isButtonClicked = false;
 
 		if (m_pEndButton->IsReleased())
@@ -53,7 +52,7 @@ namespace summonersaster
 		//Field.Render(_T("MAIN"));
 	}
 
-	void MainPhase::UpdateButton()
+	void MainPhase::LocaleButton()
 	{
 		Vertices& rEndButton = m_pEndButton->GetFrame();
 

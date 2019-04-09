@@ -52,7 +52,7 @@ namespace summonersaster
 	void PlayerIcon::Render()
 	{
 		PerformPreStaging();
-		DisplayInfomation();
+		DisplayInformation();
 		PerformPostStaging();
 
 		m_pVertices->Render(m_rGameFramework.GetTexture(pPLAYER_TEXTURE_KEY));
@@ -79,7 +79,7 @@ namespace summonersaster
 		}
 	}
 
-	void PlayerIcon::DisplayInfomation()
+	void PlayerIcon::DisplayInformation()
 	{
 		if (m_preStagingTakesFrames != 0) return;
 

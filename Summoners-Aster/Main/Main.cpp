@@ -34,11 +34,14 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 		if (!rGameFramework.CanStartNextFrame()) continue;
 
 		rGameFramework.PrepareInFrame();
+
 		sceneSwitcher.Update();
 		sceneSwitcher.Render();
 
 		rGameFramework.FinishInFrame();
 	}
+
 	sceneSwitcher.ReleaseInstance();
+
 	return 0;
 }

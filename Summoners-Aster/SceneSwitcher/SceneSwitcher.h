@@ -7,6 +7,9 @@
 
 #include "Scene/Scene.h"
 #include "SwitcherBase.h"
+#include "Scene/TitleScene/TitleScene.h"
+#include "Scene/HomeScene/HomeScene.h"
+#include "Scene/MainScene/MainScene.h"
 
 namespace summonersaster
 {

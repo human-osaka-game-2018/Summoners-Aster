@@ -9,7 +9,7 @@ namespace summonersaster
 
 	MainScene::~MainScene()
 	{
-
+		m_rStepSwitcher.ReleaseInstance();
 	}
 
 	void MainScene::Initialize()

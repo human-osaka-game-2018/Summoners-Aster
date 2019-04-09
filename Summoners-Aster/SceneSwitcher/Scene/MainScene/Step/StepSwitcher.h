@@ -7,6 +7,10 @@
 
 #include "Step.h"
 #include "SwitcherBase.h"
+#include "PlayersInformationRenderingStep/PlayersInformationRenderingStep.h"
+#include "BattlePreparingStep.h"
+#include "BattleStep.h"
+#include "ResultStep.h"
 
 namespace summonersaster
 {

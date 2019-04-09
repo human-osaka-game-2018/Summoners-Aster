@@ -8,7 +8,7 @@ namespace summonersaster
 	// シーンの種類
 	// TITLE
 	// HOME
-	// BATTLE
+	// MAIN
 	// RESULT
 
 	/// <summary>

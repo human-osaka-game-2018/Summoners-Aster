@@ -1,5 +1,5 @@
-﻿#ifndef BATTLE_PREPARING_H
-#define BATTLE_PREPARING_H
+﻿#ifndef BATTLE_PREPARING_STEP_H
+#define BATTLE_PREPARING_STEP_H
 
 #include "Step.h"
 #include "SwitchEventMediatorBase.h"
@@ -43,4 +43,4 @@ namespace summonersaster
 	};
 } // namespace summonersaster
 
-#endif //!BATTLE_PREPARING_H
+#endif //!BATTLE_PREPARING_STEP_H
