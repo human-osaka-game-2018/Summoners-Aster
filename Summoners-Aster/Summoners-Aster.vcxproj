@@ -206,6 +206,7 @@
       <PreprocessorDefinitions>DIRECTINPUT_VERSION=0x0800;DIRECT_X_VERSOIN_9;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalIncludeDirectories>SceneSwitcher\Scene\MainScene\Turn;SceneSwitcher\Scene\MainScene\Step;SceneSwitcher\Scene\MainScene\Phase;Button;SwitcherBase;SceneSwitcher;ObjectIntegrator;ObjectIntegrator\Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>d3dx9.lib;d3d9.lib;dinput8.lib;dxguid.lib;winmm.lib;GameFramework.lib;%(AdditionalDependencies)</AdditionalDependencies>
