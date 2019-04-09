@@ -41,6 +41,8 @@
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\MenuButton.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\Player.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\PlayerName.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Field\CardTransporter.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Field\Field.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\MainScene.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\DrawPhase.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\EndPhase.cpp" />
@@ -89,6 +91,8 @@
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\MenuButton.h" />
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\Player.h" />
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\PlayerName.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\CardTransporter.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\Field.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\MainScene.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\DrawPhase.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\EndPhase.h" />
@@ -205,7 +209,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>DIRECTINPUT_VERSION=0x0800;DIRECT_X_VERSOIN_9;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>SceneSwitcher\Scene\MainScene\Turn;SceneSwitcher\Scene\MainScene\Step;SceneSwitcher\Scene\MainScene\Phase;Button;SwitcherBase;SceneSwitcher;ObjectIntegrator;ObjectIntegrator\Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>SceneSwitcher\Scene\MainScene\Field;SceneSwitcher\Scene\MainScene\Turn;SceneSwitcher\Scene\MainScene\Step;SceneSwitcher\Scene\MainScene\Phase;Button;SwitcherBase;SceneSwitcher;ObjectIntegrator;ObjectIntegrator\Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>

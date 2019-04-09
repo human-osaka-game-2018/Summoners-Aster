@@ -47,6 +47,9 @@
     <Filter Include="SceneSwitcher\Scene\MainScene\Step\PlayerInformationRenderingStep">
       <UniqueIdentifier>{560267b3-fee4-4b98-b214-bf9cfe200206}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SceneSwitcher\Scene\MainScene\Field">
+      <UniqueIdentifier>{59585a46-eef8-458f-b02e-dfc7fb92ff0e}</UniqueIdentifier>
+    </Filter>
     <Filter Include="SceneSwitcher\Scene\BattleScene">
       <UniqueIdentifier>{471de5b6-2536-417d-92bc-1e04c7239923}</UniqueIdentifier>
     </Filter>
@@ -193,6 +196,12 @@
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\PlayersInformationRenderingStep\PlayersInformationRenderingStep.h">
       <Filter>SceneSwitcher\Scene\MainScene\Step\PlayerInformationRenderingStep</Filter>
     </ClInclude>
+     <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\Field.h">
+      <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\CardTransporter.h">
+      <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
+    </ClInclude>
     <ClInclude Include="SceneSwitcher\Scene\BattleScene\Deck\Deck.h">
       <Filter>SceneSwitcher\Scene\BattleScene\Deck</Filter>
     </ClInclude>
@@ -335,6 +344,12 @@
     </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\PlayersInformationRenderingStep\PlayersInformationRenderingStep.cpp">
       <Filter>SceneSwitcher\Scene\MainScene\Step\PlayerInformationRenderingStep</Filter>
+   </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Field\Field.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Field\CardTransporter.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\Field</Filter> 
     </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\BattleScene\Deck\Deck.cpp">
       <Filter>SceneSwitcher\Scene\BattleScene\Deck</Filter>
