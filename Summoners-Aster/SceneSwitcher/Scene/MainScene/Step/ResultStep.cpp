@@ -4,21 +4,9 @@ namespace summonersaster
 {
 	ResultStep::ResultStep()
 	{
-
-	}
-
-	ResultStep::~ResultStep()
-	{
-
-	}
-
-	void ResultStep::Initialize()
-	{
-		gameframework::GameFrameworkFactory::Create(&m_pStream);
-
-		*m_pStream = _T("WIN");
-
 		gameframework::WindowParam::GetWindowSize(&m_windowSize);
+
+		gameframework::GameFrameworkFactory::Create(&m_pStream);
 
 		RectSize fontSize;
 		fontSize.m_width = m_windowSize.m_width * 0.01f;
@@ -27,14 +15,26 @@ namespace summonersaster
 		m_rGameFramework.CreateFont(_T("RESULT"), fontSize, nullptr);
 	}
 
+	ResultStep::~ResultStep()
+	{
+		m_rGameFramework.ReleaseFont(_T("RESULT"));
+	}
+
+	void ResultStep::Initialize()
+	{
+	
+	}
+
 	void ResultStep::Finalize()
 	{
-		
+		m_stagingTakesFrames = 120;
+
+		m_isLoadedResult = false;
 	}
 
 	void ResultStep::Update()
 	{
-		
+		LoadResult();
 	}
 
 	void ResultStep::Render()
@@ -45,7 +45,18 @@ namespace summonersaster
 		{
 			m_stagingTakesFrames = 0;
 
+			SwitchEventMediatorBase<Step>::GetRef().SendSwitchEvent(_T("PLAYERS_INFOMATION_RENDERING_STEP"));
 			SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(_T("HOME"));
 		}
 	}
+
+	void ResultStep::LoadResult()
+	{
+		if (m_isLoadedResult) return;
+
+		m_isLoadedResult = true;
+
+		*m_pStream = _T("WIN");
+	}
+
 } // namespace summonersaster

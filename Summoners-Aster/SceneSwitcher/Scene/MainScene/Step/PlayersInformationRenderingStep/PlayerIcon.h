@@ -46,7 +46,7 @@ namespace summonersaster
 		PlayerIcon& operator=(PlayerIcon& playerIcon) = delete;
 
 		void PerformPreStaging();
-		void DisplayInfomation();
+		void DisplayInformation();
 		void PerformPostStaging();
 
 		int m_frame = 0;

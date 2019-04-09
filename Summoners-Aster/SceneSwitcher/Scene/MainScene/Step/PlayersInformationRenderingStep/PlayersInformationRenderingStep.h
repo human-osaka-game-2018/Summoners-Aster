@@ -1,5 +1,5 @@
-﻿#ifndef PLAYERS_INFOMATION_RENDERING_STEP_H
-#define PLAYERS_INFOMATION_RENDERING_STEP_H
+﻿#ifndef PLAYERS_INFORMATION_RENDERING_STEP_H
+#define PLAYERS_INFORMATION_RENDERING_STEP_H
 
 #include "Step.h"
 #include "SwitchEventMediatorBase.h"
@@ -11,11 +11,11 @@ namespace summonersaster
 	/// <summary>
 	/// プレイヤーの情報を表示するステップ
 	/// </summary>
-	class PlayersInfomationRenderingStep :public Step
+	class PlayersInformationRenderingStep :public Step
 	{
 	public:
-		PlayersInfomationRenderingStep();
-		~PlayersInfomationRenderingStep();
+		PlayersInformationRenderingStep();
+		~PlayersInformationRenderingStep();
 
 		/// <summary>
 		/// 初期化を行う
@@ -38,13 +38,17 @@ namespace summonersaster
 		void Render()override;
 
 	private:
-		PlayersInfomationRenderingStep(PlayersInfomationRenderingStep& playersInfomationRenderingStep) = delete;
+		PlayersInformationRenderingStep(PlayersInformationRenderingStep& playersInformationRenderingStep) = delete;
 
-		PlayersInfomationRenderingStep& operator=(PlayersInfomationRenderingStep& playersInfomationRenderingStep) = delete;
+		PlayersInformationRenderingStep& operator=(PlayersInformationRenderingStep& playersInformationRenderingStep) = delete;
+
+		void LoadPlayersInformation();
 
 		PlayerIcon* m_pOpponentIcon;
 		PlayerIcon* m_pProponentIcon;
+
+		bool m_isLoadedPlayersInfo = false;
 	};
 } // namespace summonersaster
 
-#endif //!PLAYERS_INFOMATION_RENDERING_STEP_H
+#endif //!PLAYERS_INFORMATION_RENDERING_STEP_H

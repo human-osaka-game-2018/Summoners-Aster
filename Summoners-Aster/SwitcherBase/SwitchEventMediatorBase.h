@@ -57,7 +57,7 @@ namespace summonersaster
 		/// <param name="pSwitchEventPost">イベントを受け取っているポインタ</param>
 		void UnregisterReceiver(SwitchEvent* pSwitchEventPost)
 		{
-			for (auto pPost : m_pSwitchEventPosts)
+			for (auto& pPost : m_pSwitchEventPosts)
 			{
 				int index = static_cast<int>(&pPost - &m_pSwitchEventPosts[0]);
 

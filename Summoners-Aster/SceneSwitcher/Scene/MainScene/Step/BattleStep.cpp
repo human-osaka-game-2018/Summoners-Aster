@@ -9,7 +9,7 @@ namespace summonersaster
 
 	BattleStep::~BattleStep()
 	{
-
+		m_rTurn.ReleaseInstance();
 	}
 
 	void BattleStep::Initialize()

@@ -43,11 +43,15 @@ namespace summonersaster
 
 		ResultStep& operator=(ResultStep& resultStep) = delete;
 
+		void LoadResult();
+
 		Stream* m_pStream = nullptr;
 
 		RectSize m_windowSize;
 
 		int m_stagingTakesFrames = 120;
+
+		bool m_isLoadedResult = false;
 
 		gameframework::GameFramework& m_rGameFramework = gameframework::GameFramework::GetRef();
 	};
