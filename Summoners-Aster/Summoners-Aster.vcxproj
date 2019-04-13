@@ -43,6 +43,8 @@
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\PlayerName.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Field\CardTransporter.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Field\Field.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Field\FollowerOrderMediator.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Field\RotationOrderMediator.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\MainScene.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\DrawPhase.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\EndPhase.cpp" />
@@ -94,6 +96,8 @@
     <ClInclude Include="SceneSwitcher\Scene\MainScene\BattleEnums.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\CardTransporter.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\Field.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\FollowerOrderMediator.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\RotationOrderMediator.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\MainScene.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\DrawPhase.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\EndPhase.h" />

@@ -8,6 +8,7 @@
 #include <GameFramework.h>
 
 #include "Field.h"
+#include "BattleEnums.h"
 
 namespace summonersaster
 {
@@ -21,16 +22,26 @@ namespace summonersaster
 	class Card;
 	class PP;
 
-	class Hand
+	class CardHolder
 	{
 	public:
-		std::vector<Card*>* GetHand()
+		std::vector<Card*>* GetCards()
 		{
 			return &m_pCards;
 		}
 
-	private:
+	protected:
 		std::vector<Card*> m_pCards;
+	};
+
+	class Hand :public CardHolder
+	{
+	
+	};
+
+	class Cemetary :public CardHolder
+	{
+
 	};
 
 	/// <summary>
@@ -47,10 +58,11 @@ namespace summonersaster
 		/// <summary>
 		/// プレイヤーの手札PPの登録
 		/// </summary>
+		/// <param name="PLAYER_KIND">プレイヤーの種類</param>
 		/// <param name="pHand">手札のポインタ</param>
+		/// <param name="pCemetary">墓地のポインタ</param>
 		/// <param name="pPP">PPのポインタ</param>
-		/// <param name="pKey">先行か後行かのキー</param>
-		void Register(Hand* pHand, PP* pPP, const TCHAR* pKey);
+		void Register(PLAYER_KIND playerKind, Hand* pHand, Cemetary* pCemetary, PP* pPP);
 
 		/// <summary>
 		/// 召喚マスにぶつかった現在ターンのプレイヤーの手札を召喚する
@@ -60,11 +72,17 @@ namespace summonersaster
 		/// </remarks>
 		void TransportCollideFollower();
 
+		/// <summary>
+		/// HPが0以下になったフォロワーを墓地へ送る
+		/// </summary>
+		void DestroyDeadFollower();
+
 	private:
 		struct PlayerSummonData
 		{
 		public:
-			Hand* m_pHand = nullptr;
+			Hand* m_pHand		  = nullptr;
+			Cemetary* m_pCemetary = nullptr;
 			PP* m_pPP = nullptr;
 		};
 
@@ -74,12 +92,12 @@ namespace summonersaster
 
 		void TransportFollower(int handCardIndex, int transportFieldIndex);
 
-		std::unordered_map<const TCHAR*, PlayerSummonData*> m_pHands;
+		std::unordered_map<PLAYER_KIND, PlayerSummonData> m_playersSummonData;
 
-		Vertices** m_pFollowerZones = nullptr;
+		FollowerData* m_pFollowerZone = nullptr;
 
 		Field& m_rField = Field::CreateAndGetRef();
 	};
-}
+} // namespace summonersaster
 
 #endif // !CARD_TRANSPORTER_H
