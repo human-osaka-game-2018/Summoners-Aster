@@ -202,8 +202,14 @@
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\CardTransporter.h">
       <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
     </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\FollowerOrderMediator.h">
+      <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
+    </ClInclude>
     <ClInclude Include="SceneSwitcher\Scene\MainScene\BattleEnums.h">
       <Filter>SceneSwitcher\Scene\MainScene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\RotationOrderMediator.h">
+      <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
     </ClInclude>
     <ClInclude Include="SceneSwitcher\Scene\BattleScene\Deck\Deck.h">
       <Filter>SceneSwitcher\Scene\BattleScene\Deck</Filter>
@@ -352,6 +358,12 @@
       <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
     </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Field\CardTransporter.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Field\FollowerOrderMediator.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Field\RotationOrderMediator.cpp">
       <Filter>SceneSwitcher\Scene\MainScene\Field</Filter> 
     </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\BattleScene\Deck\Deck.cpp">

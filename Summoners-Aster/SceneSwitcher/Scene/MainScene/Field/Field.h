@@ -10,6 +10,7 @@
 #include <GameFramework.h>
 
 #include "Button.h"
+#include "BattleEnums.h"
 
 namespace summonersaster
 {
@@ -22,6 +23,51 @@ namespace summonersaster
 
 	class Follower;
 	class Card;
+	class HP;
+
+	/*////////////////////////////////////////////// FollowerData //////////////////////////////////////////////*/
+	/// <summary>
+	/// フォロワー情報構造体
+	/// </summary>
+	struct FollowerData
+	{
+	public:
+		FollowerData();
+
+		~FollowerData();
+
+		Card* m_pFollower = nullptr;
+
+		/// <summary>
+		/// 召喚枠
+		/// </summary>
+		Vertices* m_pVertices = nullptr;
+
+		/// <summary>
+		/// 2pゾーンにいるか
+		/// </summary>
+		bool m_isOpponentZone = false;
+
+		/// <summary>
+		/// 現在選択されているか
+		/// </summary>
+		bool m_isSelected = true;
+
+		/// <summary>
+		/// 現在のターン中に移動を行った
+		/// </summary>
+		bool m_isMoved = false;
+
+		/// <summary>
+		/// 現在のターン中に攻撃を行った
+		/// </summary>
+		bool m_isAttacked = false;
+
+		/// <summary>
+		/// 現在のターン中に召喚された
+		/// </summary>
+		bool m_isSummoned = false;
+	};
 
 	/// <summary>
 	/// フォロワーを配置するフィールドクラス
@@ -43,7 +89,8 @@ namespace summonersaster
 		/// <summary>
 		/// 初期化を行う
 		/// </summary>
-		void Initialize();
+		/// <param name="isPropnentPrecedence">1pが先行か</param>
+		void Initialize(bool isPropnentPrecedence);
 		
 		/// <summary>
 		/// 終了処理を行う
@@ -58,7 +105,7 @@ namespace summonersaster
 		/// <summary>
 		/// 更新を行う
 		/// </summary>
-		void Update();
+		void Update(PLAYER_KIND currentPlayerKind);
 
 		/// <summary>
 		/// 描画を行う
@@ -68,15 +115,47 @@ namespace summonersaster
 		/// <summary>
 		/// フォロワーゾーンの取得
 		/// </summary>
-		/// <param name="ppFollowerZones"></param>
-		void GetFollowerZones(Vertices** ppFollowerZones);
-
+		/// <param name="ppFollowerData">取得したゾーンの先頭アドレスを入れるポインタ</param>
+		void GetFollowerZone(FollowerData** ppFollowerData);
+		
 		/// <summary>
 		/// フォロワーを召喚する
 		/// </summary>
 		/// <param name="index">要素番号</param>
 		/// <param name="pFollower">フォロワーのポインタ</param>
 		void SetFollower(int index, Card* pFollower);
+
+		/// <summary>
+		/// HPが0以下になったフォロワーを墓地へ送る
+		/// </summary>
+		/// <param name="pCemetary">墓地のカードベクター</param>
+		void DestroyDeadFollower(std::vector<Card*>* pCemetary);
+
+		/// <summary>
+		/// 引数のフォロワーの効果発動
+		/// </summary>
+		/// <param name="index">要素番号</param>
+		void ActivateAbirity(int index);
+
+		/// <summary>
+		/// 相手プレイヤーに攻撃を行う
+		/// </summary>
+		/// <param name="originIndex">主体者</param>
+		/// <param name="pHP">相手プレイヤーのHP</param>
+		void AttackPlayer(int originIndex, HP* pHP);
+
+		/// <summary>
+		/// 攻撃または移動を行う
+		/// </summary>
+		/// <param name="originIndex">主体者</param>
+		/// <param name="destIndex">対象となる場所の要素番号</param>
+		void AttackOrMove(int originIndex, int destIndex);
+
+		/// <summary>
+		/// 回転を行う
+		/// </summary>
+		/// <param name="isRightDirection">右回転かどうか</param>
+		void Rotate(bool isRightDirection);
 
 		/// <summary>
 		/// フィールドのフォロワー数
@@ -99,15 +178,16 @@ namespace summonersaster
 			void FinalizeInEndPhaseEnd();
 
 			/// <summary>
-			/// 円運動する
+			/// 更新を行う
 			/// </summary>
-			/// <param name="isRightDirection">右回転か</param>
-			void Circulation(bool isRightDirection);
+			/// <param name="currentPlayerKind">現在のターンプレイヤー</param>
+			void Update(PLAYER_KIND currentPlayerKind);
 
 			/// <summary>
-			/// フォロワーの処理更新
+			/// HPが0以下になったフォロワーを墓地へ送る
 			/// </summary>
-			void UpdateFollowerAction();
+			/// <param name="pCemetary">墓地のカードベクター</param>
+			void DestroyDeadFollower(std::vector<Card*>* pCemetary);
 
 			/// <summary>
 			/// 描画を行う
@@ -115,10 +195,36 @@ namespace summonersaster
 			void Render();
 
 			/// <summary>
+			/// 円運動する
+			/// </summary>
+			/// <param name="isRightDirection">右回転か</param>
+			void Circulation(bool isRightDirection);
+
+			/// <summary>
+			/// 引数のフォロワーの効果発動
+			/// </summary>
+			/// <param name="index">要素番号</param>
+			void ActivateAbirity(int index);
+
+			/// <summary>
+			/// 相手プレイヤーに攻撃を行う
+			/// </summary>
+			/// <param name="originIndex">主体者</param>
+			/// <param name="pHP">相手プレイヤーのHP</param>
+			void AttackPlayer(int originIndex, HP* pHP);
+
+			/// <summary>
+			/// 攻撃または移動を行う
+			/// </summary>
+			/// <param name="originIndex">主体者</param>
+			/// <param name="destIndex">対象となる場所の要素番号</param>
+			void AttackOrMove(int originIndex, int destIndex);
+
+			/// <summary>
 			/// フォロワーゾーンの取得
 			/// </summary>
-			/// <param name="ppFollowerZones"></param>
-			void GetFollowerZones(Vertices** ppFollowerZones);
+			/// <param name="ppFollowerData">取得したゾーンの先頭アドレスを入れるポインタ</param>
+			void GetFollowerZone(FollowerData** ppFollowerData);
 
 			/// <summary>
 			/// フォロワーを召喚する
@@ -132,93 +238,23 @@ namespace summonersaster
 			/// </summary>
 			const float ROTATION_DEGREE = 36.0f;
 
-		private:
-			/*////////////////////////////////////////////// FollowerData //////////////////////////////////////////////*/
 			/// <summary>
-			/// フォロワー情報構造体
+			/// フィールドのフォロワー数
 			/// </summary>
-			struct FollowerData
-			{
-			public:
-				FollowerData();
+			static const int FIELD_FOLLOWERS_NUM = 5;
 
-				~FollowerData();
-
-				Card* m_pFollower = nullptr;
-
-				Vertices* m_pVertices = nullptr;
-
-				/// <summary>
-				/// 2pゾーンにいるか
-				/// </summary>
-				bool m_isOpponentZone = false;
-
-				bool m_isSelected = true;
-
-				/// <summary>
-				/// 現在のターン中に移動を行った
-				/// </summary>
-				bool m_isMoved = false;
-				bool m_isAttacked = false;
-				bool m_isSummoned = false;
-			};
-
+		private:
 			/*////////////////////////////////////////////// Followers //////////////////////////////////////////////*/
 			Followers(Followers& followers) = delete;
 
 			Followers& operator=(Followers& followers) = delete;
 
 			/// <summary>
-			/// HPが0以下になったフォロワーを墓地へ送る
-			/// </summary>
-			void DestoroyDeadFollower();
-
-			/// <summary>
 			/// フォロワーを墓地へ送る
 			/// </summary>
-			/// <param name="index"></param>
-			/// <returns></returns>
-			Card* DestoroyFollower(int index);
-
-			/// <summary>
-			/// 選択されたフォロワーの効果の発動
-			/// </summary>
-			void ActivateAbirity();
-
-			/// <summary>
-			/// 引数のフォロワーの効果発動
-			/// </summary>
-			/// <param name="index">要素番号</param>
-			void ActivateAbirity(int index);
-
-			/// <summary>
-			/// 動作主フォロワーの選択または攻撃移動
-			/// </summary>
-			void SetIsSelectedAndAttackOrMove();
-
-			/// <summary>
-			/// 動作主フォロワーが選択されているか
-			/// </summary>
-			/// <returns>選択されていればtrue</returns>
-			bool IsSelected();
-
-			/// <summary>
-			/// 動作主フォロワーの設定
-			/// </summary>
-			/// <param name="pSelectedData">選択されたフォロワーのポインタ</param>
-			void SetIsSelected(FollowerData* pSelectedData);
-
-			/// <summary>
-			/// 選択状態をすべてニュートラルにする
-			/// </summary>
-			void NeutralizeSelecting();
-
-			/// <summary>
-			/// 現在動作主に選択されているフォロワーの取得
-			/// </summary>
-			/// <returns>選択されているフォロワーのインデックス</returns>
-			/// <remarks>選択されていなかった場合-1</remarks>
-			int GetSelectedFollowerIndex();
+			/// <param name="index">墓地へ送るカードのインデックス</param>
+			/// <returns>墓地へ送るカードのポインタ</returns>
+			Card* DestroyFollower(int index);
 
 			/// <summary>
 			/// 指定したフォロワーデータのフォロワーを空にする
@@ -233,13 +269,6 @@ namespace summonersaster
 			void InitializeFollowerDataState(int index);
 
 			/// <summary>
-			/// 攻撃または移動を行う
-			/// </summary>
-			/// <param name="originIndex">主体者</param>
-			/// <param name="destIndex">相手</param>
-			void AttackOrMove(int originIndex, int destIndex);
-
-			/// <summary>
 			/// 攻撃を行う
 			/// </summary>
 			/// <param name="originIndex">主体者</param>
@@ -247,21 +276,10 @@ namespace summonersaster
 			void Attack(int originIndex, int destIndex);
 
 			/// <summary>
-			/// 相手プレイヤーに攻撃を行う
-			/// </summary>
-			void AttackOpponent();
-
-			/// <summary>
-			/// 相手プレイヤーに攻撃を行う
-			/// </summary>
-			/// <param name="originIndex">主体者</param>
-			void Attack(int originIndex);
-
-			/// <summary>
 			/// 移動を行う
 			/// </summary>
 			/// <param name="originIndex">主体者</param>
-			/// <param name="destIndex">相手</param>
+			/// <param name="destIndex">移動する場所</param>
 			void Move(int originIndex, int destIndex);
 
 			/// <summary>
@@ -275,9 +293,10 @@ namespace summonersaster
 			void SetFollowerPos();
 
 			/// <summary>
-			/// 2pゾーンにいるかを判定する
+			/// 相対的に相手ゾーンにいるかを判定する
 			/// </summary>
-			void JudgeFollowersZone();
+			/// <param name="currentPlayerKind">現在のプレイヤー</param>
+			void JudgeFollowersZone(PLAYER_KIND currentPlayerKind);
 
 			RectSize m_windowSize;
 			D3DXVECTOR2 m_windowCenter = { 0.0f, 0.0f };
@@ -287,7 +306,7 @@ namespace summonersaster
 			/// </summary>
 			int m_fieldRotationNum = 0;
 
-			FollowerData m_followerDatas[5];
+			FollowerData m_followerDatas[FIELD_FOLLOWERS_NUM];
 
 			GameFramework& m_rGameFramework = GameFramework::GetRef();
 		};
@@ -298,16 +317,6 @@ namespace summonersaster
 		Field& operator=(Field& field) = delete;
 
 		/// <summary>
-		/// ボタンが押されたか確認し、それに応じて回転する
-		/// </summary>
-		void RotateByClickedButton();
-
-		/// <summary>
-		/// 回転ボタンの配置
-		/// </summary>
-		void LocaleButton();
-
-		/// <summary>
 		/// フィールドの配置
 		/// </summary>
 		void LocaleField();
@@ -316,12 +325,6 @@ namespace summonersaster
 		D3DXVECTOR2 m_windowCenter = { 0.0f, 0.0f };
 
 		Vertices* m_pVertices;
-
-		/// <summary>
-		/// 回転ボタン右左
-		/// </summary>
-		Button* m_pRRotationButton;
-		Button* m_pLRotationButton;
 
 		/// <summary>
 		/// 右回転+1左回転-1
