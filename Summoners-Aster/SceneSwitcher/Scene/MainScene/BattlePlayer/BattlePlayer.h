@@ -3,11 +3,11 @@
 
 #include <GameFramework.h>
 
-#include "Scene/BattleScene/Deck/Deck.h"
-#include "Scene/BattleScene/Hand/Hand.h"
-#include "Scene/BattleScene/Cemetery/Cemetery.h"
-#include "Scene/BattleScene/HP/HP.h"
-#include "Scene/BattleScene/MP/MP.h"
+#include "Scene/MainScene/Deck/Deck.h"
+#include "Scene/MainScene/Hand/Hand.h"
+#include "Scene/MainScene/Cemetery/Cemetery.h"
+#include "Scene/MainScene/HP/HP.h"
+#include "Scene/MainScene/MP/MP.h"
 
 namespace summonersaster
 {

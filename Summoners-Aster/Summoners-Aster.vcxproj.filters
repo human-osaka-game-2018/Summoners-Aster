@@ -50,26 +50,23 @@
     <Filter Include="SceneSwitcher\Scene\MainScene\Field">
       <UniqueIdentifier>{59585a46-eef8-458f-b02e-dfc7fb92ff0e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SceneSwitcher\Scene\BattleScene">
-      <UniqueIdentifier>{471de5b6-2536-417d-92bc-1e04c7239923}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SceneSwitcher\Scene\BattleScene\Deck">
-      <UniqueIdentifier>{dabd720e-8425-473a-a1a2-f152663b7ac5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SceneSwitcher\Scene\BattleScene\Hand">
-      <UniqueIdentifier>{73c81bd9-6d3e-4528-ad4b-75c52fcc0fa2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SceneSwitcher\Scene\BattleScene\BattlePlayer">
-      <UniqueIdentifier>{045a0001-d10c-4ad1-a965-9e534eb99cf6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SceneSwitcher\Scene\BattleScene\Cemetery">
+    <Filter Include="SceneSwitcher\Scene\MainScene\Cemetery">
       <UniqueIdentifier>{46579633-df13-42cc-bcdd-f177eae0b80b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SceneSwitcher\Scene\BattleScene\HP">
+    <Filter Include="SceneSwitcher\Scene\MainScene\Deck">
+      <UniqueIdentifier>{dabd720e-8425-473a-a1a2-f152663b7ac5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\MainScene\Hand">
+      <UniqueIdentifier>{73c81bd9-6d3e-4528-ad4b-75c52fcc0fa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\MainScene\HP">
       <UniqueIdentifier>{4117ba4e-a27c-4c64-9da6-4ed705250692}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SceneSwitcher\Scene\BattleScene\MP">
+    <Filter Include="SceneSwitcher\Scene\MainScene\MP">
       <UniqueIdentifier>{b41754a4-e88d-43fc-9e1d-5f7871e29a50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\MainScene\BattlePlayer">
+      <UniqueIdentifier>{045a0001-d10c-4ad1-a965-9e534eb99cf6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -196,7 +193,7 @@
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\PlayersInformationRenderingStep\PlayersInformationRenderingStep.h">
       <Filter>SceneSwitcher\Scene\MainScene\Step\PlayerInformationRenderingStep</Filter>
     </ClInclude>
-     <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\Field.h">
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\Field.h">
       <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
     </ClInclude>
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\CardTransporter.h">
@@ -211,26 +208,26 @@
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\RotationOrderMediator.h">
       <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
     </ClInclude>
-    <ClInclude Include="SceneSwitcher\Scene\BattleScene\Deck\Deck.h">
-      <Filter>SceneSwitcher\Scene\BattleScene\Deck</Filter>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\HP\HP.h">
+      <Filter>SceneSwitcher\Scene\MainScene\HP</Filter>
     </ClInclude>
-    <ClInclude Include="SceneSwitcher\Scene\BattleScene\Hand\Hand.h">
-      <Filter>SceneSwitcher\Scene\BattleScene\Hand</Filter>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\MP\MP.h">
+      <Filter>SceneSwitcher\Scene\MainScene\MP</Filter>
     </ClInclude>
-    <ClInclude Include="SceneSwitcher\Scene\BattleScene\Player\BattlePlayer.h">
-      <Filter>SceneSwitcher\Scene\BattleScene\BattlePlayer</Filter>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Hand\Hand.h">
+      <Filter>SceneSwitcher\Scene\MainScene\Hand</Filter>
     </ClInclude>
-    <ClInclude Include="SceneSwitcher\Scene\BattleScene\Cemetery\Cemetery.h">
-      <Filter>SceneSwitcher\Scene\BattleScene\Cemetery</Filter>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Deck\Deck.h">
+      <Filter>SceneSwitcher\Scene\MainScene\Deck</Filter>
     </ClInclude>
-    <ClInclude Include="SceneSwitcher\Scene\BattleScene\HP\HP.h">
-      <Filter>SceneSwitcher\Scene\BattleScene\HP</Filter>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\Cemetery\Cemetery.h">
+      <Filter>SceneSwitcher\Scene\MainScene\Cemetery</Filter>
     </ClInclude>
-    <ClInclude Include="SceneSwitcher\Scene\BattleScene\MP\MP.h">
-      <Filter>SceneSwitcher\Scene\BattleScene\MP</Filter>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\BattlePlayer\BattlePlayer.h">
+      <Filter>SceneSwitcher\Scene\MainScene\BattlePlayer</Filter>
     </ClInclude>
-    <ClInclude Include="SceneSwitcher\Scene\BattleScene\BattleObject.h">
-      <Filter>SceneSwitcher\Scene\BattleScene</Filter>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\BattleObject.h">
+      <Filter>SceneSwitcher\Scene\MainScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -353,7 +350,7 @@
     </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\PlayersInformationRenderingStep\PlayersInformationRenderingStep.cpp">
       <Filter>SceneSwitcher\Scene\MainScene\Step\PlayerInformationRenderingStep</Filter>
-   </ClCompile>
+    </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Field\Field.cpp">
       <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
     </ClCompile>
@@ -364,28 +361,28 @@
       <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
     </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Field\RotationOrderMediator.cpp">
-      <Filter>SceneSwitcher\Scene\MainScene\Field</Filter> 
+      <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
     </ClCompile>
-    <ClCompile Include="SceneSwitcher\Scene\BattleScene\Deck\Deck.cpp">
-      <Filter>SceneSwitcher\Scene\BattleScene\Deck</Filter>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\HP\HP.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\HP</Filter>
     </ClCompile>
-    <ClCompile Include="SceneSwitcher\Scene\BattleScene\Hand\Hand.cpp">
-      <Filter>SceneSwitcher\Scene\BattleScene\Hand</Filter>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\MP\MP.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\MP</Filter>
     </ClCompile>
-    <ClCompile Include="SceneSwitcher\Scene\BattleScene\Player\BattlePlayer.cpp">
-      <Filter>SceneSwitcher\Scene\BattleScene\BattlePlayer</Filter>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Hand\Hand.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\Hand</Filter>
     </ClCompile>
-    <ClCompile Include="SceneSwitcher\Scene\BattleScene\Cemetery\Cemetery.cpp">
-      <Filter>SceneSwitcher\Scene\BattleScene\Cemetery</Filter>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Deck\Deck.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\Deck</Filter>
     </ClCompile>
-    <ClCompile Include="SceneSwitcher\Scene\BattleScene\HP\HP.cpp">
-      <Filter>SceneSwitcher\Scene\BattleScene\HP</Filter>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Cemetery\Cemetery.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\Cemetery</Filter>
     </ClCompile>
-    <ClCompile Include="SceneSwitcher\Scene\BattleScene\MP\MP.cpp">
-      <Filter>SceneSwitcher\Scene\BattleScene\MP</Filter>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\BattlePlayer\BattlePlayer.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\BattlePlayer</Filter>
     </ClCompile>
-    <ClCompile Include="SceneSwitcher\Scene\BattleScene\BattleObject.cpp">
-      <Filter>SceneSwitcher\Scene\BattleScene</Filter>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\BattleObject.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

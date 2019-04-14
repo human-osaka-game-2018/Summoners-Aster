@@ -2,7 +2,7 @@
 #define DECK_H
 
 #include <vector>
-#include "Scene/BattleScene/BattleObject.h"
+#include "Scene/MainScene/BattleObject.h"
 
 //仮カードクラス
 class Card;
