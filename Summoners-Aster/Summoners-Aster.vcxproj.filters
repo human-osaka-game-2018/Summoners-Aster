@@ -1,7 +1,7 @@
-?ｿ<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="繝ｪ繧ｽ繝ｼ繧ｹ 繝輔ぃ繧､繝ｫ">
+    <Filter Include="リソース ファイル">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
@@ -86,7 +86,6 @@
     <Filter Include="Card\Spell">
       <UniqueIdentifier>{cbfe243c-c55c-4d30-a1d2-ee7e31c5a2b6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SceneSwitcher\Scene\BattleScene\MP">
     <Filter Include="SceneSwitcher\Scene\MainScene\BattlePlayer">
       <UniqueIdentifier>{045a0001-d10c-4ad1-a965-9e534eb99cf6}</UniqueIdentifier>
     </Filter>
