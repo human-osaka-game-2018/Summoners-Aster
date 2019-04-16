@@ -1,4 +1,5 @@
 ﻿#include "RotationOrderMediator.h"
+#include "Ability\CardAbilityMediator.h"
 
 using namespace gameframework;
 using namespace gameframework::algorithm;
@@ -59,9 +60,9 @@ namespace summonersaster
 		}
 
 		if (rotationDirectionCount == 0) return;
-
 		PLAYER_KIND currentPlayer = BattleInformation::CurrentPlayer();
 
+		CardAbilityMediator::Activator(Ability::ROTATE);
 		//現在のプレイヤー
 		if ((*m_pPlayerRotationPoints[currentPlayer]) <= 0) return;
 		--(*m_pPlayerRotationPoints[currentPlayer]);

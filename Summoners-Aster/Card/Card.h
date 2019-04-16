@@ -6,6 +6,7 @@
 
 #include <GameFramework.h>
 #include "BattleEnums.h"
+#include "Ability/Ability.h"
 
 namespace summonersaster
 {
@@ -117,6 +118,17 @@ namespace summonersaster
 			m_shouldDestroyed = shouldDestroyed;
 		}
 
+		inline Ability::Execute GetExcute() {
+			return m_ability.execute;
+		}
+		inline Ability::ActivationEvent GetActivationEvent() {
+			return m_ability.activationEvent;
+		}
+
+		void SetAbility(const Ability& ability) {
+			m_ability.activationEvent = ability.activationEvent;
+			m_ability.execute = ability.execute;
+		}
 		const TYPE CARD_TYPE;
 
 		const TCHAR* pTEXTURE_KEY = nullptr;
@@ -142,6 +154,7 @@ namespace summonersaster
 
 		Vertices* m_pCostRect = nullptr;
 		Stream* m_pCostStream = 0;
+		Ability m_ability;
 
 		gameframework::Vertices* m_pRect = nullptr;
 

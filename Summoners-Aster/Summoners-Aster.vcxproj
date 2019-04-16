@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -20,6 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button\Button.cpp" />
+    <ClCompile Include="Card\Ability\Ability.cpp" />
+    <ClCompile Include="Card\Ability\AbilityExecutor.cpp" />
+    <ClCompile Include="Card\Ability\CardAbilityMediator.cpp" />
     <ClCompile Include="Card\Card.cpp" />
     <ClCompile Include="Card\CardFolder.cpp" />
     <ClCompile Include="Card\Follower\Follower.cpp" />
@@ -88,6 +91,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button\Button.h" />
+    <ClInclude Include="Card\Ability\Ability.h" />
+    <ClInclude Include="Card\Ability\AbilityExecutor.h" />
+    <ClInclude Include="Card\Ability\CardAbilityMediator.h" />
     <ClInclude Include="Card\Card.h" />
     <ClInclude Include="Card\CardFolder.h" />
     <ClInclude Include="Card\Follower\Follower.h" />

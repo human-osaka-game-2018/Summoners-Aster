@@ -2,6 +2,8 @@
 
 namespace summonersaster
 {
+	std::unordered_map<PLAYER_KIND, BattlePlayer*> Players::m_pBattlePlayers;
+
 	Players::Players()
 	{
 		Initialize();
