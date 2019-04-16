@@ -54,8 +54,11 @@ namespace summonersaster
 		/// </summary>
 		virtual void InitializeInMainPhaseStart();
 
+		static BattlePlayer* GetPlayer(PLAYER_KIND kind) {
+			return m_pBattlePlayers[kind];
+		}
 	private:
-		std::unordered_map<PLAYER_KIND, BattlePlayer*> m_pBattlePlayers;
+		static std::unordered_map<PLAYER_KIND, BattlePlayer*> m_pBattlePlayers;
 	};
 } // namespace summonersaster
 

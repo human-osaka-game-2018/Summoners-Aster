@@ -50,6 +50,7 @@ void Deck::Load(PLAYER_KIND owner)
 	for (int i=0;i<LIMIT_CAPACITY;++i)
 	{
 		m_Cards[i] = rCardFolder.CreateCopy(cardName[i % (_countof(cardName))], owner);
+		m_Cards[i]->SetAbility(Ability(Ability::ROTATE, Ability::DRAWCARD));
 	}
 	//デッキ読み込み
 	//読み込み枚数が規定枚数でない場合エラーを吐かせる

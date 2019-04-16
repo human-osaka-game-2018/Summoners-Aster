@@ -1,5 +1,5 @@
 ﻿#include "BattlePlayer.h"
-
+#include "Ability/CardAbilityMediator.h"
 using namespace gameframework;
 
 namespace summonersaster
@@ -266,6 +266,7 @@ void BattlePlayer::Summon(int handCardIndex, int transportFieldIndex)
 	Follower** ppFollower = &m_pFollowerZone[transportFieldIndex].m_pFollower;
 
 	if (!PayMPAndTransportCard(ppFollower, (*pCards)[handCardIndex]->HCard())) return;
+	CardAbilityMediator::Register((*pCards)[handCardIndex]->HCard());
 
 	m_pHand->SendCard(handCardIndex);
 

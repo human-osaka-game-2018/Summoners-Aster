@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Main">
@@ -75,6 +75,9 @@
     </Filter>
     <Filter Include="SceneSwitcher\Scene\MainScene\RotationTickets">
       <UniqueIdentifier>{b4f283fc-797f-4a6a-9eec-b1b6a5f777ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Card\Ability">
+      <UniqueIdentifier>{0c142e45-613c-453e-b822-6e16a1323567}</UniqueIdentifier>
     </Filter>
     <Filter Include="SceneSwitcher\Scene\MainScene\MovableCard">
       <UniqueIdentifier>{df752b44-c215-4b12-af95-a8780734d528}</UniqueIdentifier>
@@ -294,6 +297,15 @@
     <ClInclude Include="SceneSwitcher\Scene\MainScene\CardTransporter\CardTransporterBase.h">
       <Filter>SceneSwitcher\Scene\MainScene\CardTransporter</Filter>
     </ClInclude>
+    <ClInclude Include="Card\Ability\Ability.h">
+      <Filter>Card\Ability</Filter>
+    </ClInclude>
+    <ClInclude Include="Card\Ability\CardAbilityMediator.h">
+      <Filter>Card\Ability</Filter>
+    </ClInclude>
+    <ClInclude Include="Card\Ability\AbilityExecutor.h">
+      <Filter>Card\Ability</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneSwitcher\SceneSwitcher.cpp">
@@ -493,6 +505,15 @@
     </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\MainScene\CardTransporter\CardTransporterBase.cpp">
       <Filter>SceneSwitcher\Scene\MainScene\CardTransporter</Filter>
+    </ClCompile>
+    <ClCompile Include="Card\Ability\Ability.cpp">
+      <Filter>Card\Ability</Filter>
+    </ClCompile>
+    <ClCompile Include="Card\Ability\CardAbilityMediator.cpp">
+      <Filter>Card\Ability</Filter>
+    </ClCompile>
+    <ClCompile Include="Card\Ability\AbilityExecutor.cpp">
+      <Filter>Card\Ability</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
