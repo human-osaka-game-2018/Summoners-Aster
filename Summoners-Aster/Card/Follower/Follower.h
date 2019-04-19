@@ -37,12 +37,17 @@ namespace summonersaster
 			m_attack = attack;
 		}
 
+		/// <summary>
+		/// フォロワーとのダメージ判定を行う
+		/// </summary>
+		/// <param name="pFollower">攻撃する側のフォロワー</param>
+		/// <returns>thisの参照</returns>
+		Follower& operator-=(const Follower* pFollower);
+
 	private:
 		Follower(Follower& follower) = delete;
 
 		Follower& operator=(Follower& follower) = delete;
-
-		Card& operator-=(Card* pCard) override;
 
 		int m_hP = 0;
 		int m_attack = 0;

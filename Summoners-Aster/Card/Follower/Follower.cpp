@@ -16,16 +16,10 @@ namespace summonersaster
 		*ppCard = new Follower(m_name, m_texturePath, m_cost, m_attack, m_hP);
 	}
 
-	Card& Follower::operator-=(Card* pCard)
+	Follower& Follower::operator-=(const Follower* pFollower)
 	{
-		if (pCard->CARD_TYPE == TYPE::FOLLOWER)
-		{
-			m_hP -= (dynamic_cast<Follower*>(pCard))->Attack();
+		m_hP -= pFollower->Attack();
 
-			return *this;
-		}
-
-		return ReduceCost(*pCard);
+		return *this;
 	}
-
 } // namespace summonersaster

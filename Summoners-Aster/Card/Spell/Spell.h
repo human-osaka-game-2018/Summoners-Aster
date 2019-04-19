@@ -8,7 +8,7 @@ namespace summonersaster
 	class Spell :public Card
 	{
 	public:
-		Spell(const tstring Name, const tstring& TexturePath, int Cost);
+		Spell(const tstring& name, const tstring& texturePath, int cost);
 		~Spell();
 		
 		/// <summary>

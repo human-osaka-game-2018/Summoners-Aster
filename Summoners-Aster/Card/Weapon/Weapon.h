@@ -8,7 +8,7 @@ namespace summonersaster
 	class Weapon :public Card
 	{
 	public:
-		Weapon(const tstring& Name, const tstring& TexturePath, int Cost, int Attack, int HitPoint);
+		Weapon(const tstring& name, const tstring& texturePath, int cost, int attack, int hitPoint);
 		~Weapon();
 
 		/// <summary>

@@ -5,12 +5,14 @@
 #include <tchar.h>
 
 #include <GameFramework.h>
+#include "BattleEnums.h"
 
 namespace summonersaster
 {
 	using gameframework::tstring;
 	using gameframework::RectSize;
 	using gameframework::Vertices;
+	using gameframework::Degree;
 	using gameframework::GameFramework;
 
 	/// <summary>
@@ -61,7 +63,7 @@ namespace summonersaster
 		/// </summary>
 		/// <param name="center">描画する際の中心座標</param>
 		/// <param name="size">描画する際のカードの幅と高さ</param>
-		void Render(const D3DXVECTOR3& center, const RectSize& size);
+		void Render(const D3DXVECTOR3& center, const RectSize& size, const Degree& rotationZ = 0.0f);
 
 		/// <summary>
 		/// 自身のコピーを動的確保する
@@ -84,16 +86,19 @@ namespace summonersaster
 			m_cost = cost;
 		}
 
-		/// <summary>
-		/// 引数のカードコスト分自身のものを減らす
-		/// </summary>
-		/// <param name="card">コストを減らすためのカード</param>
-		/// <returns>自身の参照</returns>
-		inline Card& ReduceCost(Card& card)
+		inline Vertices& Rect()
 		{
-			m_cost -= card.Cost();
+			return *m_pRect;
+		}
 
-			return *this;
+		inline PLAYER_KIND Owner()
+		{
+			return m_owner;
+		}
+
+		inline PLAYER_KIND Owner(PLAYER_KIND owner)
+		{
+			m_owner = owner;
 		}
 
 		const TYPE CARD_TYPE;
@@ -105,16 +110,12 @@ namespace summonersaster
 
 		Card& operator=(Card& card) = delete;
 
-		inline virtual Card& operator-=(Card* pCard)
-		{
-			return ReduceCost(*pCard);
-		}
-
 		tstring m_name;
 		tstring m_texturePath;
 		const TCHAR* pTEXTURE_KEY = nullptr;
 
-		int m_cost;
+		int m_cost = 0;
+		PLAYER_KIND m_owner = PLAYER_KIND::PROPONENT;
 
 		gameframework::Vertices* m_pRect = nullptr;
 
