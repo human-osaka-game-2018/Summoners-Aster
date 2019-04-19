@@ -2,8 +2,8 @@
 
 namespace summonersaster
 {
-	Weapon::Weapon(const tstring& Name, const tstring& TexturePath, int Cost, int Attack, int HitPoint) 
-		: Card(TYPE::WEAPON, Name, TexturePath, Cost), m_attack(Attack), m_hP(HitPoint)
+	Weapon::Weapon(const tstring& name, const tstring& texturePath, int cost, int attack, int hitPoint)
+		: Card(TYPE::WEAPON, name, texturePath, cost), m_attack(attack), m_hP(hitPoint)
 	{
 
 	}

@@ -2,7 +2,7 @@
 
 namespace summonersaster
 {
-	Spell::Spell(const tstring name, const tstring& texturePath, int cost) 
+	Spell::Spell(const tstring& name, const tstring& texturePath, int cost) 
 		: Card(TYPE::SPELL, name, texturePath, cost)
 	{
 	}
