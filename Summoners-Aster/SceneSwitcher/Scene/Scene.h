@@ -2,15 +2,10 @@
 #define SCENE_H
 
 #include "KindBase.h"
+#include "BattleEnums.h"
 
 namespace summonersaster
 {
-	// シーンの種類
-	// TITLE
-	// HOME
-	// MAIN
-	// RESULT
-
 	/// <summary>
 	/// シーンの基底クラス
 	/// </summary>

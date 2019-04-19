@@ -38,6 +38,7 @@
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\MenuButton.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\Player.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\PlayerName.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\BattleEnums.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\BattleObject.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\BattlePlayer\BattlePlayer.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Cemetery\Cemetery.cpp" />
@@ -49,12 +50,14 @@
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Hand\Hand.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\HP\HP.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\MainScene.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\MovableCard\MovableCard.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\MP\MP.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\DrawPhase.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\EndPhase.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\MainPhase.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\Phase.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Phase\PhaseSwitcher.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\RotationTickets\RotationTickets.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\BattlePreparingStep.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\BattleStep.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\PlayersInformationRenderingStep\PlayerIcon.cpp" />
@@ -106,12 +109,14 @@
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Hand\Hand.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\HP\HP.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\MainScene.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\MovableCard\MovableCard.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\MP\MP.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\DrawPhase.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\EndPhase.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\MainPhase.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\Phase.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Phase\PhaseSwitcher.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\RotationTickets\RotationTickets.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\BattlePreparingStep.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\BattleStep.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Step\PlayersInformationRenderingStep\PlayerIcon.h" />
@@ -222,7 +227,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>DIRECTINPUT_VERSION=0x0800;DIRECT_X_VERSOIN_9;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>SceneSwitcher\Scene\MainScene;SceneSwitcher\Scene\MainScene\Field;SceneSwitcher\Scene\MainScene\Turn;SceneSwitcher\Scene\MainScene\Step;SceneSwitcher\Scene\MainScene\Phase;Button;SwitcherBase;SceneSwitcher;ObjectIntegrator;ObjectIntegrator\Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Card;SceneSwitcher\Scene\MainScene;SceneSwitcher\Scene\MainScene\Field;SceneSwitcher\Scene\MainScene\Turn;SceneSwitcher\Scene\MainScene\Step;SceneSwitcher\Scene\MainScene\Phase;Button;SwitcherBase;SceneSwitcher;ObjectIntegrator;ObjectIntegrator\Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>

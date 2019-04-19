@@ -6,6 +6,11 @@ namespace summonersaster
 
 	MainPhase::MainPhase()
 	{
+		WindowParam::GetWindowSize(&m_windowSize);
+		m_windowCenter = { m_windowSize.m_width * 0.5f,m_windowSize.m_height * 0.5f };
+
+		m_rGameFramework.CreateTexture(_T("END_MAIN_BUTTON"), _T("Textures/Battle_endMainButton.png"));
+
 		m_pEndButton = new Button(0xFF888888, true);
 		LocaleButton();
 	}
@@ -34,22 +39,26 @@ namespace summonersaster
 			isButtonClicked = true;
 		}
 
-		//if (Players.Update(_T("MAIN")))
-		//{
-		//	if (!isButtonClicked) return;
-		//
-		//	isButtonClicked = false;
-		//
-		//	SwitchEventMediatorBase<Phase>::GetRef().SendSwitchEvent(_T("END"));
-		//}
+		m_pEndButton->GetFrame().SetColor(0xFFFFFFFF);
 
-		//Field.Update(_T("MAIN"));
+		if (m_rPlayer.Update(PHASE_KIND::MAIN))
+		{
+			if (!isButtonClicked) return;
+		
+			isButtonClicked = false;
+		
+			m_pEndButton->GetFrame().SetColor(0xFF888888);
+
+			SwitchEventMediatorBase<Phase>::GetRef().SendSwitchEvent(PHASE_KIND::END);
+		}
 	}
 
 	void MainPhase::Render()
 	{
-		//Players.Render(_T("MAIN"));
-		//Field.Render(_T("MAIN"));
+		m_rField.Render();
+		m_rPlayer.Render();
+		m_pEndButton->Render(m_rGameFramework.GetTexture(_T("END_MAIN_BUTTON")));
+		m_rRotationOrderMediator.Render();
 	}
 
 	void MainPhase::LocaleButton()
@@ -59,7 +68,10 @@ namespace summonersaster
 		RectSize windowSize;
 		WindowParam::GetWindowSize(&windowSize);
 
-		rEndButton.GetCenter() = { windowSize.m_width * 0.8f, windowSize.m_height * 0.5f, 1.0f };
-		rEndButton.GetSize() = { windowSize.m_width * 0.15f, windowSize.m_width * 0.15f };
+		rEndButton.GetCenter() = { windowSize.m_width, windowSize.m_height * 0.5f, 0.0f };
+
+		RectSize size;
+		size.m_width = size.m_height = windowSize.m_width * 0.17f;
+		rEndButton.GetSize() = size;
 	}
 } // namespace summonersaster

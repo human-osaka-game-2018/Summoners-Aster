@@ -9,6 +9,13 @@
 
 #include "Field.h"
 #include "BattleEnums.h"
+#include "Card.h"
+#include "MovableCard/MovableCard.h"
+#include "Follower/Follower.h"
+#include "Weapon/Weapon.h"
+#include "Hand/Hand.h"
+#include "MP/MP.h"
+#include "Cemetery/Cemetery.h"
 
 namespace summonersaster
 {
@@ -18,31 +25,6 @@ namespace summonersaster
 	using gameframework::RectSize;
 	using gameframework::GameFramework;
 	using gameframework::GameFrameworkFactory;
-
-	class Card;
-	class PP;
-
-	class CardHolder
-	{
-	public:
-		std::vector<Card*>* GetCards()
-		{
-			return &m_pCards;
-		}
-
-	protected:
-		std::vector<Card*> m_pCards;
-	};
-
-	class Hand :public CardHolder
-	{
-	
-	};
-
-	class Cemetary :public CardHolder
-	{
-
-	};
 
 	/// <summary>
 	/// フォロワーを召喚する際の当たり判定などのチェッククラス
@@ -56,19 +38,19 @@ namespace summonersaster
 		~CardTransporter();
 
 		/// <summary>
-		/// プレイヤーの手札PPの登録
+		/// プレイヤーの手札MPの登録
 		/// </summary>
 		/// <param name="PLAYER_KIND">プレイヤーの種類</param>
 		/// <param name="pHand">手札のポインタ</param>
 		/// <param name="pCemetary">墓地のポインタ</param>
-		/// <param name="pPP">PPのポインタ</param>
-		void Register(PLAYER_KIND playerKind, Hand* pHand, Cemetary* pCemetary, PP* pPP);
+		/// <param name="pMP">MPのポインタ</param>
+		void Register(PLAYER_KIND playerKind, Hand* pHand, Cemetery* pCemetary, MP* pMP);
 
 		/// <summary>
 		/// 召喚マスにぶつかった現在ターンのプレイヤーの手札を召喚する
 		/// </summary>
 		///	<remarks>
-		/// PPが足りなかったら失敗
+		/// MPが足りなかったら失敗
 		/// </remarks>
 		void TransportCollideFollower();
 
@@ -81,9 +63,11 @@ namespace summonersaster
 		struct PlayerSummonData
 		{
 		public:
+			PlayerSummonData();
+			PlayerSummonData(Hand* pHand, Cemetery* pCemetery, MP* pMP);
 			Hand* m_pHand		  = nullptr;
-			Cemetary* m_pCemetary = nullptr;
-			PP* m_pPP = nullptr;
+			Cemetery* m_pCemetary = nullptr;
+			MP* m_pMP = nullptr;
 		};
 
 		CardTransporter(CardTransporter& cardTransporter) = delete;

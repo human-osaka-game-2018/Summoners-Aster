@@ -3,6 +3,8 @@
 
 #include "Scene/Scene.h"
 #include "StepSwitcher.h"
+#include "Field.h"
+#include "BattlePlayer/BattlePlayer.h"
 
 namespace summonersaster
 {
@@ -38,6 +40,8 @@ namespace summonersaster
 		MainScene& operator=(MainScene& mainScene) = delete;
 
 		StepSwitcher& m_rStepSwitcher = StepSwitcher::CreateAndGetRef();
+		Field& m_rField = Field::CreateAndGetRef();
+		BattlePlayer& m_rPlayer = BattlePlayer::CreateAndGetRef();
 	};
 } // namespace summonersaster
 

@@ -9,7 +9,7 @@ namespace summonersaster
 
 	Turn::Turn()
 	{
-		m_switchEventPost.m_nextKind = m_currentKind = _T("TURN_UI_RENDERING");
+		m_switchEventPost.m_nextKind = m_currentKind = TURN_STAGE_KIND::UI_RENDERING;
 		CreateKindInstances();
 		SwitchKind();
 	}
@@ -18,7 +18,7 @@ namespace summonersaster
 	{
 		if (m_switchEventPost.m_shouldSwitch)
 		{
-			if (m_switchEventPost.m_nextKind == _T("TURN_UI_RENDERING"))
+			if (m_switchEventPost.m_nextKind == TURN_STAGE_KIND::UI_RENDERING)
 			{
 				IncrementTurn();
 			}
@@ -31,8 +31,8 @@ namespace summonersaster
 
 	void Turn::CreateKindInstances()
 	{
-		m_kinds[_T("TURN_UI_RENDERING")] = new TurnUIRenderingStage(m_isPreceding, m_turnNum);
-		m_kinds[_T("PHASE_OPERATION")]   = new PhaseOperationStage();
+		m_kinds[TURN_STAGE_KIND::UI_RENDERING] = new TurnUIRenderingStage(m_isPreceding, m_turnNum);
+		m_kinds[TURN_STAGE_KIND::PHASE_OPERATION] = new PhaseOperationStage();
 	}
 
 	void Turn::IncrementTurn()

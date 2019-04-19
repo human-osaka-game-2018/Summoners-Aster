@@ -9,16 +9,16 @@ namespace summonersaster
 
 	StepSwitcher::StepSwitcher()
 	{
-		m_switchEventPost.m_nextKind = m_currentKind = _T("PLAYERS_INFOMATION_RENDERING_STEP");
+		m_switchEventPost.m_nextKind = m_currentKind = STEP_KIND::PLAYERS_INFOMATION_RENDERING;
 		CreateKindInstances();
 		SwitchKind();
 	}
 
 	void StepSwitcher::CreateKindInstances()
 	{
-		m_kinds[_T("PLAYERS_INFOMATION_RENDERING_STEP")] = new PlayersInformationRenderingStep();
-		m_kinds[_T("BATTLE_PREPARING_STEP")]			 = new BattlePreparingStep();
-		m_kinds[_T("BATTLE_STEP")]						 = new BattleStep(); 
-		m_kinds[_T("RESULT_STEP")]						 = new ResultStep();
+		m_kinds[STEP_KIND::PLAYERS_INFOMATION_RENDERING] = new PlayersInformationRenderingStep();
+		m_kinds[STEP_KIND::BATTLE_PREPARING]			 = new BattlePreparingStep();
+		m_kinds[STEP_KIND::BATTLE]						 = new BattleStep();
+		m_kinds[STEP_KIND::RESULT]						 = new ResultStep();
 	}
 } // namespace summonersaster

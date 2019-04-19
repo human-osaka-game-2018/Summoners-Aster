@@ -9,6 +9,7 @@
 
 #include "Field.h"
 #include "BattleEnums.h"
+#include "RotationTickets/RotationTickets.h"
 
 namespace summonersaster
 {
@@ -20,9 +21,6 @@ namespace summonersaster
 	using gameframework::TextureUVs;
 	using gameframework::GameFramework;
 	using gameframework::GameFrameworkFactory;
-
-	class Card;
-	class RotationPoint;
 
 	/// <summary>
 	///	フィールド自体に命令を送る際の仲介クラス
@@ -36,6 +34,11 @@ namespace summonersaster
 		~RotationOrderMediator();
 
 		/// <summary>
+		/// エンドフェイズが終わるときの終了処理
+		/// </summary>
+		void FinalizeInEndPhaseEnd();
+
+		/// <summary>
 		/// テクスチャなどの読み込み
 		/// </summary>
 		void LoadResource();
@@ -45,7 +48,7 @@ namespace summonersaster
 		/// </summary>
 		/// <param name="PlayerKind">プレイヤーの種類</param>
 		/// <param name="pRotationPoint">回転権</param>
-		void Register(PLAYER_KIND PlayerKind, RotationPoint* pRotationPoint);
+		void Register(PLAYER_KIND PlayerKind, RotationTickets* pRotationPoint);
 
 		/// <summary>
 		/// 回転命令の処理
@@ -55,7 +58,8 @@ namespace summonersaster
 		/// <summary>
 		/// 回転UIの描画
 		/// </summary>
-		void Render();
+		/// <param name="isRunning">当たり判定をとっているか</param>
+		void Render(bool isRunning = true);
 
 	private:
 		RotationOrderMediator(RotationOrderMediator& rotationOrderMediator) = delete;
@@ -73,7 +77,9 @@ namespace summonersaster
 		Button* m_pRRotationButton = nullptr;
 		Button* m_pLRotationButton = nullptr;
 
-		std::unordered_map<PLAYER_KIND, RotationPoint*> m_pPlayerRotationPoints;
+		std::unordered_map<PLAYER_KIND, RotationTickets*> m_pPlayerRotationPoints;
+
+		bool m_rotated = false;
 
 		Field& m_rField = Field::CreateAndGetRef();
 

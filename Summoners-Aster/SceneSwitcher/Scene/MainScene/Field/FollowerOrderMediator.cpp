@@ -6,7 +6,7 @@ namespace summonersaster
 {
 	FollowerOrderMediator::FollowerOrderMediator()
 	{
-		m_rField.GetFollowerZone(&m_pFollowerZone);
+		
 	}
 
 	FollowerOrderMediator::~FollowerOrderMediator()
@@ -16,11 +16,15 @@ namespace summonersaster
 
 	void FollowerOrderMediator::Register(PLAYER_KIND PlayerKind, Vertices* pPlayerIconVertices, HP* pHP)
 	{
-		m_playersAttackData.emplace(PlayerKind, pPlayerIconVertices, pHP);
+		m_playersAttackData.emplace(std::piecewise_construct,
+			std::forward_as_tuple(PlayerKind),
+			std::forward_as_tuple(pPlayerIconVertices, pHP));
 	}
 
 	void FollowerOrderMediator::ProcessFollowerOrders()
 	{
+		m_rField.GetFollowerZone(&m_pFollowerZone);
+
 		if (m_rGameFramework.MouseIsPressed(gameframework::DirectX8Mouse::DIM_RIGHT))
 		{
 			ActivateAbirity();
@@ -36,12 +40,23 @@ namespace summonersaster
 		}
 	}
 
+	FollowerOrderMediator::PlayerAttackData::PlayerAttackData()
+	{
+
+	}
+
+	FollowerOrderMediator::PlayerAttackData::PlayerAttackData(Vertices* pVertices, HP* pHP)
+		:m_pPlayerIconVertices(pVertices), m_pHP(pHP)
+	{
+
+	}
+
 	int FollowerOrderMediator::GetFieldFollowerIndexCursorRidden()
 	{
 		for (int i = 0; i < m_rField.FIELD_FOLLOWERS_NUM; ++i)
 		{
 			//フォロワー配置ゾーンをクリックしていない 他ゾーンを確認
-			if (m_rGameFramework.IsCursorOnRect(*m_pFollowerZone[i].m_pVertices)) continue;
+			if (!m_rGameFramework.IsCursorOnRect(*m_pFollowerZone[i].m_pVertices)) continue;
 
 			return i;
 		}
@@ -57,7 +72,8 @@ namespace summonersaster
 
 		if (!m_pFollowerZone[index].m_pFollower) return;
 
-		//if (!m_pFollowerZone[index].m_pFollower->GetOwner() == 現在のプレイヤーじゃないほう) return;
+		//現在のプレイヤーじゃなかったら
+		if (m_pFollowerZone[index].m_pFollower->Owner() != PLAYER_KIND::PROPONENT) return;
 
 		m_rField.ActivateAbirity(index);
 	}
@@ -77,9 +93,10 @@ namespace summonersaster
 
 		if (m_pFollowerZone[index].m_pFollower)
 		{
-			//if (m_pFollowerZone[index].m_pFollower->GetOwner() == 現在のプレイヤー)
+			//現在のプレイヤーだったら
+			if (m_pFollowerZone[index].m_pFollower->Owner() == PLAYER_KIND::PROPONENT)
 			{
-				SetIsSelected(m_pFollowerZone);
+				SetIsSelected(&m_pFollowerZone[index]);
 
 				return;
 			}
@@ -98,13 +115,15 @@ namespace summonersaster
 
 	void FollowerOrderMediator::AttackPlayer()
 	{
-		//Vertices* pNextTurnPlayer = m_playersAttackData[現在のプレイヤーじゃないほう].m_pPlayerIconVertices;
-		//
-		//if (!IsSelected())return;
-		//
-		//if (!m_rGameFramework.IsCursorOnRect(*pNextTurnPlayer)) return;
+		//現在のプレイヤーじゃないほう
+		Vertices* pNextTurnPlayer = m_playersAttackData[PLAYER_KIND::PROPONENT].m_pPlayerIconVertices;
+		
+		if (!IsSelected())return;
+		
+		if (!m_rGameFramework.IsCursorOnRect(*pNextTurnPlayer)) return;
 
-		//m_rField.AttackPlayer(pNextTurnPlayer[現在のプレイヤーじゃないほう].m_pHP);
+		//現在のプレイヤーじゃないほう
+		m_rField.AttackPlayer(GetSelectingFollowerIndex(), m_playersAttackData[PLAYER_KIND::PROPONENT].m_pHP);
 		NeutralizeSelecting();
 	}
 

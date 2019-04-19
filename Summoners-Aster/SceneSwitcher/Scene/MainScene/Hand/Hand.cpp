@@ -55,7 +55,6 @@ Hand::RESULT Hand::AddCard(Card* card)
 		return DEAD;
 	}
 	m_MovableCards.push_back(new MovableCard(card));
-	MovableCard::NeutralizeSelecting();
 	if (MAX_CAPACITY < m_MovableCards.size())
 	{
 		return FLOOD;

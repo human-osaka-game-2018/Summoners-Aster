@@ -1,6 +1,7 @@
 ﻿#include "RotationOrderMediator.h"
 
 using namespace gameframework;
+using namespace gameframework::algorithm;
 
 namespace summonersaster
 {
@@ -15,6 +16,8 @@ namespace summonersaster
 		m_pLRotationButton = new Button(0xFF888888, false);
 
 		LocaleButton();
+
+		LoadResource();
 	}
 
 	RotationOrderMediator::~RotationOrderMediator()
@@ -22,40 +25,63 @@ namespace summonersaster
 		m_rGameFramework.ReleaseTexture(_T("ROTATION_BUTTON"));
 	}
 
+	void RotationOrderMediator::FinalizeInEndPhaseEnd()
+	{
+		m_rotated = false;
+	}
+
 	void RotationOrderMediator::LoadResource()
 	{
 		m_rGameFramework.CreateTexture(_T("ROTATION_BUTTON"), _T("Textures/Battle_rotationButtonR.png"));
 	}
 
-	void RotationOrderMediator::Register(PLAYER_KIND PlayerKind, RotationPoint* pRotationPoint)
+	void RotationOrderMediator::Register(PLAYER_KIND PlayerKind, RotationTickets* pRotationPoint)
 	{
-		m_pPlayerRotationPoints.emplace(PlayerKind, pRotationPoint);
+		m_pPlayerRotationPoints.emplace(std::piecewise_construct,
+			std::forward_as_tuple(PlayerKind),
+			std::forward_as_tuple(pRotationPoint));
 	}
 
 	void RotationOrderMediator::ProcessRotationOrders()
 	{
+		if (m_rotated) return;
+
 		int rotationDirectionCount = 0;
 
 		if (m_pRRotationButton->IsReleased())
 		{
-			--rotationDirectionCount;
+			++rotationDirectionCount;
 		}
 
 		if (m_pLRotationButton->IsReleased())
 		{
-			++rotationDirectionCount;
+			--rotationDirectionCount;
 		}
 
 		if (rotationDirectionCount == 0) return;
 
-		//if (!((*m_pPlayerRotationPoints[現在のプレイヤー]) -= 1)) return;
+		//現在のプレイヤー
+		if ((*m_pPlayerRotationPoints[PLAYER_KIND::PROPONENT]) <= 0) return;
+		--(*m_pPlayerRotationPoints[PLAYER_KIND::PROPONENT]);
 
-		m_rField.Rotate((rotationDirectionCount > 0) ? true : false);
+		m_rotated = true;
+
+		m_rField.Rotate(Tertiary(rotationDirectionCount > 0, true, false));
 	}
 
-	void RotationOrderMediator::Render()
+	void RotationOrderMediator::Render(bool isRunning)
 	{
 		LPTEXTURE pTexture = m_rGameFramework.GetTexture(_T("ROTATION_BUTTON"));
+
+		Color color = 0xFFFFFFFF;
+
+		if ((*m_pPlayerRotationPoints[PLAYER_KIND::PROPONENT]) <= 0 || m_rotated || !isRunning)
+		{
+			color = 0xFF888888;
+		}
+
+		m_pRRotationButton->GetFrame().GetColor() =
+		m_pLRotationButton->GetFrame().GetColor() = color;
 
 		m_pRRotationButton->Render(pTexture);
 		m_pLRotationButton->Render(pTexture);
@@ -63,21 +89,20 @@ namespace summonersaster
 
 	void RotationOrderMediator::LocaleButton()
 	{
-		float distanceByCenter = m_windowSize.m_width * 0.03f;
-		float buttonPosY = m_windowCenter.y * 1.75f;
-
+		float buttonPosY = m_windowCenter.y * 1.5f;
 		m_pRRotationButton->GetFrame().GetCenter() = m_pLRotationButton->GetFrame().GetCenter() =
 		{ m_windowCenter.x, buttonPosY, 0.0f };
 
+		float distanceByCenter = m_windowSize.m_width * 0.18f;
 		m_pRRotationButton->GetFrame().GetCenter().x -= distanceByCenter;
 		m_pLRotationButton->GetFrame().GetCenter().x += distanceByCenter;
 
 		RectSize buttonSize;
-		buttonSize.m_width = buttonSize.m_height = m_windowSize.m_width * 0.02f;
+		buttonSize.m_width = buttonSize.m_height = m_windowSize.m_width * 0.03f;
 
-		m_pRRotationButton->GetFrame().GetSize() = m_pRRotationButton->GetFrame().GetSize() = buttonSize;
+		m_pRRotationButton->GetFrame().GetSize() = m_pLRotationButton->GetFrame().GetSize() = buttonSize;
 
 		TextureUVs inverseTextures(D3DXVECTOR2(1.0f, 0.0f), RectSize(1.0f, 1.0f), RectSize(-1.0f, 1.0f), 1);
-		m_pLRotationButton->GetFrame().GetTextureUVs() = inverseTextures;
+		m_pRRotationButton->GetFrame().GetTextureUVs() = inverseTextures;
 	}
 } // namespace summonersaster

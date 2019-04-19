@@ -9,16 +9,15 @@ namespace summonersaster
 
 	SceneSwitcher::SceneSwitcher()
 	{
-		m_switchEventPost.m_nextKind = m_currentKind = _T("TITLE");
+		m_switchEventPost.m_nextKind = m_currentKind = SCENE_KIND::MAIN;
 		CreateKindInstances();
 		SwitchKind();
 	}
 
 	void SceneSwitcher::CreateKindInstances()
 	{
-		m_kinds[_T("TITLE")]  = new TitleScene();
-		m_kinds[_T("HOME")]   = new HomeScene();
-		m_kinds[_T("MAIN")]   = new MainScene();
-		//m_pScenes[Scene::KIND::RESULT] = new ResultScene();
+		m_kinds[SCENE_KIND::TITLE]  = new TitleScene();
+		m_kinds[SCENE_KIND::HOME]   = new HomeScene();
+		m_kinds[SCENE_KIND::MAIN]   = new MainScene();
 	}
 } // namespace summonersaster

@@ -24,17 +24,20 @@ namespace summonersaster
 
 	void EndPhase::Update()
 	{
-		//if (Players.Update(_T("END")))
-		//{
-		//	SwitchEventMediatorBase<Phase>::GetRef().SendSwitchEvent(_T("DRAW"));
-		//}
+		if (m_rPlayer.Update(PHASE_KIND::END))
+		{
+			SwitchEventMediatorBase<Phase>::GetRef().SendSwitchEvent(PHASE_KIND::DRAW);
+			SwitchEventMediatorBase<TurnStage>::GetRef().SendSwitchEvent(TURN_STAGE_KIND::UI_RENDERING);
 
-		//Field.Update(_T("END"));
+			m_rRotationOrderMediator.FinalizeInEndPhaseEnd();
+			m_rField.FinalizeInEndPhaseEnd();
+		}
 	}
 
 	void EndPhase::Render()
 	{
-		//Players.Render(_T("END"));
-		//Field.Render(_T("END"));
+		m_rField.Render();
+		m_rPlayer.Render();
+		m_rRotationOrderMediator.Render(false);
 	}
 } // namespace summonersaster

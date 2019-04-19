@@ -24,14 +24,22 @@ namespace summonersaster
 
 	void BattlePreparingStep::Update()
 	{
-		//if (Players.Update(_T("BattlePreparingStep")))
-		//{
-		//	SwitchEventMediatorBase<Step>::GetRef().SendSwitchEvent(_T("BATTLE_STEP"));
-		//}
+		if (m_rPlayer.Update(STEP_KIND::BATTLE_PREPARING))
+		{
+			std::random_device seed;
+			std::minstd_rand generator(seed());
+			std::uniform_int_distribution<int> dist(0, 1);
+
+			m_rField.Initialize(static_cast<bool>(dist(generator)));
+
+			SwitchEventMediatorBase<Step>::GetRef().SendSwitchEvent(STEP_KIND::BATTLE);
+		}
 	}
 
 	void BattlePreparingStep::Render()
 	{
-		//Players.Render(_T("BattlePreparingStep"));
+		m_rField.Render();
+		m_rPlayer.Render();
+		m_rRotationOrderMediator.Render(false);
 	}
 } // namespace summonersaster

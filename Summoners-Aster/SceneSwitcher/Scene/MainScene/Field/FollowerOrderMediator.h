@@ -9,6 +9,8 @@
 
 #include "Field.h"
 #include "BattleEnums.h"
+#include "Card.h"
+#include "Follower/Follower.h"
 
 namespace summonersaster
 {
@@ -18,9 +20,6 @@ namespace summonersaster
 	using gameframework::RectSize;
 	using gameframework::GameFramework;
 	using gameframework::GameFrameworkFactory;
-
-	class Card;
-	class HP;
 
 	/// <summary>
 	///	フィールドにある見方フォロワーに命令を送る際の仲介クラス
@@ -51,6 +50,9 @@ namespace summonersaster
 		struct PlayerAttackData
 		{
 		public:
+			PlayerAttackData();
+			PlayerAttackData(Vertices* pVertices, HP* pHP);
+
 			Vertices* m_pPlayerIconVertices = nullptr;
 			HP* m_pHP = nullptr;
 		};

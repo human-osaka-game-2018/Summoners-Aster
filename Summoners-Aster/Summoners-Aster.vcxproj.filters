@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="リソース ファイル">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Main">
       <UniqueIdentifier>{67909a9e-4389-47ab-a7e4-48170e7da9a1}</UniqueIdentifier>
     </Filter>
@@ -62,20 +58,8 @@
     <Filter Include="SceneSwitcher\Scene\MainScene\Hand">
       <UniqueIdentifier>{73c81bd9-6d3e-4528-ad4b-75c52fcc0fa2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SceneSwitcher\Scene\BattleScene\BattlePlayer">
-      <UniqueIdentifier>{045a0001-d10c-4ad1-a965-9e534eb99cf6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SceneSwitcher\Scene\BattleScene\Cemetery">
-      <UniqueIdentifier>{46579633-df13-42cc-bcdd-f177eae0b80b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SceneSwitcher\Scene\MainScene\HP">
       <UniqueIdentifier>{4117ba4e-a27c-4c64-9da6-4ed705250692}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SceneSwitcher\Scene\BattleScene\BattlePlayer">
-      <UniqueIdentifier>{045a0001-d10c-4ad1-a965-9e534eb99cf6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SceneSwitcher\Scene\BattleScene\Cemetery">
-      <UniqueIdentifier>{46579633-df13-42cc-bcdd-f177eae0b80b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Card\Follower">
       <UniqueIdentifier>{4e9bd5ca-dc4b-441b-94e6-21a8043c0414}</UniqueIdentifier>
@@ -91,6 +75,12 @@
     </Filter>
     <Filter Include="Card\Weapon">
       <UniqueIdentifier>{1f8a2190-ecf4-4678-b863-d53b82adea3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\MainScene\RotationTickets">
+      <UniqueIdentifier>{b4f283fc-797f-4a6a-9eec-b1b6a5f777ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\MainScene\MovableCard">
+      <UniqueIdentifier>{df752b44-c215-4b12-af95-a8780734d528}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -226,9 +216,6 @@
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\FollowerOrderMediator.h">
       <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
     </ClInclude>
-    <ClInclude Include="SceneSwitcher\Scene\MainScene\BattleEnums.h">
-      <Filter>SceneSwitcher\Scene\MainScene</Filter>
-    </ClInclude>
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\RotationOrderMediator.h">
       <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
     </ClInclude>
@@ -264,6 +251,15 @@
     </ClInclude>
     <ClInclude Include="Card\Weapon\Weapon.h">
       <Filter>Card\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\BattleEnums.h">
+      <Filter>SceneSwitcher\Scene\MainScene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\RotationTickets\RotationTickets.h">
+      <Filter>SceneSwitcher\Scene\MainScene\RotationTickets</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\MovableCard\MovableCard.h">
+      <Filter>SceneSwitcher\Scene\MainScene\MovableCard</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -366,9 +362,6 @@
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\StepSwitcher.cpp">
       <Filter>SceneSwitcher\Scene\MainScene\Step</Filter>
     </ClCompile>
-    <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\BattlePreparingStep.cpp">
-      <Filter>SceneSwitcher\Scene\MainScene\Step</Filter>
-    </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\BattleStep.cpp">
       <Filter>SceneSwitcher\Scene\MainScene\Step</Filter>
     </ClCompile>
@@ -431,6 +424,18 @@
     </ClCompile>
     <ClCompile Include="Card\Weapon\Weapon.cpp">
       <Filter>Card\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\BattleEnums.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\Step\BattlePreparingStep.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\Step</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\RotationTickets\RotationTickets.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\RotationTickets</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\MovableCard\MovableCard.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\MovableCard</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

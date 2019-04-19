@@ -11,6 +11,9 @@
 
 #include "Button.h"
 #include "BattleEnums.h"
+#include "Card.h"
+#include "Follower/Follower.h"
+#include "HP/HP.h"
 
 namespace summonersaster
 {
@@ -20,10 +23,6 @@ namespace summonersaster
 	using gameframework::RectSize;
 	using gameframework::GameFramework;
 	using gameframework::GameFrameworkFactory;
-
-	class Follower;
-	class Card;
-	class HP;
 
 	/*////////////////////////////////////////////// FollowerData //////////////////////////////////////////////*/
 	/// <summary>
@@ -36,7 +35,7 @@ namespace summonersaster
 
 		~FollowerData();
 
-		Card* m_pFollower = nullptr;
+		Follower* m_pFollower = nullptr;
 
 		/// <summary>
 		/// 召喚枠
@@ -91,7 +90,7 @@ namespace summonersaster
 		/// </summary>
 		/// <param name="isPropnentPrecedence">1pが先行か</param>
 		void Initialize(bool isPropnentPrecedence);
-		
+
 		/// <summary>
 		/// 終了処理を行う
 		/// </summary>
@@ -101,7 +100,7 @@ namespace summonersaster
 		/// 移動した攻撃したなどのフラグの初期化
 		/// </summary>
 		void FinalizeInEndPhaseEnd();
-		
+
 		/// <summary>
 		/// 更新を行う
 		/// </summary>
@@ -117,13 +116,13 @@ namespace summonersaster
 		/// </summary>
 		/// <param name="ppFollowerData">取得したゾーンの先頭アドレスを入れるポインタ</param>
 		void GetFollowerZone(FollowerData** ppFollowerData);
-		
+
 		/// <summary>
 		/// フォロワーを召喚する
 		/// </summary>
 		/// <param name="index">要素番号</param>
 		/// <param name="pFollower">フォロワーのポインタ</param>
-		void SetFollower(int index, Card* pFollower);
+		void SetFollower(int index, Follower* pFollower);
 
 		/// <summary>
 		/// HPが0以下になったフォロワーを墓地へ送る
@@ -167,11 +166,13 @@ namespace summonersaster
 		class Followers
 		{
 		public:
-			/// <param name="isPropnentPrecedence">1pが先行か</param>
-			Followers(bool isPropnentPrecedence);
+			Followers();
 
 			~Followers();
-			
+
+			/// <param name="isPropnentPrecedence">1pが先行か</param>
+			void Initialized(bool isPropnentPrecedence);
+
 			/// <summary>
 			/// 移動した攻撃したなどのフラグの初期化
 			/// </summary>
@@ -231,7 +232,7 @@ namespace summonersaster
 			/// </summary>
 			/// <param name="index">要素番号</param>
 			/// <param name="pFollower">フォロワーのポインタ</param>
-			void SetFollower(int index, Card* pFollower);
+			void SetFollower(int index, Follower* pFollower);
 
 			/// <summary>
 			/// 一回の回転角度
@@ -288,11 +289,6 @@ namespace summonersaster
 			void CreateBackRects();
 
 			/// <summary>
-			/// フォロワーの位置の設定
-			/// </summary>
-			void SetFollowerPos();
-
-			/// <summary>
 			/// 相対的に相手ゾーンにいるかを判定する
 			/// </summary>
 			/// <param name="currentPlayerKind">現在のプレイヤー</param>
@@ -316,15 +312,29 @@ namespace summonersaster
 
 		Field& operator=(Field& field) = delete;
 
-		/// <summary>
-		/// フィールドの配置
-		/// </summary>
-		void LocaleField();
+		void LocaleField(Vertices* pVertices);
+
+		void LocaleButton();
 
 		RectSize m_windowSize;
 		D3DXVECTOR2 m_windowCenter = { 0.0f, 0.0f };
 
-		Vertices* m_pVertices;
+		static const int FIELD_RECT_NUM = 6;
+
+		const TCHAR* pTEXTURE_KEYS[FIELD_RECT_NUM] =
+		{ 
+			_T("FIELD0"),
+			_T("FIELD1"),
+			_T("FIELD2"),
+			_T("FIELD3"),
+			_T("FIELD4"),
+			_T("FIELD5")
+		};
+
+		Vertices* m_pVertices[FIELD_RECT_NUM];
+		Vertices* m_pBackVertices;
+		Vertices* m_pGraphicFilterVertices;
+		Vertices* m_pEndButtonDummyVertices;
 
 		/// <summary>
 		/// 右回転+1左回転-1
