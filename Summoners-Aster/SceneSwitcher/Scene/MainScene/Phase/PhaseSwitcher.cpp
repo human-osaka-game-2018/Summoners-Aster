@@ -9,15 +9,15 @@ namespace summonersaster
 
 	PhaseSwitcher::PhaseSwitcher()
 	{
-		m_switchEventPost.m_nextKind = m_currentKind = _T("DRAW");
+		m_switchEventPost.m_nextKind = m_currentKind = PHASE_KIND::DRAW;
 		CreateKindInstances();
 		SwitchKind();
 	}
 
 	void PhaseSwitcher::CreateKindInstances()
 	{
-		m_kinds[_T("DRAW")] = new DrawPhase();
-		m_kinds[_T("MAIN")] = new MainPhase();
-		m_kinds[_T("END")]  = new EndPhase();
+		m_kinds[PHASE_KIND::DRAW] = new DrawPhase();
+		m_kinds[PHASE_KIND::MAIN] = new MainPhase();
+		m_kinds[PHASE_KIND::END]  = new EndPhase();
 	}
 } // namespace summonersaster

@@ -3,6 +3,7 @@
 
 #include "Phase.h"
 #include "SwitchEventMediatorBase.h"
+#include "TurnStage.h"
 
 namespace summonersaster
 {

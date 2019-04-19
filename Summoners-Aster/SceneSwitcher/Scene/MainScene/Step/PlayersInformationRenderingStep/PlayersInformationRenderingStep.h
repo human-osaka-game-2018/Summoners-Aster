@@ -44,8 +44,8 @@ namespace summonersaster
 
 		void LoadPlayersInformation();
 
-		PlayerIcon* m_pOpponentIcon;
-		PlayerIcon* m_pProponentIcon;
+		PlayerIcon* m_pOpponentIcon = nullptr;
+		PlayerIcon* m_pProponentIcon = nullptr;
 
 		bool m_isLoadedPlayersInfo = false;
 	};

@@ -1,6 +1,8 @@
 ﻿#ifndef BATTLE_PREPARING_STEP_H
 #define BATTLE_PREPARING_STEP_H
 
+#include <random>
+
 #include "Step.h"
 #include "SwitchEventMediatorBase.h"
 #include "TaskScheduler.h"

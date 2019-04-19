@@ -45,7 +45,7 @@ namespace summonersaster
 		{
 			m_stagingTakesFrames = 0;
 
-			SwitchEventMediatorBase<Step>::GetRef().SendSwitchEvent(_T("PLAYERS_INFOMATION_RENDERING_STEP"));
+			SwitchEventMediatorBase<Step>::GetRef().SendSwitchEvent(STEP_KIND::PLAYERS_INFOMATION_RENDERING);
 			SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(_T("HOME"));
 		}
 	}

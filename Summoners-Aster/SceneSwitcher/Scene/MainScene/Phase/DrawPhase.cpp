@@ -24,18 +24,19 @@ namespace summonersaster
 
 	void DrawPhase::Update()
 	{
-		////ドローフェイズの処理が完了しているならばメインフェイズへ移行
-		//if (Players.Update(_T("DRAW")))
-		//{
-		//	SwitchEventMediatorBase<Phase>::GetRef().SendSwitchEvent(_T("MAIN"));
-		//}
+		//ドローフェイズの処理が完了しているならばメインフェイズへ移行
+		if (m_rPlayer.Update(PHASE_KIND::DRAW))
+		{
+			SwitchEventMediatorBase<Phase>::GetRef().SendSwitchEvent(PHASE_KIND::MAIN);
 
-		//Field.Update(_T("DRAW"));
+			m_rPlayer.InitializeInMainPhaseStart();
+		}
 	}
 
 	void DrawPhase::Render()
 	{
-		//Players.Render(_T("DRAW"));
-		//Field.Render(_T("DRAW"));
+		m_rField.Render();
+		m_rPlayer.Render();
+		m_rRotationOrderMediator.Render(false);
 	}
 } // namespace summonersaster

@@ -20,7 +20,10 @@ namespace summonersaster
 	void PlayersInformationRenderingStep::Finalize()
 	{
 		delete m_pProponentIcon;
+		m_pProponentIcon = nullptr;
+
 		delete m_pOpponentIcon;
+		m_pOpponentIcon = nullptr;
 
 		m_isLoadedPlayersInfo = false;
 	}
@@ -34,12 +37,14 @@ namespace summonersaster
 
 		if (m_pProponentIcon->IsFinished())
 		{
-			SwitchEventMediatorBase<Step>::GetRef().SendSwitchEvent(_T("BATTLE_PREPARING_STEP"));
+			SwitchEventMediatorBase<Step>::GetRef().SendSwitchEvent(STEP_KIND::BATTLE_PREPARING);
 		}
 	}
 
 	void PlayersInformationRenderingStep::Render()
 	{
+		m_rField.Render();
+		m_rRotationOrderMediator.Render(false);
 		m_pProponentIcon->Render();
 		m_pOpponentIcon->Render();
 	}
@@ -50,8 +55,8 @@ namespace summonersaster
 
 		m_isLoadedPlayersInfo = true;
 
-		m_pProponentIcon = new PlayerIcon(_T("aiueo"), false);
-		m_pOpponentIcon = new PlayerIcon(_T("aiueo"), true);
+		m_pProponentIcon = new PlayerIcon(_T("カシオペア"), false);
+		m_pOpponentIcon = new PlayerIcon(_T("カシオペア"), true);
 	}
 
 } // namespace summonersaster

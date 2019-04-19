@@ -4,6 +4,7 @@
 #include "Phase.h"
 #include "SwitchEventMediatorBase.h"
 #include "Button.h"
+#include "RotationOrderMediator.h"
 
 namespace summonersaster
 {
@@ -44,6 +45,11 @@ namespace summonersaster
 		void LocaleButton();
 
 		Button* m_pEndButton = nullptr;
+
+		RectSize m_windowSize;
+		D3DXVECTOR2 m_windowCenter = { 0.0f, 0.0f };
+
+		GameFramework& m_rGameFramework = GameFramework::GetRef();
 	};
 } // namespace summonersaster
 

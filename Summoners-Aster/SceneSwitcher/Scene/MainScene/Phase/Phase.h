@@ -2,14 +2,12 @@
 #define PHASE_H
 
 #include "KindBase.h"
+#include "BattlePlayer/BattlePlayer.h"
+#include "BattleEnums.h"
+#include "Field.h"
 
 namespace summonersaster
 {
-	// フェイズの種類
-	// DRAW
-	// MAIN
-	// END
-
 	/// <summary>
 	/// フェイズの基底クラス
 	/// </summary>
@@ -22,6 +20,10 @@ namespace summonersaster
 		Phase();
 
 		int m_frame = 0;
+
+		Field& m_rField = Field::CreateAndGetRef();
+		BattlePlayer& m_rPlayer = BattlePlayer::CreateAndGetRef();
+		RotationOrderMediator& m_rRotationOrderMediator = RotationOrderMediator::CreateAndGetRef();
 	};
 } // namespace summonersaster
 

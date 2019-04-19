@@ -31,7 +31,7 @@ namespace summonersaster
 		{
 			if (!m_phaseSwitchEventPost.m_shouldSwitch) return;
 
-			SwitchEventMediatorBase<TurnStage>::GetRef().SendSwitchEvent(_T("TURN_UI_RENDERING"));
+			SwitchEventMediatorBase<TurnStage>::GetRef().SendSwitchEvent(TURN_STAGE_KIND::UI_RENDERING);
 		}
 	}
 

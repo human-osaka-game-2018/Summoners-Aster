@@ -1,6 +1,7 @@
 ﻿#include "PlayerIcon.h"
 
 using namespace gameframework;
+using namespace gameframework::algorithm;
 
 namespace summonersaster
 {
@@ -18,24 +19,26 @@ namespace summonersaster
 	void PlayerIcon::Initialize()
 	{
 		GameFrameworkFactory::Create(&m_pVertices);
-		m_pVertices->GetSize() = { m_windowSize.m_width * 0.4f, m_windowSize.m_height * 0.48f };
-		float sign = (m_isOpponent) ? +1.0f : -1.0f;
-		m_pVertices->GetCenter().y = m_windowCenter.y + m_windowSize.m_width * 0.25f * sign;
+		m_pVertices->GetSize() = { m_windowSize.m_width * 0.19f, m_windowSize.m_height * 0.4f };
+		float sign = Tertiary(m_isOpponent, +1.0f, -1.0f);
+		m_pVertices->GetCenter().y = m_windowCenter.y + m_windowSize.m_height * 0.25f * sign;
+		m_pVertices->GetCenter().z = 0.0f;
 
 		GameFrameworkFactory::Create(&m_pStream);
 
-		m_streamTopLeft.y = m_windowSize.m_height * 0.3f + (m_isOpponent) ? 0.0f : m_windowSize.m_height * 0.5f;
+		m_streamTopLeft.y = m_windowSize.m_height * 0.1f + Tertiary(m_isOpponent, 0.0f, m_windowSize.m_height * 0.5f);
 
 		(*m_pStream = _T("RANK ")) += _T("999");
 		*m_pStream += _T("\n");
-		*m_pStream = (m_isOpponent) ? _T("エフリ") : _T("卍7位さん卍");
+		*m_pStream += Tertiary(m_isOpponent, _T("エフリ・レフル"), _T("ブレイバー・シオン"));
 
 		LoadResource();
 	}
 
 	void PlayerIcon::LoadResource()
 	{
-		m_rGameFramework.CreateFont(_T("PLAYER_INFO"), RectSize(30.0f, 60.0f), nullptr);
+		m_rGameFramework.CreateFont(_T("PLAYER_INFO"), RectSize(25.0f, 50.0f), nullptr);
+		m_rGameFramework.CreateTexture(pPLAYER_TEXTURE_KEY, _T("Textures/Player.png"));
 	}
 
 	void PlayerIcon::Finalize()
@@ -64,29 +67,27 @@ namespace summonersaster
 	{
 		D3DXVECTOR3& rCenter = m_pVertices->GetCenter();
 
-		float sign = (m_isOpponent) ? +1.0f : -1.0f;
-		rCenter.x = m_windowCenter.x + m_windowSize.m_width * 0.3f * sign;
+		float sign = Tertiary(m_isOpponent, +1.0f, -1.0f);
+		rCenter.x = m_windowCenter.x + m_windowSize.m_width * 0.3f * -sign;
 
-		float shiftAmountX = m_windowSize.m_width * 0.3f * (m_preStagingTakesFrames / 30.0f) * sign;
+		float shiftAmountX = m_windowSize.m_width * 1.0f * (m_preStagingTakesFrames / 30.0f) * sign;
 		rCenter.x += shiftAmountX;
 
-		m_streamTopLeft.x = m_windowSize.m_width  * 0.1f + (m_isOpponent) ? 0.0f : m_windowSize.m_width  * 0.5f;
+		m_streamTopLeft.x = m_windowSize.m_width  * 0.1f + Tertiary(m_isOpponent, 0.0f, m_windowSize.m_width  * 0.5f);
 		m_streamTopLeft.x += shiftAmountX;
 
-		if ((m_preStagingTakesFrames--) >= 0)
-		{
-			m_preStagingTakesFrames = 0;
-		}
+		if ((m_preStagingTakesFrames--) > 0) return;
+		
+		m_preStagingTakesFrames = 0;
 	}
 
 	void PlayerIcon::DisplayInformation()
 	{
 		if (m_preStagingTakesFrames != 0) return;
 
-		if ((m_displayInfoTakesFrames--) >= 0)
-		{
-			m_displayInfoTakesFrames = 0;
-		}
+		if ((m_displayInfoTakesFrames--) > 0) return;
+
+		m_displayInfoTakesFrames = 0;
 	}
 
 	void PlayerIcon::PerformPostStaging()
@@ -95,19 +96,18 @@ namespace summonersaster
 
 		D3DXVECTOR3& rCenter = m_pVertices->GetCenter();
 
-		float sign = (m_isOpponent) ? +1.0f : -1.0f;
+		float sign = Tertiary(m_isOpponent, -1.0f, +1.0f);
 		float shiftAmountY = m_windowSize.m_height * 0.033f * sign;
 
-		rCenter.y += shiftAmountY;
+		rCenter.y -= shiftAmountY;
 
 		m_streamTopLeft.y += shiftAmountY;
 
-		if ((m_postStagingTakesFrames--) >= 0)
-		{
-			m_postStagingTakesFrames = 0;
+		if ((m_postStagingTakesFrames--) > 0) return;
 
-			m_isFinished = true;
-		}
+		m_postStagingTakesFrames = 0;
+
+		m_isFinished = true;
 	}
 
 } // namespace summonersaster

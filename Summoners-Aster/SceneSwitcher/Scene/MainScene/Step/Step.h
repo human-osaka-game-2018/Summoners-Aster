@@ -2,15 +2,12 @@
 #define STEP_H
 
 #include "KindBase.h"
+#include "BattlePlayer/BattlePlayer.h"
+#include "BattleEnums.h"
+#include "Field.h"
 
 namespace summonersaster
 {
-	// ステップの種類
-	// PLAYERS_INFOMATION_RENDERING_STEP
-	// BATTLE_PREPARING_STEP
-	// BATTLE_STEP
-	// RESULT_STEP
-
 	/// <summary>
 	/// ステップの基底クラス
 	/// </summary>
@@ -23,6 +20,10 @@ namespace summonersaster
 		Step();
 
 		int m_frame = 0;
+
+		Field& m_rField = Field::CreateAndGetRef();
+		BattlePlayer& m_rPlayer = BattlePlayer::CreateAndGetRef();
+		RotationOrderMediator& m_rRotationOrderMediator = RotationOrderMediator::CreateAndGetRef();
 	};
 } // namespace summonersaster
 

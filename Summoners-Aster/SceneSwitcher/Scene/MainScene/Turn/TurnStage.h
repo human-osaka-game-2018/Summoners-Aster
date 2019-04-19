@@ -2,13 +2,12 @@
 #define TURN_STAGE_H
 
 #include "KindBase.h"
+#include "BattleEnums.h"
+#include "BattlePlayer/BattlePlayer.h"
+#include "Field.h"
 
 namespace summonersaster
 {
-	// フェイズの種類
-	// TURN_UI_RENDERING
-	// PHASE_OPERATION
-
 	/// <summary>
 	/// フェイズの基底クラス
 	/// </summary>
@@ -19,6 +18,10 @@ namespace summonersaster
 
 	protected:
 		TurnStage();
+
+		Field& m_rField = Field::CreateAndGetRef();
+		BattlePlayer& m_rPlayer = BattlePlayer::CreateAndGetRef();
+		RotationOrderMediator& m_rRotationOrderMediator = RotationOrderMediator::CreateAndGetRef();
 	};
 } // namespace summonersaster
 

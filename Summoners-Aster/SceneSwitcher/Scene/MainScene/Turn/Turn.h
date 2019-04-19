@@ -52,7 +52,7 @@ namespace summonersaster
 
 		void IncrementTurn();
 
-		bool m_isPreceding = false;
+		bool m_isPreceding = true;
 		int m_turnNum = 1;
 	};
 } // namespace summonersaster
