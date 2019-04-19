@@ -5,8 +5,7 @@
 using namespace gameframework;
 namespace summonersaster
 {
-
-Deck::Deck(const char* deckName):DECK_NAME(deckName)
+Deck::Deck(const tstring& deckName):DECK_NAME(deckName)
 {
 }
 
@@ -16,23 +15,16 @@ Deck::~Deck()
 
 void Deck::Render()
 {
-#ifdef _DEBUG
-	for (int i = 0; i < m_Cards.size(); ++i)
-	{
-		SetString(L"%d", m_Cards[i]->ID);
-		WriteWords(D3DXVECTOR2(i * (Card::DEBUG_WORD_WIGTH * 1.5f) + Card::DEBUG_WORD_WIGTH * 2, 800.f), _T("Debug_str"), DT_RIGHT, (0xFFAAAAAA));
-	}
-#endif
 	Color color;
 	if (0 == m_Cards.size())
 		color = (255, 255, 0, 0);
 	
-	SetVertex(D3DXVECTOR3(m_TexturCenter.x, m_TexturCenter.y, 0.0f), RectSize(200.f, 260.f),color);
-	DrowTexture(_T("TEAM_LOGO"));
+	m_pRect->SetRotationZ(-90.0f);
+	SetVertex(D3DXVECTOR3(m_TexturCenter.x, m_TexturCenter.y, 0.01f), RectSize(100.0f, 141.0f),color);
+	DrawTexture(_T("CARD_BACK"));
 
 	SetString(L"%d", static_cast<int>(m_Cards.size()));
 	WriteWords(D3DXVECTOR2(m_TexturCenter.x + 150.f, m_TexturCenter.y), _T("INPUT_PROMPT"), DT_RIGHT, (0xFFAAAAAA));
-
 }
 
 void Deck::Destroy()
@@ -50,7 +42,7 @@ void Deck::Load()
 	m_Cards.resize(LIMIT_CAPACITY);
 	for (int i=0;i<LIMIT_CAPACITY;++i)
 	{
-		//m_Cards[i] = new Card(i);
+		m_Cards[i] = new Follower(_T("カシオペア"), _T("Textures/Player.png"), 1, 2, 2);
 	}
 	//デッキ読み込み
 	//読み込み枚数が規定枚数でない場合エラーを吐かせる

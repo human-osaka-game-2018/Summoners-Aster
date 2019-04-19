@@ -14,23 +14,19 @@ Cemetery::~Cemetery()
 
 void Cemetery::Render()
 {
-	if (0 == m_Cards.size()) return;
-#ifdef _DEBUG
+	const RectSize CARD_SIZE(100.f, 141.f);
+	const Degree ROTATION_Z(-90.0f);
+	const D3DXVECTOR3 POS(m_TexturCenter.x, m_TexturCenter.y, 0.01f);
 
-	for (int i = 0; i < m_Cards.size(); ++i)
+	SetVertex(POS, CARD_SIZE, 0xAA000000);
+	m_pRect->SetRotationZ(ROTATION_Z);
+
+	DrawTexture(_T("CARD_BACK"));
+
+	for (auto& pCard : m_Cards)
 	{
-		SetString(L"%d", m_Cards[i]->ID);
-		WriteWords(D3DXVECTOR2(i * (Card::DEBUG_WORD_WIGTH * 1.5f) + Card::DEBUG_WORD_WIGTH * 2, 300.f), _T("Debug_str"), DT_RIGHT, (0xFF00FF00));
-		
+		pCard->Render(POS, CARD_SIZE, ROTATION_Z);
 	}
-#endif
-	SetVertex(D3DXVECTOR3(m_TexturCenter.x, m_TexturCenter.y, 0.0f), RectSize(200.f, 260.f), Color());
-	DrowTexture(_T("TEAM_LOGO"));
-
-	SetString(L"%d", static_cast<int>(m_Cards.size()));
-	WriteWords(D3DXVECTOR2(m_TexturCenter.x + 150.f, m_TexturCenter.y), _T("INPUT_PROMPT"), DT_RIGHT, (0xFF00FF00));
-
-
 }
 
 void Cemetery::Destroy()

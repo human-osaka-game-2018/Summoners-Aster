@@ -31,7 +31,7 @@ public:
 	/// 画像の描画
 	/// </summary>
 	/// <param name="pTextureKey">テクスチャキー</param>
-	void DrowTexture(const TCHAR* pTextureKey);
+	void DrawTexture(const TCHAR* pTextureKey);
 
 	/// <summary>
 	/// 文字列をフォントで描画
@@ -68,15 +68,13 @@ public:
 	/// </summary>
 	/// <param name="words"></param>
 	void SetString(const TCHAR* words);
-private:
 
+protected:
 	gameframework::RectSize m_PolygonSize;
 
 	gameframework::Vertices* m_pRect = nullptr;
 	gameframework::GameFramework& m_rGameFramework = gameframework::GameFramework::GetRef();
 	gameframework::Stream* m_pStream = nullptr;
-
-
 };
 }
 #endif

@@ -1,28 +1,39 @@
 ﻿#ifndef BATTLE_PLAYER_H
 #define BATTLE_PLAYER_H
 
+#include <tchar.h>
+
 #include <GameFramework.h>
 
-#include "Scene/MainScene/Deck/Deck.h"
-#include "Scene/MainScene/Hand/Hand.h"
-#include "Scene/MainScene/Cemetery/Cemetery.h"
-#include "Scene/MainScene/HP/HP.h"
-#include "Scene/MainScene/MP/MP.h"
+#include "Deck/Deck.h"
+#include "Hand/Hand.h"
+#include "Cemetery/Cemetery.h"
+#include "HP/HP.h"
+#include "MP/MP.h"
+#include "RotationTickets/RotationTickets.h"
+#include "CardTransporter.h"
+#include "FollowerOrderMediator.h"
+#include "RotationOrderMediator.h"
+#include "BattleEnums.h"
 
 namespace summonersaster
 {
+using gameframework::tstring;
 
-class BattlePlayer
+using gameframework::Singleton;
+
+//仮でSingleton化
+class BattlePlayer :public Singleton<BattlePlayer>
 {
 public:
-	BattlePlayer(const char* deckName);
+	friend Singleton<BattlePlayer>;
+
+	BattlePlayer(const tstring& deckName = _T("AllFollower"));
 	~BattlePlayer();
-
-
 
 	void Initialize();
 	void Destroy();
-	bool Update(const char* phase);
+	bool Update(const tstring& phaseName);
 	void Render();
 
 	/// <summary>
@@ -60,6 +71,11 @@ public:
 	void Shuffle();
 
 	/// <summary>
+	/// ゲーム開始時のドロー
+	/// </summary>
+	void DrawAtFirst();
+
+	/// <summary>
 	/// 所持している手札をデッキに戻して同枚数引く
 	/// </summary>
 	void Mulligan();
@@ -82,23 +98,67 @@ public:
 	/// <param name="heal">増やす量</param>
 	/// <remarks>初期値よりも増えない</remarks>
 	void Recover(unsigned int heal);
+
+	/// <summary>
+	/// メインフェイズの始まりで行う初期化
+	/// </summary>
+	void InitializeInMainPhaseStart();
+
+	inline Hand* HHand()
+	{
+		return m_pHand;
+	}
+
+	inline Deck* HDeck()
+	{
+		return m_pDeck;
+	}
+
+	inline Cemetery* HCemetery()
+	{
+		return m_pCemetery;
+	}
+
+	inline HP* HHP()
+	{
+		return m_pHP;
+	}
+
+	inline MP* HMP()
+	{
+		return m_pMP;
+	}
+
+	inline RotationTickets* HRotationTickets()
+	{
+		return m_pRotationTickets;
+	}
+
 private:
+	bool UpdateInBattlePreparing();
+	bool UpdateInDrawPhase();
+	bool UpdateInMainPhase();
+	bool UpdateInEndPhase();
+
 	Hand* m_pHand = nullptr;
 	Deck* m_pDeck = nullptr;
 	Cemetery* m_pCemetery = nullptr;
 	HP* m_pHP = nullptr;
 	MP* m_pMP = nullptr;
+	RotationTickets* m_pRotationTickets = nullptr;
 
-	const char* USE_DECK_NAME;
+	const tstring& USE_DECK_NAME;
 
-	unsigned int m_RotationTickets;
-
-	D3DXVECTOR2 m_TexturCenter = { 800.0f,700.0f };
+	D3DXVECTOR2 m_TexturCenter = { 800.0f, 910.0f };
 	gameframework::RectSize m_PolygonSize;
 
 	gameframework::Vertices* m_pRect = nullptr;
-	gameframework::GameFramework& m_rGameFramework = gameframework::GameFramework::GetRef();
 
+	CardTransporter& m_rCardTransporter = CardTransporter::CreateAndGetRef();
+	FollowerOrderMediator& m_rFollowerOrderMediator = FollowerOrderMediator::CreateAndGetRef();
+	RotationOrderMediator& m_rRotationOrderMediator = RotationOrderMediator::CreateAndGetRef();
+
+	gameframework::GameFramework& m_rGameFramework = gameframework::GameFramework::GetRef();
 };
 }
 #endif

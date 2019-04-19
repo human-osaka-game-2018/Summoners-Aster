@@ -3,7 +3,6 @@
 using namespace gameframework;
 namespace summonersaster
 {
-
 BattleObject::BattleObject()
 {
 	GameFrameworkFactory::Create(&m_pRect);
@@ -26,7 +25,7 @@ void BattleObject::SetVertex(const D3DXVECTOR3& center, const RectSize& size, co
 	m_pRect->SetCenterAndSizeAndColorAndTextureUVs(center, size, color,textureUVs);
 }
 
-void BattleObject::DrowTexture(const TCHAR* pTextureKey)
+void BattleObject::DrawTexture(const TCHAR* pTextureKey)
 {
 	m_pRect->Render(m_rGameFramework.GetTexture(pTextureKey));
 }
@@ -48,6 +47,5 @@ void BattleObject::SetString(const TCHAR* words)
 {
 	const tstring& str = words;
 	(*m_pStream) = str;
-
 }
 }
