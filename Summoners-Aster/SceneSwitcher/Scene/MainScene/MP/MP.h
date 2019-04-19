@@ -1,9 +1,15 @@
 ﻿#ifndef MP_H
 #define MP_H
+
+#include <GameFramework.h>
+
+#include "BattleObject.h"
+
 namespace summonersaster
 {
+using gameframework::Vertices;
 
-class MP
+class MP :public BattleObject
 {
 public:
 	MP();
@@ -29,21 +35,30 @@ public:
 	/// 値を減らす
 	/// </summary>
 	/// <param name="paidMp">減らす量</param>
-	bool Paid(const unsigned int paidMp);
+	bool Paid(const int paidMp);
 
 	/// <summary>
 	/// 使用可能ポイントを今の容量で更新する
 	/// </summary>
 	void RenewUsablePoints();
 private:
-	const unsigned int MAX_CAPACITY = 10;
-	unsigned int m_UsablePoint = 0;
-	unsigned int m_Capacity = 0;
+	void LocaleMP();
+
+	void LocaleStream();
+
+	void InitializeStream();
+
+	static const int MAX_CAPACITY = 10;
+	int m_UsablePoint = 0;
+	int m_Capacity = 0;
+
+	D3DXVECTOR3 m_center = { 120.0f, 780.0f, 0.08f };
 
 	MP(MP& mP) = delete;
 
-	MP& operator=(MP& mP) = delete;
+	Vertices* m_pVertices[MAX_CAPACITY];
 
+	MP& operator=(MP& mP) = delete;
 };
 }
 #endif

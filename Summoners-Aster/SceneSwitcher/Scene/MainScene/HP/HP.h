@@ -31,7 +31,6 @@ private:
 	HP(HP& hP) = delete;
 
 	HP& operator=(HP& hP) = delete;
-
 };
 }
 #endif

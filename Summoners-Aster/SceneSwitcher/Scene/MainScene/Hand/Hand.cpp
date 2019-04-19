@@ -4,7 +4,6 @@ using namespace gameframework;
 
 namespace summonersaster
 {
-
 Hand::Hand()
 {
 }
@@ -15,33 +14,37 @@ Hand::~Hand()
 	Destroy();
 }
 
+void Hand::Update()
+{
+	float handCardAdditionalPosX = 650.0f / static_cast<float>(m_MovableCards.size() + 1);
+
+	for (auto& movableCard : m_MovableCards)
+	{
+		int index = static_cast<int>(&movableCard - &m_MovableCards[0]);
+
+		movableCard->Update(D3DXVECTOR3(m_TexturCenter.x + (handCardAdditionalPosX * index + 1), m_TexturCenter.y, 0.0f));
+	}
+}
 
 void Hand::Render()
 {
-	for (int i = 0; i < m_Cards.size(); ++i)
+	for (auto& movableCard : m_MovableCards)
 	{
-		SetVertex(D3DXVECTOR3(m_TexturCenter.x + 50 * i, m_TexturCenter.y, 0.0f),RectSize(200.f, 260.f),Color(255, i * 50 + 50, i * 50 + 50, i * 50 + 50));
-		DrowTexture(_T("TEAM_LOGO"));
-		SetString(L"%d", static_cast<int>(m_Cards.size()));
-		WriteWords(D3DXVECTOR2(m_TexturCenter.x - 50.f , m_TexturCenter.y),_T("INPUT_PROMPT"), DT_CENTER);
-
-#ifdef _DEBUG
-		SetString(L"%d", m_Cards[i]->ID);
-		WriteWords(D3DXVECTOR2(i * (Card::DEBUG_WORD_WIGTH * 1.5f) + Card::DEBUG_WORD_WIGTH * 2, 700.f),_T("Debug_str"), DT_RIGHT,(0xFF0000FF));
-#endif
-
+		movableCard->Render(RectSize(100.f, 141.f));
 	}
 }
 
 void Hand::Destroy()
 {
 	//外部からの読み込み時に動的確保するため
-	for (auto card : m_Cards)
+	for (auto& movableCard : m_MovableCards)
 	{
-		delete card;
-	}
-	m_Cards.clear();
+		int index = static_cast<int>(&movableCard - &m_MovableCards[0]);
 
+		delete movableCard->HCard();
+		delete movableCard;
+	}
+	m_MovableCards.clear();
 }
 
 Hand::RESULT Hand::AddCard(Card* card)
@@ -51,8 +54,9 @@ Hand::RESULT Hand::AddCard(Card* card)
 		//死亡通知
 		return DEAD;
 	}
-	m_Cards.emplace_back(card);
-	if (MAX_CAPACITY < m_Cards.size())
+	m_MovableCards.push_back(new MovableCard(card));
+	MovableCard::NeutralizeSelecting();
+	if (MAX_CAPACITY < m_MovableCards.size())
 	{
 		return FLOOD;
 	}
@@ -61,10 +65,10 @@ Hand::RESULT Hand::AddCard(Card* card)
 
 Card* Hand::SendCard(unsigned int handNum)
 {
-	if (handNum >= m_Cards.size()) return nullptr;
-	Card* sendCard = m_Cards[handNum];
-	m_Cards[handNum] = nullptr;
-	m_Cards.erase(m_Cards.begin() + handNum);
+	if (handNum >= m_MovableCards.size()) return nullptr;
+	Card* sendCard = m_MovableCards[handNum]->HCard();
+	m_MovableCards.erase(m_MovableCards.begin() + handNum);
+	MovableCard::NeutralizeSelecting();
 	return sendCard;
 }
 }

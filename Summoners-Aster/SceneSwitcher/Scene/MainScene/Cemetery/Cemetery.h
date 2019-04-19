@@ -2,13 +2,12 @@
 #define CEMETERY_H
 
 #include <vector>
-#include "Scene/MainScene/BattleObject.h"
 
-//仮カードクラス
-class Card;
+#include "Scene/MainScene/BattleObject.h"
+#include "Card.h"
+
 namespace summonersaster
 {
-
 class Cemetery :public BattleObject
 {
 public:
@@ -31,8 +30,7 @@ public:
 private:
 	std::vector<Card*> m_Cards;
 
-	D3DXVECTOR2 m_TexturCenter = { 1300.0f,300.0f };
-
+	D3DXVECTOR2 m_TexturCenter = { 1480.0f, 530.0f };
 };
 }
 #endif

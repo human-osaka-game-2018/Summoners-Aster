@@ -3,11 +3,11 @@
 
 #include <vector>
 #include "Scene/MainScene/BattleObject.h"
-//仮カードクラス
-class Card;
+#include "Card.h"
+#include "MovableCard/MovableCard.h"
+
 namespace summonersaster
 {
-
 class Hand :public BattleObject
 {
 public:
@@ -21,6 +21,7 @@ public:
 	Hand();
 	~Hand();
 	void Render();
+	void Update();
 	void Destroy();
 	/// <summary>
 	/// カードの追加
@@ -29,9 +30,9 @@ public:
 	/// <returns>ドロー結果</returns>
 	RESULT AddCard(Card* card);
 
-	int GetQuantites()
+	inline int GetQuantites() const
 	{
-		return static_cast<int>(m_Cards.size());
+		return static_cast<int>(m_MovableCards.size());
 	}
 
 	/// <summary>
@@ -40,12 +41,18 @@ public:
 	/// <param name="handNum">手札番号</param>
 	/// <returns>送るカードクラスポインタ</returns>
 	Card* SendCard(unsigned int handNum);
+
+	inline std::vector<MovableCard*>* GetCards()
+	{
+		return &m_MovableCards;
+	}
+
 private:
-	std::vector<Card*> m_Cards;
+	std::vector<MovableCard*> m_MovableCards;
+
 	const unsigned int MAX_CAPACITY = 9;
 
-	D3DXVECTOR2 m_TexturCenter = { 500.0f,600.0f };
-
+	D3DXVECTOR2 m_TexturCenter = { 1020.0f, 800.0f };
 };
 }
 #endif

@@ -3,16 +3,17 @@
 
 #include <vector>
 #include "Scene/MainScene/BattleObject.h"
+#include "Card.h"
+#include "Spell/Spell.h"
+#include "Follower/Follower.h"
+#include "Weapon/Weapon.h"
 
-//仮カードクラス
-class Card;
 namespace summonersaster
 {
-
 class Deck :public BattleObject
 {
 public:
-	Deck(const char* deckName);
+	Deck(const tstring& deckName);
 	~Deck();
 	void Render();
 	void Destroy();
@@ -39,18 +40,22 @@ public:
 	/// <returns>送るカードクラスポインタ</returns>
 	Card* SendCard();
 
-	int GetQuantites()
+	inline int GetQuantites() const
 	{
 		return static_cast<int>(m_Cards.size());
 	}
+
+	inline std::vector<Card*>* GetCards()
+	{
+		return &m_Cards;
+	}
+
 private:
 	std::vector<Card*> m_Cards;
 	const int LIMIT_CAPACITY = 40;
-	const char* DECK_NAME;
+	const tstring& DECK_NAME;
 
-
-	D3DXVECTOR2 m_TexturCenter = { 1300.0f,700.0f };
-
+	D3DXVECTOR2 m_TexturCenter = { 1529.0f, 640.0f };
 };
 }
 #endif
