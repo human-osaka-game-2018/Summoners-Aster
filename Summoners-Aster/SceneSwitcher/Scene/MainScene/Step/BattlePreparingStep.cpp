@@ -2,6 +2,8 @@
 
 namespace summonersaster
 {
+	using namespace gameframework;
+
 	BattlePreparingStep::BattlePreparingStep()
 	{
 
@@ -24,13 +26,17 @@ namespace summonersaster
 
 	void BattlePreparingStep::Update()
 	{
-		if (m_rPlayer.Update(STEP_KIND::BATTLE_PREPARING))
+		m_rField.Update();
+
+		if (m_rPlayers.Update(STEP_KIND::BATTLE_PREPARING))
 		{
 			std::random_device seed;
 			std::minstd_rand generator(seed());
-			std::uniform_int_distribution<int> dist(0, 1);
+			std::uniform_int_distribution<> dist(0, 1);
 
-			m_rField.Initialize(static_cast<bool>(dist(generator)));
+			BattleInformation::StartPlayer(algorithm::Tertiary(dist(generator) == 0, PLAYER_KIND::PROPONENT, PLAYER_KIND::OPPONENT));
+
+			m_rField.Initialize();
 
 			SwitchEventMediatorBase<Step>::GetRef().SendSwitchEvent(STEP_KIND::BATTLE);
 		}
@@ -39,7 +45,7 @@ namespace summonersaster
 	void BattlePreparingStep::Render()
 	{
 		m_rField.Render();
-		m_rPlayer.Render();
+		m_rPlayers.Render();
 		m_rRotationOrderMediator.Render(false);
 	}
 } // namespace summonersaster

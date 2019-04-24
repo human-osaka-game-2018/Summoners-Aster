@@ -22,7 +22,7 @@ namespace summonersaster
 
 	RotationOrderMediator::~RotationOrderMediator()
 	{
-		m_rGameFramework.ReleaseTexture(_T("ROTATION_BUTTON"));
+
 	}
 
 	void RotationOrderMediator::FinalizeInEndPhaseEnd()
@@ -32,7 +32,7 @@ namespace summonersaster
 
 	void RotationOrderMediator::LoadResource()
 	{
-		m_rGameFramework.CreateTexture(_T("ROTATION_BUTTON"), _T("Textures/Battle_rotationButtonR.png"));
+		
 	}
 
 	void RotationOrderMediator::Register(PLAYER_KIND PlayerKind, RotationTickets* pRotationPoint)
@@ -60,13 +60,15 @@ namespace summonersaster
 
 		if (rotationDirectionCount == 0) return;
 
+		PLAYER_KIND currentPlayer = BattleInformation::CurrentPlayer();
+
 		//現在のプレイヤー
-		if ((*m_pPlayerRotationPoints[PLAYER_KIND::PROPONENT]) <= 0) return;
-		--(*m_pPlayerRotationPoints[PLAYER_KIND::PROPONENT]);
+		if ((*m_pPlayerRotationPoints[currentPlayer]) <= 0) return;
+		--(*m_pPlayerRotationPoints[currentPlayer]);
 
 		m_rotated = true;
 
-		m_rField.Rotate(Tertiary(rotationDirectionCount > 0, true, false));
+		m_rField.ActivateOstensiblyCirculation(Tertiary(rotationDirectionCount > 0, true, false));
 	}
 
 	void RotationOrderMediator::Render(bool isRunning)
@@ -75,7 +77,7 @@ namespace summonersaster
 
 		Color color = 0xFFFFFFFF;
 
-		if ((*m_pPlayerRotationPoints[PLAYER_KIND::PROPONENT]) <= 0 || m_rotated || !isRunning)
+		if ((*m_pPlayerRotationPoints[BattleInformation::CurrentPlayer()]) <= 0 || m_rotated || !isRunning)
 		{
 			color = 0xFF888888;
 		}
@@ -91,7 +93,7 @@ namespace summonersaster
 	{
 		float buttonPosY = m_windowCenter.y * 1.5f;
 		m_pRRotationButton->GetFrame().GetCenter() = m_pLRotationButton->GetFrame().GetCenter() =
-		{ m_windowCenter.x, buttonPosY, 0.0f };
+		{ m_windowCenter.x, buttonPosY, 0.87f };
 
 		float distanceByCenter = m_windowSize.m_width * 0.18f;
 		m_pRRotationButton->GetFrame().GetCenter().x -= distanceByCenter;

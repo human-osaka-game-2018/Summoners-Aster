@@ -12,7 +12,7 @@ using gameframework::Vertices;
 class MP :public BattleObject
 {
 public:
-	MP();
+	explicit MP(const D3DXVECTOR3& center);
 	~MP();
 	void Render();
 
@@ -52,7 +52,7 @@ private:
 	int m_UsablePoint = 0;
 	int m_Capacity = 0;
 
-	D3DXVECTOR3 m_center = { 120.0f, 780.0f, 0.08f };
+	D3DXVECTOR3 m_Center = { 0.0f, 0.0f, 0.0f };
 
 	MP(MP& mP) = delete;
 

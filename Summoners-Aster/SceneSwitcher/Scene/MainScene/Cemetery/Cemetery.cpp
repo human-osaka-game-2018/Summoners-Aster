@@ -3,8 +3,7 @@
 using namespace gameframework;
 namespace summonersaster
 {
-
-Cemetery::Cemetery()
+Cemetery::Cemetery(const D3DXVECTOR2& texturCenter) :m_TexturCenter(texturCenter)
 {
 }
 
@@ -16,7 +15,7 @@ void Cemetery::Render()
 {
 	const RectSize CARD_SIZE(100.f, 141.f);
 	const Degree ROTATION_Z(-90.0f);
-	const D3DXVECTOR3 POS(m_TexturCenter.x, m_TexturCenter.y, 0.01f);
+	const D3DXVECTOR3 POS(m_TexturCenter.x, m_TexturCenter.y, 0.9f);
 
 	SetVertex(POS, CARD_SIZE, 0xAA000000);
 	m_pRect->SetRotationZ(ROTATION_Z);
@@ -42,6 +41,8 @@ void Cemetery::Destroy()
 void Cemetery::PreserveCard(Card* card)
 {
 	if (nullptr == card) return;
+
+	card->IsInCemetery(true);
 
 	m_Cards.emplace_back(card);
 }

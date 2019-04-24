@@ -1,19 +1,31 @@
 ﻿#include "Follower.h"
+#include "BattleInformation.h"
 
 namespace summonersaster
 {
-	Follower::Follower(const tstring& name, const tstring& texturePath, int cost, int attack, int hitPoint)
-		: Card(TYPE::FOLLOWER, name, texturePath, cost), m_attack(attack), m_hP(hitPoint)
+	using namespace gameframework;
+
+	Follower::Follower(const tstring& name, const tstring& texturePath, int cost, int attack, int hitPoint, PLAYER_KIND owner)
+		: Card(TYPE::FOLLOWER, name, texturePath, cost, owner), m_attack(attack), m_hP(hitPoint)
 	{
+		InitializeStream();
+	}
+
+	Follower::Follower(const tstring& name, const tstring& texturePath, int cost, int attack, int hitPoint, PLAYER_KIND owner, const TCHAR* pTextureKey)
+		: Card(TYPE::FOLLOWER, name, texturePath, cost, owner, pTextureKey), m_attack(attack), m_hP(hitPoint)
+	{
+		InitializeStream();
 	}
 
 	Follower::~Follower()
 	{
+		delete m_pAttackStream;
+		delete m_pHPStream;
 	}
 
-	void Follower::CreateCopy(Card** ppCard)const
+	void Follower::CreateCopy(Card** ppCard, PLAYER_KIND owner)const
 	{
-		*ppCard = new Follower(m_name, m_texturePath, m_cost, m_attack, m_hP);
+		*ppCard = new Follower(m_name, m_texturePath, m_cost, m_attack, m_hP, owner, pTEXTURE_KEY);
 	}
 
 	Follower& Follower::operator-=(const Follower* pFollower)
@@ -21,5 +33,38 @@ namespace summonersaster
 		m_hP -= pFollower->Attack();
 
 		return *this;
+	}
+	void Follower::Render(const D3DXVECTOR3& center, const RectSize& size, const Degree& rotationZ)
+	{
+		RenderCard(center, size, rotationZ);
+		RenderHP(center, size);
+		RenderAttack(center, size);
+
+		m_pRect->GetColor() = algorithm::Tertiary(
+			Owner() != BattleInformation::CurrentPlayer(), 
+			0x55FFFFFF, 
+			static_cast<int>(0xFFFFFFFF));
+	}
+
+	void Follower::RenderHP(const D3DXVECTOR3& center, const RectSize& size)
+	{
+		m_pRect->Render(m_rGameFramework.GetTexture(_T("HP")));
+		m_pHPStream->SetTopLeft(D3DXVECTOR2(center.x - size.m_width * 0.38f, center.y + size.m_height * 0.34f));
+
+		if (m_isInCemetery) return;
+
+		(*m_pHPStream) = totstring(m_hP);
+		m_pHPStream->Render(m_rGameFramework.GetFont(_T("CARD")), DT_CENTER);
+	}
+
+	void Follower::RenderAttack(const D3DXVECTOR3& center, const RectSize& size)
+	{
+		m_pRect->Render(m_rGameFramework.GetTexture(_T("ATTACK")));
+		m_pAttackStream->SetTopLeft(D3DXVECTOR2(center.x + size.m_width * 0.38f, center.y + size.m_height * 0.34f));
+
+		if (m_isInCemetery) return;
+
+		(*m_pAttackStream) = totstring(m_attack);
+		m_pAttackStream->Render(m_rGameFramework.GetFont(_T("CARD")), DT_CENTER);
 	}
 } // namespace summonersaster

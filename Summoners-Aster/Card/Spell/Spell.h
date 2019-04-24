@@ -8,14 +8,16 @@ namespace summonersaster
 	class Spell :public Card
 	{
 	public:
-		Spell(const tstring& name, const tstring& texturePath, int cost);
+		Spell(const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner = PLAYER_KIND::PROPONENT);
+		Spell(const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner, const TCHAR* pTextureKey);
+
 		~Spell();
 		
 		/// <summary>
 		/// 自身のコピーを動的確保する
 		/// </summary>
 		/// <param name="ppCard">コピーされるカードのポインタのポインタ</param>
-		void CreateCopy(Card** ppCard) const override;
+		void CreateCopy(Card** ppCard, PLAYER_KIND owner) const override;
 
 	protected:
 		Spell(Spell& spell) = delete;

@@ -7,17 +7,11 @@ namespace summonersaster
 		gameframework::WindowParam::GetWindowSize(&m_windowSize);
 
 		gameframework::GameFrameworkFactory::Create(&m_pStream);
-
-		RectSize fontSize;
-		fontSize.m_width = m_windowSize.m_width * 0.01f;
-		fontSize.m_height = 2.0f * fontSize.m_width;
-
-		m_rGameFramework.CreateFont(_T("RESULT"), fontSize, nullptr);
 	}
 
 	ResultStep::~ResultStep()
 	{
-		m_rGameFramework.ReleaseFont(_T("RESULT"));
+		
 	}
 
 	void ResultStep::Initialize()

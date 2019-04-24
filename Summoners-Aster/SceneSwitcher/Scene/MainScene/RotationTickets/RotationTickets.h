@@ -16,7 +16,7 @@ namespace summonersaster
 	{
 	public:
 		/// <param name="retentionMax">保持数</param>
-		RotationTickets(int retentionMax);
+		explicit RotationTickets(int retentionMax, const D3DXVECTOR2& baseCenterWindowMulti);
 
 		~RotationTickets();
 
@@ -103,6 +103,8 @@ namespace summonersaster
 		RotationTickets& operator=(RotationTickets& rotationTickets) = delete;
 
 		std::vector<Vertices*> m_pVertices;
+
+		D3DXVECTOR3 m_baseCenter = { 0.0f, 0.0f, 0.0f };
 
 		int m_retentionNum = 0;
 	};

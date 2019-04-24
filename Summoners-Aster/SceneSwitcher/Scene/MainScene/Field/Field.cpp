@@ -16,6 +16,16 @@ namespace summonersaster
 		delete m_pFollower;
 	}
 
+	const TCHAR* Field::pTEXTURE_KEYS[Field::FIELD_RECT_NUM] =
+	{
+		_T("FIELD0"),
+		_T("FIELD1"),
+		_T("FIELD2"),
+		_T("FIELD3"),
+		_T("FIELD4"),
+		_T("FIELD5")
+	};
+
 	Field::Field()
 	{
 		gameframework::WindowParam::GetWindowSize(&m_windowSize);
@@ -39,35 +49,21 @@ namespace summonersaster
 		LocaleButton();
 
 		m_pFollowers = new Followers();
-
-		LoadResource();
 	}
 
 	Field::~Field()
 	{
-		for (auto& textureKey : pTEXTURE_KEYS)
-		{
-			m_rGameFramework.ReleaseTexture(textureKey);
-		}
+		
 	}
 
-	void Field::LoadResource()
+	void Field::Initialize()
 	{
-		m_rGameFramework.CreateTexture(pTEXTURE_KEYS[0], _T("Textures/Battle_rotationStar1.png"));
-		m_rGameFramework.CreateTexture(pTEXTURE_KEYS[1], _T("Textures/Battle_rotationStar2.png"));
-		m_rGameFramework.CreateTexture(pTEXTURE_KEYS[2], _T("Textures/Battle_rotationStar3.png"));
-		m_rGameFramework.CreateTexture(pTEXTURE_KEYS[3], _T("Textures/Battle_rotationStar4.png"));
-		m_rGameFramework.CreateTexture(pTEXTURE_KEYS[4], _T("Textures/Battle_rotationStar5.png"));
-		m_rGameFramework.CreateTexture(pTEXTURE_KEYS[5], _T("Textures/Battle_rotationStar6.png"));
-		m_rGameFramework.CreateTexture(_T("BATTLE_BACK"), _T("Textures/Battle_background01.png"));
-		m_rGameFramework.CreateTexture(_T("DIGITAL_FILTER"), _T("Textures/Battle_digitalFilter.png"));
-	}
+		bool isOpponentTurn = algorithm::Tertiary(BattleInformation::StartPlayer() == PLAYER_KIND::OPPONENT, true, false);
 
-	void Field::Initialize(bool isPropnentPrecedence)
-	{
-		m_rotationNum += algorithm::Tertiary(isPropnentPrecedence, 0, 1);
+		//先攻が自分のターンなら回らない
+		if (!isOpponentTurn) return;
 
-		m_pFollowers->Initialized(isPropnentPrecedence);
+		ActivateOstensiblyCirculation(isOpponentTurn);
 	}
 
 	void Field::Finalize()
@@ -95,16 +91,25 @@ namespace summonersaster
 		m_pFollowers->FinalizeInEndPhaseEnd();
 	}
 
-	void Field::Rotate(bool isRightDirection)
+	void Field::ActivateOstensiblyCirculation(bool isRightDirection)
 	{
-		m_pFollowers->Circulation(isRightDirection);
+		BattleInformation::IsRotating(true);
 
-		m_rotationNum += ((isRightDirection) ? +1 : -1);
+		m_rotationStagingDegree += algorithm::Tertiary(isRightDirection, +1.0f, -1.0f);
 	}
 
-	void Field::Update(PLAYER_KIND currentPlayerKind)
+	void Field::Rotate(bool isRightDirection)
 	{
-		m_pFollowers->Update(currentPlayerKind);
+		m_rotationNum += ((isRightDirection) ? +1 : -1);
+
+		BattleInformation::IsRotating(false);
+	}
+
+	void Field::Update()
+	{
+		UpdateOstensiblyCirculation();
+
+		m_pFollowers->Update();
 	}
 
 	void Field::Render()
@@ -119,7 +124,7 @@ namespace summonersaster
 
 			if (index <= 1)
 			{
-				pVertices->SetRotationZ(m_pFollowers->ROTATION_DEGREE * m_rotationNum);
+				pVertices->SetRotationZ(m_pFollowers->ROTATION_DEGREE * m_rotationNum + m_rotationStagingDegree);
 			}
 
 			pVertices->Render(m_rGameFramework.GetTexture(pTEXTURE_KEYS[index]));
@@ -127,7 +132,7 @@ namespace summonersaster
 
 		m_pGraphicFilterVertices->Render(m_rGameFramework.GetTexture(_T("DIGITAL_FILTER")));
 
-		m_pFollowers->Render();
+		m_pFollowers->Render(m_rotationStagingDegree);
 		m_pEndButtonDummyVertices->Render(m_rGameFramework.GetTexture(_T("END_MAIN_BUTTON")));
 	}
 
@@ -174,12 +179,6 @@ namespace summonersaster
 
 	}
 
-	void Field::Followers::Initialized(bool isPropnentPrecedence)
-	{
-		//先行は頂点が二つなのでそうなるように回転させる
-		m_fieldRotationNum = (isPropnentPrecedence) ? 0 : 1;
-	}
-
 	void Field::Followers::SetFollower(int index, Follower* pFollower)
 	{
 		m_followerDatas[index].m_pFollower = pFollower;
@@ -211,9 +210,9 @@ namespace summonersaster
 		return retvalTmp;
 	}
 
-	void Field::Followers::Circulation(bool isRightDirection)
+	void Field::Followers::Circulate(bool isRightDirection)
 	{
-		m_fieldRotationNum += ((isRightDirection) ? +1 : -1);
+		m_fieldRotationNum += algorithm::Tertiary(isRightDirection, -1, +1);
 
 		//0~9に正規化する
 		const int ROTATION_NUM_MAX = 10;
@@ -237,17 +236,21 @@ namespace summonersaster
 
 	void Field::Followers::AttackPlayer(int originIndex, HP* pHP)
 	{
+		if (!CanTakeAction(originIndex)) return;
+
 		pHP->Damaged(m_followerDatas[originIndex].m_pFollower->Attack());
+
+		m_followerDatas[originIndex].m_isAttacked = true;
 	}
 
-	void Field::Followers::Update(PLAYER_KIND currentPlayerKind)
+	void Field::Followers::Update()
 	{
-		JudgeFollowersZone(currentPlayerKind);
+		JudgeFollowersZone();
 	}
 
-	void Field::Followers::Render()
+	void Field::Followers::Render(float rotationStagingDegree)
 	{
-		CreateBackRects();
+		CreateBackRects(rotationStagingDegree);
 
 		for (auto& followerData : m_followerDatas)
 		{
@@ -262,6 +265,12 @@ namespace summonersaster
 			Vertices& rVertices = *followerData.m_pVertices;
 
 			followerData.m_pFollower->Render(rVertices.GetCenter(), rVertices.GetSize());
+
+			if (!followerData.m_isSelected)continue;
+
+			followerData.m_pVertices->GetColor() = 0x88FFFFFF;
+
+			followerData.m_pVertices->Render(m_rGameFramework.GetTexture(_T("SELECTING_CARD_FRAME")));
 		}
 	}
 
@@ -292,16 +301,7 @@ namespace summonersaster
 
 	void Field::Followers::AttackOrMove(int originIndex, int destIndex)
 	{
-		if (m_followerDatas[originIndex].m_isSummoned ||
-			m_followerDatas[originIndex].m_isAttacked ||
-			m_followerDatas[originIndex].m_isMoved) return;
-
-		if (m_followerDatas[destIndex].m_pFollower)
-		{
-			Attack(originIndex, destIndex);
-
-			return;
-		}
+		if (!CanTakeAction(originIndex)) return;
 
 		auto Normalize = [&](int index)
 		{
@@ -310,12 +310,20 @@ namespace summonersaster
 
 		if (destIndex != Normalize(originIndex + 2) && destIndex != Normalize(originIndex + 3)) return;
 
+		if (m_followerDatas[destIndex].m_pFollower)
+		{
+			Attack(originIndex, destIndex);
+
+			return;
+		}
+
 		Move(originIndex, destIndex);
 	}
 
 	void Field::Followers::Attack(int originIndex, int destIndex)
 	{
 		(*m_followerDatas[destIndex].m_pFollower) -= m_followerDatas[originIndex].m_pFollower;
+		(*m_followerDatas[originIndex].m_pFollower) -= m_followerDatas[destIndex].m_pFollower;
 
 		m_followerDatas[originIndex].m_isAttacked = true;
 
@@ -340,54 +348,78 @@ namespace summonersaster
 		//移動イベントディスパッチ
 	}
 
-	void Field::Followers::CreateBackRects()
+	void Field::Followers::CreateBackRects(float rotationStagingDegree)
 	{
 		//フィールドの中心からフォロワーを配置する位置のベクトル
 		D3DXVECTOR3 posVecByCenter(0.0f, -m_windowSize.m_height * 0.25f, 0.0f);
 
-		//回転されていた場合初期値をずらす
-		gameframework::algorithm::D3DXVec3RotationZ(&posVecByCenter, ROTATION_DEGREE * m_fieldRotationNum);
-
 		D3DXVECTOR3 windowCenter(m_windowCenter.x, m_windowCenter.y, posVecByCenter.z);
 
+		gameframework::algorithm::D3DXVec3RotationZ(&posVecByCenter, ROTATION_DEGREE * m_fieldRotationNum + rotationStagingDegree);
+
 		RectSize cardSize;
-		cardSize.m_height = 1.4f * (cardSize.m_width = m_windowSize.m_width * 0.03f);
+		cardSize.m_height = 1.4f * (cardSize.m_width = m_windowSize.m_width * 0.05f);
 
 		for (auto& followerData : m_followerDatas)
 		{
 			//フォロワーは72°ずつ回転して配置される
-			gameframework::algorithm::D3DXVec3RotationZ(&posVecByCenter, 2.0f * ROTATION_DEGREE);
-
 			followerData.m_pVertices->GetCenter() = windowCenter + posVecByCenter;
 
 			followerData.m_pVertices->GetSize() = cardSize;
+
+			gameframework::algorithm::D3DXVec3RotationZ(&posVecByCenter, 2.0f * ROTATION_DEGREE);
 		}
 	}
 
-	void Field::Followers::JudgeFollowersZone(PLAYER_KIND currentPlayerKind)
+	void Field::Followers::JudgeFollowersZone()
 	{
 		const int FOLLOWERS_NUM = _countof(m_followerDatas);
 
 		//相手のゾーンの配列番号の始まり
-		int opponentZoneStartElementNum = (FOLLOWERS_NUM - 1 + m_fieldRotationNum / 2);
+		int opponentZoneStartElementNum = (FOLLOWERS_NUM - 1 - m_fieldRotationNum / 2) % FOLLOWERS_NUM;
 
-		opponentZoneStartElementNum %= FOLLOWERS_NUM;
+		//1回転するたびに頂点を求めるための量が変わる
+		int opponentZoneFollowersNum = algorithm::Tertiary((m_fieldRotationNum % 2) == 0, 3, 2);
 
-		//2回転するたびに頂点を求めるための量が変わる
-		int opponentZoneFollowersNum = (m_fieldRotationNum / 2) ? 3 : 2;
+		auto IsInOpponentZone = [&](int index)->bool
+		{
+			for (int i = 0; i < opponentZoneFollowersNum; ++i)
+			{
+				if (index != (opponentZoneStartElementNum + i) % FOLLOWERS_NUM) continue;
+				
+				return false;
+			}
+
+			return true;
+		};
 
 		for (auto& followerData : m_followerDatas)
 		{
 			int index = static_cast<int>(&followerData - &m_followerDatas[0]);
 
-			followerData.m_isOpponentZone =
-				(opponentZoneStartElementNum <= index && index <= opponentZoneStartElementNum + opponentZoneFollowersNum) ?
-				true : false;
+			followerData.m_isOpponentZone = IsInOpponentZone(index);
 
-			if (currentPlayerKind == PLAYER_KIND::PROPONENT) continue;
+			if (BattleInformation::CurrentPlayer() == PLAYER_KIND::OPPONENT) continue;
 
 			followerData.m_isOpponentZone = !followerData.m_isOpponentZone;
 		}
+	}
+
+	void Field::UpdateOstensiblyCirculation()
+	{
+		//回転方向の判定
+		if (m_rotationStagingDegree == 0.0f) return;
+		bool isRightDirection = algorithm::Tertiary(m_rotationStagingDegree < 0.0f, true, false);
+
+		float RotationDegree = m_pFollowers->ROTATION_DEGREE;
+		float sign = algorithm::Tertiary(isRightDirection, -1.0f, +1.0f);
+
+		if (fabsf(m_rotationStagingDegree += sign * (RotationDegree / 30.0f)) <= RotationDegree) return;
+
+		m_rotationStagingDegree = 0.0f;
+
+		Rotate(isRightDirection);
+		m_pFollowers->Circulate(isRightDirection);
 	}
 
 	void Field::LocaleField(Vertices* pVertices)
@@ -404,7 +436,7 @@ namespace summonersaster
 		RectSize windowSize;
 		WindowParam::GetWindowSize(&windowSize);
 
-		rEndButton.GetCenter() = { windowSize.m_width, windowSize.m_height * 0.5f, 0.008f };
+		rEndButton.GetCenter() = { windowSize.m_width, windowSize.m_height * 0.5f, 0.88f };
 
 		RectSize size;
 		size.m_width = size.m_height = windowSize.m_width * 0.17f;

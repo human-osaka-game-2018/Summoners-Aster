@@ -16,7 +16,7 @@ namespace summonersaster
 	class TurnUIRenderingStage :public TurnStage
 	{
 	public:
-		TurnUIRenderingStage(const bool& isPrecedingTurn, const int& turnNum);
+		TurnUIRenderingStage();
 		~TurnUIRenderingStage();
 
 		/// <summary>
@@ -49,9 +49,6 @@ namespace summonersaster
 		RectSize m_windowSize;
 
 		Stream* m_pStream = nullptr;
-
-		const bool& rIS_PRECEDING_TURN;
-		const int& rTURN_NUM;
 
 		GameFramework& m_rGameFramework = GameFramework::GetRef();
 	};

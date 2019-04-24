@@ -4,10 +4,9 @@ using namespace gameframework;
 
 namespace summonersaster
 {
-Hand::Hand()
+Hand::Hand(const D3DXVECTOR2& texturCenter) :m_TexturCenter(texturCenter)
 {
 }
-
 
 Hand::~Hand()
 {
@@ -28,9 +27,12 @@ void Hand::Update()
 
 void Hand::Render()
 {
+	RectSize cardSize;
+	cardSize.m_height = 1.4f * (cardSize.m_width = 135.0f);
+
 	for (auto& movableCard : m_MovableCards)
 	{
-		movableCard->Render(RectSize(100.f, 141.f));
+		movableCard->Render(cardSize);
 	}
 }
 
@@ -66,6 +68,7 @@ Card* Hand::SendCard(unsigned int handNum)
 {
 	if (handNum >= m_MovableCards.size()) return nullptr;
 	Card* sendCard = m_MovableCards[handNum]->HCard();
+	delete m_MovableCards[handNum];
 	m_MovableCards.erase(m_MovableCards.begin() + handNum);
 	MovableCard::NeutralizeSelecting();
 	return sendCard;

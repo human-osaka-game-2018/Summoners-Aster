@@ -1,12 +1,20 @@
 ﻿#ifndef HP_H
 #define HP_H
+
+#include <tchar.h>
+
+#include <d3dx9.h>
+
+#include <GameFramework.h>
+
+#include "BattleObject.h"
+
 namespace summonersaster
 {
-
-class HP
+class HP :public BattleObject
 {
 public:
-	HP();
+	HP(const D3DXVECTOR2& texturCenter);
 	~HP();
 	void Render();
 
@@ -26,11 +34,16 @@ public:
 		return m_Hp;
 	}
 private:
-	const unsigned int MAX_CAPACITY = 10;//仮数値
+	const unsigned int MAX_CAPACITY = 20;//仮数値
 	unsigned int m_Hp = MAX_CAPACITY;
+
+	D3DXVECTOR2 m_Center;
+
 	HP(HP& hP) = delete;
 
 	HP& operator=(HP& hP) = delete;
+
+	D3DXVECTOR2	m_topLeft = { 0.0f, 0.0f };
 };
 }
 #endif

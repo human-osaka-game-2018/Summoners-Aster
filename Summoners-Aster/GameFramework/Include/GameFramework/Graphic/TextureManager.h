@@ -80,6 +80,8 @@ namespace gameframework
 
 				delete i.second;
 			}
+
+			m_textures.clear();
 		}
 
 		/// <summary>

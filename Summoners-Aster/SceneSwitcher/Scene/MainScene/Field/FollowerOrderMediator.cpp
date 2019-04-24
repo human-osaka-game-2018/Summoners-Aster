@@ -73,7 +73,7 @@ namespace summonersaster
 		if (!m_pFollowerZone[index].m_pFollower) return;
 
 		//現在のプレイヤーじゃなかったら
-		if (m_pFollowerZone[index].m_pFollower->Owner() != PLAYER_KIND::PROPONENT) return;
+		if (m_pFollowerZone[index].m_pFollower->Owner() != BattleInformation::CurrentPlayer()) return;
 
 		m_rField.ActivateAbirity(index);
 	}
@@ -94,7 +94,7 @@ namespace summonersaster
 		if (m_pFollowerZone[index].m_pFollower)
 		{
 			//現在のプレイヤーだったら
-			if (m_pFollowerZone[index].m_pFollower->Owner() == PLAYER_KIND::PROPONENT)
+			if (m_pFollowerZone[index].m_pFollower->Owner() == BattleInformation::CurrentPlayer())
 			{
 				SetIsSelected(&m_pFollowerZone[index]);
 
@@ -115,15 +115,18 @@ namespace summonersaster
 
 	void FollowerOrderMediator::AttackPlayer()
 	{
+		PLAYER_KIND notCurrentPlayer = 
+			algorithm::Tertiary(BattleInformation::CurrentPlayer() == PLAYER_KIND::OPPONENT, PLAYER_KIND::PROPONENT, PLAYER_KIND::OPPONENT);
+
 		//現在のプレイヤーじゃないほう
-		Vertices* pNextTurnPlayer = m_playersAttackData[PLAYER_KIND::PROPONENT].m_pPlayerIconVertices;
+		Vertices* pNextTurnPlayer = m_playersAttackData[notCurrentPlayer].m_pPlayerIconVertices;
 		
 		if (!IsSelected())return;
 		
 		if (!m_rGameFramework.IsCursorOnRect(*pNextTurnPlayer)) return;
 
 		//現在のプレイヤーじゃないほう
-		m_rField.AttackPlayer(GetSelectingFollowerIndex(), m_playersAttackData[PLAYER_KIND::PROPONENT].m_pHP);
+		m_rField.AttackPlayer(GetSelectingFollowerIndex(), m_playersAttackData[notCurrentPlayer].m_pHP);
 		NeutralizeSelecting();
 	}
 

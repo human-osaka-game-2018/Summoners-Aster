@@ -2,6 +2,8 @@
 
 namespace summonersaster
 {
+	using namespace gameframework;
+
 	Turn::~Turn()
 	{
 
@@ -31,15 +33,20 @@ namespace summonersaster
 
 	void Turn::CreateKindInstances()
 	{
-		m_kinds[TURN_STAGE_KIND::UI_RENDERING] = new TurnUIRenderingStage(m_isPreceding, m_turnNum);
+		m_kinds[TURN_STAGE_KIND::UI_RENDERING] = new TurnUIRenderingStage();
 		m_kinds[TURN_STAGE_KIND::PHASE_OPERATION] = new PhaseOperationStage();
 	}
 
 	void Turn::IncrementTurn()
 	{
-		if ((m_isPreceding = !m_isPreceding))
+		BattleInformation::CurrentPlayer(
+			algorithm::Tertiary(BattleInformation::CurrentPlayer() == PLAYER_KIND::OPPONENT, PLAYER_KIND::PROPONENT, PLAYER_KIND::OPPONENT));
+
+		if ((BattleInformation::CurrentPlayer() == BattleInformation::StartPlayer()))
 		{
 			++m_turnNum;
+
+			BattleInformation::Turn(m_turnNum);
 		}
 	}
 } // namespace summonersaster

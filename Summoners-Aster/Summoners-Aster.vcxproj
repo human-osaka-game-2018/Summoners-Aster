@@ -21,9 +21,13 @@
   <ItemGroup>
     <ClCompile Include="Button\Button.cpp" />
     <ClCompile Include="Card\Card.cpp" />
+    <ClCompile Include="Card\CardFolder.cpp" />
     <ClCompile Include="Card\Follower\Follower.cpp" />
     <ClCompile Include="Card\Spell\Spell.cpp" />
     <ClCompile Include="Card\Weapon\Weapon.cpp" />
+    <ClCompile Include="GraphicEffects\ClickEffect.cpp" />
+    <ClCompile Include="GraphicEffects\Cursor.cpp" />
+    <ClCompile Include="GraphicEffects\HoldEffect.cpp" />
     <ClCompile Include="Main\Main.cpp" />
     <ClCompile Include="ObjectIntegrator\ObjectIntegrator.cpp" />
     <ClCompile Include="ObjectIntegrator\Object\Object.cpp" />
@@ -39,11 +43,14 @@
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\Player.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\PlayerName.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\BattleEnums.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\BattleInformation.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\BattleObject.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\BattlePlayer\BattlePlayer.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\BattlePlayer\OpponentPlayer.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\BattlePlayer\Players.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\CardTransporter\CardTransporterBase.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Cemetery\Cemetery.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Deck\Deck.cpp" />
-    <ClCompile Include="SceneSwitcher\Scene\MainScene\Field\CardTransporter.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Field\Field.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Field\FollowerOrderMediator.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Field\RotationOrderMediator.cpp" />
@@ -69,6 +76,7 @@
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Turn\Turn.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Turn\TurnStage.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Turn\TurnUIRenderingStage.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\WeaponHolder\WeaponHolder.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\Scene.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\TitleScene\GameTitle.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\TitleScene\GameTitleStar.cpp" />
@@ -81,9 +89,13 @@
   <ItemGroup>
     <ClInclude Include="Button\Button.h" />
     <ClInclude Include="Card\Card.h" />
+    <ClInclude Include="Card\CardFolder.h" />
     <ClInclude Include="Card\Follower\Follower.h" />
     <ClInclude Include="Card\Spell\Spell.h" />
     <ClInclude Include="Card\Weapon\Weapon.h" />
+    <ClInclude Include="GraphicEffects\ClickEffect.h" />
+    <ClInclude Include="GraphicEffects\Cursor.h" />
+    <ClInclude Include="GraphicEffects\HoldEffect.h" />
     <ClInclude Include="ObjectIntegrator\ObjectIntegrator.h" />
     <ClInclude Include="ObjectIntegrator\Object\Object.h" />
     <ClInclude Include="ObjectIntegrator\Object\Task.h" />
@@ -98,11 +110,14 @@
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\Player.h" />
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\PlayerName.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\BattleEnums.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\BattleInformation.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\BattleObject.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\BattlePlayer\BattlePlayer.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\BattlePlayer\OpponentPlayer.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\BattlePlayer\Players.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\CardTransporter\CardTransporterBase.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Cemetery\Cemetery.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Deck\Deck.h" />
-    <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\CardTransporter.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\Field.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\FollowerOrderMediator.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\RotationOrderMediator.h" />
@@ -128,6 +143,7 @@
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Turn\Turn.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Turn\TurnStage.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Turn\TurnUIRenderingStage.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\WeaponHolder\WeaponHolder.h" />
     <ClInclude Include="SceneSwitcher\Scene\Scene.h" />
     <ClInclude Include="SceneSwitcher\Scene\TitleScene\GameTitle.h" />
     <ClInclude Include="SceneSwitcher\Scene\TitleScene\GameTitleStar.h" />
@@ -203,7 +219,7 @@
     <LibraryPath>$(DXSDK_DIR)Lib\x64;$(ProjectDir)GameFramework\Lib\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(DXSDK_DIR)Include;$(ProjectDir)GameFramework\Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(DXSDK_DIR)Include;$(ProjectDir);$(ProjectDir)GameFramework\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x64;$(ProjectDir)GameFramework\Lib\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -227,7 +243,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>DIRECTINPUT_VERSION=0x0800;DIRECT_X_VERSOIN_9;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>Card;SceneSwitcher\Scene\MainScene;SceneSwitcher\Scene\MainScene\Field;SceneSwitcher\Scene\MainScene\Turn;SceneSwitcher\Scene\MainScene\Step;SceneSwitcher\Scene\MainScene\Phase;Button;SwitcherBase;SceneSwitcher;ObjectIntegrator;ObjectIntegrator\Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>SceneSwitcher\Scene\MainScene\CardTransporter;GraphicEffects;Card;SceneSwitcher\Scene\MainScene;SceneSwitcher\Scene\MainScene\Field;SceneSwitcher\Scene\MainScene\Turn;SceneSwitcher\Scene\MainScene\Step;SceneSwitcher\Scene\MainScene\Phase;Button;SwitcherBase;SceneSwitcher;ObjectIntegrator;ObjectIntegrator\Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -261,6 +277,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>DIRECTINPUT_VERSION=0x0800;DIRECT_X_VERSOIN_9;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>SceneSwitcher\Scene\MainScene\CardTransporter;GraphicEffects;Card;SceneSwitcher\Scene\MainScene;SceneSwitcher\Scene\MainScene\Field;SceneSwitcher\Scene\MainScene\Turn;SceneSwitcher\Scene\MainScene\Step;SceneSwitcher\Scene\MainScene\Phase;Button;SwitcherBase;SceneSwitcher;ObjectIntegrator;ObjectIntegrator\Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

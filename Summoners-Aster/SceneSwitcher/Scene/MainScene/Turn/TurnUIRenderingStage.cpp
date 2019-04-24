@@ -4,23 +4,15 @@ namespace summonersaster
 {
 	using namespace gameframework;
 
-	TurnUIRenderingStage::TurnUIRenderingStage(const bool& isPrecedingTurn, const int& turnNum) 
-		:rIS_PRECEDING_TURN(isPrecedingTurn), rTURN_NUM(turnNum)
+	TurnUIRenderingStage::TurnUIRenderingStage() 
 	{
 		WindowParam::GetWindowSize(&m_windowSize);
-
-		RectSize turnFontSize;
-		turnFontSize.m_width  = m_windowSize.m_width * 0.035f;
-		turnFontSize.m_height = 2.0f * turnFontSize.m_width;
-
-		m_rGameFramework.CreateFont(_T("TURN_NUM"), turnFontSize, _T("IPAex明朝"));
 
 		GameFrameworkFactory::Create(&m_pStream);
 	}
 
 	TurnUIRenderingStage::~TurnUIRenderingStage()
 	{
-		m_rGameFramework.ReleaseFont(_T("TURN_NUM"));
 		delete m_pStream;
 	}
 
@@ -36,13 +28,15 @@ namespace summonersaster
 
 	void TurnUIRenderingStage::Update()
 	{
-		m_rPlayer.Update(TURN_STAGE_KIND::UI_RENDERING);
+		m_rField.Update();
+
+		m_rPlayers.Update(TURN_STAGE_KIND::UI_RENDERING);
 	}
 
 	void TurnUIRenderingStage::Render()
 	{
 		m_rField.Render();
-		m_rPlayer.Render();
+		m_rPlayers.Render();
 		m_rRotationOrderMediator.Render(false);
 
 		static int frame = 0;
@@ -66,18 +60,17 @@ namespace summonersaster
 		m_pStream->SetTopLeft(topLeft);
 
 		TCHAR turnBuff[4];
-		_itot_s(rTURN_NUM, turnBuff, _countof(turnBuff), 10);
+		_itot_s(BattleInformation::Turn() , turnBuff, _countof(turnBuff), 10);
 
 		(*m_pStream) = turnBuff;
 		(*m_pStream) += _T("ターン\n");
 
-		tstring player = _T("後行");
-
-		if (rIS_PRECEDING_TURN)
-		{
-			player = _T("先行");
-		}
+		tstring player = 
+			algorithm::Tertiary(BattleInformation::CurrentPlayer() == BattleInformation::StartPlayer(), _T("先行"), _T("後行"));
 
 		(*m_pStream) += player;
+		(*m_pStream) += _T("\n");
+		(*m_pStream) += algorithm::Tertiary(BattleInformation::CurrentPlayer() == PLAYER_KIND::OPPONENT, _T("エフリ・レフル"), _T("ブレイバー・シオン"));
+
 	}
 } // namespace summonersaster

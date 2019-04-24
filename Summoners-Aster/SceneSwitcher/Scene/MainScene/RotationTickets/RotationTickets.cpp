@@ -4,9 +4,16 @@ namespace summonersaster
 {
 	using namespace gameframework;
 
-	RotationTickets::RotationTickets(int retentionMax)
+	RotationTickets::RotationTickets(int retentionMax, const D3DXVECTOR2& baseCenterWindowMulti)
 		:Object(0.08f), RETENTION_MAX(retentionMax)
 	{
+		m_baseCenter = 
+		{ 
+			m_windowCenter.x * baseCenterWindowMulti.x,  
+			m_windowCenter.y * baseCenterWindowMulti.y,
+			m_z 
+		};
+
 		Initialize();
 		LoadResource();
 	}
@@ -34,19 +41,15 @@ namespace summonersaster
 		{
 			delete pVertices;
 		}
-
-		m_rGameFramework.ReleaseTexture(_T("ROTATION_TICKET"));
 	}
 
 	void RotationTickets::LoadResource()
 	{
-		m_rGameFramework.CreateTexture(_T("ROTATION_TICKET"), _T("Textures/Battle_rotationTicket.png"));
+
 	}
 
 	void RotationTickets::Render()
 	{
-		D3DXVECTOR3 baseCenter(m_windowCenter.x * 0.9f, m_windowCenter.y * 1.75f, m_z);
-
 		RectSize size;
 		size.m_width = size.m_height = m_windowSize.m_width * 0.02f;
 
@@ -59,7 +62,7 @@ namespace summonersaster
 				pVertices->SetColor(0xFF666666);
 			}
 
-			D3DXVECTOR3 center(baseCenter.x + m_windowSize.m_width * 0.01f * index, baseCenter.y, baseCenter.z);
+			D3DXVECTOR3 center(m_baseCenter.x + m_windowSize.m_width * 0.01f * index, m_baseCenter.y, m_baseCenter.z);
 			pVertices->SetCenterAndSize(center, size);
 
 			pVertices->Render(m_rGameFramework.GetTexture(_T("ROTATION_TICKET")));

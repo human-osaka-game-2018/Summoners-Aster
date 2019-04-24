@@ -2,7 +2,7 @@
 #define STEP_H
 
 #include "KindBase.h"
-#include "BattlePlayer/BattlePlayer.h"
+#include "BattlePlayer/Players.h"
 #include "BattleEnums.h"
 #include "Field.h"
 
@@ -22,7 +22,7 @@ namespace summonersaster
 		int m_frame = 0;
 
 		Field& m_rField = Field::CreateAndGetRef();
-		BattlePlayer& m_rPlayer = BattlePlayer::CreateAndGetRef();
+		Players& m_rPlayers = Players::CreateAndGetRef();
 		RotationOrderMediator& m_rRotationOrderMediator = RotationOrderMediator::CreateAndGetRef();
 	};
 } // namespace summonersaster
