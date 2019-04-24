@@ -12,13 +12,13 @@ namespace summonersaster
 	void Card::Initialize()
 	{
 		GameFrameworkFactory::Create(&m_pRect);
-
+		GameFrameworkFactory::Create(&m_pCostStream);
 		LoadResource();
 	}
 
 	void Card::LoadResource()
 	{
-		m_rGameFramework.CreateTexture(_T("カシオペア"), m_texturePath.c_str());
+		m_rGameFramework.CreateTexture(pTEXTURE_KEY, m_texturePath.c_str());
 	}
 
 	void Card::Finalize()
@@ -29,7 +29,7 @@ namespace summonersaster
 	void Card::Release()
 	{
 		delete m_pRect;
-		//m_rGameFramework.ReleaseTexture(pTEXTURE_KEY);
+		delete m_pCostStream;
 	}
 
 	void Card::Update()
@@ -39,16 +39,40 @@ namespace summonersaster
 
 	void Card::Render(const D3DXVECTOR3& center, const RectSize& size, const Degree& rotationZ)
 	{
+		RenderCard(center, size, rotationZ);
+	}
+
+	Card::Card(TYPE type, const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner)
+		: CARD_TYPE(type), m_name(name), m_texturePath(texturePath), m_cost(cost), pTEXTURE_KEY(m_name.c_str()), m_owner(owner)
+	{
+		Initialize();
+	}
+
+	Card::Card(TYPE type, const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner, const TCHAR* pTextureKey)
+		: CARD_TYPE(type), m_name(name), m_texturePath(texturePath), m_cost(cost), pTEXTURE_KEY(pTextureKey), m_owner(owner)
+	{
+		Initialize();
+	}
+
+	void Card::RenderCard(const D3DXVECTOR3& center, const RectSize& size, const Degree& rotationZ)
+	{
 		m_pRect->GetCenter() = { center.x, center.y, center.z };
 		m_pRect->SetSize(size);
 		m_pRect->SetRotationZ(rotationZ);
 
-		m_pRect->Render(m_rGameFramework.GetTexture(_T("カシオペア")));
-	}
+		m_pRect->Render(m_rGameFramework.GetTexture(pTEXTURE_KEY));
 
-	Card::Card(TYPE type, const tstring& name, const tstring& texturePath, int cost)
-		: CARD_TYPE(type), m_name(name), m_texturePath(texturePath), m_cost(cost), pTEXTURE_KEY(m_name.c_str())
-	{
-		Initialize();
+		m_pRect->GetColor() = algorithm::Tertiary(m_owner == PLAYER_KIND::OPPONENT, 0xFF0000FF, 0xFFFF0000);
+		m_pRect->Render(m_rGameFramework.GetTexture(_T("CARD_FRAME")));
+
+		m_pRect->SetColor(0xFFFFFFFF);
+		m_pRect->Render(m_rGameFramework.GetTexture(_T("COST")));
+		if (-90.0f==rotationZ.Raw() ) return;
+
+		if (m_isInCemetery) return;
+
+		(*m_pCostStream) = totstring(m_cost);
+		m_pCostStream->SetTopLeft(D3DXVECTOR2(center.x - size.m_width * 0.37f, center.y - size.m_height * 0.475f));
+		m_pCostStream->Render(m_rGameFramework.GetFont(_T("CARD")), DT_CENTER);
 	}
 } // namespace summonersaster

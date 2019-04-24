@@ -12,6 +12,9 @@
 /// </summary>
 namespace gameframework
 {
+	//namespaceは関係ない
+	#define totstring std::_Integral_to_string<TCHAR>
+
 	using tstring = std::basic_string<TCHAR>;
 	using tstringstream = std::basic_stringstream<TCHAR>;
 	using tistringstream = std::basic_istringstream<TCHAR>;

@@ -10,6 +10,7 @@
 namespace summonersaster
 {
 	using gameframework::tstring;
+	using gameframework::Stream;
 	using gameframework::RectSize;
 	using gameframework::Vertices;
 	using gameframework::Degree;
@@ -63,13 +64,13 @@ namespace summonersaster
 		/// </summary>
 		/// <param name="center">描画する際の中心座標</param>
 		/// <param name="size">描画する際のカードの幅と高さ</param>
-		void Render(const D3DXVECTOR3& center, const RectSize& size, const Degree& rotationZ = 0.0f);
+		virtual void Render(const D3DXVECTOR3& center, const RectSize& size, const Degree& rotationZ = 0.0f);
 
 		/// <summary>
 		/// 自身のコピーを動的確保する
 		/// </summary>
 		/// <param name="ppCard">コピーされるカードのポインタのポインタ</param>
-		virtual void CreateCopy(Card** ppCard) const = 0;
+		virtual void CreateCopy(Card** ppCard, PLAYER_KIND owner) const = 0;
 
 		const tstring& Name() const
 		{
@@ -101,21 +102,35 @@ namespace summonersaster
 			m_owner = owner;
 		}
 
+		inline void IsInCemetery(bool isInCemetery)
+		{
+			m_isInCemetery = isInCemetery;
+		}
+
 		const TYPE CARD_TYPE;
 
+		const TCHAR* pTEXTURE_KEY = nullptr;
+
 	protected:
-		Card(TYPE type, const tstring& name, const tstring& texturePath, int cost);
+		Card(TYPE type, const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner = PLAYER_KIND::PROPONENT);
+		Card(TYPE type, const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner, const TCHAR* pTextureKey);
 
 		Card(Card& card) = delete;
 
 		Card& operator=(Card& card) = delete;
 
+		void RenderCard(const D3DXVECTOR3& center, const RectSize& size, const Degree& rotationZ);
+
 		tstring m_name;
 		tstring m_texturePath;
-		const TCHAR* pTEXTURE_KEY = nullptr;
+
+		bool m_isInCemetery = false;
 
 		int m_cost = 0;
 		PLAYER_KIND m_owner = PLAYER_KIND::PROPONENT;
+
+		Vertices* m_pCostRect = nullptr;
+		Stream* m_pCostStream = 0;
 
 		gameframework::Vertices* m_pRect = nullptr;
 

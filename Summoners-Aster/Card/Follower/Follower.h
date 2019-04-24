@@ -8,14 +8,16 @@ namespace summonersaster
 	class Follower :public Card
 	{
 	public:
-		Follower(const tstring& name, const tstring& texturePath, int cost, int attack, int hitPoint);
+		Follower(const tstring& name, const tstring& texturePath, int cost, int attack, int hitPoint, PLAYER_KIND owner = PLAYER_KIND::PROPONENT);
+		Follower(const tstring& name, const tstring& texturePath, int cost, int attack, int hitPoint, PLAYER_KIND owner, const TCHAR* pTextureKey);
+
 		~Follower();
 
 		/// <summary>
 		/// 自身のコピーを動的確保する
 		/// </summary>
 		/// <param name="ppCard">コピーされるカードのポインタのポインタ</param>
-		void CreateCopy(Card** ppCard) const override;
+		void CreateCopy(Card** ppCard, PLAYER_KIND owner) const override;
 
 		inline int HP() const
 		{
@@ -44,10 +46,25 @@ namespace summonersaster
 		/// <returns>thisの参照</returns>
 		Follower& operator-=(const Follower* pFollower);
 
+		void Render(const D3DXVECTOR3& center, const RectSize& size, const Degree& rotationZ = Degree(0))override;
+
 	private:
 		Follower(Follower& follower) = delete;
 
 		Follower& operator=(Follower& follower) = delete;
+
+		void InitializeStream()
+		{
+			gameframework::GameFrameworkFactory::Create(&m_pAttackStream);
+			gameframework::GameFrameworkFactory::Create(&m_pHPStream);
+		}
+
+		void RenderHP(const D3DXVECTOR3& center, const RectSize& size);
+
+		void RenderAttack(const D3DXVECTOR3& center, const RectSize& size);
+
+		Stream* m_pAttackStream = 0;
+		Stream* m_pHPStream = 0;
 
 		int m_hP = 0;
 		int m_attack = 0;

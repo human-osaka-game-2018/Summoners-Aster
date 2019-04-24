@@ -5,6 +5,7 @@
 #include "StepSwitcher.h"
 #include "Field.h"
 #include "BattlePlayer/BattlePlayer.h"
+#include "CardFolder.h"
 
 namespace summonersaster
 {
@@ -24,6 +25,8 @@ namespace summonersaster
 		/// </summary>
 		void Finalize()override;
 
+		void LoadResources();
+
 		/// <summary>
 		/// 更新を行う
 		/// </summary>
@@ -41,7 +44,7 @@ namespace summonersaster
 
 		StepSwitcher& m_rStepSwitcher = StepSwitcher::CreateAndGetRef();
 		Field& m_rField = Field::CreateAndGetRef();
-		BattlePlayer& m_rPlayer = BattlePlayer::CreateAndGetRef();
+		Players& m_rPlayers = Players::CreateAndGetRef();
 	};
 } // namespace summonersaster
 

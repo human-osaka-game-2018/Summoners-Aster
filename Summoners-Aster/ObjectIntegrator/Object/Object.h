@@ -21,7 +21,7 @@ namespace summonersaster
 		/// <summary>
 		/// 外部からのファイル読み込みを行う
 		/// </summary>
-		virtual void LoadResource() = 0;
+		virtual void LoadResource();
 
 		/// <summary>
 		/// 終了処理を行う

@@ -19,7 +19,9 @@ namespace summonersaster
 	void PlayerIcon::Initialize()
 	{
 		GameFrameworkFactory::Create(&m_pVertices);
-		m_pVertices->GetSize() = { m_windowSize.m_width * 0.19f, m_windowSize.m_height * 0.4f };
+		RectSize size;
+		size.m_width = size.m_height = m_windowSize.m_width * 0.19f;
+		m_pVertices->GetSize() = size;
 		float sign = Tertiary(m_isOpponent, +1.0f, -1.0f);
 		m_pVertices->GetCenter().y = m_windowCenter.y + m_windowSize.m_height * 0.25f * sign;
 		m_pVertices->GetCenter().z = 0.0f;
@@ -37,8 +39,7 @@ namespace summonersaster
 
 	void PlayerIcon::LoadResource()
 	{
-		m_rGameFramework.CreateFont(_T("PLAYER_INFO"), RectSize(25.0f, 50.0f), nullptr);
-		m_rGameFramework.CreateTexture(pPLAYER_TEXTURE_KEY, _T("Textures/Player.png"));
+
 	}
 
 	void PlayerIcon::Finalize()

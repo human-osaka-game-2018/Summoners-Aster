@@ -11,6 +11,7 @@
 #include "BattleEnums.h"
 #include "Card.h"
 #include "Follower/Follower.h"
+#include "BattleInformation.h"
 
 namespace summonersaster
 {
@@ -22,7 +23,7 @@ namespace summonersaster
 	using gameframework::GameFrameworkFactory;
 
 	/// <summary>
-	///	フィールドにある見方フォロワーに命令を送る際の仲介クラス
+	///	フィールドにある味方フォロワーに命令を送る際の仲介クラス
 	/// </summary>
 	class FollowerOrderMediator :public Singleton<FollowerOrderMediator>
 	{

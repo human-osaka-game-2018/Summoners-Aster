@@ -4,7 +4,7 @@
 #include <GameFramework.h>
 namespace summonersaster
 {
-	class BattleObject
+class BattleObject
 {
 public:
 	BattleObject();

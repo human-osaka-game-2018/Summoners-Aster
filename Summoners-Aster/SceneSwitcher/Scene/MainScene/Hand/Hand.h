@@ -18,7 +18,8 @@ public:
 		DEAD,
 	};
 
-	Hand();
+	explicit Hand(const D3DXVECTOR2& texturCenter = D3DXVECTOR2(990.0f, 800.0f));
+
 	~Hand();
 	void Render();
 	void Update();
@@ -52,7 +53,7 @@ private:
 
 	const unsigned int MAX_CAPACITY = 9;
 
-	D3DXVECTOR2 m_TexturCenter = { 1020.0f, 800.0f };
+	D3DXVECTOR2 m_TexturCenter = { 0.0f, 0.0f };
 };
 }
 #endif

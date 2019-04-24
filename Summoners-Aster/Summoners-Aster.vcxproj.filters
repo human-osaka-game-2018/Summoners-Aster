@@ -13,9 +13,6 @@
     <Filter Include="ObjectIntegrator">
       <UniqueIdentifier>{edab391c-7862-4c43-98dd-af7e11b19188}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ObjectIntegrator\Object">
-      <UniqueIdentifier>{3b3a01e3-004e-41c3-ba66-d85a5fb3bea5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SceneSwitcher\Scene\TitleScene">
       <UniqueIdentifier>{430508bb-bda3-4c38-9f77-8cf21b1b219e}</UniqueIdentifier>
     </Filter>
@@ -82,6 +79,18 @@
     <Filter Include="SceneSwitcher\Scene\MainScene\MovableCard">
       <UniqueIdentifier>{df752b44-c215-4b12-af95-a8780734d528}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GraphicEffects">
+      <UniqueIdentifier>{82e8d381-5901-4a2d-985c-185033a6bc83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\MainScene\WeaponHolder">
+      <UniqueIdentifier>{419496bb-0c10-4231-bb83-9524ab94ca07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\MainScene\CardTransporter">
+      <UniqueIdentifier>{800de5bb-071d-45bc-8eba-18c402b3ffe6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{3b3a01e3-004e-41c3-ba66-d85a5fb3bea5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneSwitcher\SceneSwitcher.h">
@@ -94,10 +103,10 @@
       <Filter>ObjectIntegrator</Filter>
     </ClInclude>
     <ClInclude Include="ObjectIntegrator\Object\Object.h">
-      <Filter>ObjectIntegrator\Object</Filter>
+      <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="ObjectIntegrator\Object\Task.h">
-      <Filter>ObjectIntegrator\Object</Filter>
+      <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="ObjectIntegrator\TaskScheduler.h">
       <Filter>ObjectIntegrator</Filter>
@@ -210,9 +219,6 @@
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\Field.h">
       <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
     </ClInclude>
-    <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\CardTransporter.h">
-      <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
-    </ClInclude>
     <ClInclude Include="SceneSwitcher\Scene\MainScene\Field\FollowerOrderMediator.h">
       <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
     </ClInclude>
@@ -261,6 +267,33 @@
     <ClInclude Include="SceneSwitcher\Scene\MainScene\MovableCard\MovableCard.h">
       <Filter>SceneSwitcher\Scene\MainScene\MovableCard</Filter>
     </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\BattlePlayer\OpponentPlayer.h">
+      <Filter>SceneSwitcher\Scene\MainScene\BattlePlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\BattlePlayer\Players.h">
+      <Filter>SceneSwitcher\Scene\MainScene\BattlePlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\BattleInformation.h">
+      <Filter>SceneSwitcher\Scene\MainScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Card\CardFolder.h">
+      <Filter>Card</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicEffects\ClickEffect.h">
+      <Filter>GraphicEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicEffects\Cursor.h">
+      <Filter>GraphicEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicEffects\HoldEffect.h">
+      <Filter>GraphicEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\WeaponHolder\WeaponHolder.h">
+      <Filter>SceneSwitcher\Scene\MainScene\WeaponHolder</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\CardTransporter\CardTransporterBase.h">
+      <Filter>SceneSwitcher\Scene\MainScene\CardTransporter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneSwitcher\SceneSwitcher.cpp">
@@ -276,10 +309,10 @@
       <Filter>ObjectIntegrator</Filter>
     </ClCompile>
     <ClCompile Include="ObjectIntegrator\Object\Object.cpp">
-      <Filter>ObjectIntegrator\Object</Filter>
+      <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="ObjectIntegrator\Object\Task.cpp">
-      <Filter>ObjectIntegrator\Object</Filter>
+      <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="ObjectIntegrator\TaskScheduler.cpp">
       <Filter>ObjectIntegrator</Filter>
@@ -383,9 +416,6 @@
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Field\Field.cpp">
       <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
     </ClCompile>
-    <ClCompile Include="SceneSwitcher\Scene\MainScene\Field\CardTransporter.cpp">
-      <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
-    </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\MainScene\Field\FollowerOrderMediator.cpp">
       <Filter>SceneSwitcher\Scene\MainScene\Field</Filter>
     </ClCompile>
@@ -410,9 +440,6 @@
     <ClCompile Include="SceneSwitcher\Scene\MainScene\BattlePlayer\BattlePlayer.cpp">
       <Filter>SceneSwitcher\Scene\MainScene\BattlePlayer</Filter>
     </ClCompile>
-    <ClCompile Include="SceneSwitcher\Scene\MainScene\BattleObject.cpp">
-      <Filter>SceneSwitcher\Scene\MainScene</Filter>
-    </ClCompile>
     <ClCompile Include="Card\Card.cpp">
       <Filter>Card</Filter>
     </ClCompile>
@@ -436,6 +463,36 @@
     </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\MainScene\MovableCard\MovableCard.cpp">
       <Filter>SceneSwitcher\Scene\MainScene\MovableCard</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\BattlePlayer\OpponentPlayer.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\BattlePlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\BattlePlayer\Players.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\BattlePlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\BattleInformation.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Card\CardFolder.cpp">
+      <Filter>Card</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\BattleObject.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicEffects\ClickEffect.cpp">
+      <Filter>GraphicEffects</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicEffects\Cursor.cpp">
+      <Filter>GraphicEffects</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicEffects\HoldEffect.cpp">
+      <Filter>GraphicEffects</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\WeaponHolder\WeaponHolder.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\WeaponHolder</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\CardTransporter\CardTransporterBase.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\CardTransporter</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

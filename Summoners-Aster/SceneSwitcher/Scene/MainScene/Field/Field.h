@@ -9,6 +9,7 @@
 
 #include <GameFramework.h>
 
+#include "BattleInformation.h"
 #include "Button.h"
 #include "BattleEnums.h"
 #include "Card.h"
@@ -81,15 +82,9 @@ namespace summonersaster
 		~Field();
 
 		/// <summary>
-		/// テクスチャなどの読み込み
-		/// </summary>
-		void LoadResource();
-
-		/// <summary>
 		/// 初期化を行う
 		/// </summary>
-		/// <param name="isPropnentPrecedence">1pが先行か</param>
-		void Initialize(bool isPropnentPrecedence);
+		void Initialize();
 
 		/// <summary>
 		/// 終了処理を行う
@@ -104,7 +99,7 @@ namespace summonersaster
 		/// <summary>
 		/// 更新を行う
 		/// </summary>
-		void Update(PLAYER_KIND currentPlayerKind);
+		void Update();
 
 		/// <summary>
 		/// 描画を行う
@@ -151,15 +146,19 @@ namespace summonersaster
 		void AttackOrMove(int originIndex, int destIndex);
 
 		/// <summary>
-		/// 回転を行う
+		/// 回転の起動
 		/// </summary>
-		/// <param name="isRightDirection">右回転かどうか</param>
-		void Rotate(bool isRightDirection);
+		/// <param name="isRightDirection">右回転</param>
+		void ActivateOstensiblyCirculation(bool isRightDirection);
 
 		/// <summary>
 		/// フィールドのフォロワー数
 		/// </summary>
 		static const int FIELD_FOLLOWERS_NUM = 5;
+
+		static const int FIELD_RECT_NUM = 6;
+
+		static const TCHAR* pTEXTURE_KEYS[FIELD_RECT_NUM];
 
 	private:
 		/*////////////////////////////////////////////// Followers //////////////////////////////////////////////*/
@@ -170,9 +169,6 @@ namespace summonersaster
 
 			~Followers();
 
-			/// <param name="isPropnentPrecedence">1pが先行か</param>
-			void Initialized(bool isPropnentPrecedence);
-
 			/// <summary>
 			/// 移動した攻撃したなどのフラグの初期化
 			/// </summary>
@@ -181,8 +177,7 @@ namespace summonersaster
 			/// <summary>
 			/// 更新を行う
 			/// </summary>
-			/// <param name="currentPlayerKind">現在のターンプレイヤー</param>
-			void Update(PLAYER_KIND currentPlayerKind);
+			void Update();
 
 			/// <summary>
 			/// HPが0以下になったフォロワーを墓地へ送る
@@ -193,13 +188,14 @@ namespace summonersaster
 			/// <summary>
 			/// 描画を行う
 			/// </summary>
-			void Render();
+			/// <param name="rotationStagingDegree">演出用の回転角度</param>
+			void Render(float rotationStagingDegree);
 
 			/// <summary>
 			/// 円運動する
 			/// </summary>
 			/// <param name="isRightDirection">右回転か</param>
-			void Circulation(bool isRightDirection);
+			void Circulate(bool isRightDirection);
 
 			/// <summary>
 			/// 引数のフォロワーの効果発動
@@ -233,6 +229,20 @@ namespace summonersaster
 			/// <param name="index">要素番号</param>
 			/// <param name="pFollower">フォロワーのポインタ</param>
 			void SetFollower(int index, Follower* pFollower);
+
+			/// <summary>
+			/// 行動を起こせるか
+			/// </summary>
+			/// <param name="index">カードの位置</param>
+			/// <returns>起こせるならtrue</returns>
+			inline bool CanTakeAction(int index)
+			{
+				if (m_followerDatas[index].m_isSummoned ||
+					m_followerDatas[index].m_isAttacked ||
+					m_followerDatas[index].m_isMoved) return false;
+
+				return true;
+			}
 
 			/// <summary>
 			/// 一回の回転角度
@@ -286,13 +296,12 @@ namespace summonersaster
 			/// <summary>
 			/// フォロワーを配置するフレームの描画
 			/// </summary>
-			void CreateBackRects();
+			void CreateBackRects(float rotationStagingDegree);
 
 			/// <summary>
 			/// 相対的に相手ゾーンにいるかを判定する
 			/// </summary>
-			/// <param name="currentPlayerKind">現在のプレイヤー</param>
-			void JudgeFollowersZone(PLAYER_KIND currentPlayerKind);
+			void JudgeFollowersZone();
 
 			RectSize m_windowSize;
 			D3DXVECTOR2 m_windowCenter = { 0.0f, 0.0f };
@@ -316,20 +325,19 @@ namespace summonersaster
 
 		void LocaleButton();
 
+		/// <summary>
+		/// 回転演出の更新
+		/// </summary>
+		void UpdateOstensiblyCirculation();
+
+		/// <summary>
+		/// 回転を行う
+		/// </summary>
+		/// <param name="isRightDirection">右回転かどうか</param>
+		void Rotate(bool isRightDirection);
+
 		RectSize m_windowSize;
 		D3DXVECTOR2 m_windowCenter = { 0.0f, 0.0f };
-
-		static const int FIELD_RECT_NUM = 6;
-
-		const TCHAR* pTEXTURE_KEYS[FIELD_RECT_NUM] =
-		{ 
-			_T("FIELD0"),
-			_T("FIELD1"),
-			_T("FIELD2"),
-			_T("FIELD3"),
-			_T("FIELD4"),
-			_T("FIELD5")
-		};
 
 		Vertices* m_pVertices[FIELD_RECT_NUM];
 		Vertices* m_pBackVertices;
@@ -340,6 +348,11 @@ namespace summonersaster
 		/// 右回転+1左回転-1
 		/// </summary>
 		int m_rotationNum = 0;
+
+		/// <summary>
+		/// 回転の演出用の角度
+		/// </summary>
+		float m_rotationStagingDegree = 0.0f;
 
 		Followers* m_pFollowers = nullptr;
 

@@ -7,6 +7,11 @@ namespace summonersaster
 
 	}
 
+	void Object::LoadResource()
+	{
+
+	}
+
 	void Object::Update()
 	{
 

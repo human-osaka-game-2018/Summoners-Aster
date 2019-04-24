@@ -55,8 +55,8 @@ namespace summonersaster
 
 		m_isLoadedPlayersInfo = true;
 
-		m_pProponentIcon = new PlayerIcon(_T("カシオペア"), false);
-		m_pOpponentIcon = new PlayerIcon(_T("カシオペア"), true);
+		m_pProponentIcon = new PlayerIcon(_T("FUJIZONO"), false);
+		m_pOpponentIcon = new PlayerIcon(_T("SHION"), true);
 	}
 
 } // namespace summonersaster

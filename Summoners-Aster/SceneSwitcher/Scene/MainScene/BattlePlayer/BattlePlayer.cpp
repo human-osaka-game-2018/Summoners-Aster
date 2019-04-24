@@ -4,10 +4,10 @@ using namespace gameframework;
 
 namespace summonersaster
 {
-BattlePlayer::BattlePlayer(const tstring& deckName)
-	:USE_DECK_NAME(deckName)
+BattlePlayer::BattlePlayer(const TCHAR* pPlayerTextureKey, const tstring& deckName)
+	:pPLAYER_TEXTURE_KEY(pPlayerTextureKey), USE_DECK_NAME(deckName)
 {
-	Initialize();
+
 }
 
 BattlePlayer::~BattlePlayer()
@@ -19,23 +19,17 @@ void BattlePlayer::Initialize()
 {
 	m_pHand = new Hand();
 	m_pDeck = new Deck(USE_DECK_NAME);
-	m_pDeck->Load();
+	m_pDeck->Load(PLAYER_KIND::PROPONENT);
 	m_pCemetery = new Cemetery();
-	m_pHP = new HP();
-	m_pMP = new MP();
-	m_pRotationTickets = new RotationTickets(3);
+	m_pHP = new HP(m_TexturCenter);
+	m_pMP = new MP(D3DXVECTOR3(470.0f, 800.0f, 0.9f));
+	m_pWeaponHolder = new WeaponHolder(D3DXVECTOR3(0.85f, 2.0f, 0.9f));
+	m_pRotationTickets = new RotationTickets(3, D3DXVECTOR2(0.68f, 1.92f));
 
 	GameFrameworkFactory::Create(&m_pRect);
-	m_rGameFramework.CreateTexture(_T("CARD_BACK"), _T("Textures/Battle_cardBack.png"));
-	m_rGameFramework.CreateFont(_T("INPUT_PROMPT"), RectSize(30, 50), _T("IPAex明朝"));
 
-	RectSize debugFontSize;
-	debugFontSize.m_width = 0.5f * (debugFontSize.m_height = 20);
-	m_rGameFramework.CreateFont(_T("Debug_str"), debugFontSize, _T("IPAex明朝"));
+	m_pDeck->Shuffle();
 
-	Shuffle();
-
-	m_rCardTransporter.Register(PLAYER_KIND::PROPONENT, m_pHand, m_pCemetery, m_pMP);
 	m_rFollowerOrderMediator.Register(PLAYER_KIND::PROPONENT, m_pRect, m_pHP);
 	m_rRotationOrderMediator.Register(PLAYER_KIND::PROPONENT, m_pRotationTickets);
 }
@@ -50,9 +44,6 @@ void BattlePlayer::Destroy()
 	delete m_pRotationTickets;
 
 	delete m_pRect;
-	m_rGameFramework.ReleaseTexture(_T("TEAM_LOGO"));
-	m_rGameFramework.ReleaseFont(_T("INPUT_PROMPT"));
-	m_rGameFramework.ReleaseFont(_T("Debug_str"));
 }
 
 bool BattlePlayer::Update(const tstring& phase)
@@ -64,60 +55,6 @@ bool BattlePlayer::Update(const tstring& phase)
 	if (phase == PHASE_KIND::MAIN) return UpdateInMainPhase();
 
 	m_pHand->Update();
-
-	//GameFramework& rGameFramework = GameFramework::CreateAndGetRef();
-	//if (rGameFramework.KeyboardIsPressed(DIK_G))
-	//{
-	//	DrawCard();
-	//}
-	//if (rGameFramework.KeyboardIsPressed(DIK_S))
-	//{
-	//	Shuffle();
-	//}
-	//if (rGameFramework.KeyboardIsPressed(DIK_M))
-	//{
-	//	Mulligan();
-	//}
-	//if (rGameFramework.KeyboardIsPressed(DIK_P))
-	//{
-	//	SendCardFromDeckToGraveyard();
-	//}
-	//if (rGameFramework.KeyboardIsPressed(DIK_1))
-	//{
-	//	m_pCemetery->PreserveCard(m_pHand->SendCard(0));
-	//}
-	//if (rGameFramework.KeyboardIsPressed(DIK_2))
-	//{
-	//	m_pCemetery->PreserveCard(m_pHand->SendCard(1));
-	//}
-	//if (rGameFramework.KeyboardIsPressed(DIK_3))
-	//{
-	//	m_pCemetery->PreserveCard(m_pHand->SendCard(2));
-	//}
-	//if (rGameFramework.KeyboardIsPressed(DIK_4))
-	//{
-	//	m_pCemetery->PreserveCard(m_pHand->SendCard(3));
-	//}
-	//if (rGameFramework.KeyboardIsPressed(DIK_5))
-	//{
-	//	m_pCemetery->PreserveCard(m_pHand->SendCard(4));
-	//}
-	//if (rGameFramework.KeyboardIsPressed(DIK_6))
-	//{
-	//	m_pCemetery->PreserveCard(m_pHand->SendCard(5));
-	//}
-	//if (rGameFramework.KeyboardIsPressed(DIK_7))
-	//{
-	//	m_pCemetery->PreserveCard(m_pHand->SendCard(6));
-	//}
-	//if (rGameFramework.KeyboardIsPressed(DIK_8))
-	//{
-	//	m_pCemetery->PreserveCard(m_pHand->SendCard(7));
-	//}
-	//if (rGameFramework.KeyboardIsPressed(DIK_9))
-	//{
-	//	m_pCemetery->PreserveCard(m_pHand->SendCard(8));
-	//}
 
 	return true;//仮
 }
@@ -140,16 +77,22 @@ bool BattlePlayer::UpdateInDrawPhase()
 
 	m_pHand->Update();
 
+	DestroyWornOutCard();
+
 	return true;
 }
 
 bool BattlePlayer::UpdateInMainPhase()
 {
-	m_rCardTransporter.TransportCollideFollower();
+	TransportCollideFollower();
+	TransportCollideWeapon();
+
 	m_rFollowerOrderMediator.ProcessFollowerOrders();
 	m_rRotationOrderMediator.ProcessRotationOrders();
 
 	m_pHand->Update();
+
+	DestroyWornOutCard();
 
 	return true;
 }
@@ -158,28 +101,25 @@ bool BattlePlayer::UpdateInEndPhase()
 {
 	m_pHand->Update();
 
+	DestroyWornOutCard();
+
 	return true;
 }
 
 void BattlePlayer::Render()
 {
-	m_pRect->GetCenter() = { m_TexturCenter.x, m_TexturCenter.y, 0.0f };
-	m_pRect->SetSize(RectSize(180.0f, 210.f));
+	m_pRect->GetCenter() = { m_TexturCenter.x, m_TexturCenter.y, 0.89f };
+	m_pRect->SetSize(RectSize(150.0f, 150.f));
 
-	m_pRect->Render(m_rGameFramework.GetTexture(_T("カシオペア")));
+	m_pRect->Render(m_rGameFramework.GetTexture(pPLAYER_TEXTURE_KEY));
 	
-	m_pDeck->Render();
-	m_pCemetery->Render();
-	m_pHand->Render();
+	m_pHP->Render();
 	m_pMP->Render();
 	m_pRotationTickets->Render();
-}
-
-bool BattlePlayer::RotateField()
-{
-	if(0== m_pRotationTickets->RetentionNum()) return false;
-	m_pRotationTickets->RetentionNum();
-	return true;
+	m_pDeck->Render();
+	m_pCemetery->Render();
+	m_pWeaponHolder->Render();
+	m_pHand->Render();
 }
 
 void BattlePlayer::Damaged(unsigned int damage)
@@ -202,31 +142,6 @@ void BattlePlayer::DrawCard()
 	{
 
 	}
-}
-
-void BattlePlayer::SendCardFromHandToGraveyard(unsigned int handNum)
-{
-	m_pCemetery->PreserveCard(m_pHand->SendCard(handNum));
-}
-
-void BattlePlayer::SendCardFromDeckToGraveyard()
-{
-	m_pCemetery->PreserveCard(m_pDeck->SendCard());
-}
-
-void BattlePlayer::SendToGraveyard(Card* card)
-{
-	m_pCemetery->PreserveCard(card);
-}
-
-Card* BattlePlayer::SendFromHand(unsigned int handNum)
-{
-	return m_pHand->SendCard(handNum);
-}
-
-void BattlePlayer::Shuffle()
-{
-	m_pDeck->Shuffle();
 }
 
 void BattlePlayer::DrawAtFirst()
@@ -259,5 +174,116 @@ void BattlePlayer::InitializeInMainPhaseStart()
 {
 	m_pMP->IncreaseCapacity();
 	m_pMP->RenewUsablePoints();
+}
+
+void BattlePlayer::TransportCollideFollower()
+{
+	m_rField.GetFollowerZone(&m_pFollowerZone);
+
+	for (int fzi = 0; fzi < m_rField.FIELD_FOLLOWERS_NUM; ++fzi)
+	{
+		m_pFollowerZone[fzi].m_pVertices->GetColor() = 0xAA000000;
+	}
+
+	if (BattleInformation::IsExcecuting()) return;
+
+	for (auto& pCard : *m_pHand->GetCards())
+	{
+		if (TransportCollideFollower(&pCard)) return;
+	}
+}
+
+void BattlePlayer::TransportCollideWeapon()
+{
+	std::vector<MovableCard*>* pHandCards = m_pHand->GetCards();
+
+	Color weaponHolderColor = 0xAA000000;
+
+	for (auto& pCard : *pHandCards)
+	{
+		if (pCard->HCard()->CARD_TYPE != Card::TYPE::WEAPON) continue;
+
+		if (!IsCollided(pCard->HCard(), m_pWeaponHolder->HCollisionRect())) continue;
+
+		weaponHolderColor = 0xAAFF8800;
+
+		if (!GameFramework::GetRef().MouseIsReleased(DirectX8Mouse::DIM_LEFT)) break;
+
+		Card* pLocaledWeapon = m_pWeaponHolder->HWeapon();
+
+		if (!PayMPAndTransportCard(m_pWeaponHolder->HHolder(), pCard->HCard())) break;
+
+		m_pHand->SendCard(static_cast<int>(&pCard - &(*pHandCards)[0]));
+
+		m_pCemetery->PreserveCard(pLocaledWeapon);
+
+		break;
+	}
+
+	m_pWeaponHolder->HCollisionRect()->SetColor(weaponHolderColor);
+}
+
+bool BattlePlayer::TransportCollideFollower(MovableCard** ppCard)
+{
+	int handCardIndex = static_cast<int>(ppCard - &(*m_pHand->GetCards())[0]);
+
+	for (int fzi = 0; fzi < m_rField.FIELD_FOLLOWERS_NUM; ++fzi)
+	{
+		if ((*ppCard)->HCard()->CARD_TYPE != Card::TYPE::FOLLOWER) continue;
+
+		//フォロワーが召喚できる場所か
+		if (m_pFollowerZone[fzi].m_pFollower || m_pFollowerZone[fzi].m_isOpponentZone ||
+			!IsCollided((*ppCard)->HCard(), m_pFollowerZone[fzi].m_pVertices)) continue;
+
+		m_pFollowerZone[fzi].m_pVertices->GetColor() = 0xAAFF8800;
+
+		if (!GameFramework::GetRef().MouseIsReleased(DirectX8Mouse::DIM_LEFT)) break;
+
+		Summon(handCardIndex, fzi);
+
+		return true;
+	}
+
+	return false;
+}
+
+void BattlePlayer::DestroyDeadFollower()
+{
+	std::vector<Card*> pCemetary;
+
+	m_rField.DestroyDeadFollower(&pCemetary);
+
+	for (auto& pCard : pCemetary)
+	{
+		m_pCemetery->PreserveCard(pCard);
+	}
+}
+
+void BattlePlayer::Summon(int handCardIndex, int transportFieldIndex)
+{
+	std::vector<MovableCard*>* pCards = m_pHand->GetCards();
+
+	Follower** ppFollower = &m_pFollowerZone[transportFieldIndex].m_pFollower;
+
+	if (!PayMPAndTransportCard(ppFollower, (*pCards)[handCardIndex]->HCard())) return;
+
+	m_pHand->SendCard(handCardIndex);
+
+	m_pFollowerZone[transportFieldIndex].m_isSummoned = true;
+}
+
+void BattlePlayer::DestroyWornOutCard()
+{
+	DestroyDeadFollower();
+
+	Card* pWeapon = m_pWeaponHolder->HWeapon();
+
+	if (!pWeapon) return;
+
+	if (!pWeapon->ShouldDestroyed()) return;
+
+	m_pCemetery->PreserveCard(pWeapon);
+
+	m_pWeaponHolder->HWeapon(nullptr);
 }
 }

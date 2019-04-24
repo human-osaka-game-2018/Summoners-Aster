@@ -3,7 +3,7 @@
 
 #include "KindBase.h"
 #include "BattleEnums.h"
-#include "BattlePlayer/BattlePlayer.h"
+#include "BattlePlayer//Players.h"
 #include "Field.h"
 
 namespace summonersaster
@@ -20,7 +20,7 @@ namespace summonersaster
 		TurnStage();
 
 		Field& m_rField = Field::CreateAndGetRef();
-		BattlePlayer& m_rPlayer = BattlePlayer::CreateAndGetRef();
+		Players& m_rPlayers = Players::CreateAndGetRef();
 		RotationOrderMediator& m_rRotationOrderMediator = RotationOrderMediator::CreateAndGetRef();
 	};
 } // namespace summonersaster

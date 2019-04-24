@@ -9,6 +9,7 @@
 #include "SwitcherBase.h"
 #include "TurnUIRenderingStage.h"
 #include "PhaseOperationStage.h"
+#include "BattleInformation.h"
 
 namespace summonersaster
 {
@@ -32,16 +33,6 @@ namespace summonersaster
 		/// </remarks>
 		void Update()override;
 
-		inline const bool& GetIsPreceding()const
-		{
-			return m_isPreceding;
-		}
-
-		inline const int& GetTurnNum()const
-		{
-			return m_turnNum;
-		}
-
 	private:
 		Turn();
 
@@ -52,7 +43,6 @@ namespace summonersaster
 
 		void IncrementTurn();
 
-		bool m_isPreceding = true;
 		int m_turnNum = 1;
 	};
 } // namespace summonersaster

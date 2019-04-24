@@ -3,6 +3,9 @@
 
 #include <GameFramework.h>
 
+#include "Cursor.h"
+#include "ClickEffect.h"
+#include "HoldEffect.h"
 #include "SceneSwitcher.h"
 
 using namespace gameframework;
@@ -26,6 +29,9 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 	GameFramework& rGameFramework = GameFramework::CreateAndGetRef();
 
 	SceneSwitcher& sceneSwitcher = SceneSwitcher::CreateAndGetRef();
+	int frameCount = 0;
+
+	gameframework::Cursor cursor;
 
 	while (!pWindow->ReceivedQuitMessage())
 	{
@@ -35,8 +41,24 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 
 		rGameFramework.PrepareInFrame();
 
+		if (rGameFramework.MouseIsPressed(DirectX8Mouse::DIM_LEFT))
+		{
+			rGameFramework.RegisterGraphicEffect(new ClickEffect());
+		}
+
+		if (rGameFramework.MouseIsHeld(DirectX8Mouse::DIM_LEFT) && !((frameCount++) % 3))
+		{
+			rGameFramework.RegisterGraphicEffect(new HoldEffect());
+		}
+
 		sceneSwitcher.Update();
 		sceneSwitcher.Render();
+
+		rGameFramework.UpdateGraphicEffects();
+		rGameFramework.RenderGraphicEffects();
+
+		cursor.Update();
+		cursor.Render();
 
 		rGameFramework.FinishInFrame();
 	}

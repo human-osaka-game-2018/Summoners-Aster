@@ -5,7 +5,7 @@
 using namespace gameframework;
 namespace summonersaster
 {
-Deck::Deck(const tstring& deckName):DECK_NAME(deckName)
+Deck::Deck(const tstring& deckName, const D3DXVECTOR2& texturCenter) :DECK_NAME(deckName), m_TexturCenter(texturCenter)
 {
 }
 
@@ -17,14 +17,11 @@ void Deck::Render()
 {
 	Color color;
 	if (0 == m_Cards.size())
-		color = (255, 255, 0, 0);
+	color = (255, 255, 0, 0);
 	
 	m_pRect->SetRotationZ(-90.0f);
 	SetVertex(D3DXVECTOR3(m_TexturCenter.x, m_TexturCenter.y, 0.01f), RectSize(100.0f, 141.0f),color);
 	DrawTexture(_T("CARD_BACK"));
-
-	SetString(L"%d", static_cast<int>(m_Cards.size()));
-	WriteWords(D3DXVECTOR2(m_TexturCenter.x + 150.f, m_TexturCenter.y), _T("INPUT_PROMPT"), DT_RIGHT, (0xFFAAAAAA));
 }
 
 void Deck::Destroy()
@@ -37,12 +34,22 @@ void Deck::Destroy()
 	m_Cards.clear();
 }
 
-void Deck::Load()
+void Deck::Load(PLAYER_KIND owner)
 {
+	CardFolder& rCardFolder = CardFolder::CreateAndGetRef();
+
+	tstring cardName[] =
+	{
+		_T("エンジェル"),
+		_T("カシオペア"),
+		_T("ペルセウス"),
+		_T("ウェポン")
+	};
+
 	m_Cards.resize(LIMIT_CAPACITY);
 	for (int i=0;i<LIMIT_CAPACITY;++i)
 	{
-		m_Cards[i] = new Follower(_T("カシオペア"), _T("Textures/Player.png"), 1, 2, 2);
+		m_Cards[i] = rCardFolder.CreateCopy(cardName[i % (_countof(cardName))], owner);
 	}
 	//デッキ読み込み
 	//読み込み枚数が規定枚数でない場合エラーを吐かせる

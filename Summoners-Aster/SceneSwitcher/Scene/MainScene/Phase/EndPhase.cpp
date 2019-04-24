@@ -24,7 +24,9 @@ namespace summonersaster
 
 	void EndPhase::Update()
 	{
-		if (m_rPlayer.Update(PHASE_KIND::END))
+		m_rField.Update();
+
+		if (m_rPlayers.Update(PHASE_KIND::END))
 		{
 			SwitchEventMediatorBase<Phase>::GetRef().SendSwitchEvent(PHASE_KIND::DRAW);
 			SwitchEventMediatorBase<TurnStage>::GetRef().SendSwitchEvent(TURN_STAGE_KIND::UI_RENDERING);
@@ -37,7 +39,7 @@ namespace summonersaster
 	void EndPhase::Render()
 	{
 		m_rField.Render();
-		m_rPlayer.Render();
+		m_rPlayers.Render();
 		m_rRotationOrderMediator.Render(false);
 	}
 } // namespace summonersaster

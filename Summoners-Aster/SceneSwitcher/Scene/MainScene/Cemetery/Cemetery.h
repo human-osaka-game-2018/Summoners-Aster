@@ -11,7 +11,7 @@ namespace summonersaster
 class Cemetery :public BattleObject
 {
 public:
-	Cemetery();
+	Cemetery(const D3DXVECTOR2& texturCenter = D3DXVECTOR2(1480.0f, 530.0f));
 	~Cemetery();
 	void Render();
 	void Destroy();
@@ -30,7 +30,7 @@ public:
 private:
 	std::vector<Card*> m_Cards;
 
-	D3DXVECTOR2 m_TexturCenter = { 1480.0f, 530.0f };
+	D3DXVECTOR2 m_TexturCenter = { 0.0f, 0.0f };
 };
 }
 #endif

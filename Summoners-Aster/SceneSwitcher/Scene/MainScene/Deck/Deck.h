@@ -7,13 +7,14 @@
 #include "Spell/Spell.h"
 #include "Follower/Follower.h"
 #include "Weapon/Weapon.h"
+#include "CardFolder.h"
 
 namespace summonersaster
 {
 class Deck :public BattleObject
 {
 public:
-	Deck(const tstring& deckName);
+	explicit Deck(const tstring& deckName, const D3DXVECTOR2& texturCenter = D3DXVECTOR2(1529.0f, 640.0f));
 	~Deck();
 	void Render();
 	void Destroy();
@@ -21,7 +22,8 @@ public:
 	/// <summary>
 	/// デッキのロード
 	/// </summary>
-	void Load();
+	/// <param name="owner">カードの所有者</param>
+	void Load(PLAYER_KIND owner);
 
 	/// <summary>
 	/// シャッフル
@@ -55,7 +57,7 @@ private:
 	const int LIMIT_CAPACITY = 40;
 	const tstring& DECK_NAME;
 
-	D3DXVECTOR2 m_TexturCenter = { 1529.0f, 640.0f };
+	D3DXVECTOR2 m_TexturCenter = { 0.0f, 0.0f };
 };
 }
 #endif
