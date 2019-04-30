@@ -31,6 +31,11 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 	SceneSwitcher& sceneSwitcher = SceneSwitcher::CreateAndGetRef();
 	int frameCount = 0;
 
+	rGameFramework.CreateTexture(_T("キラ十字円"), _T("Textures/キラ十字円.png"));
+	rGameFramework.CreateTexture(_T("カーソル"), _T("Textures/カーソル.png"));
+	rGameFramework.CreateTexture(_T("中空き円"), _T("Textures/中空き円.png"));
+	rGameFramework.CreateTexture(_T("キラ"), _T("Textures/キラ.png"));
+
 	gameframework::Cursor cursor;
 
 	while (!pWindow->ReceivedQuitMessage())
