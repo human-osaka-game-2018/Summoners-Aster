@@ -4,13 +4,13 @@ namespace gameframework
 {
 	ClickEffect::ClickEffect()
 	{
-		m_partScheduler.Register(new ScalingFadeInOutSquare(_T("Textures/キラ十字円.png"), 45, 2.0f, Color(0xFF2323FF), Color(0xFF23FF88)));
-		m_partScheduler.Register(new ScalingFadeInOutSquare(_T("Textures/中空き円.png"), 20, 4.0f, Color(0xFF662323), Color(0xFF68FF23)));
-		m_partScheduler.Register(new ScalingFadeInOutSquare(_T("Textures/中空き円.png"), 30, 2.5f, Color(0xFF2323FF), Color(0xFF23FF88)));
+		m_partScheduler.Register(new ScalingFadeInOutSquare(_T("キラ十字円"), 45, 2.0f, Color(0xFF2323FF), Color(0xFF23FF88)));
+		m_partScheduler.Register(new ScalingFadeInOutSquare(_T("中空き円"), 20, 4.0f, Color(0xFF662323), Color(0xFF68FF23)));
+		m_partScheduler.Register(new ScalingFadeInOutSquare(_T("中空き円"), 30, 2.5f, Color(0xFF2323FF), Color(0xFF23FF88)));
 
 		for (int i = 7; i > 0; --i)
 		{
-			m_partScheduler.Register(new DiffuseDifferenceSquare(_T("Textures/キラ.png"), 1.0f, 0.13f, rand() % 20, Color(0xFF23FFFF), Color(0xFFFF23FF)));
+			m_partScheduler.Register(new DiffuseDifferenceSquare(_T("キラ"), 1.0f, 0.13f, rand() % 20, Color(0xFF23FFFF), Color(0xFFFF23FF)));
 		}
 	}
 
