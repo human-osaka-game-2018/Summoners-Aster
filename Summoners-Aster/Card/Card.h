@@ -107,6 +107,16 @@ namespace summonersaster
 			m_isInCemetery = isInCemetery;
 		}
 
+		inline bool	ShouldDestroyed()
+		{
+			return m_shouldDestroyed;
+		}
+
+		inline void	ShouldDestroyed(bool shouldDestroyed)
+		{
+			m_shouldDestroyed = shouldDestroyed;
+		}
+
 		const TYPE CARD_TYPE;
 
 		const TCHAR* pTEXTURE_KEY = nullptr;
@@ -125,6 +135,7 @@ namespace summonersaster
 		tstring m_texturePath;
 
 		bool m_isInCemetery = false;
+		bool m_shouldDestroyed = false;
 
 		int m_cost = 0;
 		PLAYER_KIND m_owner = PLAYER_KIND::PROPONENT;
