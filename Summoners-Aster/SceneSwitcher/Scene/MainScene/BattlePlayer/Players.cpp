@@ -35,6 +35,8 @@ namespace summonersaster
 
 	bool Players::Update(const tstring& phaseName)
 	{
+		DestroyDeadFollower();
+
 		if (phaseName == STEP_KIND::BATTLE_PREPARING)
 		{
 			for (auto& player : m_pBattlePlayers)
@@ -61,5 +63,22 @@ namespace summonersaster
 	void Players::InitializeInMainPhaseStart()
 	{
 		m_pBattlePlayers[BattleInformation::CurrentPlayer()]->InitializeInMainPhaseStart();
+	}
+
+	void Players::DestroyDeadFollower()
+	{
+		if (BattleInformation::IsExcecuting()) return;
+
+		std::vector<Card*> pCemetary;
+
+		Field::GetRef().DestroyDeadFollower(&pCemetary);
+
+		for (auto& pCard : pCemetary)
+		{
+			for (auto& player : m_pBattlePlayers)
+			{
+				player.second->SendCardToCemetery(pCard);
+			}
+		}
 	}
 }

@@ -45,6 +45,8 @@ namespace summonersaster
 
 	void RotationOrderMediator::ProcessRotationOrders()
 	{
+		if (BattleInformation::IsExcecuting()) return;
+
 		if (m_rotated) return;
 
 		int rotationDirectionCount = 0;

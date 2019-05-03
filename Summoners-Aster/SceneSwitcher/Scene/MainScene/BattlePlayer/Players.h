@@ -58,6 +58,8 @@ namespace summonersaster
 			return m_pBattlePlayers[kind];
 		}
 	private:
+		void DestroyDeadFollower();
+	
 		static std::unordered_map<PLAYER_KIND, BattlePlayer*> m_pBattlePlayers;
 	};
 } // namespace summonersaster

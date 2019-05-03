@@ -23,7 +23,16 @@ namespace gameframework
 		/// <param name="diffuseAmount">拡散量</param>
 		/// <param name="scalingAmount">拡大量</param>
 		/// <param name="startDelayFrame">何フレーム後に出現しだすか</param>
-		DiffuseDifferenceSquare(const TCHAR* pTexturePath, float diffuseAmount, float scalingAmount, int startDelayFrame, Color originalColor, Color destColor);
+		DiffuseDifferenceSquare(const TCHAR* pTexturePath, float diffuseAmount, float scalingAmount, int startDelayFrame,
+			Color originalColor, Color destColor);
+
+		/// <param name="pTexturePath">テクスチャのパス</param>
+		/// <param name="diffuseAmount">拡散量</param>
+		/// <param name="scalingAmount">拡大量</param>
+		/// <param name="startDelayFrame">何フレーム後に出現しだすか</param>
+		/// <param name="occurencePos">発生位置</param>
+		DiffuseDifferenceSquare(const TCHAR* pTexturePath, float diffuseAmount, float scalingAmount, int startDelayFrame,
+			Color originalColor, Color destColor, const D3DXVECTOR3& occurencePos);
 
 		~DiffuseDifferenceSquare();
 

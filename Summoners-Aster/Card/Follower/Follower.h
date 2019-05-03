@@ -2,6 +2,7 @@
 #define FOLLOWER_H
 
 #include "Card\Card.h"
+#include "BattleInformation.h"
 
 namespace summonersaster
 {

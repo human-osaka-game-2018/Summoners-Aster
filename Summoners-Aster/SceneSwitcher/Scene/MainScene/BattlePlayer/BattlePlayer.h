@@ -15,6 +15,7 @@
 #include "RotationTickets/RotationTickets.h"
 #include "FollowerOrderMediator.h"
 #include "RotationOrderMediator.h"
+#include "SummonEffect.h"
 #include "BattleEnums.h"
 
 namespace summonersaster
@@ -59,6 +60,12 @@ public:
 	/// <param name="heal">増やす量</param>
 	/// <remarks>初期値よりも増えない</remarks>
 	virtual void Recover(unsigned int heal);
+
+	/// <summary>
+	/// 自分のカードを墓地へ送る
+	/// </summary>
+	/// <param name="pCard">カードのポインタ</param>
+	virtual void SendCardToCemetery(Card* pCard);
 
 	/// <summary>
 	/// メインフェイズの始まりで行う初期化
@@ -118,16 +125,86 @@ protected:
 	bool TransportCollideFollower(MovableCard** ppCard);
 
 	/// <summary>
-	/// HPが0以下になったフォロワーを墓地へ送る
-	/// </summary>
-	void DestroyDeadFollower();
-
-	/// <summary>
-	/// フォロワーの召喚
+	/// フォロワーの召喚起動
 	/// </summary>
 	/// <param name="handCardIndex">召喚する手札の要素番号</param>
 	/// <param name="transportFieldIndex">設置する要素番号</param>
-	void Summon(int handCardIndex, int transportFieldIndex);
+	void ActivateSummon(int handCardIndex, int transportFieldIndex)
+	{
+		if (BattleInformation::IsExcecuting()) return;
+
+		m_transportFieldIndex = transportFieldIndex;
+
+		std::vector<MovableCard*>* pCards = m_pHand->GetCards();
+
+		Follower** ppFollower = &m_pFollowerZone[m_transportFieldIndex].m_pFollower;
+
+		if (!PayMPAndTransportCard(ppFollower, (*pCards)[handCardIndex]->HCard())) return;
+
+		m_pFollowerZone[m_transportFieldIndex].m_isSummoned = true;
+
+		m_pHand->SendCard(handCardIndex);
+
+		BattleInformation::IsSummoning(true);
+
+		m_rGameFramework.RegisterGraphicEffect(new SummonEffect(m_pFollowerZone[m_transportFieldIndex].m_pVertices->GetCenter()));
+
+		m_effectTakesFrame = EFFECT_TAKES_FRAME_MAX;
+	}
+
+	void ActivateArm(int handCardIndex)
+	{
+		std::vector<MovableCard*>* pHandCards = m_pHand->GetCards();
+
+		Card* pLocaledWeapon = m_pWeaponHolder->HWeapon();
+
+		if (!PayMPAndTransportCard(m_pWeaponHolder->HHolder(), (*pHandCards)[handCardIndex]->HCard())) return;
+
+		BattleInformation::IsArming(true);
+
+		m_pHand->SendCard(handCardIndex);
+
+		m_pCemetery->PreserveCard(pLocaledWeapon);
+
+		m_effectTakesFrame = EFFECT_TAKES_FRAME_MAX;
+	}
+
+	void UpdateSummonRoutine()
+	{
+		if (!BattleInformation::IsSummoning() || BattleInformation::IsDestroying()) return;
+
+		m_pFollowerZone[m_transportFieldIndex].m_pFollower->Rect().SetColor(0x00FFFFFF);
+
+		if (m_effectTakesFrame < EFFECT_TAKES_FRAME_MAX / 2)
+		{
+			m_pFollowerZone[m_transportFieldIndex].m_pFollower->Rect().FadeIn(EFFECT_TAKES_FRAME_MAX / 2, 0, 255);
+		}
+
+		if (m_effectTakesFrame-- > 0) return;
+
+		BattleInformation::IsSummoning(false);
+	}
+
+	void UpdateArmRoutine()
+	{
+		if (!BattleInformation::IsArming() || BattleInformation::IsDestroying()) return;
+
+		if (m_effectTakesFrame == EFFECT_TAKES_FRAME_MAX)
+		{
+			m_rGameFramework.RegisterGraphicEffect(new SummonEffect(m_pWeaponHolder->HCollisionRect()->GetCenter()));
+		}
+
+		m_pWeaponHolder->HWeapon()->Rect().SetColor(0x00FFFFFF);
+
+		if (m_effectTakesFrame < EFFECT_TAKES_FRAME_MAX / 2)
+		{
+			m_pWeaponHolder->HWeapon()->Rect().FadeIn(EFFECT_TAKES_FRAME_MAX / 2, 0, 255);
+		}
+
+		if (m_effectTakesFrame-- > 0) return;
+
+		BattleInformation::IsArming(false);
+	}
 
 	/// <summary>
 	/// 使用済みのカード等を墓地へ送る
@@ -151,6 +228,12 @@ protected:
 
 	Field& m_rField = Field::CreateAndGetRef();
 	FollowerData* m_pFollowerZone = nullptr;
+
+	const int NO_SELECTING_INDEX = -1;
+	int m_transportFieldIndex = NO_SELECTING_INDEX;
+
+	const int EFFECT_TAKES_FRAME_MAX = 60;
+	int m_effectTakesFrame = 0;
 
 	FollowerOrderMediator& m_rFollowerOrderMediator = FollowerOrderMediator::CreateAndGetRef();
 	RotationOrderMediator& m_rRotationOrderMediator = RotationOrderMediator::CreateAndGetRef();

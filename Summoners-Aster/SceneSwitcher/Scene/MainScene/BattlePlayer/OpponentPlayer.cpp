@@ -33,4 +33,13 @@ namespace summonersaster
 		m_rFollowerOrderMediator.Register(PLAYER_KIND::OPPONENT, m_pRect, m_pHP);
 		m_rRotationOrderMediator.Register(PLAYER_KIND::OPPONENT, m_pRotationTickets);
 	}
+
+	void OpponentPlayer::SendCardToCemetery(Card* pCard)
+	{
+		if (!pCard) return;
+
+		if (pCard->Owner() != PLAYER_KIND::OPPONENT) return;
+
+		m_pCemetery->PreserveCard(pCard);
+	}
 }

@@ -1,5 +1,4 @@
 ﻿#include "Follower.h"
-#include "BattleInformation.h"
 
 namespace summonersaster
 {
@@ -39,11 +38,6 @@ namespace summonersaster
 		RenderCard(center, size, rotationZ);
 		RenderHP(center, size);
 		RenderAttack(center, size);
-
-		m_pRect->GetColor() = algorithm::Tertiary(
-			Owner() != BattleInformation::CurrentPlayer(), 
-			0x55FFFFFF, 
-			static_cast<int>(0xFFFFFFFF));
 	}
 
 	void Follower::RenderHP(const D3DXVECTOR3& center, const RectSize& size)
@@ -53,7 +47,9 @@ namespace summonersaster
 
 		if (m_isInCemetery) return;
 
-		(*m_pHPStream) = totstring(m_hP);
+		int hPForRendering = algorithm::Tertiary(m_hP < 0, 0, m_hP);
+
+		(*m_pHPStream) = totstring(hPForRendering);
 		m_pHPStream->Render(m_rGameFramework.GetFont(_T("CARD")), DT_CENTER);
 	}
 

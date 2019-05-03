@@ -103,6 +103,15 @@
     <Filter Include="SceneSwitcher\Scene\DeckEditScene\HavingCards">
       <UniqueIdentifier>{86f1f8c5-dba8-4a3a-acbd-bc45940bc17f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GraphicEffects\Behavior">
+      <UniqueIdentifier>{be15ed9c-31ca-4f71-ae9d-ae9100bedc4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicEffects\Part">
+      <UniqueIdentifier>{96364490-265e-4342-9db1-533a2be9f429}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{a6b11ef9-0941-44f3-949d-338f7967057b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneSwitcher\SceneSwitcher.h">
@@ -324,6 +333,24 @@
     <ClInclude Include="SceneSwitcher\Scene\DeckEditScene\HavingCards\HavingCards.h">
       <Filter>SceneSwitcher\Scene\DeckEditScene\HavingCards</Filter>
     </ClInclude>
+    <ClInclude Include="GraphicEffects\Behavior\Move.h">
+      <Filter>GraphicEffects\Behavior</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicEffects\AttackEffect.h">
+      <Filter>GraphicEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicEffects\Part\SquareMoveToDest.h">
+      <Filter>GraphicEffects\Part</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader\Shader.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicEffects\SummonEffect.h">
+      <Filter>GraphicEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicEffects\Part\ScalingFlashSquare.h">
+      <Filter>GraphicEffects\Part</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneSwitcher\SceneSwitcher.cpp">
@@ -541,6 +568,24 @@
     </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\DeckEditScene\HavingCards\HavingCards.cpp">
       <Filter>SceneSwitcher\Scene\DeckEditScene\HavingCards</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicEffects\Behavior\Move.cpp">
+      <Filter>GraphicEffects\Behavior</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicEffects\AttackEffect.cpp">
+      <Filter>GraphicEffects</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicEffects\Part\SquareMoveToDest.cpp">
+      <Filter>GraphicEffects\Part</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader\Shader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicEffects\SummonEffect.cpp">
+      <Filter>GraphicEffects</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicEffects\Part\ScalingFlashSquare.cpp">
+      <Filter>GraphicEffects\Part</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
