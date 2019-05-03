@@ -6,6 +6,7 @@
 #include "Cursor.h"
 #include "ClickEffect.h"
 #include "HoldEffect.h"
+#include "SummonEffect.h"
 #include "SceneSwitcher.h"
 
 using namespace gameframework;
@@ -35,6 +36,9 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 	rGameFramework.CreateTexture(_T("カーソル"), _T("Textures/カーソル.png"));
 	rGameFramework.CreateTexture(_T("中空き円"), _T("Textures/中空き円.png"));
 	rGameFramework.CreateTexture(_T("キラ"), _T("Textures/キラ.png"));
+	rGameFramework.CreateTexture(_T("キラ星"), _T("Textures/キラ星.png"));
+	rGameFramework.CreateTexture(_T("白正方形"), _T("Textures/白正方形.png"));
+	rGameFramework.CreateTexture(_T("円"), _T("Textures/円.png"));
 
 	gameframework::Cursor cursor;
 
@@ -53,6 +57,11 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 
 		if (rGameFramework.MouseIsHeld(DirectX8Mouse::DIM_LEFT) && !((frameCount++) % 3))
 		{
+			POINT cursorPoint = { 0, 0 };
+			rGameFramework.CursorPos(&cursorPoint);
+			D3DXVECTOR3 cursorPos(static_cast<float>(cursorPoint.x), static_cast<float>(cursorPoint.y), 0.0f);
+			//rGameFramework.RegisterGraphicEffect(new SummonEffect(cursorPos));
+
 			rGameFramework.RegisterGraphicEffect(new HoldEffect());
 		}
 

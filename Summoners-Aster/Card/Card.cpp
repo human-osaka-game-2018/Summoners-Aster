@@ -62,10 +62,14 @@ namespace summonersaster
 
 		m_pRect->Render(m_rGameFramework.GetTexture(pTEXTURE_KEY));
 
-		m_pRect->GetColor() = algorithm::Tertiary(m_owner == PLAYER_KIND::OPPONENT, 0xFF0000FF, 0xFFFF0000);
+		m_pRect->GetColor()[Color::COMPONENT::RED]	 = algorithm::Tertiary(m_owner == PLAYER_KIND::OPPONENT, 0x00, 0xFF);
+		m_pRect->GetColor()[Color::COMPONENT::GREEN] = algorithm::Tertiary(m_owner == PLAYER_KIND::OPPONENT, 0x00, 0x00);
+		m_pRect->GetColor()[Color::COMPONENT::BLUE]	 = algorithm::Tertiary(m_owner == PLAYER_KIND::OPPONENT, 0xFF, 0x00);
 		m_pRect->Render(m_rGameFramework.GetTexture(_T("CARD_FRAME")));
 
-		m_pRect->SetColor(0xFFFFFFFF);
+		m_pRect->GetColor()[Color::COMPONENT::RED]   = 0xFF;
+		m_pRect->GetColor()[Color::COMPONENT::GREEN] = 0xFF;
+		m_pRect->GetColor()[Color::COMPONENT::BLUE]  = 0xFF;
 		m_pRect->Render(m_rGameFramework.GetTexture(_T("COST")));
 		if (-90.0f==rotationZ.Raw() ) return;
 

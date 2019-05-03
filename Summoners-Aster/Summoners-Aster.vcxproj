@@ -28,9 +28,14 @@
     <ClCompile Include="Card\Follower\Follower.cpp" />
     <ClCompile Include="Card\Spell\Spell.cpp" />
     <ClCompile Include="Card\Weapon\Weapon.cpp" />
+    <ClCompile Include="GraphicEffects\AttackEffect.cpp" />
+    <ClCompile Include="GraphicEffects\Behavior\Move.cpp" />
     <ClCompile Include="GraphicEffects\ClickEffect.cpp" />
     <ClCompile Include="GraphicEffects\Cursor.cpp" />
     <ClCompile Include="GraphicEffects\HoldEffect.cpp" />
+    <ClCompile Include="GraphicEffects\Part\ScalingFlashSquare.cpp" />
+    <ClCompile Include="GraphicEffects\Part\SquareMoveToDest.cpp" />
+    <ClCompile Include="GraphicEffects\SummonEffect.cpp" />
     <ClCompile Include="Main\Main.cpp" />
     <ClCompile Include="ObjectIntegrator\ObjectIntegrator.cpp" />
     <ClCompile Include="ObjectIntegrator\Object\Object.cpp" />
@@ -90,6 +95,7 @@
     <ClCompile Include="SceneSwitcher\Scene\TitleScene\TeamLogo.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\TitleScene\TitleBack.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\TitleScene\TitleScene.cpp" />
+    <ClCompile Include="Shader\Shader.cpp" />
     <ClCompile Include="SwitcherBase\KindBase.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -102,9 +108,14 @@
     <ClInclude Include="Card\Follower\Follower.h" />
     <ClInclude Include="Card\Spell\Spell.h" />
     <ClInclude Include="Card\Weapon\Weapon.h" />
+    <ClInclude Include="GraphicEffects\AttackEffect.h" />
+    <ClInclude Include="GraphicEffects\Behavior\Move.h" />
     <ClInclude Include="GraphicEffects\ClickEffect.h" />
     <ClInclude Include="GraphicEffects\Cursor.h" />
     <ClInclude Include="GraphicEffects\HoldEffect.h" />
+    <ClInclude Include="GraphicEffects\Part\ScalingFlashSquare.h" />
+    <ClInclude Include="GraphicEffects\Part\SquareMoveToDest.h" />
+    <ClInclude Include="GraphicEffects\SummonEffect.h" />
     <ClInclude Include="ObjectIntegrator\ObjectIntegrator.h" />
     <ClInclude Include="ObjectIntegrator\Object\Object.h" />
     <ClInclude Include="ObjectIntegrator\Object\Task.h" />
@@ -163,6 +174,7 @@
     <ClInclude Include="SceneSwitcher\Scene\TitleScene\TeamLogo.h" />
     <ClInclude Include="SceneSwitcher\Scene\TitleScene\TitleBack.h" />
     <ClInclude Include="SceneSwitcher\Scene\TitleScene\TitleScene.h" />
+    <ClInclude Include="Shader\Shader.h" />
     <ClInclude Include="SwitcherBase\KindBase.h" />
     <ClInclude Include="SwitcherBase\SwitchEventMediatorBase.h" />
     <ClInclude Include="SwitcherBase\SwitcherBase.h" />
@@ -255,7 +267,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>DIRECTINPUT_VERSION=0x0800;DIRECT_X_VERSOIN_9;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>SceneSwitcher\Scene\MainScene\CardTransporter;GraphicEffects;Card;SceneSwitcher\Scene\MainScene;SceneSwitcher\Scene\MainScene\Field;SceneSwitcher\Scene\MainScene\Turn;SceneSwitcher\Scene\MainScene\Step;SceneSwitcher\Scene\MainScene\Phase;Button;SwitcherBase;SceneSwitcher;ObjectIntegrator;ObjectIntegrator\Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Shader;SceneSwitcher\Scene\MainScene\CardTransporter;GraphicEffects;Card;SceneSwitcher\Scene\MainScene;SceneSwitcher\Scene\MainScene\Field;SceneSwitcher\Scene\MainScene\Turn;SceneSwitcher\Scene\MainScene\Step;SceneSwitcher\Scene\MainScene\Phase;Button;SwitcherBase;SceneSwitcher;ObjectIntegrator;ObjectIntegrator\Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>

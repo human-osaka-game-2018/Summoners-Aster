@@ -41,7 +41,7 @@ namespace summonersaster
 		virtual void Initialize();
 
 		/// <summary>
-		/// リソースの読み込み	
+		/// リソースの読み込み
 		/// </summary>
 		virtual void LoadResource();
 

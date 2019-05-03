@@ -6,7 +6,5 @@ namespace summonersaster
 	PLAYER_KIND BattleInformation::m_winner = PLAYER_KIND::OPPONENT;
 	PLAYER_KIND BattleInformation::m_startPlayer   = PLAYER_KIND::OPPONENT;
 	PLAYER_KIND BattleInformation::m_currentPlayer = PLAYER_KIND::OPPONENT;
-
-	bool BattleInformation::m_isExcecuting = false;
-	bool BattleInformation::m_isRotating = false;
+	std::deque<BattleInformation::ActionInformation> BattleInformation::m_actionQue;
 } // namespace summonersaster

@@ -92,6 +92,10 @@ bool BattlePlayer::UpdateInMainPhase()
 
 	m_pHand->Update();
 
+	UpdateSummonRoutine();
+
+	UpdateArmRoutine();
+
 	DestroyWornOutCard();
 
 	return true;
@@ -129,6 +133,15 @@ void BattlePlayer::Damaged(unsigned int damage)
 void BattlePlayer::Recover(unsigned int heal)
 {
 	m_pHP->Recover(heal);
+}
+
+void BattlePlayer::SendCardToCemetery(Card* pCard)
+{
+	if (!pCard) return;
+
+	if (pCard->Owner() != PLAYER_KIND::PROPONENT) return;
+
+	m_pCemetery->PreserveCard(pCard);
 }
 
 void BattlePlayer::DrawCard()
@@ -209,13 +222,7 @@ void BattlePlayer::TransportCollideWeapon()
 
 		if (!GameFramework::GetRef().MouseIsReleased(DirectX8Mouse::DIM_LEFT)) break;
 
-		Card* pLocaledWeapon = m_pWeaponHolder->HWeapon();
-
-		if (!PayMPAndTransportCard(m_pWeaponHolder->HHolder(), pCard->HCard())) break;
-
-		m_pHand->SendCard(static_cast<int>(&pCard - &(*pHandCards)[0]));
-
-		m_pCemetery->PreserveCard(pLocaledWeapon);
+		ActivateArm(static_cast<int>(&pCard - &(*m_pHand->GetCards())[0]));
 
 		break;
 	}
@@ -241,7 +248,7 @@ bool BattlePlayer::TransportCollideFollower(MovableCard** ppCard)
 
 		Summon(handCardIndex, fzi);
 		CardAbilityMediator::Activator(Ability::ActivationEvent::SUMMONED, &m_pFollowerZone[fzi]);
-
+		
 		return true;
 	}
 
@@ -275,7 +282,7 @@ void BattlePlayer::Summon(int handCardIndex, int transportFieldIndex)
 
 void BattlePlayer::DestroyWornOutCard()
 {
-	DestroyDeadFollower();
+	if (BattleInformation::IsExcecuting()) return;
 
 	Card* pWeapon = m_pWeaponHolder->HWeapon();
 

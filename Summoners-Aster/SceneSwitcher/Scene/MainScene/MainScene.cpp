@@ -36,9 +36,6 @@ namespace summonersaster
 		rGameFramework.CreateTexture(Field::pTEXTURE_KEYS[0], _T("Textures/Battle_rotationStar1.png"));
 		rGameFramework.CreateTexture(Field::pTEXTURE_KEYS[1], _T("Textures/Battle_rotationStar2.png"));
 		rGameFramework.CreateTexture(Field::pTEXTURE_KEYS[2], _T("Textures/Battle_rotationStar3.png"));
-		rGameFramework.CreateTexture(Field::pTEXTURE_KEYS[3], _T("Textures/Battle_rotationStar4.png"));
-		rGameFramework.CreateTexture(Field::pTEXTURE_KEYS[4], _T("Textures/Battle_rotationStar5.png"));
-		rGameFramework.CreateTexture(Field::pTEXTURE_KEYS[5], _T("Textures/Battle_rotationStar6.png"));
 		rGameFramework.CreateTexture(_T("DIGITAL_FILTER"), _T("Textures/Battle_digitalFilter.png"));
 		
 		rGameFramework.CreateTexture(_T("PLAYER_ICON"), _T("Textures/Player.png"));

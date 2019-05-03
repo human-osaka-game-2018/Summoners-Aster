@@ -15,6 +15,7 @@
 #include "../BehaviorScheduler/FollowUpCursor.h"
 #include "../BehaviorScheduler/RotationZ.h"
 #include "../BehaviorScheduler/Scaling.h"
+#include "../BehaviorScheduler/Locale.h"
 #include "../Shape/Shape.h"
 #include "../Shape/SizeDifferenceSquare.h"
 

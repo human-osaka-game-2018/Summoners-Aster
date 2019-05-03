@@ -9,7 +9,7 @@ namespace summonersaster
 
 	SceneSwitcher::SceneSwitcher()
 	{
-		m_switchEventPost.m_nextKind = m_currentKind = SCENE_KIND::TITLE;
+		m_switchEventPost.m_nextKind = m_currentKind = SCENE_KIND::MAIN;
 		CreateKindInstances();
 		SwitchKind();
 	}

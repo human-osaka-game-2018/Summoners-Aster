@@ -15,6 +15,8 @@
 #include "Card.h"
 #include "Follower/Follower.h"
 #include "HP/HP.h"
+#include "AttackEffect.h"
+#include "Shader.h"
 
 namespace summonersaster
 {
@@ -156,7 +158,7 @@ namespace summonersaster
 		/// </summary>
 		static const int FIELD_FOLLOWERS_NUM = 5;
 
-		static const int FIELD_RECT_NUM = 6;
+		static const int FIELD_RECT_NUM = 3;
 
 		static const TCHAR* pTEXTURE_KEYS[FIELD_RECT_NUM];
 
@@ -280,11 +282,38 @@ namespace summonersaster
 			void InitializeFollowerDataState(int index);
 
 			/// <summary>
-			/// 攻撃を行う
+			/// 攻撃処理の起動
 			/// </summary>
 			/// <param name="originIndex">主体者</param>
 			/// <param name="destIndex">相手</param>
-			void Attack(int originIndex, int destIndex);
+			void ActivateAttackRoutine(int originIndex, int destIndex);
+
+			/// <summary>
+			/// 移動処理の起動
+			/// </summary>
+			/// <param name="originIndex">移動元</param>
+			/// <param name="destIndex">移動先</param>
+			void ActivateMovingRoutine(int originIndex, int destIndex);
+
+			/// <summary>
+			/// 攻撃の一連の処理の更新
+			/// </summary>
+			void UpdateAttackRoutine();
+
+			/// <summary>
+			/// 移動の一連の処理の更新
+			/// </summary>
+			void UpdateMovingRoutine();
+
+			/// <summary>
+			/// 攻撃
+			/// </summary>
+			void Attack();
+
+			/// <summary>
+			/// 反撃
+			/// </summary>
+			void Counter();
 
 			/// <summary>
 			/// 移動を行う
@@ -310,6 +339,14 @@ namespace summonersaster
 			/// 回転回数を0~9の範囲で表す
 			/// </summary>
 			int m_fieldRotationNum = 0;
+
+			const int ATTACK_EFFECT_TAKES_FRAMES = 20;
+			const int ATTACK_EFFECT_SPACE_TAKES_FRAMES = 10;
+			int m_attackEffectFramesLeft = 0;
+
+			const int NOT_SELECTING_INDEX = -1;
+			int m_actionDestIndex = NOT_SELECTING_INDEX;
+			int m_actionOriginIndex = NOT_SELECTING_INDEX;
 
 			FollowerData m_followerDatas[FIELD_FOLLOWERS_NUM];
 

@@ -30,6 +30,12 @@ namespace summonersaster
 		~OpponentPlayer();
 
 		void Initialize()override;
+
+		/// <summary>
+		/// 自分のカードを墓地へ送る
+		/// </summary>
+		/// <param name="pCard">カードのポインタ</param>
+		virtual void SendCardToCemetery(Card* pCard);
 	};
 } // namespace summonersaster
 

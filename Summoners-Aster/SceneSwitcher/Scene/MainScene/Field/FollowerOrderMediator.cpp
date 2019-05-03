@@ -23,6 +23,8 @@ namespace summonersaster
 
 	void FollowerOrderMediator::ProcessFollowerOrders()
 	{
+		if (BattleInformation::IsExcecuting()) return;
+
 		m_rField.GetFollowerZone(&m_pFollowerZone);
 
 		if (m_rGameFramework.MouseIsPressed(gameframework::DirectX8Mouse::DIM_RIGHT))
