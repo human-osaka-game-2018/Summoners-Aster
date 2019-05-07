@@ -37,6 +37,9 @@
     <ClCompile Include="ObjectIntegrator\Object\Task.cpp" />
     <ClCompile Include="ObjectIntegrator\TaskScheduler.cpp" />
     <ClCompile Include="SceneSwitcher\SceneSwitcher.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\DeckEditScene\DeckEditScene.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\DeckEditScene\EditDeck\EditDeck.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\DeckEditScene\HavingCards\HavingCards.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\ConnectButton.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\CPUButton.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\DeckButton.cpp" />
@@ -107,6 +110,9 @@
     <ClInclude Include="ObjectIntegrator\Object\Task.h" />
     <ClInclude Include="ObjectIntegrator\TaskScheduler.h" />
     <ClInclude Include="SceneSwitcher\SceneSwitcher.h" />
+    <ClInclude Include="SceneSwitcher\Scene\DeckEditScene\DeckEditScene.h" />
+    <ClInclude Include="SceneSwitcher\Scene\DeckEditScene\EditDeck\EditDeck.h" />
+    <ClInclude Include="SceneSwitcher\Scene\DeckEditScene\HavingCards\HavingCards.h" />
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\ConnectButton.h" />
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\CPUButton.h" />
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\DeckButton.h" />

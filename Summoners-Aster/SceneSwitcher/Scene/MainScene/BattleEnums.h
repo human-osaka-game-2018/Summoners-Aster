@@ -46,6 +46,7 @@ namespace summonersaster
 		static const tstring HOME;
 		static const tstring MAIN;
 		static const tstring RESULT;
+		static const tstring DECKEDIT;
 	};
 
 	struct STEP_KIND

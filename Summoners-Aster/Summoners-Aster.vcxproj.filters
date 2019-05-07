@@ -94,6 +94,15 @@
     <Filter Include="Object">
       <UniqueIdentifier>{3b3a01e3-004e-41c3-ba66-d85a5fb3bea5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SceneSwitcher\Scene\DeckEditScene">
+      <UniqueIdentifier>{13e93ccf-1cf2-4e05-99e8-ca841108589b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\DeckEditScene\EditDeck">
+      <UniqueIdentifier>{dabd720e-8425-473a-a1a2-f152663b7ac5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\DeckEditScene\HavingCards">
+      <UniqueIdentifier>{86f1f8c5-dba8-4a3a-acbd-bc45940bc17f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneSwitcher\SceneSwitcher.h">
@@ -306,6 +315,15 @@
     <ClInclude Include="Card\Ability\AbilityExecutor.h">
       <Filter>Card\Ability</Filter>
     </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\DeckEditScene\DeckEditScene.h">
+      <Filter>SceneSwitcher\Scene\DeckEditScene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\DeckEditScene\EditDeck\EditDeck.h">
+      <Filter>SceneSwitcher\Scene\DeckEditScene\EditDeck</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\DeckEditScene\HavingCards\HavingCards.h">
+      <Filter>SceneSwitcher\Scene\DeckEditScene\HavingCards</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneSwitcher\SceneSwitcher.cpp">
@@ -514,6 +532,15 @@
     </ClCompile>
     <ClCompile Include="Card\Ability\AbilityExecutor.cpp">
       <Filter>Card\Ability</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\DeckEditScene\DeckEditScene.cpp">
+      <Filter>SceneSwitcher\Scene\DeckEditScene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\DeckEditScene\EditDeck\EditDeck.cpp">
+      <Filter>SceneSwitcher\Scene\DeckEditScene\EditDeck</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\DeckEditScene\HavingCards\HavingCards.cpp">
+      <Filter>SceneSwitcher\Scene\DeckEditScene\HavingCards</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

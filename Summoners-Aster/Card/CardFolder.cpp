@@ -17,6 +17,7 @@ namespace summonersaster
 	void CardFolder::Register(Card* pCard)
 	{
 		m_pCards[pCard->Name()] = pCard;
+		m_pCardsName.push_back(pCard->Name());
 	}
 
 	Card* CardFolder::CreateCopy(const tstring& cardName, PLAYER_KIND owner)

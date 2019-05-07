@@ -33,9 +33,17 @@ namespace summonersaster
 		m_taskScheduler.Update();
 		gameframework::GameFramework& rGameFramework = gameframework::GameFramework::CreateAndGetRef();
 
+		if (rGameFramework.KeyboardIsPressed(DIK_D))
+		{
+			SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(_T("MAIN"));
+		}
 		if (rGameFramework.KeyboardIsPressed(DIK_F))
 		{
 			SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(_T("TITLE"));
+		}
+		if (rGameFramework.KeyboardIsPressed(DIK_G))
+		{
+			SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(_T("DECKEDIT"));
 		}
 	}
 
