@@ -196,6 +196,8 @@ namespace summonersaster
 			if (followerData.m_pFollower->HP() > 0) continue;
 
 			int index = static_cast<int>(&followerData - &m_followerDatas[0]);
+			CardAbilityMediator::Unregister(&followerData);
+			CardAbilityMediator::Activator(Ability::KILLED, &followerData);
 
 			pCemetary->push_back(DestroyFollower(index));
 		}
@@ -284,6 +286,7 @@ namespace summonersaster
 	void Field::Followers::ActivateAbirity(int index)
 	{
 		//効果発動イベントディスパッチ
+		CardAbilityMediator::Activator(Ability::ODRERED,&m_followerDatas[index]);
 	}
 
 	void Field::Followers::EmptyFollower(int index)

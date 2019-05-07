@@ -240,6 +240,7 @@ bool BattlePlayer::TransportCollideFollower(MovableCard** ppCard)
 		if (!GameFramework::GetRef().MouseIsReleased(DirectX8Mouse::DIM_LEFT)) break;
 
 		Summon(handCardIndex, fzi);
+		CardAbilityMediator::Activator(Ability::ActivationEvent::SUMMONED, &m_pFollowerZone[fzi]);
 
 		return true;
 	}
@@ -266,10 +267,9 @@ void BattlePlayer::Summon(int handCardIndex, int transportFieldIndex)
 	Follower** ppFollower = &m_pFollowerZone[transportFieldIndex].m_pFollower;
 
 	if (!PayMPAndTransportCard(ppFollower, (*pCards)[handCardIndex]->HCard())) return;
-	CardAbilityMediator::Register((*pCards)[handCardIndex]->HCard());
-
+	CardAbilityMediator::Activator(Ability::SUMMON);
 	m_pHand->SendCard(handCardIndex);
-
+	CardAbilityMediator::Register(&m_pFollowerZone[transportFieldIndex]);
 	m_pFollowerZone[transportFieldIndex].m_isSummoned = true;
 }
 
