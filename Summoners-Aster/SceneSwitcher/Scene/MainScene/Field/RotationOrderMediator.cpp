@@ -61,8 +61,13 @@ namespace summonersaster
 
 		if (rotationDirectionCount == 0) return;
 		PLAYER_KIND currentPlayer = BattleInformation::CurrentPlayer();
-
-		CardAbilityMediator::Activator(Ability::ROTATE);
+		FollowerData* pFollowerZone = nullptr;
+		m_rField.GetFollowerZone(&pFollowerZone);
+		for (int i = 0; i < m_rField.FIELD_FOLLOWERS_NUM; ++i)
+		{
+			if (&pFollowerZone[i] == nullptr) continue;
+			CardAbilityMediator::Activator(Ability::ROTATE, &pFollowerZone[i]);
+		}
 		//現在のプレイヤー
 		if ((*m_pPlayerRotationPoints[currentPlayer]) <= 0) return;
 		--(*m_pPlayerRotationPoints[currentPlayer]);

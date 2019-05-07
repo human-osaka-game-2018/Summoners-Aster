@@ -12,8 +12,4 @@ Ability::Ability()
 {
 }
 
-//
-//Ability::~Ability()
-//{
-//}
-	}
+}

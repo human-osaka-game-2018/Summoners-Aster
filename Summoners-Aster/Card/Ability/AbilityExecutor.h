@@ -2,6 +2,7 @@
 #define ABILITY_EXECUTOR_H
 #include "Ability/Ability.h"
 #include "Card.h"
+#include "Field.h"
 
 namespace summonersaster
 {
@@ -17,8 +18,13 @@ public:
 	/// <summary>
 	/// 効果実行
 	/// </summary>
-	/// <param name="execute">実行効果種別</param>
+	/// <param name="card">効果を実行するカード</param>
 	static void Execute(Card* card);
+	/// <summary>
+	/// 効果実行
+	/// </summary>
+	/// <param name="followerData">効果を実行するフォロワーデータ</param>
+	static void Execute(FollowerData* followerData);
 };
 }
 #endif
