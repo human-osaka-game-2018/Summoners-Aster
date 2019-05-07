@@ -37,7 +37,7 @@ namespace summonersaster
 
 		if (rGameFramework.KeyboardIsPressed(DIK_D))
 		{
-			SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(_T("MAIN"/*"HOME"*/));
+			SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(_T(/*"MAIN"*/"HOME"));
 		}
 	}
 

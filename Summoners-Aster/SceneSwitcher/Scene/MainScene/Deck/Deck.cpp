@@ -1,6 +1,8 @@
 ﻿#include "Deck.h"
 #include <random>
 #include <algorithm>
+#include <iostream>
+#include <fstream> 
 
 using namespace gameframework;
 namespace summonersaster
@@ -38,18 +40,25 @@ void Deck::Load(PLAYER_KIND owner)
 {
 	CardFolder& rCardFolder = CardFolder::CreateAndGetRef();
 
-	tstring cardName[] =
-	{
-		_T("エンジェル"),
-		_T("カシオペア"),
-		_T("ペルセウス"),
-		_T("ウェポン")
-	};
-
 	m_Cards.resize(LIMIT_CAPACITY);
-	for (int i=0;i<LIMIT_CAPACITY;++i)
+	std::string filename = "DeckDate/Deck.csv";
+	std::ifstream readingFile;
+	readingFile.open(filename, std::ios::in);
+
+	for (int i = 0; i < LIMIT_CAPACITY; ++i)
 	{
-		m_Cards[i] = rCardFolder.CreateCopy(cardName[i % (_countof(cardName))], owner);
+		std::string readingBuffer;
+		if (!std::getline(readingFile, readingBuffer))
+		{
+			m_Cards.resize(i);
+			break;
+		}
+		replace(readingBuffer.begin(), readingBuffer.end(), ',', '\0');
+		const char* ch = readingBuffer.c_str();
+		TCHAR tch[64];
+		MultiByteToWideChar(CP_ACP, 0, ch, -1, tch, MultiByteToWideChar(CP_ACP, 0, ch, -1, NULL, 0));
+		Card* card = rCardFolder.CreateCopy(tch, owner);
+		m_Cards[i] = card;
 		m_Cards[i]->SetAbility(Ability(Ability::ROTATE, Ability::DRAWCARD));
 	}
 	//デッキ読み込み

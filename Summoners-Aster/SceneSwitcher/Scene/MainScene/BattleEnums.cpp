@@ -18,4 +18,5 @@ namespace summonersaster
 	const tstring SCENE_KIND::HOME = _T("HOME");
 	const tstring SCENE_KIND::MAIN = _T("MAIN");
 	const tstring SCENE_KIND::RESULT = _T("RESULT");
+	const tstring SCENE_KIND::DECKEDIT = _T("DECKEDIT");
 } // namespace summonersaster

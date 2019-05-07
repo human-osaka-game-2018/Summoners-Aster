@@ -10,6 +10,7 @@
 #include "Scene/TitleScene/TitleScene.h"
 #include "Scene/HomeScene/HomeScene.h"
 #include "Scene/MainScene/MainScene.h"
+#include "Scene/DeckEditScene/DeckEditScene.h"
 
 namespace summonersaster
 {

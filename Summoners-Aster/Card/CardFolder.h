@@ -42,6 +42,14 @@ namespace summonersaster
 		/// <returns>コピーカード</returns>
 		Card* CreateCopy(const tstring& cardName, PLAYER_KIND owner);
 
+		int GetQuantity()
+		{
+			return static_cast<int>(m_pCards.size());
+		}
+		tstring GetCardName(int index)
+		{
+			return m_pCardsName[index];
+		}
 	private:
 		CardFolder();
 
@@ -50,7 +58,7 @@ namespace summonersaster
 		CardFolder& operator=(CardFolder& card) = delete;
 			
 		std::unordered_map<tstring, Card*> m_pCards;
-
+		std::vector <tstring> m_pCardsName;
 	};
 } // namespace summonersaster
 
