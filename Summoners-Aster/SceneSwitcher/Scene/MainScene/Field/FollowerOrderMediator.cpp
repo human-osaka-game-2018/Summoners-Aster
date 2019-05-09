@@ -23,7 +23,7 @@ namespace summonersaster
 
 	void FollowerOrderMediator::ProcessFollowerOrders()
 	{
-		if (BattleInformation::IsExcecuting()) return;
+		if (BattleInformation::IsWaitingAction()) return;
 
 		m_rField.GetFollowerZone(&m_pFollowerZone);
 

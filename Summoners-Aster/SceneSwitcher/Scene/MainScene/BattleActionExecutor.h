@@ -59,6 +59,13 @@ namespace summonersaster
 			BattleInformation::PopQueFront();
 		}
 
+		static inline void DestroyFollower()
+		{
+			if (!Field::GetRef().UpdateDestroyingRoutine()) return;
+
+			BattleInformation::PopQueFront();
+		}
+
 		static inline void Arm()
 		{
 			if (!ActionProponentPlayer().UpdateArmingRoutine()) return;

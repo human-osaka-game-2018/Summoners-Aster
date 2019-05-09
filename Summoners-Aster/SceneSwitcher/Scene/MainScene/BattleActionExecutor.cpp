@@ -18,6 +18,11 @@ namespace summonersaster
 
 			break;
 
+		case ACTION_KIND::FOLLOWER_DESTROYING:
+			DestroyFollower();
+
+			break;
+
 		case ACTION_KIND::ARMING:
 			Arm();
 

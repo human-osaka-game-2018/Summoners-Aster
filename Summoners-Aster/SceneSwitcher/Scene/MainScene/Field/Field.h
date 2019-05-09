@@ -4,12 +4,12 @@
 #include <Windows.h>
 #include <tchar.h>
 #include <vector>
+#include <deque>
 
 #include <d3dx9.h>
 
 #include <GameFramework.h>
 
-#include "BattleInformation.h"
 #include "Button.h"
 #include "BattleEnums.h"
 #include "Card.h"
@@ -109,6 +109,12 @@ namespace summonersaster
 		void Render();
 
 		/// <summary>
+		/// 回転演出の更新
+		/// </summary>
+		/// <returns>終了したらtrue</returns>
+		bool UpdateOstensiblyCirculation();
+
+		/// <summary>
 		/// フォロワーゾーンの取得
 		/// </summary>
 		/// <param name="ppFollowerData">取得したゾーンの先頭アドレスを入れるポインタ</param>
@@ -120,12 +126,6 @@ namespace summonersaster
 		/// <param name="index">要素番号</param>
 		/// <param name="pFollower">フォロワーのポインタ</param>
 		void SetFollower(int index, Follower* pFollower);
-
-		/// <summary>
-		/// HPが0以下になったフォロワーを墓地へ送る
-		/// </summary>
-		/// <param name="pCemetary">墓地のカードベクター</param>
-		void DestroyDeadFollower(std::vector<Card*>* pCemetary);
 
 		/// <summary>
 		/// 引数のフォロワーの効果発動
@@ -154,6 +154,42 @@ namespace summonersaster
 		void ActivateOstensiblyCirculation(bool isRightDirection);
 
 		/// <summary>
+		/// 攻撃の一連の処理の更新
+		/// </summary>
+		/// <returns>終了したらtrue</returns>
+		inline bool UpdateAttackRoutine()
+		{
+			return m_pFollowers->UpdateAttackRoutine();
+		}
+
+		/// <summary>
+		/// 移動の一連の処理の更新
+		/// </summary>
+		/// <returns>終了したらtrue</returns>
+		inline bool UpdateMovingRoutine()
+		{
+			return m_pFollowers->UpdateMovingRoutine();
+		}
+
+		/// <summary>
+		/// フォロワー破壊の処理の更新
+		/// </summary>
+		/// <returns>終了したらtrue</returns>
+		inline bool UpdateDestroyingRoutine()
+		{
+			return m_pFollowers->UpdateDestroyingRoutine();
+		}
+
+		/// <summary>
+		/// 墓地へ送る前の一時保管ベクター
+		/// </summary>
+		/// <returns>カードのベクターのポインタ</returns>
+		inline std::vector<Card*>* HCemeteryTmp()
+		{
+			return m_pFollowers->HCemeteryTmp();
+		}
+
+		/// <summary>
 		/// フィールドのフォロワー数
 		/// </summary>
 		static const int FIELD_FOLLOWERS_NUM = 5;
@@ -163,6 +199,9 @@ namespace summonersaster
 		static const TCHAR* pTEXTURE_KEYS[FIELD_RECT_NUM];
 
 	private:
+		using ActionInformation = BattleInformation::ActionInformation;
+		using ACTION_KIND = BattleInformation::ACTION_KIND;
+
 		/*////////////////////////////////////////////// Followers //////////////////////////////////////////////*/
 		class Followers
 		{
@@ -182,10 +221,9 @@ namespace summonersaster
 			void Update();
 
 			/// <summary>
-			/// HPが0以下になったフォロワーを墓地へ送る
+			/// HPが0以下になったフォロワーを墓地へ送るイベントを送る
 			/// </summary>
-			/// <param name="pCemetary">墓地のカードベクター</param>
-			void DestroyDeadFollower(std::vector<Card*>* pCemetary);
+			void SearchAndActivateDestroyingFollower();
 
 			/// <summary>
 			/// 描画を行う
@@ -233,6 +271,24 @@ namespace summonersaster
 			void SetFollower(int index, Follower* pFollower);
 
 			/// <summary>
+			/// 攻撃の一連の処理の更新
+			/// </summary>
+			/// <returns>終了したらtrue</returns>
+			bool UpdateAttackRoutine();
+
+			/// <summary>
+			/// 移動の一連の処理の更新
+			/// </summary>
+			/// <returns>終了したらtrue</returns>
+			bool UpdateMovingRoutine();
+
+			/// <summary>
+			/// フォロワー破壊の処理の更新
+			/// </summary>
+			/// <returns>終了したらtrue</returns>
+			bool UpdateDestroyingRoutine();
+
+			/// <summary>
 			/// 行動を起こせるか
 			/// </summary>
 			/// <param name="index">カードの位置</param>
@@ -244,6 +300,11 @@ namespace summonersaster
 					m_followerDatas[index].m_isMoved) return false;
 
 				return true;
+			}
+
+			inline std::vector<Card*>* HCemeteryTmp()
+			{
+				return &m_pCemetaryTmp;
 			}
 
 			/// <summary>
@@ -267,7 +328,7 @@ namespace summonersaster
 			/// </summary>
 			/// <param name="index">墓地へ送るカードのインデックス</param>
 			/// <returns>墓地へ送るカードのポインタ</returns>
-			Card* DestroyFollower(int index);
+			void DestroyFollower(int index);
 
 			/// <summary>
 			/// 指定したフォロワーデータのフォロワーを空にする
@@ -296,14 +357,11 @@ namespace summonersaster
 			void ActivateMovingRoutine(int originIndex, int destIndex);
 
 			/// <summary>
-			/// 攻撃の一連の処理の更新
+			/// エフェクトの登録
 			/// </summary>
-			void UpdateAttackRoutine();
-
-			/// <summary>
-			/// 移動の一連の処理の更新
-			/// </summary>
-			void UpdateMovingRoutine();
+			/// <param name="originIndex">発動地点</param>
+			/// <param name="destIndex">移動先</param>
+			void RegisterEffect(int originIndex, int destIndex);
 
 			/// <summary>
 			/// 攻撃
@@ -344,9 +402,16 @@ namespace summonersaster
 			const int ATTACK_EFFECT_SPACE_TAKES_FRAMES = 10;
 			int m_attackEffectFramesLeft = 0;
 
+			const int EFFECT_TAKES_FRAME_MAX = 60;
+			int m_EffectTakesFrame = 0;
+
 			const int NOT_SELECTING_INDEX = -1;
 			int m_actionDestIndex = NOT_SELECTING_INDEX;
 			int m_actionOriginIndex = NOT_SELECTING_INDEX;
+
+			std::deque<int> m_deadFollowerIndicies;
+
+			std::vector<Card*> m_pCemetaryTmp;
 
 			FollowerData m_followerDatas[FIELD_FOLLOWERS_NUM];
 
@@ -361,11 +426,6 @@ namespace summonersaster
 		void LocaleField(Vertices* pVertices);
 
 		void LocaleButton();
-
-		/// <summary>
-		/// 回転演出の更新
-		/// </summary>
-		void UpdateOstensiblyCirculation();
 
 		/// <summary>
 		/// 回転を行う

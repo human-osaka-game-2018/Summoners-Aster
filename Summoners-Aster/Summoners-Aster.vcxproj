@@ -54,6 +54,7 @@
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\Player.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\PlayerName.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\BattleEnums.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\BattleActionExecutor.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\BattleInformation.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\BattleObject.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\BattlePlayer\BattlePlayer.cpp" />
@@ -133,6 +134,7 @@
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\Player.h" />
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\PlayerName.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\BattleEnums.h" />
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\BattleActionExecutor.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\BattleInformation.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\BattleObject.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\BattlePlayer\BattlePlayer.h" />
@@ -301,7 +303,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>DIRECTINPUT_VERSION=0x0800;DIRECT_X_VERSOIN_9;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>SceneSwitcher\Scene\MainScene\CardTransporter;GraphicEffects;Card;SceneSwitcher\Scene\MainScene;SceneSwitcher\Scene\MainScene\Field;SceneSwitcher\Scene\MainScene\Turn;SceneSwitcher\Scene\MainScene\Step;SceneSwitcher\Scene\MainScene\Phase;Button;SwitcherBase;SceneSwitcher;ObjectIntegrator;ObjectIntegrator\Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Shader;SceneSwitcher\Scene\MainScene\CardTransporter;GraphicEffects;Card;SceneSwitcher\Scene\MainScene;SceneSwitcher\Scene\MainScene\Field;SceneSwitcher\Scene\MainScene\Turn;SceneSwitcher\Scene\MainScene\Step;SceneSwitcher\Scene\MainScene\Phase;Button;SwitcherBase;SceneSwitcher;ObjectIntegrator;ObjectIntegrator\Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

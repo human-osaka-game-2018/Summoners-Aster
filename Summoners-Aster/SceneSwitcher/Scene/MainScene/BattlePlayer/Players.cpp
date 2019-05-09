@@ -67,18 +67,20 @@ namespace summonersaster
 
 	void Players::DestroyDeadFollower()
 	{
-		if (BattleInformation::IsExcecuting()) return;
+		if (BattleInformation::IsWaitingAction()) return;
 
-		std::vector<Card*> pCemetary;
+		std::vector<Card*>* pCemetary;
 
-		Field::GetRef().DestroyDeadFollower(&pCemetary);
+		pCemetary = Field::GetRef().HCemeteryTmp();
 
-		for (auto& pCard : pCemetary)
+		for (auto& pCard : *pCemetary)
 		{
 			for (auto& player : m_pBattlePlayers)
 			{
 				player.second->SendCardToCemetery(pCard);
 			}
 		}
+
+		pCemetary->clear();
 	}
 }

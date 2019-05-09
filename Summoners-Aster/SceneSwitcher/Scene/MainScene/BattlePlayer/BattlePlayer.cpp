@@ -7,7 +7,7 @@ namespace summonersaster
 BattlePlayer::BattlePlayer(const TCHAR* pPlayerTextureKey, const tstring& deckName)
 	:pPLAYER_TEXTURE_KEY(pPlayerTextureKey), USE_DECK_NAME(deckName)
 {
-
+	
 }
 
 BattlePlayer::~BattlePlayer()
@@ -84,21 +84,17 @@ bool BattlePlayer::UpdateInDrawPhase()
 
 bool BattlePlayer::UpdateInMainPhase()
 {
+	m_pHand->Update();
+
 	TransportCollideFollower();
 	TransportCollideWeapon();
 
 	m_rFollowerOrderMediator.ProcessFollowerOrders();
 	m_rRotationOrderMediator.ProcessRotationOrders();
 
-	m_pHand->Update();
-
-	UpdateSummonRoutine();
-
-	UpdateArmRoutine();
-
 	DestroyWornOutCard();
 
-	return true;
+	return !BattleInformation::IsWaitingAction();
 }
 
 bool BattlePlayer::UpdateInEndPhase()
@@ -189,6 +185,59 @@ void BattlePlayer::InitializeInMainPhaseStart()
 	m_pMP->RenewUsablePoints();
 }
 
+bool BattlePlayer::UpdateSummoningRoutine()
+{
+	static bool isRoutineStart = true;
+
+	if (!CallOnce(&isRoutineStart, _T("Summon"))) return isRoutineStart = true;
+
+	m_pFollowerZone[m_TransportingFieldIndex].m_pFollower->Rect().SetColor(0x00FFFFFF);
+
+	if (m_EffectTakesFrame < EFFECT_TAKES_FRAME_MAX / 2)
+	{
+		m_pFollowerZone[m_TransportingFieldIndex].m_pFollower->Rect().FadeIn(EFFECT_TAKES_FRAME_MAX / 2, 0, 255);
+	}
+
+	if (--m_EffectTakesFrame - 1 > 0) return false;
+
+	return isRoutineStart = true;
+}
+
+bool BattlePlayer::UpdateWeaponDestroyingRoutine()
+{
+	static bool isRoutineStart = true;
+
+	CallOnce(&isRoutineStart, _T("DestroyWeapon"));
+
+	Vertices& rCard = m_pWeaponHolder->HWeapon()->Rect();
+
+	rCard.FadeOut(EFFECT_TAKES_FRAME_MAX, 255, 0);
+
+	if (m_EffectTakesFrame-- > 0) return false;
+
+	m_pCemetery->PreserveCard(m_pWeaponHolder->LeaveCard());
+
+	return isRoutineStart = true;
+}
+
+bool BattlePlayer::UpdateArmingRoutine()
+{
+	static bool isRoutineStart = true;
+
+	if (!CallOnce(&isRoutineStart, _T("Arm"))) return isRoutineStart = true;
+
+	m_pWeaponHolder->HWeapon()->Rect().SetColor(0x00FFFFFF);
+
+	if (m_EffectTakesFrame < EFFECT_TAKES_FRAME_MAX / 2)
+	{
+		m_pWeaponHolder->HWeapon()->Rect().FadeIn(EFFECT_TAKES_FRAME_MAX / 2, 0, 255);
+	}
+
+	if (m_EffectTakesFrame-- > 0) return false;
+
+	return isRoutineStart = true;
+}
+
 void BattlePlayer::TransportCollideFollower()
 {
 	m_rField.GetFollowerZone(&m_pFollowerZone);
@@ -198,7 +247,7 @@ void BattlePlayer::TransportCollideFollower()
 		m_pFollowerZone[fzi].m_pVertices->GetColor() = 0xAA000000;
 	}
 
-	if (BattleInformation::IsExcecuting()) return;
+	if (BattleInformation::IsWaitingAction()) return;
 
 	for (auto& pCard : *m_pHand->GetCards())
 	{
@@ -210,7 +259,10 @@ void BattlePlayer::TransportCollideWeapon()
 {
 	std::vector<MovableCard*>* pHandCards = m_pHand->GetCards();
 
+	if (BattleInformation::IsWaitingAction()) return;
+
 	Color weaponHolderColor = 0xAA000000;
+	Color weaponColor = 0xFFFFFFFF;
 
 	for (auto& pCard : *pHandCards)
 	{
@@ -218,16 +270,26 @@ void BattlePlayer::TransportCollideWeapon()
 
 		if (!IsCollided(pCard->HCard(), m_pWeaponHolder->HCollisionRect())) continue;
 
+		if (!m_pMP->CanPay(pCard->HCard())) continue;
+
 		weaponHolderColor = 0xAAFF8800;
+		weaponColor = 0xFFFF8800;
 
 		if (!GameFramework::GetRef().MouseIsReleased(DirectX8Mouse::DIM_LEFT)) break;
 
-		ActivateArm(static_cast<int>(&pCard - &(*m_pHand->GetCards())[0]));
+		weaponHolderColor = 0xAA000000;
+		weaponColor = 0xFFFFFFFF;
+
+		ActivateArming(static_cast<int>(&pCard - &(*m_pHand->GetCards())[0]));
 
 		break;
 	}
 
 	m_pWeaponHolder->HCollisionRect()->SetColor(weaponHolderColor);
+
+	if (!m_pWeaponHolder->HWeapon()) return;
+
+	m_pWeaponHolder->HWeapon()->Rect().SetColor(weaponColor);
 }
 
 bool BattlePlayer::TransportCollideFollower(MovableCard** ppCard)
@@ -241,6 +303,8 @@ bool BattlePlayer::TransportCollideFollower(MovableCard** ppCard)
 		//フォロワーが召喚できる場所か
 		if (m_pFollowerZone[fzi].m_pFollower || m_pFollowerZone[fzi].m_isOpponentZone ||
 			!IsCollided((*ppCard)->HCard(), m_pFollowerZone[fzi].m_pVertices)) continue;
+
+		if (!m_pMP->CanPay((*ppCard)->HCard())) continue;
 
 		m_pFollowerZone[fzi].m_pVertices->GetColor() = 0xAAFF8800;
 
@@ -272,7 +336,7 @@ void BattlePlayer::Summon(int handCardIndex, int transportFieldIndex)
 	std::vector<MovableCard*>* pCards = m_pHand->GetCards();
 
 	Follower** ppFollower = &m_pFollowerZone[transportFieldIndex].m_pFollower;
-
+	
 	if (!PayMPAndTransportCard(ppFollower, (*pCards)[handCardIndex]->HCard())) return;
 	CardAbilityMediator::Activator(Ability::SUMMON);
 	m_pHand->SendCard(handCardIndex);
@@ -282,16 +346,97 @@ void BattlePlayer::Summon(int handCardIndex, int transportFieldIndex)
 
 void BattlePlayer::DestroyWornOutCard()
 {
-	if (BattleInformation::IsExcecuting()) return;
-
 	Card* pWeapon = m_pWeaponHolder->HWeapon();
 
 	if (!pWeapon) return;
 
 	if (!pWeapon->ShouldDestroyed()) return;
 
-	m_pCemetery->PreserveCard(pWeapon);
+	BattleInformation::ActionInformation actionInformation = { BattleInformation::ACTION_KIND::WEAPON_DESTROYING, m_PlayerKind };
+	BattleInformation::PushQueBack(actionInformation);
+}
 
-	m_pWeaponHolder->HWeapon(nullptr);
+bool BattlePlayer::CallOnce(bool* pCallable, const TCHAR* pFuncName)
+{
+	if (!(*pCallable)) return true;
+
+	(*pCallable) = false;
+
+	if (pFuncName == _T("Summon")) return Summon();
+
+	if (pFuncName == _T("Arm")) return Arm();
+
+	if (pFuncName == _T("DestroyWeapon")) m_EffectTakesFrame = EFFECT_TAKES_FRAME_MAX;
+
+	return true;
+}
+
+void BattlePlayer::ActivateSummoning(int handCardIndex, int transportFieldIndex)
+{
+	BattleInformation::ActionInformation actionInformation = { BattleInformation::ACTION_KIND::SUMMONING, m_PlayerKind };
+
+	BattleInformation::PushQueBack(actionInformation);
+
+	m_TransportingFieldIndex = transportFieldIndex;
+	m_SelectingHandIndex = handCardIndex;
+}
+
+bool BattlePlayer::Summon()
+{
+	std::vector<MovableCard*>* pCards = m_pHand->GetCards();
+
+	Follower** ppFollower = &m_pFollowerZone[m_TransportingFieldIndex].m_pFollower;
+
+	if (!PayMPAndTransportCard(ppFollower, (*pCards)[m_SelectingHandIndex]->HCard())) return false;
+
+	m_pFollowerZone[m_TransportingFieldIndex].m_isSummoned = true;
+
+	m_pHand->SendCard(m_SelectingHandIndex);
+
+	m_rGameFramework.RegisterGraphicEffect(new SummonEffect(m_pFollowerZone[m_TransportingFieldIndex].m_pVertices->GetCenter()));
+
+	m_EffectTakesFrame = EFFECT_TAKES_FRAME_MAX;
+
+	return true;
+}
+
+void BattlePlayer::ActivateWeaponDestroying()
+{
+	if (!m_pWeaponHolder->HWeapon()) return;
+
+	BattleInformation::ActionInformation actionInformation = { BattleInformation::ACTION_KIND::WEAPON_DESTROYING, m_PlayerKind };
+	BattleInformation::PushQueBack(actionInformation);
+}
+
+void BattlePlayer::ActivateArming(int handCardIndex)
+{
+	if (m_pWeaponHolder->HWeapon())
+	{
+		ActivateWeaponDestroying();
+	}
+
+	m_SelectingHandIndex = handCardIndex;
+
+	m_pWeaponTmp = m_pHand->SendCard(m_SelectingHandIndex);
+
+	if (!m_pMP->CanPay(m_pWeaponTmp)) return;
+
+	BattleInformation::ActionInformation actionInformation = { BattleInformation::ACTION_KIND::ARMING, m_PlayerKind };
+	BattleInformation::PushQueBack(actionInformation);
+}
+
+bool BattlePlayer::Arm()
+{
+	std::vector<MovableCard*>* pHandCards = m_pHand->GetCards();
+
+	if (!PayMPAndTransportCard(m_pWeaponHolder->HHolder(), m_pWeaponTmp)) return false;
+
+	m_rGameFramework.RegisterGraphicEffect(new SummonEffect(m_pWeaponHolder->HCollisionRect()->GetCenter()));
+
+	m_pWeaponHolder->HWeapon()->Rect().SetColor(0x00FFFFFF);
+
+	m_EffectTakesFrame = EFFECT_TAKES_FRAME_MAX;
+
+	return true;
 }
 }
