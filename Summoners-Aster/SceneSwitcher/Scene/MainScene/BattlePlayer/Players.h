@@ -54,8 +54,14 @@ namespace summonersaster
 		/// </summary>
 		virtual void InitializeInMainPhaseStart();
 
-		static BattlePlayer* GetPlayer(PLAYER_KIND kind) {
+		static inline BattlePlayer* GetPlayer(PLAYER_KIND kind) 
+		{
 			return m_pBattlePlayers[kind];
+		}
+		
+		virtual inline std::unordered_map<PLAYER_KIND, BattlePlayer*>* HBattlePlayers()
+		{
+			return &m_pBattlePlayers;
 		}
 	private:
 		void DestroyDeadFollower();

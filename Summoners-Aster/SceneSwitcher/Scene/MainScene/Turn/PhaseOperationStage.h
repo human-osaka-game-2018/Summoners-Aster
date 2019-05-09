@@ -4,6 +4,7 @@
 #include "TurnStage.h"
 #include "SwitchEventMediatorBase.h"
 #include "PhaseSwitcher.h"
+#include "BattleActionExecutor.h"
 
 namespace summonersaster
 {

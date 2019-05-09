@@ -48,6 +48,8 @@ namespace summonersaster
 		void ProcessFollowerOrders();
 
 	private:
+		using ActionInformation = BattleInformation::ActionInformation;
+
 		struct PlayerAttackData
 		{
 		public:

@@ -4,9 +4,11 @@ namespace summonersaster
 {
 	using namespace gameframework;
 
-	OpponentPlayer::OpponentPlayer(const TCHAR* pPlayerTextureKey, const tstring& deckName) 
+	OpponentPlayer::OpponentPlayer(const TCHAR* pPlayerTextureKey, const tstring& deckName)
 		:BattlePlayer(pPlayerTextureKey, deckName)
 	{
+		m_PlayerKind = PLAYER_KIND::OPPONENT;
+
 		m_TexturCenter = { 800.0f, 75.0f };
 	}
 

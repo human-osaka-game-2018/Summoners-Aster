@@ -27,6 +27,8 @@ namespace summonersaster
 	{
 		rPhaseSwitcher.Update();
 
+		BattleActionExecutor::Update();
+
 		if (m_phaseSwitchEventPost.m_nextKind == _T("DRAW"))
 		{
 			if (!m_phaseSwitchEventPost.m_shouldSwitch) return;

@@ -294,9 +294,6 @@
     <ClInclude Include="SceneSwitcher\Scene\MainScene\BattlePlayer\Players.h">
       <Filter>SceneSwitcher\Scene\MainScene\BattlePlayer</Filter>
     </ClInclude>
-    <ClInclude Include="SceneSwitcher\Scene\MainScene\BattleInformation.h">
-      <Filter>SceneSwitcher\Scene\MainScene</Filter>
-    </ClInclude>
     <ClInclude Include="Card\CardFolder.h">
       <Filter>Card</Filter>
     </ClInclude>
@@ -350,6 +347,12 @@
     </ClInclude>
     <ClInclude Include="GraphicEffects\Part\ScalingFlashSquare.h">
       <Filter>GraphicEffects\Part</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\BattleActionExecutor.h">
+      <Filter>SceneSwitcher\Scene\MainScene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\BattleInformation.h">
+      <Filter>SceneSwitcher\Scene\MainScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -527,9 +530,6 @@
     <ClCompile Include="SceneSwitcher\Scene\MainScene\BattlePlayer\Players.cpp">
       <Filter>SceneSwitcher\Scene\MainScene\BattlePlayer</Filter>
     </ClCompile>
-    <ClCompile Include="SceneSwitcher\Scene\MainScene\BattleInformation.cpp">
-      <Filter>SceneSwitcher\Scene\MainScene</Filter>
-    </ClCompile>
     <ClCompile Include="Card\CardFolder.cpp">
       <Filter>Card</Filter>
     </ClCompile>
@@ -586,6 +586,12 @@
     </ClCompile>
     <ClCompile Include="GraphicEffects\Part\ScalingFlashSquare.cpp">
       <Filter>GraphicEffects\Part</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\BattleActionExecutor.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\BattleInformation.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

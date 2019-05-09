@@ -3,6 +3,7 @@
 
 #include "TurnStage.h"
 #include "SwitchEventMediatorBase.h"
+#include "BattleInformation.h"
 
 namespace summonersaster
 {

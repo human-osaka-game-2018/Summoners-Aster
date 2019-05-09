@@ -10,6 +10,7 @@
 #include "Field.h"
 #include "BattleEnums.h"
 #include "RotationTickets/RotationTickets.h"
+#include "BattleInformation.h"
 
 namespace summonersaster
 {

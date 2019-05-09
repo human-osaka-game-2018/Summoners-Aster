@@ -45,7 +45,7 @@ namespace summonersaster
 
 	void RotationOrderMediator::ProcessRotationOrders()
 	{
-		if (BattleInformation::IsExcecuting()) return;
+		if (BattleInformation::IsWaitingAction()) return;
 
 		if (m_rotated) return;
 
@@ -85,7 +85,8 @@ namespace summonersaster
 
 		Color color = 0xFFFFFFFF;
 
-		if ((*m_pPlayerRotationPoints[BattleInformation::CurrentPlayer()]) <= 0 || m_rotated || !isRunning)
+		if ((*m_pPlayerRotationPoints[BattleInformation::CurrentPlayer()]) <= 0 || m_rotated 
+			|| BattleInformation::IsWaitingAction() || !isRunning)
 		{
 			color = 0xFF888888;
 		}

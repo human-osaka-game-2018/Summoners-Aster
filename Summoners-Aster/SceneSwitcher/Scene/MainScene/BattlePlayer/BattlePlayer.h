@@ -13,10 +13,12 @@
 #include "MP/MP.h"
 #include "WeaponHolder/WeaponHolder.h"
 #include "RotationTickets/RotationTickets.h"
+#include "BattleInformation.h"
 #include "FollowerOrderMediator.h"
 #include "RotationOrderMediator.h"
 #include "SummonEffect.h"
 #include "BattleEnums.h"
+#include "BattleInformation.h"
 
 namespace summonersaster
 {
@@ -72,6 +74,24 @@ public:
 	/// </summary>
 	virtual void InitializeInMainPhaseStart();
 
+	/// <summary>
+	/// フォロワー召喚時の一連の処理
+	/// </summary>
+	/// <returns>終了したらtrue</returns>
+	bool UpdateSummoningRoutine();
+
+	/// <summary>
+	/// 装備は生地の一連の処理
+	/// </summary>
+	/// <returns>終了したらtrue</returns>
+	bool UpdateWeaponDestroyingRoutine();
+
+	/// <summary>
+	/// 装備時の一連の処理
+	/// </summary>
+	/// <returns>終了したらtrue</returns>
+	bool UpdateArmingRoutine();
+
 	inline Hand* HHand()
 	{
 		return m_pHand;
@@ -125,91 +145,50 @@ protected:
 	bool TransportCollideFollower(MovableCard** ppCard);
 
 	/// <summary>
+	/// バトルアクションの呼び出し制御
+	/// </summary>
+	/// <param name="pCallable">呼べるかどうかのフラグ</param>
+	/// <param name="pFuncName">関数名</param>
+	/// <returns>呼び出した関数の戻り値</returns>
+	/// <remarks>この関数内でフラグをfalseにし一度しか呼ばないようにする</remarks>
+	bool CallOnce(bool* pCallable, const TCHAR* pFuncName);
+
+	/// <summary>
 	/// フォロワーの召喚起動
 	/// </summary>
 	/// <param name="handCardIndex">召喚する手札の要素番号</param>
 	/// <param name="transportFieldIndex">設置する要素番号</param>
-	void ActivateSummon(int handCardIndex, int transportFieldIndex)
-	{
-		if (BattleInformation::IsExcecuting()) return;
+	void ActivateSummoning(int handCardIndex, int transportFieldIndex);
 
-		m_transportFieldIndex = transportFieldIndex;
+	/// <summary>
+	/// フォロワーの召喚
+	/// </summary>
+	/// <returns>召喚できたらtrue</returns>
+	bool Summon();
 
-		std::vector<MovableCard*>* pCards = m_pHand->GetCards();
+	/// <summary>
+	/// 装備破壊の起動
+	/// </summary>
+	void ActivateWeaponDestroying();
 
-		Follower** ppFollower = &m_pFollowerZone[m_transportFieldIndex].m_pFollower;
+	/// <summary>
+	/// 装備の起動
+	/// </summary>
+	/// <param name="handCardIndex">装備するカードの手札でのインデックス</param>
+	void ActivateArming(int handCardIndex);
 
-		if (!PayMPAndTransportCard(ppFollower, (*pCards)[handCardIndex]->HCard())) return;
-
-		m_pFollowerZone[m_transportFieldIndex].m_isSummoned = true;
-
-		m_pHand->SendCard(handCardIndex);
-
-		BattleInformation::IsSummoning(true);
-
-		m_rGameFramework.RegisterGraphicEffect(new SummonEffect(m_pFollowerZone[m_transportFieldIndex].m_pVertices->GetCenter()));
-
-		m_effectTakesFrame = EFFECT_TAKES_FRAME_MAX;
-	}
-
-	void ActivateArm(int handCardIndex)
-	{
-		std::vector<MovableCard*>* pHandCards = m_pHand->GetCards();
-
-		Card* pLocaledWeapon = m_pWeaponHolder->HWeapon();
-
-		if (!PayMPAndTransportCard(m_pWeaponHolder->HHolder(), (*pHandCards)[handCardIndex]->HCard())) return;
-
-		BattleInformation::IsArming(true);
-
-		m_pHand->SendCard(handCardIndex);
-
-		m_pCemetery->PreserveCard(pLocaledWeapon);
-
-		m_effectTakesFrame = EFFECT_TAKES_FRAME_MAX;
-	}
-
-	void UpdateSummonRoutine()
-	{
-		if (!BattleInformation::IsSummoning() || BattleInformation::IsDestroying()) return;
-
-		m_pFollowerZone[m_transportFieldIndex].m_pFollower->Rect().SetColor(0x00FFFFFF);
-
-		if (m_effectTakesFrame < EFFECT_TAKES_FRAME_MAX / 2)
-		{
-			m_pFollowerZone[m_transportFieldIndex].m_pFollower->Rect().FadeIn(EFFECT_TAKES_FRAME_MAX / 2, 0, 255);
-		}
-
-		if (m_effectTakesFrame-- > 0) return;
-
-		BattleInformation::IsSummoning(false);
-	}
-
-	void UpdateArmRoutine()
-	{
-		if (!BattleInformation::IsArming() || BattleInformation::IsDestroying()) return;
-
-		if (m_effectTakesFrame == EFFECT_TAKES_FRAME_MAX)
-		{
-			m_rGameFramework.RegisterGraphicEffect(new SummonEffect(m_pWeaponHolder->HCollisionRect()->GetCenter()));
-		}
-
-		m_pWeaponHolder->HWeapon()->Rect().SetColor(0x00FFFFFF);
-
-		if (m_effectTakesFrame < EFFECT_TAKES_FRAME_MAX / 2)
-		{
-			m_pWeaponHolder->HWeapon()->Rect().FadeIn(EFFECT_TAKES_FRAME_MAX / 2, 0, 255);
-		}
-
-		if (m_effectTakesFrame-- > 0) return;
-
-		BattleInformation::IsArming(false);
-	}
+	/// <summary>
+	/// 装備
+	/// </summary>
+	/// <returns>装備できたらtrue</returns>
+	bool Arm();
 
 	/// <summary>
 	/// 使用済みのカード等を墓地へ送る
 	/// </summary>
 	void DestroyWornOutCard()override;
+
+	PLAYER_KIND m_PlayerKind = PLAYER_KIND::PROPONENT;
 
 	Hand* m_pHand = nullptr;
 	Deck* m_pDeck = nullptr;
@@ -229,11 +208,14 @@ protected:
 	Field& m_rField = Field::CreateAndGetRef();
 	FollowerData* m_pFollowerZone = nullptr;
 
+	Card* m_pWeaponTmp = nullptr;
+
 	const int NO_SELECTING_INDEX = -1;
-	int m_transportFieldIndex = NO_SELECTING_INDEX;
+	int m_TransportingFieldIndex = NO_SELECTING_INDEX;
+	int m_SelectingHandIndex = NO_SELECTING_INDEX;
 
 	const int EFFECT_TAKES_FRAME_MAX = 60;
-	int m_effectTakesFrame = 0;
+	int m_EffectTakesFrame = 0;
 
 	FollowerOrderMediator& m_rFollowerOrderMediator = FollowerOrderMediator::CreateAndGetRef();
 	RotationOrderMediator& m_rRotationOrderMediator = RotationOrderMediator::CreateAndGetRef();

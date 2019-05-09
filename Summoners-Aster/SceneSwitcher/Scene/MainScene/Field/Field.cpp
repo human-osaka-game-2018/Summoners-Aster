@@ -92,22 +92,19 @@ namespace summonersaster
 
 	void Field::ActivateOstensiblyCirculation(bool isRightDirection)
 	{
-		BattleInformation::IsRotating(true);
+		m_rotationStagingDegree += algorithm::Tertiary(isRightDirection, +0.0001f, -0.0001f);
 
-		m_rotationStagingDegree += algorithm::Tertiary(isRightDirection, +1.0f, -1.0f);
+		BattleInformation::ActionInformation actionInformation = { BattleInformation::ACTION_KIND::ROTATION, BattleInformation::CurrentPlayer() };
+		BattleInformation::PushQueBack(actionInformation);
 	}
 
 	void Field::Rotate(bool isRightDirection)
 	{
 		m_rotationNum += ((isRightDirection) ? -1 : +1);
-
-		BattleInformation::IsRotating(false);
 	}
 
 	void Field::Update()
 	{
-		UpdateOstensiblyCirculation();
-
 		m_pFollowers->Update();
 	}
 
@@ -138,6 +135,25 @@ namespace summonersaster
 		m_pEndButtonDummyVertices->Render(m_rGameFramework.GetTexture(_T("END_MAIN_BUTTON")));
 	}
 
+	bool Field::UpdateOstensiblyCirculation()
+	{
+		//回転方向の判定
+		if (m_rotationStagingDegree == 0.0f) return true;
+		bool isRightDirection = algorithm::Tertiary(m_rotationStagingDegree < 0.0f, true, false);
+
+		float RotationDegree = m_pFollowers->ROTATION_DEGREE;
+		float sign = algorithm::Tertiary(isRightDirection, -1.0f, +1.0f);
+
+		if (fabsf(m_rotationStagingDegree += sign * (RotationDegree / 30.0f)) <= RotationDegree) return false;
+
+		m_rotationStagingDegree = 0.0f;
+
+		Rotate(isRightDirection);
+		m_pFollowers->Circulate(isRightDirection);
+
+		return true;
+	}
+
 	void Field::GetFollowerZone(FollowerData** ppFollowerData)
 	{
 		m_pFollowers->GetFollowerZone(ppFollowerData);
@@ -146,11 +162,6 @@ namespace summonersaster
 	void Field::SetFollower(int index, Follower* pFollower)
 	{
 		m_pFollowers->SetFollower(index, pFollower);
-	}
-
-	void Field::DestroyDeadFollower(std::vector<Card*>* pCemetary)
-	{
-		m_pFollowers->DestroyDeadFollower(pCemetary);
 	}
 
 	void Field::ActivateAbirity(int index)
@@ -187,8 +198,97 @@ namespace summonersaster
 		m_followerDatas[index].m_isSummoned = true;
 	}
 
-	void Field::Followers::DestroyDeadFollower(std::vector<Card*>* pCemetary)
+	bool Field::Followers::UpdateAttackRoutine()
 	{
+		static bool isRoutineStart = true;
+
+		if (isRoutineStart)
+		{
+			RegisterEffect(m_actionOriginIndex, m_actionDestIndex);
+
+			isRoutineStart = false;
+		}
+
+		if (m_attackEffectFramesLeft-- > 0) return false;
+
+		static int spaceFramesAfterAttack = 0;
+
+		if (!m_followerDatas[m_actionOriginIndex].m_isAttacked)
+		{
+			Attack();
+
+			RegisterEffect(m_actionDestIndex, m_actionOriginIndex);
+
+			spaceFramesAfterAttack = 0;
+
+			return false;
+		}
+
+		Counter();
+
+		if (spaceFramesAfterAttack++ < 30) return false;
+
+		return isRoutineStart = true;
+	}
+
+	bool Field::Followers::UpdateMovingRoutine()
+	{
+		static bool isRoutineStart = true;
+
+		if (isRoutineStart)
+		{
+			RegisterEffect(m_actionOriginIndex, m_actionDestIndex);
+
+			m_followerDatas[m_actionOriginIndex].m_pFollower->Rect().SetColor(0x00FFFFFF);
+
+			isRoutineStart = false;
+		}
+
+		if ((m_attackEffectFramesLeft-- > 0)) return false;
+
+		Move(m_actionOriginIndex, m_actionDestIndex);
+
+		m_followerDatas[m_actionDestIndex].m_pFollower->Rect().SetColor(0xFFFFFFFF);
+
+		return isRoutineStart = true;
+	}
+
+	bool Field::Followers::UpdateDestroyingRoutine()
+	{
+		static bool isRoutineStart = true;
+
+		if (isRoutineStart)
+		{
+			m_EffectTakesFrame = EFFECT_TAKES_FRAME_MAX;
+
+			isRoutineStart = false;
+		}
+
+		Vertices& rCard = m_followerDatas[m_deadFollowerIndicies.front()].m_pFollower->Rect();
+
+		rCard.FadeOut(EFFECT_TAKES_FRAME_MAX, 255, 0);
+
+		if (m_EffectTakesFrame-- > 0) return false;
+
+		DestroyFollower(m_deadFollowerIndicies.front());
+
+		m_deadFollowerIndicies.pop_front();
+
+		return isRoutineStart = true;
+	}
+
+	void Field::Followers::SearchAndActivateDestroyingFollower()
+	{
+		auto IsSameDeadFollowerIndex = [&](int index)->bool
+		{
+			for (auto& deadIndex : m_deadFollowerIndicies)
+			{
+				if (deadIndex == index) return true;
+			}
+
+			return false;
+		};
+
 		for (auto& followerData : m_followerDatas)
 		{
 			if (!followerData.m_pFollower) continue;
@@ -199,19 +299,26 @@ namespace summonersaster
 			CardAbilityMediator::Unregister(&followerData);
 			CardAbilityMediator::Activator(Ability::KILLED, &followerData);
 
-			pCemetary->push_back(DestroyFollower(index));
+			if (IsSameDeadFollowerIndex(index)) continue;
+
+			m_deadFollowerIndicies.push_back(index);
+
+			BattleInformation::PushQueBack(ActionInformation(ACTION_KIND::FOLLOWER_DESTROYING,
+				followerData.m_pFollower->Owner()));
 		}
 	}
 
-	Card* Field::Followers::DestroyFollower(int index)
+	void Field::Followers::DestroyFollower(int index)
 	{
-		Card* retvalTmp = m_followerDatas[index].m_pFollower;
+		Follower** ppCard = &m_followerDatas[index].m_pFollower;
 
+		if (!(*ppCard)) return;
+
+		m_pCemetaryTmp.push_back(*ppCard);
+		
 		m_followerDatas[index].m_pFollower = nullptr;
 
 		EmptyFollower(index);
-
-		return retvalTmp;
 	}
 
 	void Field::Followers::Circulate(bool isRightDirection)
@@ -251,8 +358,7 @@ namespace summonersaster
 	{
 		JudgeFollowersZone();
 
-		UpdateAttackRoutine();
-		UpdateMovingRoutine();
+		SearchAndActivateDestroyingFollower();
 	}
 
 	void Field::Followers::Render(float rotationStagingDegree)
@@ -263,13 +369,9 @@ namespace summonersaster
 		{
 			int index = static_cast<int>(&followerData - &m_followerDatas[0]);
 
-			//フォロワーが置かれていなかったら
-			if (!followerData.m_pFollower || (BattleInformation::IsMoving() && index == m_actionOriginIndex))
-			{
-				followerData.m_pVertices->Render(nullptr);
+			followerData.m_pVertices->Render(nullptr);
 
-				continue;
-			}
+			if (!followerData.m_pFollower) continue;
 
 			Vertices& rVertices = *followerData.m_pVertices;
 
@@ -334,78 +436,31 @@ namespace summonersaster
 
 	void Field::Followers::ActivateAttackRoutine(int originIndex, int destIndex)
 	{
-		if (BattleInformation::IsExcecuting()) return;
+		if (BattleInformation::IsWaitingAction()) return;
 
-		BattleInformation::IsAttacking(true);
+		BattleInformation::PushQueBack(ActionInformation(ACTION_KIND::ATTACK, BattleInformation::CurrentPlayer()));
 
 		m_actionOriginIndex = originIndex;
 		m_actionDestIndex = destIndex;
-
-		m_rGameFramework.RegisterGraphicEffect(
-			new AttackEffect(m_followerDatas[m_actionOriginIndex].m_pVertices->GetCenter(),
-				m_followerDatas[m_actionDestIndex].m_pVertices->GetCenter(), ATTACK_EFFECT_TAKES_FRAMES));
-
-		m_attackEffectFramesLeft = ATTACK_EFFECT_TAKES_FRAMES + ATTACK_EFFECT_SPACE_TAKES_FRAMES;
 	}
 
 	void Field::Followers::ActivateMovingRoutine(int originIndex, int destIndex)
 	{
-		if (BattleInformation::IsExcecuting()) return;
+		if (BattleInformation::IsWaitingAction()) return;
 
-		BattleInformation::IsMoving(true);
+		BattleInformation::PushQueBack(ActionInformation(ACTION_KIND::MOVING, BattleInformation::CurrentPlayer()));
 
 		m_actionOriginIndex = originIndex;
 		m_actionDestIndex = destIndex;
+	}
 
+	void Field::Followers::RegisterEffect(int originIndex, int destIndex)
+	{
 		m_rGameFramework.RegisterGraphicEffect(
-			new AttackEffect(m_followerDatas[m_actionOriginIndex].m_pVertices->GetCenter(),
-				m_followerDatas[m_actionDestIndex].m_pVertices->GetCenter(), ATTACK_EFFECT_TAKES_FRAMES));
+			new AttackEffect(m_followerDatas[originIndex].m_pVertices->GetCenter(),
+				m_followerDatas[destIndex].m_pVertices->GetCenter(), ATTACK_EFFECT_TAKES_FRAMES));
 
 		m_attackEffectFramesLeft = ATTACK_EFFECT_TAKES_FRAMES + ATTACK_EFFECT_SPACE_TAKES_FRAMES;
-	}
-
-	void Field::Followers::UpdateAttackRoutine()
-	{
-		if (!BattleInformation::IsAttacking()) return;
-
-		if ((m_attackEffectFramesLeft-- > 0)) return;
-
-		static int spaceFramesAfterAttack = 0;
-
-		if (!m_followerDatas[m_actionOriginIndex].m_isAttacked)
-		{
-			Attack();
-
-			m_rGameFramework.RegisterGraphicEffect(
-				new AttackEffect(m_followerDatas[m_actionDestIndex].m_pVertices->GetCenter(),
-					m_followerDatas[m_actionOriginIndex].m_pVertices->GetCenter(), ATTACK_EFFECT_TAKES_FRAMES));
-
-			m_attackEffectFramesLeft = ATTACK_EFFECT_TAKES_FRAMES + ATTACK_EFFECT_SPACE_TAKES_FRAMES;
-
-			spaceFramesAfterAttack = 0;
-
-			return;
-		}
-
-		if (spaceFramesAfterAttack++ == 0)
-		{
-			Counter();
-		}
-
-		if (spaceFramesAfterAttack < 30) return;
-
-		BattleInformation::IsAttacking(false);
-	}
-
-	void Field::Followers::UpdateMovingRoutine()
-	{
-		if (!BattleInformation::IsMoving()) return;
-
-		if ((m_attackEffectFramesLeft-- > 0)) return;
-
-		Move(m_actionOriginIndex, m_actionDestIndex);
-
-		BattleInformation::IsMoving(false);
 	}
 
 	void Field::Followers::Attack()
@@ -493,23 +548,6 @@ namespace summonersaster
 
 			followerData.m_isOpponentZone = !followerData.m_isOpponentZone;
 		}
-	}
-
-	void Field::UpdateOstensiblyCirculation()
-	{
-		//回転方向の判定
-		if (m_rotationStagingDegree == 0.0f) return;
-		bool isRightDirection = algorithm::Tertiary(m_rotationStagingDegree < 0.0f, true, false);
-
-		float RotationDegree = m_pFollowers->ROTATION_DEGREE;
-		float sign = algorithm::Tertiary(isRightDirection, -1.0f, +1.0f);
-
-		if (fabsf(m_rotationStagingDegree += sign * (RotationDegree / 30.0f)) <= RotationDegree) return;
-
-		m_rotationStagingDegree = 0.0f;
-
-		Rotate(isRightDirection);
-		m_pFollowers->Circulate(isRightDirection);
 	}
 
 	void Field::LocaleField(Vertices* pVertices)
