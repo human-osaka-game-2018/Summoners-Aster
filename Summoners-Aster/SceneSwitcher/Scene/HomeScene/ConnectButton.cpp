@@ -4,7 +4,8 @@ using namespace gameframework;
 
 namespace summonersaster
 {
-	ConnectButton::ConnectButton() :Task(0.0f)
+	ConnectButton::ConnectButton(Color pressColor, bool isCircle, const TCHAR* pFontKey, const RectSize& fontSize, const TCHAR* pFontName) 
+		:Button(pressColor, isCircle, pFontKey, fontSize, pFontName)
 	{
 		Initialize();
 	}
@@ -16,14 +17,13 @@ namespace summonersaster
 
 	void ConnectButton::Initialize()
 	{
-		GameFrameworkFactory::Create(&m_pRect);
 
 		LoadResource();
 	}
 
 	void ConnectButton::LoadResource()
 	{
-		//m_rGameFramework.CreateTexture(_T("DECK_BUTTON"), _T("Textures/DeckButton.png"));
+		m_rGameFramework.CreateTexture(_T("CONNECT_BUTTON"), _T("Textures/ConnectButton.png"));
 	}
 
 	void ConnectButton::Finalize()
@@ -33,17 +33,28 @@ namespace summonersaster
 
 	void ConnectButton::Release()
 	{
-		delete m_pRect;
-		//m_rGameFramework.ReleaseTexture(_T("DECK_BUTTON"));
+		m_rGameFramework.ReleaseTexture(_T("CONNECT_BUTTON"));
 	}
 
 	void ConnectButton::Render()
 	{
+		RenderFrame();
+		RenderStream();
+	}
+
+	void ConnectButton::RenderFrame()
+	{
 		m_isFinished = true;
+		if (IsUnderCursor())
+		{
+			m_pVertices->SetColor(0xFF888888);
+		}
 
-		m_pRect->GetCenter() = { m_windowCenter.x, m_windowCenter.y * 1.112f, 0.0f };
-		m_pRect->SetSize(RectSize(m_windowSize.m_width * 0.28125f, m_windowSize.m_height * 0.445f));
+		m_pVertices->GetCenter() = { m_windowSize.m_width/4.f,  m_windowSize.m_height * 0.85f, 0.0f };
+		m_pVertices->SetSize(RectSize(m_windowSize.m_height * 0.3f, m_windowSize.m_height * 0.3f));
 
-		m_pRect->Render(nullptr);
+		m_pVertices->Render(m_rGameFramework.GetTexture(_T("CONNECT_BUTTON")));
+		m_pVertices->SetColor(0xFFFFFFFF);
+
 	}
 } // namespace summonersaster

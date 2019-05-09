@@ -23,7 +23,7 @@ namespace summonersaster
 
 	void Player::LoadResource()
 	{
-		m_rGameFramework.CreateTexture(_T("PLAYER"), _T("Textures/Player.png"));
+		m_rGameFramework.CreateTexture(_T("SHION"), _T("Textures/nigaoe.jpg"));
 	}
 
 	void Player::Finalize()
@@ -34,16 +34,16 @@ namespace summonersaster
 	void Player::Release()
 	{
 		delete m_pRect;
-		m_rGameFramework.ReleaseTexture(_T("PLAYER"));
+		m_rGameFramework.ReleaseTexture(_T("SHION"));
 	}
 
 	void Player::Render()
 	{
 		m_isFinished = true;
 
-		m_pRect->GetCenter() = { m_windowCenter.x * 0.375f, m_windowCenter.y * 1.1667f, 0.0f };
-		m_pRect->SetSize(RectSize(m_windowSize.m_width * 0.3125f, m_windowSize.m_height * 0.6667f));
+		m_pRect->GetCenter() = { m_windowCenter.x * 0.6f, m_windowCenter.y * 0.2f, 0.0f };
+		m_pRect->SetSize(RectSize(m_windowSize.m_height * 0.2f, m_windowSize.m_height * 0.2f));
 
-		m_pRect->Render(m_rGameFramework.GetTexture(_T("PLAYER")));
+		m_pRect->Render(m_rGameFramework.GetTexture(_T("SHION")));
 	}
 } // namespace summonersaster

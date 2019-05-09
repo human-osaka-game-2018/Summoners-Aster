@@ -4,7 +4,8 @@ using namespace gameframework;
 
 namespace summonersaster
 {
-	CPUButton::CPUButton() :Task(0.0f)
+	CPUButton::CPUButton(Color pressColor, bool isCircle, const TCHAR* pFontKey, const RectSize& fontSize, const TCHAR* pFontName)
+		:Button(pressColor, isCircle, pFontKey, fontSize, pFontName)
 	{
 		Initialize();
 	}
@@ -16,14 +17,12 @@ namespace summonersaster
 
 	void CPUButton::Initialize()
 	{
-		GameFrameworkFactory::Create(&m_pRect);
-
 		LoadResource();
 	}
 
 	void CPUButton::LoadResource()
 	{
-		//m_rGameFramework.CreateTexture(_T("CPU_BUTTON"), _T("Textures/CPUButton.png"));
+		m_rGameFramework.CreateTexture(_T("CPU_BUTTON"), _T("Textures/CPUButton.png"));
 	}
 
 	void CPUButton::Finalize()
@@ -33,17 +32,28 @@ namespace summonersaster
 
 	void CPUButton::Release()
 	{
-		delete m_pRect;
-		//m_rGameFramework.ReleaseTexture(_T("CPU_BUTTON"));
+		m_rGameFramework.ReleaseTexture(_T("CPU_BUTTON"));
 	}
 
 	void CPUButton::Render()
 	{
+		RenderFrame();
+		RenderStream();
+	}
+
+	void CPUButton::RenderFrame()
+	{
 		m_isFinished = true;
+		if (IsUnderCursor())
+		{
+			m_pVertices->SetColor(0xFF888888);
+		}
 
-		m_pRect->GetCenter() = { m_windowCenter.x * 1.625f, m_windowCenter.y * 0.86112f, 0.0f };
-		m_pRect->SetSize(RectSize(m_windowSize.m_width * 0.28125f, m_windowSize.m_height * 0.19445f));
+		m_pVertices->GetCenter() = { m_windowCenter.x, m_windowSize.m_height * 0.85f, 0.0f };
+		m_pVertices->SetSize(RectSize(m_windowSize.m_height * 0.3f, m_windowSize.m_height * 0.3f));
 
-		m_pRect->Render(nullptr);
+		m_pVertices->Render(m_rGameFramework.GetTexture(_T("CPU_BUTTON")));
+		m_pVertices->SetColor(0xFFFFFFFF);
+
 	}
 } // namespace summonersaster

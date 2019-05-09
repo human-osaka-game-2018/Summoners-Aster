@@ -44,6 +44,7 @@ namespace summonersaster
 		PlayerName& operator=(PlayerName& playerName) = delete;
 
 		gameframework::Vertices* m_pRect = nullptr;
+		gameframework::Stream* m_pStream = nullptr;
 	};
 } // namespace summonersaster
 

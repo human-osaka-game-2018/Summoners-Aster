@@ -4,7 +4,8 @@ using namespace gameframework;
 
 namespace summonersaster
 {
-	DeckButton::DeckButton() :Task(0.0f)
+	DeckButton::DeckButton(Color pressColor, bool isCircle, const TCHAR* pFontKey, const RectSize& fontSize, const TCHAR* pFontName)
+		:Button(pressColor, isCircle, pFontKey, fontSize, pFontName)
 	{
 		Initialize();
 	}
@@ -16,14 +17,13 @@ namespace summonersaster
 
 	void DeckButton::Initialize()
 	{
-		GameFrameworkFactory::Create(&m_pRect);
 
 		LoadResource();
 	}
 
 	void DeckButton::LoadResource()
 	{
-		//m_rGameFramework.CreateTexture(_T("DECK_BUTTON"), _T("Textures/DeckButton.png"));
+		m_rGameFramework.CreateTexture(_T("DECK_BUTTON"), _T("Textures/DeckButton.png"));
 	}
 
 	void DeckButton::Finalize()
@@ -33,17 +33,28 @@ namespace summonersaster
 
 	void DeckButton::Release()
 	{
-		delete m_pRect;
-		//m_rGameFramework.ReleaseTexture(_T("DECK_BUTTON"));
+		m_rGameFramework.ReleaseTexture(_T("DECK_BUTTON"));
 	}
 
 	void DeckButton::Render()
 	{
+		RenderFrame();
+		RenderStream();
+	}
+
+
+	void DeckButton::RenderFrame()
+	{
 		m_isFinished = true;
+		if (IsUnderCursor())
+		{
+			m_pVertices->SetColor(0xFF888888);
+		}
+		m_pVertices->GetCenter() = { m_windowSize.m_width *0.75f, m_windowSize.m_height * 0.85f, 0.0f };
+		m_pVertices->SetSize(RectSize(m_windowSize.m_height * 0.3f, m_windowSize.m_height * 0.3f));
 
-		m_pRect->GetCenter() = { m_windowCenter.x * 1.625f, m_windowCenter.y * 1.3612f, 0.0f };
-		m_pRect->SetSize(RectSize(m_windowSize.m_width * 0.28125f, m_windowSize.m_height * 0.19445f));
+		m_pVertices->Render(m_rGameFramework.GetTexture(_T("DECK_BUTTON")));
+		m_pVertices->SetColor(0xFFFFFFFF);
 
-		m_pRect->Render(nullptr);
 	}
 } // namespace summonersaster

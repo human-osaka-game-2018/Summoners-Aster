@@ -38,6 +38,8 @@ namespace summonersaster
 		/// </summary>
 		void Render()override;
 
+		void Update();
+
 	private:
 		InputPrompt(InputPrompt& inputPrompt) = delete;
 

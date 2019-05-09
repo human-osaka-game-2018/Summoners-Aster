@@ -1,5 +1,8 @@
 ﻿#include "InputPrompt.h"
 
+#include "SwitchEventMediatorBase.h"
+#include "Scene/Scene.h"
+
 using namespace gameframework;
 
 namespace summonersaster
@@ -46,5 +49,20 @@ namespace summonersaster
 		m_pStream->Render(m_rGameFramework.GetFont(_T("INPUT_PROMPT")), DT_CENTER);
 
 		m_isFinished = true;
+	}
+
+	void InputPrompt::Update()
+	{
+		gameframework::GameFramework& rGameFramework = gameframework::GameFramework::CreateAndGetRef();
+
+		if (rGameFramework.KeyboardIsPressed(DIK_D))
+		{
+			SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(SCENE_KIND::HOME);
+		}
+		if (rGameFramework.MouseIsPressed(gameframework::DirectX8Mouse::DIM_LEFT))
+		{
+			SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(SCENE_KIND::HOME);
+		}
+
 	}
 } // namespace summonersaster
