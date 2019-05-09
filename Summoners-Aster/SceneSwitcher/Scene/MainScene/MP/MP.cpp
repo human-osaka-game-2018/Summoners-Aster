@@ -72,6 +72,13 @@ bool MP::Paid(const int paidMp)
 	return true;
 }
 
+bool MP::CanPay(Card* pCard) const
+{
+	if (m_UsablePoint < pCard->Cost()) return false;
+
+	return true;
+}
+
 void MP::RenewUsablePoints()
 {
 	m_UsablePoint = m_Capacity;

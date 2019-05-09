@@ -4,6 +4,7 @@
 #include <GameFramework.h>
 
 #include "BattleObject.h"
+#include "Card.h"
 
 namespace summonersaster
 {
@@ -36,6 +37,13 @@ public:
 	/// </summary>
 	/// <param name="paidMp">減らす量</param>
 	bool Paid(const int paidMp);
+
+	/// <summary>
+	/// コストを払えるかどうか
+	/// </summary>
+	/// <param name="pCard">払えるかを確認するカード</param>
+	/// <returns>払えるならtrue</returns>
+	bool CanPay(Card* pCard) const;
 
 	/// <summary>
 	/// 使用可能ポイントを今の容量で更新する
