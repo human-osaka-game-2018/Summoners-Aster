@@ -63,6 +63,11 @@ public:
 		SetString(str);
 	};
 
+	const D3DXVECTOR3& GetCenter()
+	{
+		return m_pRect->GetCenter();
+	}
+
 	/// <summary>
 	/// 文字列の設定
 	/// </summary>

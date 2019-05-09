@@ -38,6 +38,11 @@ namespace summonersaster
 
 			break;
 
+		case ACTION_KIND::ATTACKING_PLAYER:
+			AttackPlayer();
+
+			break;
+
 		case ACTION_KIND::MOVING:
 			Move();
 

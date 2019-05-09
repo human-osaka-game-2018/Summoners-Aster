@@ -22,6 +22,7 @@ namespace summonersaster
 			NOTHING,
 			ROTATION,
 			ATTACK,
+			ATTACKING_PLAYER,
 			MOVING,
 			SUMMONING,
 			ARMING,

@@ -42,6 +42,37 @@ namespace summonersaster
 		}
 	}
 
+	bool FollowerOrderMediator::UpdateAttackingPlayerRoutine()
+	{
+		static bool isRoutineStart = true;
+
+		PLAYER_KIND notCurrentPlayer =
+			algorithm::Tertiary(BattleInformation::CurrentPlayer() ==
+				PLAYER_KIND::OPPONENT, PLAYER_KIND::PROPONENT, PLAYER_KIND::OPPONENT);
+
+		if (isRoutineStart)
+		{
+			FollowerData* pFollowerDatas = nullptr;
+			m_rField.GetFollowerZone(&pFollowerDatas);
+
+			m_rGameFramework.RegisterGraphicEffect(
+				new AttackEffect(pFollowerDatas[m_attackingFollowerIndex].m_pVertices->GetCenter(),
+					m_playersAttackData[notCurrentPlayer].m_pPlayerIconVertices->GetCenter(),
+					ATTACK_EFFECT_TAKES_FRAMES));
+
+			m_attackEffectFramesLeft = ATTACK_EFFECT_TAKES_FRAMES + ATTACK_EFFECT_SPACE_TAKES_FRAMES;
+
+			isRoutineStart = false;
+		}
+
+		if (m_attackEffectFramesLeft-- > 0) return false;
+
+		//現在のプレイヤーじゃないほう
+		m_rField.AttackPlayer(m_attackingFollowerIndex, m_playersAttackData[notCurrentPlayer].m_pHP);
+
+		return isRoutineStart = true;
+	}
+
 	FollowerOrderMediator::PlayerAttackData::PlayerAttackData()
 	{
 
@@ -82,11 +113,13 @@ namespace summonersaster
 
 	void FollowerOrderMediator::SetIsSelectedAndAttackOrMove()
 	{
+		if (BattleInformation::IsWaitingAction()) return;
+
 		int index = GetFieldFollowerIndexCursorRidden();
 
 		if (index < 0)
 		{
-			AttackPlayer();
+			ActivateAttackingPlayer();
 
 			NeutralizeSelecting();
 
@@ -115,10 +148,11 @@ namespace summonersaster
 		NeutralizeSelecting();
 	}
 
-	void FollowerOrderMediator::AttackPlayer()
+	void FollowerOrderMediator::ActivateAttackingPlayer()
 	{
 		PLAYER_KIND notCurrentPlayer = 
-			algorithm::Tertiary(BattleInformation::CurrentPlayer() == PLAYER_KIND::OPPONENT, PLAYER_KIND::PROPONENT, PLAYER_KIND::OPPONENT);
+			algorithm::Tertiary(BattleInformation::CurrentPlayer() == 
+				PLAYER_KIND::OPPONENT, PLAYER_KIND::PROPONENT, PLAYER_KIND::OPPONENT);
 
 		//現在のプレイヤーじゃないほう
 		Vertices* pNextTurnPlayer = m_playersAttackData[notCurrentPlayer].m_pPlayerIconVertices;
@@ -127,9 +161,12 @@ namespace summonersaster
 		
 		if (!m_rGameFramework.IsCursorOnRect(*pNextTurnPlayer)) return;
 
-		//現在のプレイヤーじゃないほう
-		m_rField.AttackPlayer(GetSelectingFollowerIndex(), m_playersAttackData[notCurrentPlayer].m_pHP);
-		NeutralizeSelecting();
+		if (!m_rField.CanTakeAction(GetSelectingFollowerIndex())) return;
+
+		m_attackingFollowerIndex = GetSelectingFollowerIndex();
+
+		BattleInformation::PushQueBack(ActionInformation(BattleInformation::ACTION_KIND::ATTACKING_PLAYER,
+			BattleInformation::CurrentPlayer()));
 	}
 
 	bool FollowerOrderMediator::IsSelected()
