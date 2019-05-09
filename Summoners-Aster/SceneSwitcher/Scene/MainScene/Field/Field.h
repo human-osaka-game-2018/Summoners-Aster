@@ -190,6 +190,16 @@ namespace summonersaster
 		}
 
 		/// <summary>
+		/// 行動を起こせるか
+		/// </summary>
+		/// <param name="index">カードの位置</param>
+		/// <returns>起こせるならtrue</returns>
+		inline bool CanTakeAction(int index)
+		{
+			return m_pFollowers->CanTakeAction(index);
+		}
+
+		/// <summary>
 		/// フィールドのフォロワー数
 		/// </summary>
 		static const int FIELD_FOLLOWERS_NUM = 5;

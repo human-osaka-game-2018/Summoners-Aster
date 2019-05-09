@@ -54,8 +54,6 @@ bool BattlePlayer::Update(const tstring& phase)
 
 	if (phase == PHASE_KIND::MAIN) return UpdateInMainPhase();
 
-	m_pHand->Update();
-
 	return true;//仮
 }
 
@@ -66,16 +64,12 @@ bool BattlePlayer::UpdateInBattlePreparing()
 	//ここでマリガンの確認UIを出す
 	//Mulligan();
 
-	m_pHand->Update();
-
 	return true;
 }
 
 bool BattlePlayer::UpdateInDrawPhase()
 {
 	DrawCard();
-
-	m_pHand->Update();
 
 	DestroyWornOutCard();
 
@@ -84,8 +78,6 @@ bool BattlePlayer::UpdateInDrawPhase()
 
 bool BattlePlayer::UpdateInMainPhase()
 {
-	m_pHand->Update();
-
 	TransportCollideFollower();
 	TransportCollideWeapon();
 
@@ -99,8 +91,6 @@ bool BattlePlayer::UpdateInMainPhase()
 
 bool BattlePlayer::UpdateInEndPhase()
 {
-	m_pHand->Update();
-
 	DestroyWornOutCard();
 
 	return true;
@@ -143,7 +133,7 @@ void BattlePlayer::SendCardToCemetery(Card* pCard)
 void BattlePlayer::DrawCard()
 {
 	Hand::RESULT drawResult;
-	if (Hand::FLOOD == (drawResult = m_pHand->AddCard(m_pDeck->SendCard())))
+	if (Hand::FLOOD == (drawResult = m_pHand->AddCard(m_pDeck->SendCard(), m_pDeck->GetCenter())))
 	{
 		m_pCemetery->PreserveCard(m_pHand->SendCard(9));
 	}
@@ -175,7 +165,7 @@ void BattlePlayer::Mulligan()
 	m_pDeck->Shuffle();
 	for (int i = 0; i < handQuantities; ++i)
 	{
-		m_pHand->AddCard(m_pDeck->SendCard());
+		m_pHand->AddCard(m_pDeck->SendCard(), m_pHand->GetCenter());
 	}
 }
 
@@ -268,6 +258,8 @@ void BattlePlayer::TransportCollideWeapon()
 	{
 		if (pCard->HCard()->CARD_TYPE != Card::TYPE::WEAPON) continue;
 
+		if (!m_rGameFramework.IsCursorOnRect(pCard->HCard()->Rect())) continue;
+
 		if (!IsCollided(pCard->HCard(), m_pWeaponHolder->HCollisionRect())) continue;
 
 		if (!m_pMP->CanPay(pCard->HCard())) continue;
@@ -299,6 +291,8 @@ bool BattlePlayer::TransportCollideFollower(MovableCard** ppCard)
 	for (int fzi = 0; fzi < m_rField.FIELD_FOLLOWERS_NUM; ++fzi)
 	{
 		if ((*ppCard)->HCard()->CARD_TYPE != Card::TYPE::FOLLOWER) continue;
+
+		if (!m_rGameFramework.IsCursorOnRect((*ppCard)->HCard()->Rect())) continue;
 
 		//フォロワーが召喚できる場所か
 		if (m_pFollowerZone[fzi].m_pFollower || m_pFollowerZone[fzi].m_isOpponentZone ||

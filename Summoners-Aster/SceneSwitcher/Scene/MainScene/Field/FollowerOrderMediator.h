@@ -47,6 +47,12 @@ namespace summonersaster
 		/// </summary>
 		void ProcessFollowerOrders();
 
+		/// <summary>
+		/// プレイヤーに攻撃する際の一連の処理
+		/// </summary>
+		/// <returns>終了したらtrue</returns>
+		bool UpdateAttackingPlayerRoutine();
+
 	private:
 		using ActionInformation = BattleInformation::ActionInformation;
 
@@ -84,7 +90,7 @@ namespace summonersaster
 		/// <summary>
 		/// 相手プレイヤーに攻撃を行う
 		/// </summary>
-		void AttackPlayer();
+		void ActivateAttackingPlayer();
 
 		/// <summary>
 		/// カードが選択状態にあるか
@@ -113,6 +119,12 @@ namespace summonersaster
 		FollowerData* m_pFollowerZone = nullptr;
 
 		std::unordered_map<PLAYER_KIND, PlayerAttackData> m_playersAttackData;
+
+		int m_attackingFollowerIndex = 0;
+
+		const int ATTACK_EFFECT_TAKES_FRAMES = 20;
+		const int ATTACK_EFFECT_SPACE_TAKES_FRAMES = 10;
+		int m_attackEffectFramesLeft = 0;
 
 		Field& m_rField = Field::CreateAndGetRef();
 

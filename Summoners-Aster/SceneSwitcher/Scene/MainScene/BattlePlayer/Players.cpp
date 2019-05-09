@@ -47,6 +47,11 @@ namespace summonersaster
 			return true;
 		}
 
+		for (auto& player : m_pBattlePlayers)
+		{
+			player.second->HHand()->Update();
+		}
+
 		return m_pBattlePlayers[BattleInformation::CurrentPlayer()]->Update(phaseName);
 	}
 

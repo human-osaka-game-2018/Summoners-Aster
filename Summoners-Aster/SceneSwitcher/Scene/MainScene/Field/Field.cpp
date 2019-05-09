@@ -224,7 +224,10 @@ namespace summonersaster
 			return false;
 		}
 
-		Counter();
+		if (spaceFramesAfterAttack == 0)
+		{
+			Counter();
+		}
 
 		if (spaceFramesAfterAttack++ < 30) return false;
 

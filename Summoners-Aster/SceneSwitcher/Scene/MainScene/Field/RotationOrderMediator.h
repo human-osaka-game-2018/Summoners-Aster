@@ -11,6 +11,7 @@
 #include "BattleEnums.h"
 #include "RotationTickets/RotationTickets.h"
 #include "BattleInformation.h"
+#include "MovableCard/MovableCard.h"
 
 namespace summonersaster
 {

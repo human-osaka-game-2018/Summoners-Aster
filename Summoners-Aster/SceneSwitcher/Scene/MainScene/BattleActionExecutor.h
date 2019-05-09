@@ -38,6 +38,13 @@ namespace summonersaster
 			BattleInformation::PopQueFront();
 		}
 
+		static inline void AttackPlayer()
+		{
+			if (!FollowerOrderMediator::GetRef().UpdateAttackingPlayerRoutine()) return;
+
+			BattleInformation::PopQueFront();
+		}
+
 		static inline void Move()
 		{
 			if (!Field::GetRef().UpdateMovingRoutine()) return;
