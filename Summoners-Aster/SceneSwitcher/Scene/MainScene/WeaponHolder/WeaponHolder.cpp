@@ -34,12 +34,9 @@ namespace summonersaster
 
 	void WeaponHolder::Render()
 	{
-		if (!m_pWeapon)
-		{
-			m_pRect->Render(nullptr);
+		m_pRect->Render(nullptr);
 
-			return;
-		}
+		if (!m_pWeapon) return;
 
 		m_pWeapon->Render(m_pRect->GetCenter(), m_pRect->GetSize());
 	}

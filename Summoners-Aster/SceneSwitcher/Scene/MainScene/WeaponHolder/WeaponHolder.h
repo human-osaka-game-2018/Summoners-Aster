@@ -71,6 +71,14 @@ namespace summonersaster
 			return m_pRect;
 		}
 
+		inline Card* LeaveCard()
+		{
+			Card* pCard = m_pWeapon;
+			m_pWeapon = nullptr;
+
+			return pCard;
+		}
+
 	private:
 		WeaponHolder(WeaponHolder& movableCard) = delete;
 
