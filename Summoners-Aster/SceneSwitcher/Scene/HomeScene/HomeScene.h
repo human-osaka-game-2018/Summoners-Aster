@@ -10,6 +10,7 @@
 #include "DeckButton.h"
 #include "CPUButton.h"
 #include "Player.h"
+#include "MenuWindow.h"
 
 namespace summonersaster
 {
@@ -45,6 +46,12 @@ namespace summonersaster
 		HomeScene& operator=(HomeScene& homeScene) = delete;
 
 		TaskScheduler m_taskScheduler;
+
+		MenuButton* m_pMenuButton;
+		DeckButton* m_pDeckButton;
+		CPUButton* m_pCPUButton;
+		ConnectButton* m_pConnectButton;
+		MenuWindow* m_pMenuWindow;
 	};
 } // namespace summonersaster
 

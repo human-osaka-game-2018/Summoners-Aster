@@ -3,11 +3,11 @@
 
 #include <GameFramework.h>
 
-#include "Task.h"
+#include "Button.h"
 
 namespace summonersaster
 {
-	class MenuButton :public Task
+	class MenuButton :public Button
 	{
 	public:
 		MenuButton();
@@ -16,34 +16,35 @@ namespace summonersaster
 		/// <summary>
 		/// 初期化する
 		/// </summary>
-		void Initialize()override;
+		void Initialize();
 
 		/// <summary>
 		/// リソースの読み込み
 		/// </summary>
-		void LoadResource()override;
+		void LoadResource();
 
 		/// <summary>
 		/// 終了処理を行う
 		/// </summary>
-		void Finalize()override;
+		void Finalize();
 
 		/// <summary>
 		/// リソースなどの開放を行う
 		/// </summary>
-		void Release()override;
+		void Release();
 
+		void Render();
+
+
+	private:
 		/// <summary>
 		/// 描画
 		/// </summary>
-		void Render()override;
-
-	private:
+		void RenderFrame();
 		MenuButton(MenuButton& menuButton) = delete;
 
 		MenuButton& operator=(MenuButton& menuButton) = delete;
 
-		gameframework::Vertices* m_pRect = nullptr;
 	};
 } // namespace summonersaster
 

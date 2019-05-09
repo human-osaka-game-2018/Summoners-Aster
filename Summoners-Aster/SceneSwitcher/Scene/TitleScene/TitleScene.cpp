@@ -33,12 +33,7 @@ namespace summonersaster
 	void TitleScene::Update()
 	{
 		m_taskScheduler.Update();
-		gameframework::GameFramework& rGameFramework = gameframework::GameFramework::CreateAndGetRef();
 
-		if (rGameFramework.KeyboardIsPressed(DIK_D))
-		{
-			SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(_T(/*"MAIN"*/"HOME"));
-		}
 	}
 
 	void TitleScene::Render()

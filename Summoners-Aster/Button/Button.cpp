@@ -117,7 +117,7 @@ namespace summonersaster
 		if (!pFONT_KEY) return;
 
 		D3DXVECTOR3& rCenter = m_pVertices->GetCenter();
-		D3DXVECTOR2 topLeft = { rCenter.x, rCenter.y };
+		D3DXVECTOR2 topLeft = { rCenter.x, rCenter.y-GetFontSize().m_height*0.5f };
 		m_pStream->SetTopLeft(topLeft);
 
 		m_pStream->Render(m_rGameFramework.GetFont(pFONT_KEY), DT_CENTER);

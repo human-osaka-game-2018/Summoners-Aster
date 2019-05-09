@@ -324,6 +324,9 @@
     <ClInclude Include="SceneSwitcher\Scene\DeckEditScene\DeckEditScene.h">
       <Filter>SceneSwitcher\Scene\DeckEditScene</Filter>
     </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\HomeScene\MenuWindow.h">
+      <Filter>SceneSwitcher\Scene\HomeScene</Filter>
+    </ClInclude>
     <ClInclude Include="SceneSwitcher\Scene\DeckEditScene\EditDeck\EditDeck.h">
       <Filter>SceneSwitcher\Scene\DeckEditScene\EditDeck</Filter>
     </ClInclude>
@@ -592,6 +595,9 @@
     </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\MainScene\BattleInformation.cpp">
       <Filter>SceneSwitcher\Scene\MainScene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\HomeScene\MenuWindow.cpp">
+      <Filter>SceneSwitcher\Scene\HomeScene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

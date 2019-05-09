@@ -3,47 +3,49 @@
 
 #include <GameFramework.h>
 
-#include "Task.h"
+#include "Button.h"
 
 namespace summonersaster
 {
-	class DeckButton :public Task
+	class DeckButton :public Button
 	{
 	public:
-		DeckButton();
+		DeckButton(Color pressColor = 0xFF888888, bool isCircle = false,
+			const TCHAR* pFontKey = nullptr, const RectSize& fontSize = RectSize(0.0f, 0.0f), const TCHAR* pFontName = nullptr);
 		~DeckButton();
 
 		/// <summary>
 		/// 初期化する
 		/// </summary>
-		void Initialize()override;
+		void Initialize();
 
 		/// <summary>
 		/// リソースの読み込み
 		/// </summary>
-		void LoadResource()override;
+		void LoadResource();
 
 		/// <summary>
 		/// 終了処理を行う
 		/// </summary>
-		void Finalize()override;
+		void Finalize();
 
 		/// <summary>
 		/// リソースなどの開放を行う
 		/// </summary>
-		void Release()override;
+		void Release();
 
+		void Render();
+
+
+	private:
 		/// <summary>
 		/// 描画
 		/// </summary>
-		void Render()override;
-
-	private:
+		void RenderFrame();
 		DeckButton(DeckButton& deckButton) = delete;
 
 		DeckButton& operator=(DeckButton& deckButton) = delete;
 
-		gameframework::Vertices* m_pRect = nullptr;
 	};
 } // namespace summonersaster
 

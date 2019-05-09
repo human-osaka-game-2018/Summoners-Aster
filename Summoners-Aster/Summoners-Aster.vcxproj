@@ -51,6 +51,7 @@
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\HomeBack.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\HomeScene.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\MenuButton.cpp" />
+    <ClCompile Include="SceneSwitcher\Scene\HomeScene\MenuWindow.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\Player.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\PlayerName.cpp" />
     <ClCompile Include="SceneSwitcher\Scene\MainScene\BattleEnums.cpp" />
@@ -131,6 +132,7 @@
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\HomeBack.h" />
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\HomeScene.h" />
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\MenuButton.h" />
+    <ClInclude Include="SceneSwitcher\Scene\HomeScene\MenuWindow.h" />
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\Player.h" />
     <ClInclude Include="SceneSwitcher\Scene\HomeScene\PlayerName.h" />
     <ClInclude Include="SceneSwitcher\Scene\MainScene\BattleEnums.h" />
