@@ -304,38 +304,14 @@ bool BattlePlayer::TransportCollideFollower(MovableCard** ppCard)
 
 		if (!GameFramework::GetRef().MouseIsReleased(DirectX8Mouse::DIM_LEFT)) break;
 
-		Summon(handCardIndex, fzi);
 		CardAbilityMediator::Activator(Ability::ActivationEvent::SUMMONED, &m_pFollowerZone[fzi]);
-		
+			
+		ActivateSummoning(handCardIndex, fzi);
+
 		return true;
 	}
 
 	return false;
-}
-
-void BattlePlayer::DestroyDeadFollower()
-{
-	std::vector<Card*> pCemetary;
-
-	m_rField.DestroyDeadFollower(&pCemetary);
-
-	for (auto& pCard : pCemetary)
-	{
-		m_pCemetery->PreserveCard(pCard);
-	}
-}
-
-void BattlePlayer::Summon(int handCardIndex, int transportFieldIndex)
-{
-	std::vector<MovableCard*>* pCards = m_pHand->GetCards();
-
-	Follower** ppFollower = &m_pFollowerZone[transportFieldIndex].m_pFollower;
-	
-	if (!PayMPAndTransportCard(ppFollower, (*pCards)[handCardIndex]->HCard())) return;
-	CardAbilityMediator::Activator(Ability::SUMMON);
-	m_pHand->SendCard(handCardIndex);
-	CardAbilityMediator::Register(&m_pFollowerZone[transportFieldIndex]);
-	m_pFollowerZone[transportFieldIndex].m_isSummoned = true;
 }
 
 void BattlePlayer::DestroyWornOutCard()

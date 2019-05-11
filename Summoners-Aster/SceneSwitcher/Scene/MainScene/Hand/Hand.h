@@ -29,7 +29,7 @@ public:
 	/// </summary>
 	/// <param name="card">追加するカードクラスポインタ</param>
 	/// <returns>ドロー結果</returns>
-	RESULT AddCard(Card* card);
+	RESULT AddCard(Card* card, const D3DXVECTOR3& cardCenter);
 
 	inline int GetQuantites() const
 	{
@@ -49,7 +49,24 @@ public:
 	}
 
 private:
+	/// <summary>
+	/// 表示モードの切り替えを判定する
+	/// </summary>
+	void CheckAndToggleModeChange();
+
+	/// <summary>
+	/// カードの入れ替え処理
+	/// </summary>
+	/// <param name="handCardAdditionalPosX">インデックス一つずれた時のｘ座標の差分</param>
+	/// <param name="textureCenter">描画のベース位置</param>
+	/// <returns>カードの入れ替えが発生たらtrue</returns>
+	bool SwapCard(float handCardAdditionalPosX, const D3DXVECTOR2& textureCenter);
+
 	std::vector<MovableCard*> m_MovableCards;
+
+	MovableCard* pSeparatedSelectingCard = nullptr;
+
+	bool m_isHandRemarksMode = false;
 
 	const unsigned int MAX_CAPACITY = 9;
 

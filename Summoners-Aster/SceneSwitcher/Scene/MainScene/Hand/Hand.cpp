@@ -17,11 +17,25 @@ void Hand::Update()
 {
 	float handCardAdditionalPosX = 650.0f / static_cast<float>(m_MovableCards.size() + 1);
 
+	CheckAndToggleModeChange();
+
+	D3DXVECTOR2 textureCenter = m_TexturCenter;
+
+	if (m_isHandRemarksMode)
+	{
+		handCardAdditionalPosX = 1000.0f / static_cast<float>(m_MovableCards.size() + 1);
+
+		textureCenter.x = 800.0f - (handCardAdditionalPosX * 0.5f * (m_MovableCards.size() - 1));
+		textureCenter.y = 850.0f;
+	}
+
+	SwapCard(handCardAdditionalPosX, textureCenter);
+
 	for (auto& movableCard : m_MovableCards)
 	{
-		int index = static_cast<int>(&movableCard - &m_MovableCards[0]);
-
-		movableCard->Update(D3DXVECTOR3(m_TexturCenter.x + (handCardAdditionalPosX * index + 1), m_TexturCenter.y, 0.0f));
+		movableCard->Update(D3DXVECTOR3(textureCenter.x + handCardAdditionalPosX * 
+				static_cast<int>(&movableCard - &m_MovableCards[0]),
+			textureCenter.y, 0.0f));
 	}
 }
 
@@ -49,14 +63,17 @@ void Hand::Destroy()
 	m_MovableCards.clear();
 }
 
-Hand::RESULT Hand::AddCard(Card* card)
+Hand::RESULT Hand::AddCard(Card* card, const D3DXVECTOR3& cardCenter)
 {
+	D3DXVECTOR3 cardCenterZRepaired = cardCenter;
+	cardCenterZRepaired.z = 0.0f;
+
 	if (nullptr == card)
 	{
 		//死亡通知
 		return DEAD;
 	}
-	m_MovableCards.push_back(new MovableCard(card));
+	m_MovableCards.push_back(new MovableCard(card, cardCenterZRepaired));
 	if (MAX_CAPACITY < m_MovableCards.size())
 	{
 		return FLOOD;
@@ -73,4 +90,44 @@ Card* Hand::SendCard(unsigned int handNum)
 	MovableCard::NeutralizeSelecting();
 	return sendCard;
 }
+
+void Hand::CheckAndToggleModeChange()
+{
+	for (auto& movableCard : m_MovableCards)
+	{
+		if (!m_rGameFramework.IsCursorOnRect(movableCard->HCard()->Rect())) continue;
+
+		if (!GameFramework::GetRef().MouseIsReleased(DirectX8Mouse::DIM_RIGHT)) break;
+
+		m_isHandRemarksMode = !m_isHandRemarksMode;
+	}
+}
+
+bool Hand::SwapCard(float handCardAdditionalPosX, const D3DXVECTOR2& textureCenter)
+{
+	for (auto& movableCard : m_MovableCards)
+	{
+		int index = static_cast<int>(&movableCard - &m_MovableCards[0]);
+
+		if (!movableCard->IsSelectingCard()) continue;
+
+		float posXDiff = movableCard->HCardCenter()->x - (textureCenter.x + handCardAdditionalPosX * index);
+
+		int indexDiff = static_cast<int>(posXDiff + algorithm::Tertiary(posXDiff > 0, +1.0f, -1.0f) * (0.5f * handCardAdditionalPosX))
+			/ static_cast<int>(handCardAdditionalPosX);
+
+		int normalizedIndexDiff = min(max(indexDiff + index, 0), static_cast<int>(m_MovableCards.size()) - 1) - index;
+
+		if (normalizedIndexDiff == 0) continue;
+
+		MovableCard* pTmp = movableCard;
+
+		m_MovableCards.erase(m_MovableCards.begin() + index);
+		m_MovableCards.insert(m_MovableCards.begin() + index + normalizedIndexDiff, pTmp);
+
+		return true;
+	}
+
+	return false;
+};
 }

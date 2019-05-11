@@ -21,7 +21,7 @@ namespace summonersaster
 	{
 	public:
 		/// <param name="pCard">ラップするカードのポインタ</param>
-		explicit MovableCard(Card* pCard);
+		explicit MovableCard(Card* pCard, const D3DXVECTOR3& cardCenter, int returningTakesFramesMax = 15);
 
 		~MovableCard();
 
@@ -52,6 +52,26 @@ namespace summonersaster
 			m_pCard = pCard;
 		}
 
+		inline D3DXVECTOR3* HCardCenter()
+		{
+			return &m_cardCenter;
+		}
+
+		inline bool IsSelectingCard() const
+		{
+			return m_selectingInstance == m_pCard;
+		}
+
+		inline bool ReturningTakesFramesMax(int returningTakesFramesMax)
+		{
+			m_returningTakesFramesMax = returningTakesFramesMax;
+		}
+
+		static bool IsSelecting()
+		{
+			return m_selectingInstance != nullptr;
+		}
+
 	private:
 		MovableCard(MovableCard& movableCard) = delete;
 
@@ -63,6 +83,8 @@ namespace summonersaster
 
 		void NeutralizeSelectingWhenReleasedCard();
 
+		void CreateReturningMovement();
+
 		void Move(const D3DXVECTOR3& defaultCenter);
 
 		static Card* m_selectingInstance;
@@ -70,8 +92,13 @@ namespace summonersaster
 		GameFramework& m_rGameFramework = GameFramework::CreateAndGetRef();
 
 		POINT m_prevCursorPos = { 0, 0 };
+		D3DXVECTOR3 m_defaultCenter = { 0.0f, 0.0f, 0.0f };
 		D3DXVECTOR3 m_cardCenter = { 0.0f, 0.0f, 0.0f };
 		D3DXVECTOR3 m_cursorMovemntByPrev = { 0.0f, 0.0f, 0.0f };
+
+		int m_returningTakesFramesMax = 1;
+		int m_returningTakesFrames = m_returningTakesFramesMax;
+		D3DXVECTOR3 m_returningMovement = { 0.0f, 0.0f, 0.0f };
 
 		Card* m_pCard = nullptr;
 	};

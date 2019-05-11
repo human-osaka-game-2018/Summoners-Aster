@@ -9,6 +9,8 @@ namespace summonersaster
 {
 Deck::Deck(const tstring& deckName, const D3DXVECTOR2& texturCenter) :DECK_NAME(deckName), m_TexturCenter(texturCenter)
 {
+	D3DXVECTOR3 center = { m_TexturCenter.x, m_TexturCenter.y, 0.0f };
+	m_pRect->SetCenter(center);
 }
 
 Deck::~Deck()
