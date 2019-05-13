@@ -27,8 +27,8 @@ void DeckEditScene::Initialize()
 	m_pDeck = new EditDeck(_T("SHION"),D3DXVECTOR2(100.f,300.f));
 	m_pDeck->Load(PLAYER_KIND::OPPONENT);
 	m_pHavingCards = new HavingCards(PLAYER_KIND::OPPONENT, D3DXVECTOR2(100.f, 700.f));
-	m_pExitButton = new Button(0xFF888888,false,_T("RESULT"));
-	m_pSaveButton = new Button(0xFF888888,false,_T("RESULT"));
+	m_pExitButton = new Button(0xFF888888,false,_T("CARD"), RectSize(10.f, 20.f));
+	m_pSaveButton = new Button(0xFF888888,false,_T("CARD"), RectSize(10.f, 20.f));
 	LocaleButton();
 
 }
