@@ -10,6 +10,7 @@
 #include "Card.h"
 #include "Follower/Follower.h"
 #include "Weapon/Weapon.h"
+#include "Spell/Spell.h"
 #include "BattleEnums.h"
 
 namespace summonersaster
@@ -46,10 +47,12 @@ namespace summonersaster
 		{
 			return static_cast<int>(m_pCards.size());
 		}
+
 		tstring GetCardName(int index)
 		{
 			return m_pCardsName[index];
 		}
+
 	private:
 		CardFolder();
 

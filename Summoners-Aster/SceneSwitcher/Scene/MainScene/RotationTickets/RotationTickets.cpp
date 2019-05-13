@@ -4,8 +4,8 @@ namespace summonersaster
 {
 	using namespace gameframework;
 
-	RotationTickets::RotationTickets(int retentionMax, const D3DXVECTOR2& baseCenterWindowMulti)
-		:Object(0.08f), RETENTION_MAX(retentionMax)
+	RotationTickets::RotationTickets(const D3DXVECTOR2& baseCenterWindowMulti)
+		:Object(0.9001f)
 	{
 		m_baseCenter = 
 		{ 
@@ -27,20 +27,12 @@ namespace summonersaster
 	{
 		m_retentionNum = RETENTION_MAX;
 
-		m_pVertices.resize(RETENTION_MAX);
-
-		for (auto& pVertices : m_pVertices)
-		{
-			GameFrameworkFactory::Create(&pVertices);
-		}
+		GameFrameworkFactory::Create(&m_pVertices);
 	}
 
 	void RotationTickets::Finalize()
 	{
-		for (auto& pVertices : m_pVertices)
-		{
-			delete pVertices;
-		}
+		delete m_pVertices;
 	}
 
 	void RotationTickets::LoadResource()
@@ -51,21 +43,28 @@ namespace summonersaster
 	void RotationTickets::Render()
 	{
 		RectSize size;
-		size.m_width = size.m_height = m_windowSize.m_width * 0.02f;
+		size.m_width = size.m_height = 150.0f;
+		
+		D3DXVECTOR3 center(m_baseCenter.x, m_baseCenter.y, m_baseCenter.z);
+		m_pVertices->SetCenterAndSize(center, size);
 
-		for (auto& pVertices : m_pVertices)
+		const TCHAR* pTEXTURE_KEYS[RETENTION_MAX + 1] =
 		{
-			int index = static_cast<int>(&pVertices - &m_pVertices[0]);
+			_T("ROTATION_TICKET_FRAME"),
+			_T("ROTATION_TICKET1"),
+			_T("ROTATION_TICKET2"),
+			_T("ROTATION_TICKET3")
+		};
 
-			if (index >= m_retentionNum)
-			{
-				pVertices->SetColor(0xFF666666);
-			}
+		m_pVertices->SetColor(0xFFFFFFFF);
 
-			D3DXVECTOR3 center(m_baseCenter.x + m_windowSize.m_width * 0.01f * index, m_baseCenter.y, m_baseCenter.z);
-			pVertices->SetCenterAndSize(center, size);
+		m_pVertices->Render(m_rGameFramework.GetTexture(pTEXTURE_KEYS[0]));
 
-			pVertices->Render(m_rGameFramework.GetTexture(_T("ROTATION_TICKET")));
+		for (int i = 0; i < RETENTION_MAX; ++i)
+		{
+			m_pVertices->SetColor(algorithm::Tertiary(i < m_retentionNum, 0xFFFFFFFF, 0xFF333333));
+
+			m_pVertices->Render(m_rGameFramework.GetTexture(pTEXTURE_KEYS[i + 1]));
 		}
 	}
 }

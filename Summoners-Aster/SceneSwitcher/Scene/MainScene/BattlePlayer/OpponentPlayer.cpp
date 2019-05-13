@@ -9,7 +9,7 @@ namespace summonersaster
 	{
 		m_PlayerKind = PLAYER_KIND::OPPONENT;
 
-		m_TexturCenter = { 800.0f, 75.0f };
+		m_TexturCenter = { 800.0f, 55.0f };
 	}
 
 	OpponentPlayer::~OpponentPlayer()
@@ -19,14 +19,16 @@ namespace summonersaster
 
 	void OpponentPlayer::Initialize()
 	{
-		m_pHand = new Hand(D3DXVECTOR2(100.0f, 100));
+		m_pHand = new Hand(PLAYER_KIND::OPPONENT, D3DXVECTOR2(100.0f, 100));
 		m_pDeck = new Deck(USE_DECK_NAME, D3DXVECTOR2(1529.0f, 260.0f));
 		m_pDeck->Load(PLAYER_KIND::OPPONENT);
 		m_pCemetery = new Cemetery(D3DXVECTOR2(1480.0f, 370.0f));
-		m_pHP = new HP(m_TexturCenter);
-		m_pMP = new MP(D3DXVECTOR3(1130.0f, 100.0f, 0.9f));
+
+		D3DXVECTOR2 hpPos(800.0f, 110.0f);
+		m_pHP = new HP(hpPos);
+		m_pRotationTickets = new RotationTickets(D3DXVECTOR2(1.9f, 0.23f));
+		m_pMP = new MP(D3DXVECTOR3(1435.0f, 100.0f, 0.9f));
 		m_pWeaponHolder = new WeaponHolder(D3DXVECTOR3(1.15f, 0.0f, 0.9f));
-		m_pRotationTickets = new RotationTickets(3, D3DXVECTOR2(1.28f, 0.08f));
 
 		GameFrameworkFactory::Create(&m_pRect);
 

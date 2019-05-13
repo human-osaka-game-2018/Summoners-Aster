@@ -41,7 +41,12 @@ namespace summonersaster
 		rGameFramework.CreateTexture(_T("PLAYER_ICON"), _T("Textures/Player.png"));
 		rGameFramework.CreateTexture(_T("FUJIZONO"), _T("Textures/fujizono.jpg"));
 		rGameFramework.CreateTexture(_T("SHION"), _T("Textures/nigaoe.jpg"));
-		rGameFramework.CreateTexture(_T("ROTATION_TICKET"), _T("Textures/Battle_rotationTicket.png"));
+		rGameFramework.CreateTexture(_T("PLAYER_BACK"), _T("Textures/Battle_playerBack.png"));
+		rGameFramework.CreateTexture(_T("PLAYER_FRAME"), _T("Textures/Battle_playerFrame.png"));
+		rGameFramework.CreateTexture(_T("ROTATION_TICKET_FRAME"), _T("Textures/Battle_rotationTicketFrame.png"));
+		rGameFramework.CreateTexture(_T("ROTATION_TICKET1"), _T("Textures/Battle_rotationTicket_01.png"));
+		rGameFramework.CreateTexture(_T("ROTATION_TICKET2"), _T("Textures/Battle_rotationTicket_02.png"));
+		rGameFramework.CreateTexture(_T("ROTATION_TICKET3"), _T("Textures/Battle_rotationTicket_03.png"));
 		rGameFramework.CreateTexture(_T("END_MAIN_BUTTON"), _T("Textures/Battle_endMainButton.png"));
 		rGameFramework.CreateTexture(_T("ROTATION_BUTTON"), _T("Textures/Battle_rotationButtonR.png"));
 
@@ -85,12 +90,13 @@ namespace summonersaster
 	void MainScene::Update()
 	{
 		m_rStepSwitcher.Update();
+
 		GameFramework& rGameFramework = GameFramework::GetRef();
+
 		if (rGameFramework.KeyboardIsPressed(DIK_ESCAPE))
 		{
 			SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(SCENE_KIND::TITLE);
 		}
-
 	}
 
 	void MainScene::Render()
