@@ -37,6 +37,7 @@ namespace summonersaster
 	{
 		m_rField.Render();
 		m_rPlayers.Render();
+		m_rField.RenderDummyButton();
 		m_rRotationOrderMediator.Render(false);
 
 		static int frame = 0;

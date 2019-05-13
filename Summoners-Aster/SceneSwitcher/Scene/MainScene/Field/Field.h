@@ -109,6 +109,11 @@ namespace summonersaster
 		void Render();
 
 		/// <summary>
+		/// エンドボタンのダミー描画
+		/// </summary>
+		void RenderDummyButton();
+
+		/// <summary>
 		/// 回転演出の更新
 		/// </summary>
 		/// <returns>終了したらtrue</returns>

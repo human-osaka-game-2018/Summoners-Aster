@@ -18,7 +18,7 @@ public:
 		DEAD,
 	};
 
-	explicit Hand(const D3DXVECTOR2& texturCenter = D3DXVECTOR2(990.0f, 800.0f));
+	explicit Hand(PLAYER_KIND playerKind, const D3DXVECTOR2& texturCenter = D3DXVECTOR2(990.0f, 800.0f));
 
 	~Hand();
 	void Render();
@@ -62,11 +62,13 @@ private:
 	/// <returns>カードの入れ替えが発生たらtrue</returns>
 	bool SwapCard(float handCardAdditionalPosX, const D3DXVECTOR2& textureCenter);
 
+	PLAYER_KIND m_PlayerKind = PLAYER_KIND::PROPONENT;
+
 	std::vector<MovableCard*> m_MovableCards;
 
 	MovableCard* pSeparatedSelectingCard = nullptr;
 
-	bool m_isHandRemarksMode = false;
+	bool m_IsHandRemarksMode = false;
 
 	const unsigned int MAX_CAPACITY = 9;
 

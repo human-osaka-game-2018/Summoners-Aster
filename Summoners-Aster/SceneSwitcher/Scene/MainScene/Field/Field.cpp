@@ -132,6 +132,10 @@ namespace summonersaster
 		m_pGraphicFilterVertices->Render(m_rGameFramework.GetTexture(_T("DIGITAL_FILTER")));
 
 		m_pFollowers->Render(m_rotationStagingDegree);
+	}
+
+	void Field::RenderDummyButton()
+	{
 		m_pEndButtonDummyVertices->Render(m_rGameFramework.GetTexture(_T("END_MAIN_BUTTON")));
 	}
 

@@ -3,8 +3,6 @@ using namespace gameframework;
 
 namespace summonersaster
 {
-
-
 HavingCards::HavingCards(PLAYER_KIND owner, const D3DXVECTOR2& texturCenter): m_TexturCenter(texturCenter)
 {
 	Load(owner);
@@ -12,10 +10,7 @@ HavingCards::HavingCards(PLAYER_KIND owner, const D3DXVECTOR2& texturCenter): m_
 
 	m_windowCenter.x = m_windowSize.m_width * 0.5f;
 	m_windowCenter.y = m_windowSize.m_height * 0.5f;
-
-
 }
-
 
 HavingCards::~HavingCards()
 {
@@ -42,8 +37,6 @@ void HavingCards::Load(PLAYER_KIND owner)
 		m_HavingCards[i]->pCard->SetAbility(Ability(Ability::ROTATE, Ability::DRAWCARD));
 	}
 }
-
-
 
 void HavingCards::Render()
 {
@@ -115,5 +108,4 @@ void HavingCards::LocaleButton()
 
 	}
 }
-
 }

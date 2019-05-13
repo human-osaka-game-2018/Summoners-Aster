@@ -17,14 +17,16 @@ BattlePlayer::~BattlePlayer()
 
 void BattlePlayer::Initialize()
 {
-	m_pHand = new Hand();
+	m_pHand = new Hand(PLAYER_KIND::PROPONENT);
 	m_pDeck = new Deck(USE_DECK_NAME);
 	m_pDeck->Load(PLAYER_KIND::PROPONENT);
 	m_pCemetery = new Cemetery();
-	m_pHP = new HP(m_TexturCenter);
-	m_pMP = new MP(D3DXVECTOR3(470.0f, 800.0f, 0.9f));
+
+	D3DXVECTOR2 hpPos(800.0f, 900.0f);
+	m_pHP = new HP(hpPos);
+	m_pRotationTickets = new RotationTickets(D3DXVECTOR2(0.23f, 1.785f));
+	m_pMP = new MP(D3DXVECTOR3(100.0f, 800.0f, 0.9f));
 	m_pWeaponHolder = new WeaponHolder(D3DXVECTOR3(0.85f, 2.0f, 0.9f));
-	m_pRotationTickets = new RotationTickets(3, D3DXVECTOR2(0.68f, 1.92f));
 
 	GameFrameworkFactory::Create(&m_pRect);
 
@@ -99,15 +101,16 @@ bool BattlePlayer::UpdateInEndPhase()
 void BattlePlayer::Render()
 {
 	m_pRect->GetCenter() = { m_TexturCenter.x, m_TexturCenter.y, 0.89f };
-	m_pRect->SetSize(RectSize(150.0f, 150.f));
+	m_pRect->SetSize(RectSize(125.0f, 125.f));
 
 	m_pRect->Render(m_rGameFramework.GetTexture(pPLAYER_TEXTURE_KEY));
+	m_pRect->Render(m_rGameFramework.GetTexture(_T("PLAYER_FRAME")));
 	
-	m_pHP->Render();
-	m_pMP->Render();
-	m_pRotationTickets->Render();
-	m_pDeck->Render();
 	m_pCemetery->Render();
+	m_pHP->Render();
+	m_pRotationTickets->Render();
+	m_pMP->Render();
+	m_pDeck->Render();
 	m_pWeaponHolder->Render();
 	m_pHand->Render();
 }

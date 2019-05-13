@@ -200,7 +200,7 @@ protected:
 
 	const TCHAR* pPLAYER_TEXTURE_KEY;
 
-	D3DXVECTOR2 m_TexturCenter = { 800.0f, 825.0f };
+	D3DXVECTOR2 m_TexturCenter = { 800.0f, 845.0f };
 	gameframework::RectSize m_PolygonSize;
 
 	gameframework::Vertices* m_pRect = nullptr;

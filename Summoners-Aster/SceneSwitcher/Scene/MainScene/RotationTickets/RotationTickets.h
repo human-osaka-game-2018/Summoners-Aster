@@ -15,8 +15,7 @@ namespace summonersaster
 	class RotationTickets :public Object
 	{
 	public:
-		/// <param name="retentionMax">保持数</param>
-		explicit RotationTickets(int retentionMax, const D3DXVECTOR2& baseCenterWindowMulti);
+		explicit RotationTickets(const D3DXVECTOR2& baseCenterWindowMulti);
 
 		~RotationTickets();
 
@@ -96,13 +95,13 @@ namespace summonersaster
 			return (m_retentionNum >= rhs);
 		}
 
-		const int RETENTION_MAX;
+		static const int RETENTION_MAX = 3;
 
 	private:
 		RotationTickets(RotationTickets& rotationTickets) = delete;
 		RotationTickets& operator=(RotationTickets& rotationTickets) = delete;
 
-		std::vector<Vertices*> m_pVertices;
+		gameframework::Vertices* m_pVertices = nullptr;
 
 		D3DXVECTOR3 m_baseCenter = { 0.0f, 0.0f, 0.0f };
 

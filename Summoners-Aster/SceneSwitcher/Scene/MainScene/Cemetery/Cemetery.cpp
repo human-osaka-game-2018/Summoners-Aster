@@ -15,7 +15,7 @@ void Cemetery::Render()
 {
 	const RectSize CARD_SIZE(100.f, 141.f);
 	const Degree ROTATION_Z(-90.0f);
-	const D3DXVECTOR3 POS(m_TexturCenter.x, m_TexturCenter.y, 0.9f);
+	const D3DXVECTOR3 POS(m_TexturCenter.x, m_TexturCenter.y, 0.91f);
 
 	SetVertex(POS, CARD_SIZE, 0xAA000000);
 	m_pRect->SetRotationZ(ROTATION_Z);

@@ -4,7 +4,8 @@ using namespace gameframework;
 
 namespace summonersaster
 {
-Hand::Hand(const D3DXVECTOR2& texturCenter) :m_TexturCenter(texturCenter)
+Hand::Hand(PLAYER_KIND playerKind, const D3DXVECTOR2& texturCenter) 
+	:m_PlayerKind(playerKind), m_TexturCenter(texturCenter)
 {
 }
 
@@ -21,7 +22,7 @@ void Hand::Update()
 
 	D3DXVECTOR2 textureCenter = m_TexturCenter;
 
-	if (m_isHandRemarksMode)
+	if (m_IsHandRemarksMode)
 	{
 		handCardAdditionalPosX = 1000.0f / static_cast<float>(m_MovableCards.size() + 1);
 
@@ -93,13 +94,17 @@ Card* Hand::SendCard(unsigned int handNum)
 
 void Hand::CheckAndToggleModeChange()
 {
+	if (m_PlayerKind == PLAYER_KIND::OPPONENT) return;
+
+	long scrollingAmount = GameFramework::GetRef().MouseWheelScrolling();
+	
+	if (scrollingAmount == 0) return;
+	
 	for (auto& movableCard : m_MovableCards)
 	{
-		if (!m_rGameFramework.IsCursorOnRect(movableCard->HCard()->Rect())) continue;
+		m_IsHandRemarksMode = algorithm::Tertiary(scrollingAmount < 0, true, false);
 
-		if (!GameFramework::GetRef().MouseIsReleased(DirectX8Mouse::DIM_RIGHT)) break;
-
-		m_isHandRemarksMode = !m_isHandRemarksMode;
+		return;
 	}
 }
 

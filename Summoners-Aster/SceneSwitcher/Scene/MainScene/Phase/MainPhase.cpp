@@ -57,8 +57,8 @@ namespace summonersaster
 	{
 		m_rField.Render();
 		m_rPlayers.Render();
-		m_pEndButton->Render(m_rGameFramework.GetTexture(_T("END_MAIN_BUTTON")));
 		m_rRotationOrderMediator.Render();
+		m_pEndButton->Render(m_rGameFramework.GetTexture(_T("END_MAIN_BUTTON")));
 	}
 
 	void MainPhase::LocaleButton()
