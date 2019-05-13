@@ -107,7 +107,9 @@ void EditDeck::Load(PLAYER_KIND owner)
 	}
 	if (LIMIT_CAPACITY != m_EditCards.size())
 	{
+		ShowCursor(true);
 		MessageBox(m_Hwnd, _T("デッキ枚数が40枚ではありません"), _T("ERRROR"), MB_OK);
+		ShowCursor(false);
 	}
 	//デッキ読み込み
 	//読み込み枚数が規定枚数でない場合エラーを吐かせる
@@ -119,7 +121,9 @@ void EditDeck::AddCard(Card* card)
 	if (nullptr == card) return;
 	if (LIMIT_CAPACITY <= m_EditCards.size())
 	{
+		ShowCursor(true);
 		MessageBox(m_Hwnd, _T("デッキ枚数が40枚を超えるので追加できませんでした"), _T("ERRROR"), MB_OK);
+		ShowCursor(false);
 		return;
 	}
 	if (!CountCard(card)) return;
@@ -138,7 +142,9 @@ bool EditDeck::CountCard(Card* card)
 		}
 		if (count > LIMIT_CARD_CAPACITY)
 		{
+			ShowCursor(true);
 			MessageBox(m_Hwnd, _T("同一カード枚数が制限枚数を超えるので追加できませんでした"), _T("ERRROR"), MB_OK);
+			ShowCursor(false);
 			return false;
 		}
 	}
@@ -174,7 +180,9 @@ void EditDeck::SaveDack()
 {
 	if (LIMIT_CAPACITY != m_EditCards.size())
 	{
+		ShowCursor(true);
 		MessageBox(m_Hwnd, _T("デッキ枚数が40枚ではありません\nセーブできません"), _T("ERRROR"), MB_OK);
+		ShowCursor(false);
 		return;
 	}
 
