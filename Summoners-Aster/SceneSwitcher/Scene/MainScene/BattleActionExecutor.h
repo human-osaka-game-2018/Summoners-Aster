@@ -80,6 +80,13 @@ namespace summonersaster
 			BattleInformation::PopQueFront();
 		}
 
+		static inline void Spell()
+		{
+			if (!ActionProponentPlayer().UpdateSpellingRoutine()) return;
+
+			BattleInformation::PopQueFront();
+		}
+
 	private:
 		using ACTION_KIND = BattleInformation::ACTION_KIND;
 

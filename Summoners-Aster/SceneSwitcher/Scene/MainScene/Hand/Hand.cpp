@@ -92,6 +92,19 @@ Card* Hand::SendCard(unsigned int handNum)
 	return sendCard;
 }
 
+MovableCard* Hand::SendMovableCard(unsigned int handNum)
+{
+	if (handNum >= m_MovableCards.size()) return nullptr;
+
+	MovableCard* sendCard = m_MovableCards[handNum];
+
+	m_MovableCards.erase(m_MovableCards.begin() + handNum);
+
+	MovableCard::NeutralizeSelecting();
+
+	return sendCard;
+}
+
 void Hand::CheckAndToggleModeChange()
 {
 	if (m_PlayerKind == PLAYER_KIND::OPPONENT) return;

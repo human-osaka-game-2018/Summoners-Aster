@@ -82,6 +82,7 @@ bool BattlePlayer::UpdateInMainPhase()
 {
 	TransportCollideFollower();
 	TransportCollideWeapon();
+	CheckSpelling();
 
 	m_rFollowerOrderMediator.ProcessFollowerOrders();
 	m_rRotationOrderMediator.ProcessRotationOrders();
@@ -113,6 +114,11 @@ void BattlePlayer::Render()
 	m_pDeck->Render();
 	m_pWeaponHolder->Render();
 	m_pHand->Render();
+
+	if (m_pSpellTmp)
+	{
+		m_pSpellTmp->Render(RectSize(135.0f, 1.4f * 135.0f));
+	}
 }
 
 void BattlePlayer::Damaged(unsigned int damage)
@@ -231,6 +237,35 @@ bool BattlePlayer::UpdateArmingRoutine()
 	return isRoutineStart = true;
 }
 
+bool BattlePlayer::UpdateSpellingRoutine()
+{
+	static int movingWaitingFrame = 0;
+
+	if (movingWaitingFrame++ < 15) return false;
+
+	static bool isRoutineStart = true;
+
+	if (!CallOnce(&isRoutineStart, _T("Spell"))) return isRoutineStart = true;
+
+	m_pSpellTmp->Update(WINDOW_CENTER);
+
+	if (m_EffectTakesFrame < EFFECT_TAKES_FRAME_MAX / 2)
+	{
+		m_pSpellTmp->HCard()->Rect().FadeOut(EFFECT_TAKES_FRAME_MAX / 2, 255, 0);
+	}
+
+	if (m_EffectTakesFrame-- > 0) return false;
+
+	m_pCemetery->PreserveCard(m_pSpellTmp->HCard());
+
+	delete m_pSpellTmp;
+	m_pSpellTmp = nullptr;
+
+	movingWaitingFrame = 0;
+
+	return isRoutineStart = true;
+}
+
 void BattlePlayer::TransportCollideFollower()
 {
 	m_rField.GetFollowerZone(&m_pFollowerZone);
@@ -287,6 +322,26 @@ void BattlePlayer::TransportCollideWeapon()
 	m_pWeaponHolder->HWeapon()->Rect().SetColor(weaponColor);
 }
 
+void BattlePlayer::CheckSpelling()
+{
+	auto pHandCards = m_pHand->GetCards();
+
+	for (auto& handCard : *pHandCards)
+	{
+		int index = static_cast<int>(&handCard - &(*pHandCards)[0]);
+
+		if (handCard->HCard()->CARD_TYPE != Card::TYPE::SPELL) continue;
+
+		if (!m_rGameFramework.IsCursorOnRect(handCard->HCard()->Rect())) continue;
+
+		if (!m_rGameFramework.MouseIsPressed(DirectX8Mouse::DIM_RIGHT)) continue;
+
+		if (!m_pMP->CanPay(handCard->HCard())) continue;
+
+		ActivateSpelling(index);
+	}
+}
+
 bool BattlePlayer::TransportCollideFollower(MovableCard** ppCard)
 {
 	int handCardIndex = static_cast<int>(ppCard - &(*m_pHand->GetCards())[0]);
@@ -338,6 +393,8 @@ bool BattlePlayer::CallOnce(bool* pCallable, const TCHAR* pFuncName)
 	if (pFuncName == _T("Summon")) return Summon();
 
 	if (pFuncName == _T("Arm")) return Arm();
+
+	if (pFuncName == _T("Spell")) return Spell();
 
 	if (pFuncName == _T("DestroyWeapon")) m_EffectTakesFrame = EFFECT_TAKES_FRAME_MAX;
 
@@ -407,6 +464,32 @@ bool BattlePlayer::Arm()
 	m_rGameFramework.RegisterGraphicEffect(new SummonEffect(m_pWeaponHolder->HCollisionRect()->GetCenter()));
 
 	m_pWeaponHolder->HWeapon()->Rect().SetColor(0x00FFFFFF);
+
+	m_EffectTakesFrame = EFFECT_TAKES_FRAME_MAX;
+
+	return true;
+}
+
+void BattlePlayer::ActivateSpelling(int handCardIndex)
+{
+	if (!m_pMP->CanPay(m_pHand->GetCards()->at(handCardIndex)->HCard())) return;
+
+	m_SelectingHandIndex = handCardIndex;
+
+	m_pSpellTmp = m_pHand->SendMovableCard(m_SelectingHandIndex);
+	m_pSpellTmp->CanOperated(false);
+
+	BattleInformation::ActionInformation actionInformation = { BattleInformation::ACTION_KIND::SPELLING, m_PlayerKind };
+	BattleInformation::PushQueBack(actionInformation);
+}
+
+bool BattlePlayer::Spell()
+{
+	if (!m_pMP->Paid(m_pSpellTmp->HCard()->Cost())) return false;
+
+	m_rGameFramework.RegisterGraphicEffect(new SummonEffect(WINDOW_CENTER));
+
+	AbilityExecutor::Execute(m_pSpellTmp->HCard());
 
 	m_EffectTakesFrame = EFFECT_TAKES_FRAME_MAX;
 

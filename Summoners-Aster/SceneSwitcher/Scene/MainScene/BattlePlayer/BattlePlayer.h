@@ -19,6 +19,7 @@
 #include "SummonEffect.h"
 #include "BattleEnums.h"
 #include "BattleInformation.h"
+#include "Ability/AbilityExecutor.h"
 
 namespace summonersaster
 {
@@ -92,6 +93,12 @@ public:
 	/// <returns>終了したらtrue</returns>
 	bool UpdateArmingRoutine();
 
+	/// <summary>
+	/// スペルカードの一連の処理
+	/// </summary>
+	/// <returns>終了したらtrue</returns>
+	bool UpdateSpellingRoutine();
+
 	inline Hand* HHand()
 	{
 		return m_pHand;
@@ -136,6 +143,7 @@ protected:
 	/// </remarks>
 	void TransportCollideFollower();
 	void TransportCollideWeapon();
+	void CheckSpelling();
 
 	/// <summary>
 	/// 衝突しているカードをフィールドへ送る
@@ -178,6 +186,17 @@ protected:
 	void ActivateArming(int handCardIndex);
 
 	/// <summary>
+	/// スペルカードの起動
+	/// </summary>
+	/// <param name="handCardIndex">発動するカードの手札でのインデックス</param>
+	void ActivateSpelling(int handCardIndex);
+
+	/// <summary>
+	/// スペルカードの発動
+	/// </summary>
+	bool Spell();
+
+	/// <summary>
 	/// 装備
 	/// </summary>
 	/// <returns>装備できたらtrue</returns>
@@ -209,6 +228,7 @@ protected:
 	FollowerData* m_pFollowerZone = nullptr;
 
 	Card* m_pWeaponTmp = nullptr;
+	MovableCard* m_pSpellTmp = nullptr;
 
 	const int NO_SELECTING_INDEX = -1;
 	int m_TransportingFieldIndex = NO_SELECTING_INDEX;
@@ -216,6 +236,8 @@ protected:
 
 	const int EFFECT_TAKES_FRAME_MAX = 60;
 	int m_EffectTakesFrame = 0;
+
+	const D3DXVECTOR3 WINDOW_CENTER = { 800.0f, 450.0f, 0.0f };
 
 	FollowerOrderMediator& m_rFollowerOrderMediator = FollowerOrderMediator::CreateAndGetRef();
 	RotationOrderMediator& m_rRotationOrderMediator = RotationOrderMediator::CreateAndGetRef();
