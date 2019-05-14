@@ -24,6 +24,8 @@ void Cemetery::Render()
 
 	for (auto& pCard : m_Cards)
 	{
+		pCard->Rect().SetColor(0xFFFFFFFF);
+
 		pCard->Render(POS, CARD_SIZE, ROTATION_Z);
 	}
 }

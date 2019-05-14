@@ -42,6 +42,7 @@ public:
 	/// <param name="handNum">手札番号</param>
 	/// <returns>送るカードクラスポインタ</returns>
 	Card* SendCard(unsigned int handNum);
+	MovableCard* SendMovableCard(unsigned int handNum);
 
 	inline std::vector<MovableCard*>* GetCards()
 	{

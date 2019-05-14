@@ -28,6 +28,11 @@ namespace summonersaster
 
 			break;
 
+		case ACTION_KIND::SPELLING:
+			Spell();
+
+			break;
+
 		case ACTION_KIND::ROTATION:
 			Rotate();
 

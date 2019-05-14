@@ -43,6 +43,8 @@ namespace summonersaster
 
 	void MovableCard::IdentifySelectingInstance()
 	{
+		if (!m_canOperated) return;
+
 		if (m_rGameFramework.MouseIsPressed(DirectX8Mouse::DIM_LEFT))
 		{
 			if (!m_rGameFramework.IsCursorOnRect(m_pCard->Rect())) return;

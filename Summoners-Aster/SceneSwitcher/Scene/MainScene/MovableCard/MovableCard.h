@@ -71,6 +71,11 @@ namespace summonersaster
 		{
 			return m_selectingInstance != nullptr;
 		}
+		
+		inline void CanOperated(bool canOperated)
+		{
+			m_canOperated = canOperated;
+		}
 
 	private:
 		MovableCard(MovableCard& movableCard) = delete;
@@ -99,6 +104,8 @@ namespace summonersaster
 		int m_returningTakesFramesMax = 1;
 		int m_returningTakesFrames = m_returningTakesFramesMax;
 		D3DXVECTOR3 m_returningMovement = { 0.0f, 0.0f, 0.0f };
+
+		bool m_canOperated = true;
 
 		Card* m_pCard = nullptr;
 	};
