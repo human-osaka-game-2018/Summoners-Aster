@@ -114,6 +114,12 @@ namespace summonersaster
 			return true;
 		}
 
+		static inline void Initialize()
+		{
+			m_winner = PLAYER_KIND::NON_SELECTING;
+			m_turn = 1;
+		}
+
 	private:
 		BattleInformation()  = delete;
 		~BattleInformation() = delete;

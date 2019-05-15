@@ -49,9 +49,9 @@ namespace summonersaster
 
 		RectSize m_windowSize;
 
-		int m_stagingTakesFrames = 120;
+		int m_stagingTakesFrames = 240;
 
-		bool m_isLoadedResult = false;
+		bool m_loadedResult = false;
 
 		gameframework::GameFramework& m_rGameFramework = gameframework::GameFramework::GetRef();
 	};

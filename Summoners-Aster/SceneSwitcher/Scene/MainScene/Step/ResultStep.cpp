@@ -2,11 +2,11 @@
 
 namespace summonersaster
 {
+	using namespace gameframework;
+
 	ResultStep::ResultStep()
 	{
-		gameframework::WindowParam::GetWindowSize(&m_windowSize);
-
-		gameframework::GameFrameworkFactory::Create(&m_pStream);
+		WindowParam::GetWindowSize(&m_windowSize);
 	}
 
 	ResultStep::~ResultStep()
@@ -16,14 +16,18 @@ namespace summonersaster
 
 	void ResultStep::Initialize()
 	{
-	
+		GameFrameworkFactory::Create(&m_pStream);
 	}
 
 	void ResultStep::Finalize()
 	{
-		m_stagingTakesFrames = 120;
+		m_stagingTakesFrames = 240;
 
-		m_isLoadedResult = false;
+		m_loadedResult = false;
+
+		delete m_pStream;
+
+		m_pStream = nullptr;
 	}
 
 	void ResultStep::Update()
@@ -33,9 +37,13 @@ namespace summonersaster
 
 	void ResultStep::Render()
 	{
-		m_pStream->Render(m_rGameFramework.GetFont(_T("RESULT")), DT_CENTER);
+		m_rField.Render();
+		m_rPlayers.Render();
+		m_rField.RenderDummyButton();
+		m_rRotationOrderMediator.Render(false);
+		m_pStream->Render(m_rGameFramework.GetFont(_T("TURN_NUM")), DT_CENTER);
 
-		if (m_stagingTakesFrames-- >= 0)
+		if (m_stagingTakesFrames-- < 0)
 		{
 			m_stagingTakesFrames = 0;
 
@@ -46,11 +54,21 @@ namespace summonersaster
 
 	void ResultStep::LoadResult()
 	{
-		if (m_isLoadedResult) return;
+		if (m_loadedResult) return;
 
-		m_isLoadedResult = true;
+		m_loadedResult = true;
 
-		*m_pStream = _T("WIN");
+		*m_pStream = algorithm::Tertiary(BattleInformation::Winner() == PLAYER_KIND::PROPONENT, _T("WIN"), _T("LOSE"));
+
+		m_pStream->SetColor(0xFF2323FF);
+
+		if (*m_pStream == _T("WIN")) m_pStream->SetColor(0xFFFF2323);
+
+		RectSize fontSize(0.0f, 0.0f);
+		m_rGameFramework.GetFontSize(_T("TURN_NUM"), &fontSize);
+
+		D3DXVECTOR2 topLeft(0.5f * m_windowSize.m_width, 0.5f * (m_windowSize.m_height - fontSize.m_height));
+		m_pStream->SetTopLeft(topLeft);
 	}
 
 } // namespace summonersaster

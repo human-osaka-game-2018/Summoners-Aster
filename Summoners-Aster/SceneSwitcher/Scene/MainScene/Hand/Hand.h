@@ -67,8 +67,6 @@ private:
 
 	std::vector<MovableCard*> m_MovableCards;
 
-	MovableCard* pSeparatedSelectingCard = nullptr;
-
 	bool m_IsHandRemarksMode = false;
 
 	const unsigned int MAX_CAPACITY = 9;

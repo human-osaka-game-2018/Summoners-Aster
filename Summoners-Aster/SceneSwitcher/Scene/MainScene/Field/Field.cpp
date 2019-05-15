@@ -52,7 +52,15 @@ namespace summonersaster
 
 	Field::~Field()
 	{
-		
+		for (auto& pVertices : m_pVertices)
+		{
+			delete pVertices;
+		}
+
+		delete m_pBackVertices;
+		delete m_pGraphicFilterVertices;
+		delete m_pEndButtonDummyVertices;
+		delete m_pFollowers;
 	}
 
 	void Field::Initialize()
@@ -266,7 +274,7 @@ namespace summonersaster
 
 		if (isRoutineStart)
 		{
-			m_EffectTakesFrame = EFFECT_TAKES_FRAME_MAX;
+			m_effectTakesFrame = EFFECT_TAKES_FRAME_MAX;
 
 			isRoutineStart = false;
 		}
@@ -275,7 +283,7 @@ namespace summonersaster
 
 		rCard.FadeOut(EFFECT_TAKES_FRAME_MAX, 255, 0);
 
-		if (m_EffectTakesFrame-- > 0) return false;
+		if (m_effectTakesFrame-- > 0) return false;
 
 		DestroyFollower(m_deadFollowerIndicies.front());
 

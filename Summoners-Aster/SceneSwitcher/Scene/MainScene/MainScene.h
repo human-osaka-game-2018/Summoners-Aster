@@ -1,10 +1,14 @@
 ﻿#ifndef MAIN_SCENE_H
 #define MAIN_SCENE_H
 
+#include <vector>
+
 #include "Scene/Scene.h"
 #include "StepSwitcher.h"
 #include "Field.h"
 #include "BattlePlayer/BattlePlayer.h"
+#include "FollowerOrderMediator.h"
+#include "RotationOrderMediator.h"
 #include "CardFolder.h"
 
 namespace summonersaster
@@ -41,10 +45,6 @@ namespace summonersaster
 		MainScene(MainScene& mainScene) = delete;
 
 		MainScene& operator=(MainScene& mainScene) = delete;
-
-		StepSwitcher& m_rStepSwitcher = StepSwitcher::CreateAndGetRef();
-		Field& m_rField = Field::CreateAndGetRef();
-		Players& m_rPlayers = Players::CreateAndGetRef();
 	};
 } // namespace summonersaster
 

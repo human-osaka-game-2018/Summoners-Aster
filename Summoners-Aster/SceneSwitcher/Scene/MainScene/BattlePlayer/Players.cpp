@@ -2,6 +2,8 @@
 
 namespace summonersaster
 {
+	using namespace gameframework;
+
 	std::unordered_map<PLAYER_KIND, BattlePlayer*> Players::m_pBattlePlayers;
 
 	Players::Players()
@@ -35,6 +37,20 @@ namespace summonersaster
 
 	bool Players::Update(const tstring& phaseName)
 	{
+		for (auto& player : m_pBattlePlayers)
+		{
+			if (player.second->HHP()->GetRemain() > 0
+				|| BattleInformation::IsWaitingAction()) continue;
+
+			PLAYER_KIND winner = algorithm::Tertiary(
+				player.first == PLAYER_KIND::OPPONENT, 
+				PLAYER_KIND::PROPONENT, PLAYER_KIND::OPPONENT);
+
+			BattleInformation::Winner(winner);
+
+			return true;
+		}
+
 		DestroyDeadFollower();
 
 		if (phaseName == STEP_KIND::BATTLE_PREPARING)

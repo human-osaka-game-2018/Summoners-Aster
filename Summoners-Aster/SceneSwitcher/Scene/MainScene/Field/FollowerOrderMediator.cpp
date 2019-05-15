@@ -153,7 +153,7 @@ namespace summonersaster
 		PLAYER_KIND notCurrentPlayer = 
 			algorithm::Tertiary(BattleInformation::CurrentPlayer() == 
 				PLAYER_KIND::OPPONENT, PLAYER_KIND::PROPONENT, PLAYER_KIND::OPPONENT);
-
+		
 		//現在のプレイヤーじゃないほう
 		Vertices* pNextTurnPlayer = m_playersAttackData[notCurrentPlayer].m_pPlayerIconVertices;
 		
@@ -164,6 +164,8 @@ namespace summonersaster
 		if (!m_rField.CanTakeAction(GetSelectingFollowerIndex())) return;
 
 		m_attackingFollowerIndex = GetSelectingFollowerIndex();
+
+		if (!m_pFollowerZone[m_attackingFollowerIndex].m_isOpponentZone) return;
 
 		BattleInformation::PushQueBack(ActionInformation(BattleInformation::ACTION_KIND::ATTACKING_PLAYER,
 			BattleInformation::CurrentPlayer()));

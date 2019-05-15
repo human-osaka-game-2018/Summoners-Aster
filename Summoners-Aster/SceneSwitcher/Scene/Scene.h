@@ -1,11 +1,19 @@
 ﻿#ifndef SCENE_H
 #define SCENE_H
 
+#include <tchar.h>
+#include <vector>
+
+#include <GameFramework.h>
+
 #include "KindBase.h"
 #include "BattleEnums.h"
 
 namespace summonersaster
 {
+	using gameframework::GameFramework;
+	using gameframework::RectSize;
+
 	/// <summary>
 	/// シーンの基底クラス
 	/// </summary>
@@ -14,8 +22,24 @@ namespace summonersaster
 	public:
 		virtual ~Scene();
 
+		void LoadTexture()
+		{
+			
+		}
+
 	protected:
 		Scene();
+
+		void CreateTexture(const TCHAR* pTextureKey, const TCHAR* pTexturePath);
+
+		void CreateFont(const TCHAR* pFontKey, const RectSize& fontSize, const TCHAR* pTexturePath);
+
+		void ReleaseResources();
+
+		std::vector<const TCHAR*> m_pTextureKeys;
+		std::vector<const TCHAR*> m_pFontKeys;
+
+		GameFramework& m_rGameFramework = GameFramework::CreateAndGetRef();
 	};
 } // namespace summonersaster
 
