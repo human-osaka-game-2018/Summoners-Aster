@@ -418,7 +418,7 @@ namespace summonersaster
 			int m_attackEffectFramesLeft = 0;
 
 			const int EFFECT_TAKES_FRAME_MAX = 60;
-			int m_EffectTakesFrame = 0;
+			int m_effectTakesFrame = 0;
 
 			const int NOT_SELECTING_INDEX = -1;
 			int m_actionDestIndex = NOT_SELECTING_INDEX;

@@ -258,6 +258,8 @@ bool BattlePlayer::UpdateSpellingRoutine()
 
 	m_pCemetery->PreserveCard(m_pSpellTmp->HCard());
 
+	AbilityExecutor::Execute(m_pSpellTmp->HCard());
+
 	delete m_pSpellTmp;
 	m_pSpellTmp = nullptr;
 
@@ -472,8 +474,6 @@ bool BattlePlayer::Arm()
 
 void BattlePlayer::ActivateSpelling(int handCardIndex)
 {
-	if (!m_pMP->CanPay(m_pHand->GetCards()->at(handCardIndex)->HCard())) return;
-
 	m_SelectingHandIndex = handCardIndex;
 
 	m_pSpellTmp = m_pHand->SendMovableCard(m_SelectingHandIndex);
@@ -488,8 +488,6 @@ bool BattlePlayer::Spell()
 	if (!m_pMP->Paid(m_pSpellTmp->HCard()->Cost())) return false;
 
 	m_rGameFramework.RegisterGraphicEffect(new SummonEffect(WINDOW_CENTER));
-
-	AbilityExecutor::Execute(m_pSpellTmp->HCard());
 
 	m_EffectTakesFrame = EFFECT_TAKES_FRAME_MAX;
 

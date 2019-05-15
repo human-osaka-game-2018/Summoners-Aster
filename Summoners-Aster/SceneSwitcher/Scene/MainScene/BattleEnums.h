@@ -21,6 +21,8 @@ namespace summonersaster
 		/// 相手
 		/// </summary>
 		OPPONENT,
+
+		NON_SELECTING,
 	};
 
 	/// <summary>

@@ -23,7 +23,8 @@ namespace summonersaster
 
 	RotationOrderMediator::~RotationOrderMediator()
 	{
-
+		delete m_pRRotationButton;
+		delete m_pLRotationButton;
 	}
 
 	void RotationOrderMediator::FinalizeInEndPhaseEnd()
