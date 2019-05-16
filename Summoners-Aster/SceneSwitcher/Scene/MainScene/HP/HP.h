@@ -34,7 +34,7 @@ public:
 		return m_Hp;
 	}
 private:
-	const unsigned int MAX_CAPACITY = 2;//仮数値
+	const unsigned int MAX_CAPACITY = 20;//仮数値
 	unsigned int m_Hp = MAX_CAPACITY;
 
 	D3DXVECTOR2 m_Center;

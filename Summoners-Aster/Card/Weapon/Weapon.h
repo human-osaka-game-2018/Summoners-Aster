@@ -8,8 +8,8 @@ namespace summonersaster
 	class Weapon :public Card
 	{
 	public:
-		Weapon(const tstring& name, const tstring& texturePath, int cost, int attack, int hitPoint, PLAYER_KIND owner = PLAYER_KIND::PROPONENT);
-		Weapon(const tstring& name, const tstring& texturePath, int cost, int attack, int hitPoint, PLAYER_KIND owner, const TCHAR* pTextureKey);
+		Weapon(const tstring& name, const tstring& texturePath, int cost, int hitPoint, const Ability& ability);
+		Weapon(const tstring& name, const tstring& texturePath, int cost, int hitPoint, PLAYER_KIND owner, const TCHAR* pTextureKey, const Ability& ability);
 		~Weapon();
 
 		/// <summary>
@@ -18,13 +18,19 @@ namespace summonersaster
 		/// <param name="ppCard">コピーされるカードのポインタのポインタ</param>
 		void CreateCopy(Card** ppCard, PLAYER_KIND owner) const override;
 
+		inline void DecrementHP()
+		{
+			if (--m_hP > 0) return;
+
+			m_shouldDestroyed = true;
+		}
+
 	private:
 		Weapon(Weapon& weapon) = delete;
 
 		Weapon& operator=(Weapon& weapon) = delete;
 
 		int m_hP;
-		int m_attack;
 	};
 } // namespace summonersaster
 

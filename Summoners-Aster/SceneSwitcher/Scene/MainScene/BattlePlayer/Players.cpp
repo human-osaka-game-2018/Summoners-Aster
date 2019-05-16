@@ -66,6 +66,7 @@ namespace summonersaster
 		for (auto& player : m_pBattlePlayers)
 		{
 			player.second->HHand()->Update();
+			player.second->DestroyWornOutCard();
 		}
 
 		return m_pBattlePlayers[BattleInformation::CurrentPlayer()]->Update(phaseName);

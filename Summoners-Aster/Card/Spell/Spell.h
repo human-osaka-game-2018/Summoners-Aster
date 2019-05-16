@@ -8,8 +8,8 @@ namespace summonersaster
 	class Spell :public Card
 	{
 	public:
-		Spell(const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner = PLAYER_KIND::PROPONENT);
-		Spell(const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner, const TCHAR* pTextureKey);
+		Spell(const tstring& name, const tstring& texturePath, int cost, const Ability& ability);
+		Spell(const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner, const TCHAR* pTextureKey, const Ability& ability);
 
 		~Spell();
 		

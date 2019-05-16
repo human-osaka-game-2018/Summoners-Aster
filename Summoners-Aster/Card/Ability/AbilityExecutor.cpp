@@ -40,7 +40,7 @@ void AbilityExecutor::Execute(FollowerData* followerData)
 	switch (followerData->m_pFollower->GetExcute())
 	{
 	case Ability::Execute::DRAWCARD:
-		Players::GetPlayer(followerData->m_pFollower->Owner()) ->DrawCard();
+		Players::GetPlayer(followerData->m_pFollower->Owner())->DrawCard();
 		OutputDebugString(L"カードをドローします\n");
 		break;
 	case Ability::Execute::SPEED_ATTACK:

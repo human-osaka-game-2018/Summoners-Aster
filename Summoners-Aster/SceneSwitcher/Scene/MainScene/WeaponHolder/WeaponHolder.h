@@ -10,7 +10,9 @@
 
 #include "Object.h"
 #include "Card.h"
+#include "Weapon/Weapon.h"
 #include "MovableCard/MovableCard.h"
+#include "Ability/AbilityExecutor.h"
 
 namespace summonersaster
 {
@@ -51,12 +53,12 @@ namespace summonersaster
 			return m_pWeapon;
 		}
 
-		inline void HWeapon(Card* pWeapon)
+		inline void HWeapon(Weapon* pWeapon)
 		{
 			m_pWeapon = pWeapon;
 		}
 
-		inline Card** HHolder()
+		inline Weapon** HHolder()
 		{
 			return &m_pWeapon;
 		}
@@ -90,7 +92,7 @@ namespace summonersaster
 
 		Vertices* m_pRect = nullptr;
 
-		Card* m_pWeapon = nullptr;
+		Weapon* m_pWeapon = nullptr;
 	};
 } // namespace summonersaster
 
