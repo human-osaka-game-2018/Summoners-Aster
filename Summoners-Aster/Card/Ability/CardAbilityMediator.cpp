@@ -9,11 +9,12 @@ namespace summonersaster
 
 CardAbilityMediator::CardAbilityMediator()
 {
-}
 
+}
 
 CardAbilityMediator::~CardAbilityMediator()
 {
+
 }
 
 bool CardAbilityMediator::Activator(ActivationEvent activationEvent)
@@ -80,6 +81,4 @@ bool CardAbilityMediator::Unregister(FollowerData* pFollowerData)
 	pRegistedCard = nullptr;
 	return true;
 }
-
-
 }

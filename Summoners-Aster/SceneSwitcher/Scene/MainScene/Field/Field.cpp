@@ -118,6 +118,10 @@ namespace summonersaster
 
 	void Field::Render()
 	{
+		LPDIRECT3DDEVICE pDev = nullptr;
+
+		gameframework::DirectXParam::GetDirectXGraphicDevice()->Get(&pDev);
+
 		m_pBackVertices->Render(m_rGameFramework.GetTexture(_T("BATTLE_BACK")));
 
 		for (auto& pVertices : m_pVertices)

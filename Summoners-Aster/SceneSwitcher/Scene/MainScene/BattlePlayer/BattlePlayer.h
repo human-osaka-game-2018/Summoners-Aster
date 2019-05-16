@@ -99,6 +99,11 @@ public:
 	/// <returns>終了したらtrue</returns>
 	bool UpdateSpellingRoutine();
 
+	/// <summary>
+	/// 使用済みのカード等を墓地へ送る
+	/// </summary>
+	void DestroyWornOutCard()override;
+
 	inline Hand* HHand()
 	{
 		return m_pHand;
@@ -201,11 +206,6 @@ protected:
 	/// </summary>
 	/// <returns>装備できたらtrue</returns>
 	bool Arm();
-
-	/// <summary>
-	/// 使用済みのカード等を墓地へ送る
-	/// </summary>
-	void DestroyWornOutCard()override;
 
 	PLAYER_KIND m_PlayerKind = PLAYER_KIND::PROPONENT;
 

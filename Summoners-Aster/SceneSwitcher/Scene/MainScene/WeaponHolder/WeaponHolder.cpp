@@ -43,9 +43,11 @@ namespace summonersaster
 
 	void WeaponHolder::ActivateWeapon()
 	{
-		if (!m_pWeapon)return;
+		if (!m_pWeapon) return;
 
-		//m_pWeapon->Activate();
+		AbilityExecutor::Execute(m_pWeapon);
+
+		m_pWeapon->DecrementHP();
 	}
 
 	void WeaponHolder::Locale(const D3DXVECTOR3& center)

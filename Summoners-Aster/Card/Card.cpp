@@ -42,14 +42,15 @@ namespace summonersaster
 		RenderCard(center, size, rotationZ);
 	}
 
-	Card::Card(TYPE type, const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner)
-		: CARD_TYPE(type), m_name(name), m_texturePath(texturePath), m_cost(cost), pTEXTURE_KEY(m_name.c_str()), m_owner(owner)
+	Card::Card(TYPE type, const tstring& name, const tstring& texturePath, int cost, const Ability& ability)
+		: CARD_TYPE(type), m_name(name), m_texturePath(texturePath), m_cost(cost), pTEXTURE_KEY(m_name.c_str()),
+		m_owner(PLAYER_KIND::PROPONENT), m_ability(ability)
 	{
 		Initialize();
 	}
 
-	Card::Card(TYPE type, const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner, const TCHAR* pTextureKey)
-		: CARD_TYPE(type), m_name(name), m_texturePath(texturePath), m_cost(cost), pTEXTURE_KEY(pTextureKey), m_owner(owner)
+	Card::Card(TYPE type, const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner, const TCHAR* pTextureKey, const Ability& ability)
+		: CARD_TYPE(type), m_name(name), m_texturePath(texturePath), m_cost(cost), pTEXTURE_KEY(pTextureKey), m_owner(owner), m_ability(ability)
 	{
 		Initialize();
 	}

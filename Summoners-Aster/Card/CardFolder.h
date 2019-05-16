@@ -3,7 +3,14 @@
 
 #include <Windows.h>
 #include <tchar.h>
+#include <locale.h>
 #include <unordered_map>
+#include <iostream>
+#include <locale> 
+#include <codecvt> 
+#include <fstream>
+#include <cstdlib>
+#include <algorithm>
 
 #include <GameFramework.h>
 
@@ -16,6 +23,7 @@
 namespace summonersaster
 {
 	using gameframework::tstring;
+	using gameframework::tstringstream;
 	using gameframework::RectSize;
 	using gameframework::Vertices;
 	using gameframework::Degree;
@@ -54,12 +62,31 @@ namespace summonersaster
 		}
 
 	private:
+		struct CardComponentData
+		{
+		public:
+			int m_cardTypeTmp = 0;
+			tstring m_cardName;
+			int m_cost = 0;
+			int m_attack = 0;
+			int m_hP = 0;
+			int m_activationTypeTmp = 0;
+			int m_actionTypeTmp = 0;
+			tstring m_cardTexturePath;
+		};
+
 		CardFolder();
 
 		CardFolder(CardFolder& card) = delete;
 
 		CardFolder& operator=(CardFolder& card) = delete;
-			
+
+		void LoadCardsData();
+
+		void LoadCardData(std::string* pOneLine);
+
+		void Register(tstringstream* pTypeConverter);
+
 		std::unordered_map<tstring, Card*> m_pCards;
 		std::vector <tstring> m_pCardsName;
 	};

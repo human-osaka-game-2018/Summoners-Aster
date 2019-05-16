@@ -34,7 +34,7 @@ namespace summonersaster
 
 		m_pDeck->Shuffle();
 
-		m_rFollowerOrderMediator.Register(PLAYER_KIND::OPPONENT, m_pRect, m_pHP);
+		m_rFollowerOrderMediator.Register(PLAYER_KIND::OPPONENT, m_pRect, m_pHP, m_pWeaponHolder);
 		m_rRotationOrderMediator.Register(PLAYER_KIND::OPPONENT, m_pRotationTickets);
 	}
 

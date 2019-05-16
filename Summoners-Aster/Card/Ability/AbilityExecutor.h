@@ -20,6 +20,7 @@ public:
 	/// </summary>
 	/// <param name="card">効果を実行するカード</param>
 	static void Execute(Card* card);
+
 	/// <summary>
 	/// 効果実行
 	/// </summary>

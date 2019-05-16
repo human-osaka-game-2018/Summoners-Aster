@@ -32,7 +32,7 @@ void BattlePlayer::Initialize()
 
 	m_pDeck->Shuffle();
 
-	m_rFollowerOrderMediator.Register(PLAYER_KIND::PROPONENT, m_pRect, m_pHP);
+	m_rFollowerOrderMediator.Register(PLAYER_KIND::PROPONENT, m_pRect, m_pHP, m_pWeaponHolder);
 	m_rRotationOrderMediator.Register(PLAYER_KIND::PROPONENT, m_pRotationTickets);
 }
 
@@ -268,6 +268,20 @@ bool BattlePlayer::UpdateSpellingRoutine()
 	return isRoutineStart = true;
 }
 
+void BattlePlayer::DestroyWornOutCard()
+{
+	if (BattleInformation::IsWaitingAction()) return;
+
+	Card* pWeapon = m_pWeaponHolder->HWeapon();
+
+	if (!pWeapon) return;
+
+	if (!pWeapon->ShouldDestroyed()) return;
+
+	BattleInformation::ActionInformation actionInformation = { BattleInformation::ACTION_KIND::WEAPON_DESTROYING, m_PlayerKind };
+	BattleInformation::PushQueBack(actionInformation);
+}
+
 void BattlePlayer::TransportCollideFollower()
 {
 	m_rField.GetFollowerZone(&m_pFollowerZone);
@@ -334,9 +348,9 @@ void BattlePlayer::CheckSpelling()
 
 		if (handCard->HCard()->CARD_TYPE != Card::TYPE::SPELL) continue;
 
-		if (!m_rGameFramework.IsCursorOnRect(handCard->HCard()->Rect())) continue;
-
 		if (!m_rGameFramework.MouseIsPressed(DirectX8Mouse::DIM_RIGHT)) continue;
+
+		if (!m_rGameFramework.IsCursorOnRect(handCard->HCard()->Rect())) continue;
 
 		if (!m_pMP->CanPay(handCard->HCard())) continue;
 
@@ -372,18 +386,6 @@ bool BattlePlayer::TransportCollideFollower(MovableCard** ppCard)
 	}
 
 	return false;
-}
-
-void BattlePlayer::DestroyWornOutCard()
-{
-	Card* pWeapon = m_pWeaponHolder->HWeapon();
-
-	if (!pWeapon) return;
-
-	if (!pWeapon->ShouldDestroyed()) return;
-
-	BattleInformation::ActionInformation actionInformation = { BattleInformation::ACTION_KIND::WEAPON_DESTROYING, m_PlayerKind };
-	BattleInformation::PushQueBack(actionInformation);
 }
 
 bool BattlePlayer::CallOnce(bool* pCallable, const TCHAR* pFuncName)

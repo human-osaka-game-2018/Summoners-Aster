@@ -12,6 +12,7 @@
 #include "Card.h"
 #include "Follower/Follower.h"
 #include "BattleInformation.h"
+#include "WeaponHolder/WeaponHolder.h"
 
 namespace summonersaster
 {
@@ -40,7 +41,7 @@ namespace summonersaster
 		/// <param name="PlayerKind">プレイヤーの種類</param>
 		/// <param name="pPlayerIconVertices">プレイヤーアイコンの矩形</param>
 		/// <param name="pHP">体力</param>
-		void Register(PLAYER_KIND PlayerKind, Vertices* pPlayerIconVertices, HP* pHP);
+		void Register(PLAYER_KIND PlayerKind, Vertices* pPlayerIconVertices, HP* pHP, WeaponHolder* pWeaponHolder);
 
 		/// <summary>
 		/// フォロワーに対する処理の実行
@@ -60,10 +61,11 @@ namespace summonersaster
 		{
 		public:
 			PlayerAttackData();
-			PlayerAttackData(Vertices* pVertices, HP* pHP);
+			PlayerAttackData(Vertices* pVertices, HP* pHP, WeaponHolder* pWeaponHolder);
 
 			Vertices* m_pPlayerIconVertices = nullptr;
 			HP* m_pHP = nullptr;
+			WeaponHolder* m_pWeaponHolder = nullptr;
 		};
 
 		FollowerOrderMediator(FollowerOrderMediator& followerOrderMediator) = delete;

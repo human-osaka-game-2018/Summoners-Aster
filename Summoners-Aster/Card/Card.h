@@ -28,9 +28,9 @@ namespace summonersaster
 		/// </summary>
 		enum class TYPE : UCHAR
 		{
-			FOLLOWER,
 			SPELL,
-			WEAPON
+			WEAPON,
+			FOLLOWER,
 		};
 
 		virtual ~Card();
@@ -118,24 +118,29 @@ namespace summonersaster
 			m_shouldDestroyed = shouldDestroyed;
 		}
 
-		inline Ability::Execute GetExcute() {
+		inline Ability::Execute GetExcute() 
+		{
 			return m_ability.execute;
 		}
-		inline Ability::ActivationEvent GetActivationEvent() {
+
+		inline Ability::ActivationEvent GetActivationEvent() 
+		{
 			return m_ability.activationEvent;
 		}
 
-		void SetAbility(const Ability& ability) {
+		void SetAbility(const Ability& ability) 
+		{
 			m_ability.activationEvent = ability.activationEvent;
 			m_ability.execute = ability.execute;
 		}
+
 		const TYPE CARD_TYPE;
 
 		const TCHAR* pTEXTURE_KEY = nullptr;
 
 	protected:
-		Card(TYPE type, const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner = PLAYER_KIND::PROPONENT);
-		Card(TYPE type, const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner, const TCHAR* pTextureKey);
+		Card(TYPE type, const tstring& name, const tstring& texturePath, int cost, const Ability& ability);
+		Card(TYPE type, const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner, const TCHAR* pTextureKey, const Ability& ability);
 
 		Card(Card& card) = delete;
 

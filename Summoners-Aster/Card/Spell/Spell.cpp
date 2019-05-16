@@ -2,13 +2,13 @@
 
 namespace summonersaster
 {
-	Spell::Spell(const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner)
-		: Card(TYPE::SPELL, name, texturePath, cost, owner)
+	Spell::Spell(const tstring& name, const tstring& texturePath, int cost, const Ability& ability)
+		: Card(TYPE::SPELL, name, texturePath, cost, ability)
 	{
 	}
 
-	Spell::Spell(const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner, const TCHAR* pTextureKey)
-		: Card(TYPE::SPELL, name, texturePath, cost, owner, pTextureKey)
+	Spell::Spell(const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner, const TCHAR* pTextureKey, const Ability& ability)
+		: Card(TYPE::SPELL, name, texturePath, cost, owner, pTextureKey, ability)
 	{
 	}
 
@@ -18,7 +18,7 @@ namespace summonersaster
 
 	void Spell::CreateCopy(Card** ppCard, PLAYER_KIND owner)const
 	{
-		*ppCard = new Spell(m_name, m_texturePath, m_cost, owner, pTEXTURE_KEY);
+		*ppCard = new Spell(m_name, m_texturePath, m_cost, owner, pTEXTURE_KEY, m_ability);
 	}
 
 } // namespace summonersaster

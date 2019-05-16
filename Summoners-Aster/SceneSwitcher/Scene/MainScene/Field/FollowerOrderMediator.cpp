@@ -14,11 +14,11 @@ namespace summonersaster
 
 	}
 
-	void FollowerOrderMediator::Register(PLAYER_KIND PlayerKind, Vertices* pPlayerIconVertices, HP* pHP)
+	void FollowerOrderMediator::Register(PLAYER_KIND PlayerKind, Vertices* pPlayerIconVertices, HP* pHP, WeaponHolder* pWeaponHolder)
 	{
 		m_playersAttackData.emplace(std::piecewise_construct,
 			std::forward_as_tuple(PlayerKind),
-			std::forward_as_tuple(pPlayerIconVertices, pHP));
+			std::forward_as_tuple(pPlayerIconVertices, pHP, pWeaponHolder));
 	}
 
 	void FollowerOrderMediator::ProcessFollowerOrders()
@@ -70,6 +70,8 @@ namespace summonersaster
 		//現在のプレイヤーじゃないほう
 		m_rField.AttackPlayer(m_attackingFollowerIndex, m_playersAttackData[notCurrentPlayer].m_pHP);
 
+		m_playersAttackData[notCurrentPlayer].m_pWeaponHolder->ActivateWeapon();
+
 		return isRoutineStart = true;
 	}
 
@@ -78,8 +80,8 @@ namespace summonersaster
 
 	}
 
-	FollowerOrderMediator::PlayerAttackData::PlayerAttackData(Vertices* pVertices, HP* pHP)
-		:m_pPlayerIconVertices(pVertices), m_pHP(pHP)
+	FollowerOrderMediator::PlayerAttackData::PlayerAttackData(Vertices* pVertices, HP* pHP, WeaponHolder* pWeaponHolder)
+		:m_pPlayerIconVertices(pVertices), m_pHP(pHP), m_pWeaponHolder(pWeaponHolder)
 	{
 
 	}

@@ -58,10 +58,8 @@ void Deck::Load(PLAYER_KIND owner)
 		replace(readingBuffer.begin(), readingBuffer.end(), ',', '\0');
 		const char* ch = readingBuffer.c_str();
 		TCHAR tch[64];
-		MultiByteToWideChar(CP_ACP, 0, ch, -1, tch, MultiByteToWideChar(CP_ACP, 0, ch, -1, NULL, 0));
-		Card* card = rCardFolder.CreateCopy(tch, owner);
-		m_Cards[i] = card;
-		m_Cards[i]->SetAbility(Ability(Ability::ROTATE, Ability::DRAWCARD));
+		MultiByteToWideChar(CP_ACP, 0, ch, -1, tch, MultiByteToWideChar(CP_ACP, 0, ch, -1, nullptr, 0));
+		m_Cards[i] = rCardFolder.CreateCopy(tch, owner);
 	}
 	//デッキ読み込み
 	//読み込み枚数が規定枚数でない場合エラーを吐かせる
