@@ -20,6 +20,8 @@ namespace summonersaster
 		AbilityTextController::CreateAndGetRef();
 		LoadResources();
 		BattleInformation::Initialize();
+		m_rGameFramework.LoopStart(L"BATTLE");
+
 	}
 
 	void MainScene::Finalize()
@@ -30,8 +32,10 @@ namespace summonersaster
 		Field::GetRef().ReleaseInstance();
 		FollowerOrderMediator::GetRef().ReleaseInstance();
 		RotationOrderMediator::GetRef().ReleaseInstance();
+
 		AbilityTextController::GetRef().ReleaseInstance();
 
+		m_rGameFramework.Stop(L"BATTLE");
 		ReleaseResources();
 	}
 

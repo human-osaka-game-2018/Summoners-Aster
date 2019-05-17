@@ -55,11 +55,15 @@ namespace summonersaster
 		if (m_pRRotationButton->IsReleased())
 		{
 			++rotationDirectionCount;
+			m_rGameFramework.OneShotStart(L"ROTATE");
+
 		}
 
 		if (m_pLRotationButton->IsReleased())
 		{
 			--rotationDirectionCount;
+			m_rGameFramework.OneShotStart(L"ROTATE");
+
 		}
 
 		if (rotationDirectionCount == 0) return;
@@ -73,6 +77,7 @@ namespace summonersaster
 		}
 		//現在のプレイヤー
 		if ((*m_pPlayerRotationPoints[currentPlayer]) <= 0) return;
+
 		--(*m_pPlayerRotationPoints[currentPlayer]);
 
 		m_rotated = true;

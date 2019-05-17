@@ -30,6 +30,7 @@ void DeckEditScene::Initialize()
 	m_pExitButton = new Button(0xFF888888,false,_T("CARD"), RectSize(10.f, 20.f));
 	m_pSaveButton = new Button(0xFF888888,false,_T("CARD"), RectSize(10.f, 20.f));
 	LocaleButton();
+	m_rGameFramework.LoopStart(L"EDIT");
 
 }
 
@@ -45,7 +46,7 @@ void DeckEditScene::Finalize()
 	m_pExitButton = nullptr;
 	delete m_pSaveButton;
 	m_pSaveButton = nullptr;
-
+	m_rGameFramework.Stop(L"EDIT");
 	//GameFramework& rGameFramework = GameFramework::GetRef();
 
 	//rGameFramework.ReleaseAllTexture();
@@ -61,15 +62,20 @@ void DeckEditScene::Update()
 	m_pHavingCards->Update();
 	if (m_pExitButton->IsClicked())
 	{
+		rGameFramework.OneShotStart(L"CLICK");
+
 		SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(SCENE_KIND::HOME);
 	}
 	if (m_pSaveButton->IsClicked())
 	{
+		rGameFramework.OneShotStart(L"CLICK");
 		m_pDeck->SaveDack();
 	}
 
 	if (rGameFramework.KeyboardIsPressed(DIK_F))
 	{
+		rGameFramework.OneShotStart(L"CLICK");
+
 		SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(SCENE_KIND::HOME);
 	}
 

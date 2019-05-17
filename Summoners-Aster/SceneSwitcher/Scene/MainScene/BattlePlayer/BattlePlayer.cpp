@@ -61,6 +61,7 @@ bool BattlePlayer::Update(const tstring& phase)
 
 bool BattlePlayer::UpdateInBattlePreparing()
 {
+
 	DrawAtFirst();
 
 	//ここでマリガンの確認UIを出す
@@ -141,6 +142,7 @@ void BattlePlayer::SendCardToCemetery(Card* pCard)
 
 void BattlePlayer::DrawCard()
 {
+	m_rGameFramework.OneShotStart(L"DRAW");
 	Hand::RESULT drawResult;
 	if (Hand::FLOOD == (drawResult = m_pHand->AddCard(m_pDeck->SendCard(), m_pDeck->GetCenter())))
 	{
@@ -155,9 +157,10 @@ void BattlePlayer::DrawCard()
 void BattlePlayer::DrawAtFirst()
 {
 	if (m_pHand->GetQuantites() > 0) return;
-
+	m_rGameFramework.OneShotStart(L"SHUFFLE");
 	const int FIRST_HAND_CARDS_MAX = 3;
 
+	while (SoundLib::Stopped != m_rGameFramework.GetStatus(L"SHUFFLE"));
 	for (int i = 0; i < FIRST_HAND_CARDS_MAX; ++i)
 	{
 		DrawCard();
@@ -422,6 +425,7 @@ bool BattlePlayer::Summon()
 	Follower** ppFollower = &m_pFollowerZone[m_TransportingFieldIndex].m_pFollower;
 
 	if (!PayMPAndTransportCard(ppFollower, (*pCards)[m_SelectingHandIndex]->HCard())) return false;
+	m_rGameFramework.OneShotSimultaneous(L"SUMMON");
 
 	m_pFollowerZone[m_TransportingFieldIndex].m_isSummoned = true;
 
@@ -464,6 +468,7 @@ bool BattlePlayer::Arm()
 	std::vector<MovableCard*>* pHandCards = m_pHand->GetCards();
 
 	if (!PayMPAndTransportCard(m_pWeaponHolder->HHolder(), m_pWeaponTmp)) return false;
+	m_rGameFramework.OneShotStart(L"ARMED");
 
 	m_rGameFramework.RegisterGraphicEffect(new SummonEffect(m_pWeaponHolder->HCollisionRect()->GetCenter()));
 
@@ -488,6 +493,7 @@ void BattlePlayer::ActivateSpelling(int handCardIndex)
 bool BattlePlayer::Spell()
 {
 	if (!m_pMP->Paid(m_pSpellTmp->HCard()->Cost())) return false;
+	m_rGameFramework.OneShotStart(L"MAGIC");
 
 	m_rGameFramework.RegisterGraphicEffect(new SummonEffect(WINDOW_CENTER));
 

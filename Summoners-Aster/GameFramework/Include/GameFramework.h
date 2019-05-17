@@ -19,5 +19,4 @@
 #include "GameFramework/Stream.h"
 #include "NodeSystem.h"
 #include "Collision.h"
-
 #endif //!GAME_FRAMEWORK_HEADERS_H

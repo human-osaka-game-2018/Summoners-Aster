@@ -16,6 +16,8 @@ HavingCards::~HavingCards()
 {
 	for (auto card : m_HavingCards)
 	{
+		delete card->m_pSendDeckButton;
+		delete card->pCard;
 		delete card;
 	}
 	m_HavingCards.clear();
@@ -81,6 +83,8 @@ Card* HavingCards::OnButton()
 	{
 		if (card->m_pSendDeckButton->IsReleased())
 		{
+			m_rGameFramework.OneShotStart(L"DRAW");
+
 			OutputDebugString(L"Deckに送ります\n");
 			CardFolder& rCardFolder = CardFolder::CreateAndGetRef();
 			Card* buf = card->pCard;

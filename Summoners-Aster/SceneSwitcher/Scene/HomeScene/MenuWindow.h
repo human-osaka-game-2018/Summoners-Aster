@@ -40,6 +40,7 @@ private:
 	Button* m_pExitButton;
 	Button* m_pSettingButton;
 	Button* m_pEndGameButton;
+	HWND m_Hwnd;
 
 };
 }
