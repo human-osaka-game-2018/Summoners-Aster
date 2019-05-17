@@ -78,12 +78,14 @@ namespace summonersaster
 		if (m_loadedResult) return;
 
 		m_loadedResult = true;
-
 		*m_pStream = algorithm::Tertiary(BattleInformation::Winner() == PLAYER_KIND::PROPONENT, _T("WIN"), _T("LOSE"));
 
 		m_stagingColor = algorithm::Tertiary(*m_pStream == _T("WIN"), 0x00FF2323, 0x002323FF);
 
-		m_pStream->SetColor(m_stagingColor);
+		if (*m_pStream == _T("WIN")) {
+			m_rGameFramework.OneShotStart(L"WIN");
+		}
+		else m_rGameFramework.OneShotStart(L"LOSE");
 
 		RectSize fontSize(0.0f, 0.0f);
 		m_rGameFramework.GetFontSize(_T("TURN_NUM"), &fontSize);

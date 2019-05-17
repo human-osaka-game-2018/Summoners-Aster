@@ -279,6 +279,7 @@ namespace summonersaster
 		if (isRoutineStart)
 		{
 			m_effectTakesFrame = EFFECT_TAKES_FRAME_MAX;
+			m_rGameFramework.OneShotStart(L"ERASE_FOLLOWER");
 
 			isRoutineStart = false;
 		}
@@ -367,6 +368,8 @@ namespace summonersaster
 	void Field::Followers::AttackPlayer(int originIndex, HP* pHP)
 	{
 		if (!CanTakeAction(originIndex)) return;
+		m_rGameFramework.OneShotSimultaneous(L"ATTACK");
+		m_rGameFramework.OneShotStart(L"DAMAGE");
 
 		pHP->Damaged(m_followerDatas[originIndex].m_pFollower->Attack());
 
@@ -496,18 +499,20 @@ namespace summonersaster
 
 	void Field::Followers::Attack()
 	{
+		m_rGameFramework.OneShotSimultaneous(L"ATTACK");
 		(*m_followerDatas[m_actionDestIndex].m_pFollower) -= m_followerDatas[m_actionOriginIndex].m_pFollower;
-
 		m_followerDatas[m_actionOriginIndex].m_isAttacked = true;
 	}
 
 	void Field::Followers::Counter()
 	{
+		m_rGameFramework.OneShotSimultaneous(L"ATTACK");
 		(*m_followerDatas[m_actionOriginIndex].m_pFollower) -= m_followerDatas[m_actionDestIndex].m_pFollower;
 	}
 
 	void Field::Followers::Move(int originIndex, int destIndex)
 	{
+		m_rGameFramework.OneShotStart(L"MOVE");
 		EmptyFollower(destIndex);
 
 		m_followerDatas[destIndex].m_isAttacked = m_followerDatas[originIndex].m_isAttacked;

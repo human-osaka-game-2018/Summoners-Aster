@@ -27,6 +27,7 @@ namespace summonersaster
 
 	void TitleScene::Finalize()
 	{
+		m_rGameFramework.Stop(L"TITLE");
 		m_taskScheduler.ReleaseAll();
 	}
 

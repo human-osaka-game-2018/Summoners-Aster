@@ -7,12 +7,14 @@
 #include "Input/Input.h"
 #include "TimerManager.h"
 #include "../Collision.h"
+#include "Sound/Sound.h"
 
 /// <summary>
 /// 基礎構築に関するものをまとめた名前空間
 /// </summary>
 namespace gameframework
 {
+	
 	class GameFramework :public Singleton<GameFramework>
 	{
 	public:
@@ -48,7 +50,7 @@ namespace gameframework
 			POINT cursorPoint;
 			CursorPos(&cursorPoint);
 			D3DXVECTOR3 cursorPos(static_cast<float>(cursorPoint.x), static_cast<float>(cursorPoint.y), 0.0f);
-
+				
 			return collision::IsInner(vertices, cursorPos);
 		}
 
@@ -64,6 +66,321 @@ namespace gameframework
 			D3DXVECTOR3 cursorPos(static_cast<float>(cursorPoint.x), static_cast<float>(cursorPoint.y), 0.0f);
 
 			return collision::Collides(vertices, cursorPos);
+		}
+
+		/// <summary>
+		/// デットゾーンを設定する
+		/// </summary>
+		/// <param name="leftThumbDeadzone">0-32767の範囲を取る指定の左スティックデッドゾーン値</param>
+		/// <param name="rightThumbDeadzone">0-32767の範囲を取る指定の右スティックデッドゾーン値</param>
+		/// <param name="leftTriggerDeadzone">0-255の範囲を取る指定の左トリガーデッドゾーン値</param>
+		/// <param name="rightTriggerDeadzone">0-255の範囲を取る指定の右トリガーデッドゾーン値</param>
+		inline void SetDeadzone(unsigned int leftThumbDeadzone, unsigned int rightThumbDeadzone, unsigned int leftTriggerDeadzone, unsigned int rightTriggerDeadzone)
+		{
+			m_input.SetDeadzone(leftThumbDeadzone, rightThumbDeadzone, leftTriggerDeadzone, rightTriggerDeadzone);
+		}
+
+		/// <summary>
+		/// PADの接続、入力状態の確認
+		/// </summary>
+		/// <seealso cref="GetControl"/>
+		/// <seealso cref="ButtonCheck"/>
+		inline void DeviceUpdate()
+		{
+			m_input.DeviceUpdate();
+		}
+
+		/// <summary>
+		/// 接続状態の取得
+		/// </summary>
+		/// <param name="num">コントローラ番号</param>
+		/// <returns>保存されているXInputGetState関数の戻り値</returns>
+		inline HRESULT GetInfo(Xinput::PLAYER_NUM num)
+		{
+			return m_input.GetInfo(num);
+		}
+
+		/// <summary>
+		/// XinputDeviceでゲームパッドの入力取得
+		/// </summary>
+		/// <param name="index">取得したいボタンの配列番号</param>
+		/// <param name="num">コントローラ番号</param>
+		/// <returns>PADSTATEの値</returns>
+		/// <seealso cref="Xinput::PADSTATE"/>
+		inline Xinput::PADSTATE GetButton(Xinput::ButtonIndex index, Xinput::PLAYER_NUM num)const
+		{
+			return m_input.GetButton(index, num);
+		}
+
+		/// <summary>
+		/// XinputDeviceでゲームパッドのいずれかのボタン押下確認
+		/// </summary>
+		/// <param name="num">コントローラ番号</param>
+		/// <returns>いずれかのボタンが押下されてればtrue</returns>
+		/// <seealso cref="Xinput::PLAYER_NUM"/>
+		inline bool PressedAnyButton(Xinput::PLAYER_NUM num)
+		{
+			return m_input.PressedAnyButton(num);
+		}
+
+		/// <summary>
+		/// XinputDeviceでゲームパッドのトリガーの入力取得
+		/// </summary>
+		/// <param name="trigger">トリガーの左右認識番号</param>
+		/// <param name="num">コントローラ番号</param>
+		/// <returns>0～255の値、押してなければ0</returns>
+		/// <seealso cref="Xinput::trigger"/>
+		inline int GetTriggerValue(Xinput::Trigger trigger, Xinput::PLAYER_NUM num)
+		{
+			return m_input.GetTriggerValue(trigger,num);
+		}
+
+		/// <summary>
+		/// XinputDeviceでゲームパッドの左アナログスティック入力取得
+		/// </summary>
+		/// <param name="thumbTilt">スティックの方向け先番号</param>
+		/// <param name="num">コントローラ番号</param>
+		/// <returns>傾いていればTrue、そうでなければFalse</returns>
+		/// <seealso cref="Xinput::ThumbTilt"/>
+		inline bool TiltedLeftThumb(Xinput::ThumbTilt thumbTilt, Xinput::PLAYER_NUM num)
+		{
+			return m_input.TiltedLeftThumb(thumbTilt,num);
+		}
+
+		/// <summary>
+		/// XinputDeviceでゲームパッドの右アナログスティック入力取得
+		/// </summary>
+		/// <param name="thumbTilt">スティックの方向け先番号</param>
+		/// <param name="num">コントローラ番号</param>
+		/// <returns>傾いていればTrue、そうでなければFalse</returns>
+		/// <seealso cref="Xinput::ThumbTilt"/>
+		inline bool TiltedRightThumb(Xinput::ThumbTilt thumbTilt, Xinput::PLAYER_NUM num)
+		{
+			return m_input.TiltedRightThumb(thumbTilt, num);
+		}
+
+		/// <summary>
+		/// XinputDeviceでゲームパッドの左アナログスティック入力取得
+		/// </summary>
+		/// <param name="thumbTilt">スティックの方向け先番号</param>
+		/// <param name="num">コントローラ番号</param>
+		/// <returns>傾き具合の数値　MAX＝32767　MIN＝-32768</returns>
+		/// <seealso cref="Xinput::ThumbTilt"/>
+		inline int GetLeftThumbValue(Xinput::ThumbTiltAxis thumbTilt, Xinput::PLAYER_NUM num)
+		{
+			return m_input.GetLeftThumbValue(thumbTilt, num);
+		}
+
+		/// <summary>
+		/// XinputDeviceでゲームパッドの右アナログスティック入力取得
+		/// </summary>
+		/// <param name="thumbTilt">スティックの方向け先番号</param>
+		/// <param name="num">コントローラ番号</param>
+		/// <returns>傾き具合の数値　MAX＝32767　MIN＝-32768</returns>
+		/// <seealso cref="Xinput::ThumbTilt"/>
+		inline int GetRightThumbValue(Xinput::ThumbTiltAxis thumbTilt, Xinput::PLAYER_NUM num)
+		{
+			return m_input.GetRightThumbValue(thumbTilt, num);
+		}
+
+		/// <summary>
+		/// XinputDeviceでゲームパッドの左アナログスティック入力状態取得
+		/// </summary>
+		/// <param name="thumbTilt">スティックの方向け先番号</param>
+		/// <param name="num">コントローラ番号</param>
+		/// <returns>方向け状態</returns>
+		/// <seealso cref="Xinput::ThumbTilt"/>
+		/// <seealso cref="Xinput::PADSTATE"/>
+		inline Xinput::PADSTATE GetLeftThumbState(Xinput::ThumbTilt thumbTilt, Xinput::PLAYER_NUM num)
+		{
+			return m_input.GetLeftThumbState(thumbTilt, num);
+		}
+
+		/// <summary>
+		/// XinputDeviceでゲームパッドの左アナログスティック入力状態取得
+		/// </summary>
+		/// <param name="thumbTilt">スティックの方向け先番号</param>
+		/// <param name="num">コントローラ番号</param>
+		/// <returns>方向け状態</returns>
+		/// <seealso cref="Xinput::ThumbTilt"/>
+		/// <seealso cref="Xinput::PADSTATE"/>
+		inline Xinput::PADSTATE GetRightThumbState(Xinput::ThumbTilt thumbTilt, Xinput::PLAYER_NUM num)
+		{
+			return m_input.GetRightThumbState(thumbTilt,num);
+		}
+
+		/// <summary>
+		/// XinputDeviceでゲームパッドの右トリガー入力状態取得
+		/// </summary>
+		/// <param name="num">コントローラ番号</param>
+		/// <returns>押下状態</returns>
+		/// <seealso cref="Xinput::PADSTATE"/>
+		inline Xinput::PADSTATE GetRightTriggerState(Xinput::PLAYER_NUM num)
+		{
+			return m_input.GetRightTriggerState(num);
+		}
+
+		/// <summary>
+		/// XinputDeviceでゲームパッドの左トリガー入力状態取得
+		/// </summary>
+		/// <param name="num">コントローラ番号</param>
+		/// <returns>押下状態</returns>
+		/// <seealso cref="Xinput::PADSTATE"/>
+		inline Xinput::PADSTATE GetLeftTriggerState(Xinput::PLAYER_NUM num)
+		{
+			return m_input.GetLeftTriggerState(num);
+		}
+
+		/// <summary>
+		/// 左右のバイブレーションモーターを動作させる
+		/// </summary>
+		/// <param name="num">コントローラ番号</param>
+		/// <param name="LeftValue">バイブレーション値 MAX＝65535　MIN＝0</param>
+		/// <param name="RightValue">バイブレーション値 MAX＝65535　MIN＝0</param>
+		/// <remarks>右は高周波モーター、左は低周波モーター</remarks>	
+		inline void RunVibration(Xinput::PLAYER_NUM num, unsigned int LeftValue = 0, unsigned int RightValue = 0)
+		{
+			m_input.RunVibration(num, LeftValue, RightValue );
+		}
+
+		/// <summary>
+		/// すべてのゲームパッドの入力取得
+		/// </summary>
+		/// <param name="index">取得したいボタンの配列番号</param>
+		/// <returns>PADSTATEの値</returns>
+		/// <seealso cref="Xinput::PADSTATE"/>
+		/// <remarks>入力はPLAYER_01優先</remarks>	
+		inline Xinput::PADSTATE GetButton(Xinput::ButtonIndex index) const
+		{
+			return m_input.GetButton(index);
+		}
+
+		/// <summary>
+		/// すべてのゲームパッドのいずれかのボタン押下確認
+		/// </summary>
+		/// <returns>いずれかのボタンが押下されてればtrue</returns>
+		/// <seealso cref="Xinput::PADSTATE"/>
+		/// <remarks>入力はPLAYER_01優先</remarks>	
+		inline bool PressedAnyButton()
+		{
+			return m_input.PressedAnyButton();
+		}
+
+		/// <summary>
+		/// すべてのゲームパッドのトリガーの入力取得
+		/// </summary>
+		/// <param name="trigger">トリガーの左右認識番号</param>
+		/// <returns>0～255の値、押してなければ0</returns>
+		/// <seealso cref="Xinput::trigger"/>
+		/// <remarks>入力はPLAYER_01優先</remarks>	
+		inline int GetTriggerValue(Xinput::Trigger trigger)
+		{
+			return m_input.GetTriggerValue(trigger);
+		}
+
+		/// <summary>
+		/// すべてのゲームパッドの左アナログスティック入力取得
+		/// </summary>
+		/// <param name="thumbTilt">スティックの方向け先番号</param>
+		/// <returns>傾いていればTrue、そうでなければFalse</returns>
+		/// <seealso cref="Xinput::ThumbTilt"/>
+		/// <remarks>入力はPLAYER_01優先</remarks>	
+		inline bool TiltedLeftThumb(Xinput::ThumbTilt thumbTilt)
+		{
+			return m_input.TiltedLeftThumb(thumbTilt);
+		}
+
+		/// <summary>
+		/// すべてのゲームパッドの右アナログスティック入力取得
+		/// </summary>
+		/// <param name="thumbTilt">スティックの方向け先番号</param>
+		/// <returns>傾いていればTrue、そうでなければFalse</returns>
+		/// <seealso cref="Xinput::ThumbTilt"/>
+		/// <remarks>入力はPLAYER_01優先</remarks>	
+		inline bool TiltedRightThumb(Xinput::ThumbTilt thumbTilt)
+		{
+			return m_input.TiltedRightThumb(thumbTilt);
+		}
+
+		/// <summary>
+		/// すべてのゲームパッドの左アナログスティック入力取得
+		/// </summary>
+		/// <param name="thumbTilt">スティックの方向け先番号</param>
+		/// <returns>傾き具合の数値　MAX＝32767　MIN＝-32768</returns>
+		/// <seealso cref="Xinput::ThumbTilt"/>
+		/// <remarks>入力はPLAYER_01優先</remarks>	
+		inline int GetLeftThumbValue(Xinput::ThumbTiltAxis thumbTilt)
+		{
+			return m_input.GetLeftThumbValue(thumbTilt);
+		}
+
+		/// <summary>
+		/// すべてのゲームパッドの右アナログスティック入力取得
+		/// </summary>
+		/// <param name="thumbTilt">スティックの方向け先番号</param>
+		/// <returns>傾き具合の数値　MAX＝32767　MIN＝-32768</returns>
+		/// <seealso cref="Xinput::ThumbTilt"/>
+		/// <remarks>入力はPLAYER_01優先</remarks>	
+		inline int GetRightThumbValue(Xinput::ThumbTiltAxis thumbTilt)
+		{
+			return m_input.GetRightThumbValue(thumbTilt);
+		}
+
+		/// <summary>
+		/// すべてのゲームパッドの右アナログスティック入力取得
+		/// </summary>
+		/// <param name="thumbTilt">スティックの方向け先番号</param>
+		/// <returns>傾き具合の数値　MAX＝32767　MIN＝-32768</returns>
+		/// <seealso cref="Xinput::ThumbTilt"/>
+		/// <remarks>入力はPLAYER_01優先</remarks>	
+		inline Xinput::PADSTATE GetLeftThumbState(Xinput::ThumbTilt thumbTilt)
+		{
+			return m_input.GetLeftThumbState(thumbTilt);
+		}
+
+		/// <summary>
+		/// すべてのゲームパッドの右アナログスティック入力取得
+		/// </summary>
+		/// <param name="thumbTilt">スティックの方向け先番号</param>
+		/// <returns>傾き具合の数値　MAX＝32767　MIN＝-32768</returns>
+		/// <seealso cref="Xinput::ThumbTilt"/>
+		/// <remarks>入力はPLAYER_01優先</remarks>	
+		inline Xinput::PADSTATE GetRightThumbState(Xinput::ThumbTilt thumbTilt)
+		{
+			return m_input.GetRightThumbState(thumbTilt);
+		}
+
+		/// <summary>
+		/// すべてのゲームパッドの右トリガー入力状態取得
+		/// </summary>
+		/// <returns>押下状態</returns>
+		/// <seealso cref="Xinput::PADSTATE"/>
+		/// <remarks>入力はPLAYER_01優先</remarks>	
+		inline Xinput::PADSTATE GetRightTriggerState()
+		{
+			return m_input.GetRightTriggerState();
+		}
+
+		/// <summary>
+		/// すべてのゲームパッドの左トリガー入力状態取得
+		/// </summary>
+		/// <returns>押下状態</returns>
+		/// <seealso cref="Xinput::PADSTATE"/>
+		/// <remarks>入力はPLAYER_01優先</remarks>	
+		inline Xinput::PADSTATE GetLeftTriggerState()
+		{
+			return m_input.GetLeftTriggerState();
+		}
+
+		/// <summary>
+		/// すべてのゲームパッドの左右のバイブレーションモーターを動作させる
+		/// </summary>
+		/// <param name="leftValue">バイブレーション値 MAX＝65535　MIN＝0</param>
+		/// <param name="rightValue">バイブレーション値 MAX＝65535　MIN＝0</param>
+		/// <remarks>右は高周波モーター、左は低周波モーター</remarks>	
+		inline void RunVibration(unsigned int leftValue, unsigned int rightValue)
+		{
+			m_input.RunVibration(leftValue, rightValue);
 		}
 
 		/// <summary>
@@ -474,6 +791,191 @@ namespace gameframework
 			return m_timerManager.IsRunning(pKey);
 		}
 
+		/// <summary>
+		/// 音声ファイルを追加する。
+		/// </summary>
+		/// <param name="pFilePath">ファイルパス</param>
+		/// <param name="pKey">音声ファイルを識別するキー</param>
+		/// <param name="type">音声に設定する音声種別</param>
+		inline void AddFile(const TCHAR* pFilePath, const TCHAR* pKey, Sound::SoundType type)
+		{
+			m_Sound.AddFile(pFilePath, pKey, type);
+		}
+
+		/// <summary>
+		/// 音声ファイルを10個分追加する。
+		/// </summary>
+		/// <param name="pFilePath">ファイルパス</param>
+		/// <param name="pKey">音声ファイルを識別するキー</param>
+		/// <param name="type">音声に設定する音声種別</param>
+		inline void AddSimultaneousFile(const TCHAR* pFilePath, const TCHAR* pKey, Sound::SoundType type)
+		{
+			m_Sound.AddSimultaneousFile(pFilePath, pKey, type);
+		}
+
+		/// <summary>
+		/// ファイルの先頭から単発再生を行う。
+		/// </summary>
+		/// <param name="pKey">音声ファイルを識別するキー</param>
+		inline void OneShotSimultaneous(const TCHAR* pKey)
+		{
+			m_Sound.OneShotSimultaneous(pKey);
+		}
+
+		/// <summary>
+		/// ファイルの先頭からループ再生を行う。
+		/// </summary>
+		/// <param name="pKey">音声ファイルを識別するキー</param>
+		inline void LoopStart(const TCHAR* pKey)
+		{
+			m_Sound.LoopStart(pKey);
+		}
+
+		/// <summary>
+		/// ファイルの先頭から再生を行う。
+		/// </summary>
+		/// <param name="pKey">音声ファイルを識別するキー</param>
+		inline void OneShotStart(const TCHAR* pKey)
+		{
+			m_Sound.OneShotStart(pKey);
+		}
+
+		/// <summary>
+		/// 再生を一時停止する。
+		/// </summary>
+		/// <param name="pKey">音声ファイルを識別するキー</param>
+		/// <returns>成否</returns>
+		/// <remarks>続きから再生再開するときには<see cref="Resume(const T*)"/>を実行して下さい。</remarks>
+		inline void Pause(const TCHAR* pKey)
+		{
+			m_Sound.Pause(pKey);
+		}
+
+		/// <summary>
+		/// 一時停止中の音声を続きから再生する。
+		/// </summary>
+		/// <param name="pKey">音声ファイルを識別するキー</param>
+		/// <returns>成否</returns>
+		/// <remarks><see cref="Pause(const T*)"/>で一時停止した音声の続きからの再生に使用します。</remarks>
+		inline void Resume(const TCHAR* pKey)
+		{
+			m_Sound.Resume(pKey);
+		}
+
+		/// <summary>
+		/// 再生を停止する。
+		/// </summary>
+		/// <param name="pKey">音声ファイルを識別するキー</param>
+		/// <returns>成否</returns>
+		/// <remarks>後で続きから再生する必要がある場合は、<see cref="Pause(const TCHAR*)"/>を使用して下さい。</remarks>
+		inline void Stop(const TCHAR* pKey)
+		{
+			m_Sound.Stop(pKey);
+		}
+
+		/// <summary>
+		/// 再生を停止する。
+		/// </summary>
+		/// <param name="type">音声ファイルを識別する音声種別</param>
+		/// <returns>成否</returns>
+		/// <remarks>後で続きから再生する必要がある場合は、<see cref="Pause(const TCHAR*)"/>を使用して下さい。</remarks>
+		inline void Stop(Sound::SoundType type = Sound::ALL_TYPE)
+		{
+			m_Sound.Stop(type);
+		}
+
+		/// <summary>
+		/// 再生状況を示すステータスを取得する。
+		/// </summary>
+		/// <param name="pKey">音声ファイルを識別するキー</param>
+		/// <returns>再生ステータス</returns>
+		inline SoundLib::PlayingStatus GetStatus(const TCHAR* pKey) const
+		{
+			return m_Sound.GetStatus(pKey);
+		}
+
+		/// <summary>
+		/// ボリュームを取得する。
+		/// </summary>
+		/// <param name="pKey">音声ファイルを識別するキー</param>
+		/// <returns>ボリューム(0:無音　100:音源ボリューム)</returns>
+		inline uint8_t GetVolume(const TCHAR* pKey)
+		{
+			return m_Sound.GetVolume(pKey);
+		}
+
+		/// <summary>
+		/// 再生速度とピッチの変化率を取得する。
+		/// </summary>
+		/// <param name="pKey">音声ファイルを識別するキー</param>
+		/// <returns>音源からの変化率</returns>
+		/// <remarks>
+		/// 1.0の場合、音源から変化なし。
+		/// 2.0の場合、再生速度2倍で1オクターブ高音。
+		/// 0.5の場合、再生速度1/2で1オクターブ低音。
+		/// </remarks>
+		inline float GetFrequencyRatio(const TCHAR* pKey)
+		{
+			return m_Sound.GetFrequencyRatio(pKey);
+		}
+
+		/// <summary>
+		/// 再生速度とピッチの変化率を設定する。
+		/// </summary>
+		/// <param name="pKey">音声ファイルを識別するキー</param>
+		/// <param name="ratio">音源からの変化率</param>
+		/// <remarks>
+		/// <para>
+		/// 1.0の場合、音源から変化なし。
+		/// 2.0の場合、再生速度2倍で1オクターブ高音。
+		/// 0.5の場合、再生速度1/2で1オクターブ低音。
+		/// </para>
+		/// <para>設定可能最大値は4。</para>
+		/// </remarks>
+		inline void SetFrequencyRatio(const TCHAR* pKey, float ratio)
+		{
+			m_Sound.SetFrequencyRatio(pKey, ratio);
+		}
+
+		/// <summary>
+		/// 再生速度とピッチの変化率を設定する。
+		/// </summary>
+		/// <param name="ratio">音源からの変化率</param>
+		/// <param name="type">音声ファイルを識別する音声種別</param>
+		/// <returns>成否</returns>
+		/// <remarks>
+		/// <para>
+		/// 1.0の場合、音源から変化なし。
+		/// 2.0の場合、再生速度2倍で1オクターブ高音。
+		/// 0.5の場合、再生速度1/2で1オクターブ低音。
+		/// </para>
+		/// <para>設定可能最大値は4。</para>
+		/// </remarks>
+		inline void SetFrequencyRatio(float ratio, Sound::SoundType type = Sound::ALL_TYPE)
+		{
+			m_Sound.SetFrequencyRatio(ratio, type);
+		}
+
+		/// <summary>
+		/// ボリュームを設定する。
+		/// </summary>
+		/// <param name="vol">ボリューム(0:無音　100:音源ボリューム)</param>
+		/// <param name="pKey">音声ファイルを識別するキー</param>
+		inline void SetVolume(int vol, const TCHAR* pKey)
+		{
+			m_Sound.SetVolume(vol, pKey);
+		}
+
+		/// <summary>
+		/// ボリュームを設定する。
+		/// </summary>
+		/// <param name="vol">ボリューム(0:無音　100:音源ボリューム)</param>
+		/// <param name="type">音声ファイルを識別する音声種別</param>
+		inline void SetVolume(int vol, Sound::SoundType type = Sound::ALL_TYPE)
+		{
+			m_Sound.SetVolume(vol, type);
+		}
+
 	private:
 		GameFramework() :m_timerManager(TimerManager::CreateAndGetRef())
 		{};
@@ -485,6 +987,7 @@ namespace gameframework
 		Graphic m_graphic;
 		Input m_input;
 		TimerManager& m_timerManager;
+		Sound m_Sound;
 	};
 }
 

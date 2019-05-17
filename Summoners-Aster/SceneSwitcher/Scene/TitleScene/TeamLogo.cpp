@@ -69,8 +69,10 @@ namespace summonersaster
 
 		if (m_frameLeftFinishTaskAfterEndStaging-- > 0) return;
 		m_frameLeftFinishTaskAfterEndStaging = 0;
-
 		m_isFinished = true;
+		m_rGameFramework.OneShotStart(L"HOLY");
+		m_rGameFramework.LoopStart(L"TITLE");
+
 	}
 
 } // namespace summonersaster

@@ -85,6 +85,7 @@ Hand::RESULT Hand::AddCard(Card* card, const D3DXVECTOR3& cardCenter)
 Card* Hand::SendCard(unsigned int handNum)
 {
 	if (handNum >= m_MovableCards.size()) return nullptr;
+	m_rGameFramework.OneShotStart(L"PICK_CARD");
 	Card* sendCard = m_MovableCards[handNum]->HCard();
 	delete m_MovableCards[handNum];
 	m_MovableCards.erase(m_MovableCards.begin() + handNum);

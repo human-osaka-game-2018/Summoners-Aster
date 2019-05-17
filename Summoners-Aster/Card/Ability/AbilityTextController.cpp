@@ -217,7 +217,7 @@ namespace summonersaster
 			return _T("このカードが破壊された時");
 
 		case ActivationEvent::ODRERED:
-			return _T("このカードが\n攻撃または移動を行った時");
+			return _T("１ターンに１度発動できる");
 
 		case ActivationEvent::MOVED:
 			return _T("このカードが移動を行った時");
@@ -270,7 +270,7 @@ namespace summonersaster
 			return _T("このカードは召喚された\nターンでも攻撃または移動が\nできるようになる。");
 
 		case Execute::DIRECT_ATTACK:
-			return _T("このカードはどの位置からでも\n相手プレイヤーに\n攻撃できるようになる。");
+			return _T("このカードはどの位置からでも\n相手プレイヤーに\n攻撃する。");
 		}
 
 		return nullptr;

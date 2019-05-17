@@ -26,6 +26,9 @@ void AbilityExecutor::Execute(Card* card)
 	case Ability::Execute::DIRECT_ATTACK:
 	{
 		PLAYER_KIND kind = (card->Owner() == PLAYER_KIND::OPPONENT) ? PLAYER_KIND::PROPONENT : PLAYER_KIND::OPPONENT;
+		GameFramework& rGameFramework = GameFramework::CreateAndGetRef();
+		rGameFramework.OneShotSimultaneous(L"ATTACK");
+		rGameFramework.OneShotStart(L"DAMAGE");
 		Players::GetPlayer(kind)->Damaged(dynamic_cast<Follower*>(card)->Attack());
 		OutputDebugString(L"相手プレイヤーに直接攻撃します\n");
 		break; 
@@ -52,7 +55,11 @@ void AbilityExecutor::Execute(FollowerData* followerData)
 	{
 		if ((followerData->m_isOpponentZone && followerData->m_pFollower->Owner() != PLAYER_KIND::OPPONENT) ||
 			(!followerData->m_isOpponentZone && followerData->m_pFollower->Owner() == PLAYER_KIND::OPPONENT)) break;
+
 		PLAYER_KIND kind = (followerData->m_pFollower->Owner() == PLAYER_KIND::OPPONENT) ? PLAYER_KIND::PROPONENT : PLAYER_KIND::OPPONENT;
+		GameFramework& rGameFramework = GameFramework::CreateAndGetRef();
+		rGameFramework.OneShotSimultaneous(L"ATTACK");
+		rGameFramework.OneShotStart(L"DAMAGE");
 		Players::GetPlayer(kind)->Damaged(followerData->m_pFollower->Attack());
 		OutputDebugString(L"相手プレイヤーに直接攻撃します\n");
 		break;

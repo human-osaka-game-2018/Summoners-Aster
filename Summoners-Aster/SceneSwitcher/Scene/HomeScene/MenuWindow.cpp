@@ -22,6 +22,7 @@ namespace summonersaster
 		GameFrameworkFactory::Create(&m_pVertices);
 		gameframework::WindowParam::GetWindowSize(&m_windowSize);
 		m_windowCenter = { m_windowSize.m_width * 0.5f, m_windowSize.m_height * 0.35f };
+		WindowParam::GetWindowHandle(&m_Hwnd);
 
 		m_pVertices->GetCenter() = { m_windowCenter.x * 1.8f, m_windowCenter.y * 0.5f, 0.0f };
 		m_pVertices->SetSize(RectSize(m_windowSize.m_width * 0.2f, m_windowSize.m_height * 0.35f));
@@ -46,6 +47,9 @@ namespace summonersaster
 	void MenuWindow::Release()
 	{
 		delete m_pVertices;
+		delete m_pExitButton;
+		delete m_pSettingButton;
+		delete m_pEndGameButton;
 		m_rGameFramework.ReleaseTexture(_T("WINDOW"));
 	}
 
@@ -81,6 +85,7 @@ namespace summonersaster
 		if (m_pExitButton->IsClicked())
 		{
 			OutputDebugString(L"タイトル");
+			m_rGameFramework.OneShotStart(L"CLICK");
 			SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(SCENE_KIND::TITLE);
 			return;
 		}
@@ -92,9 +97,15 @@ namespace summonersaster
 		if (m_pEndGameButton->IsClicked())
 		{
 			OutputDebugString(L"ゲーム終了");
-			PostQuitMessage(WM_QUIT);
-			return;
+			ShowCursor(true);
+			m_rGameFramework.OneShotStart(L"WINDOW");
 
+			if (IDYES == MessageBox(m_Hwnd, _T("ゲームを終了しますか？"), _T(""), MB_YESNO | MB_ICONQUESTION))
+			{
+				PostQuitMessage(WM_QUIT);
+				return;
+			}
+			ShowCursor(false);
 		}
 		if(!m_rGameFramework.IsCursorOnRect(*m_pVertices) && m_rGameFramework.MouseIsPressed(gameframework::DirectX8Mouse::DIM_LEFT))
 		{

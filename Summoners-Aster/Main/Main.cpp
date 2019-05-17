@@ -1,6 +1,8 @@
 ﻿#include <Windows.h>
 #include <tchar.h>
-
+#include <ctype.h>
+#include <cstdio>
+#include <cstdlib>
 #include <GameFramework.h>
 
 #include "Cursor.h"
@@ -12,8 +14,11 @@
 using namespace gameframework;
 using namespace summonersaster;
 
+void SoundsLoad();
+
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 {
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	WindowParam::SetInstanceHandle(hInst);
 
 	//デフォルトでは1280.0f 720.0f
@@ -32,6 +37,8 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 	SceneSwitcher& sceneSwitcher = SceneSwitcher::CreateAndGetRef();
 	int frameCount = 0;
 
+	SoundsLoad();
+
 	rGameFramework.CreateTexture(_T("キラ十字円"), _T("Textures/キラ十字円.png"));
 	rGameFramework.CreateTexture(_T("カーソル"), _T("Textures/カーソル.png"));
 	rGameFramework.CreateTexture(_T("中空き円"), _T("Textures/中空き円.png"));
@@ -39,9 +46,8 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 	rGameFramework.CreateTexture(_T("キラ星"), _T("Textures/キラ星.png"));
 	rGameFramework.CreateTexture(_T("白正方形"), _T("Textures/白正方形.png"));
 	rGameFramework.CreateTexture(_T("円"), _T("Textures/円.png"));
-
 	gameframework::Cursor cursor;
-
+	
 	while (!pWindow->ReceivedQuitMessage())
 	{
 		if (pWindow->ReceivedWinMessage()) continue;
@@ -80,4 +86,36 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 	sceneSwitcher.ReleaseInstance();
 
 	return 0;
+}
+
+void SoundsLoad()
+{
+	GameFramework& rGameFramework = GameFramework::CreateAndGetRef();
+
+	rGameFramework.AddFile(L"Sounds/card-shuffle2.mp3", L"SHUFFLE", Sound::SE);
+	rGameFramework.AddFile(L"Sounds/card-turn-over1.mp3", L"DRAW", Sound::SE);
+	rGameFramework.AddFile(L"Sounds/magic-cure4.mp3", L"HOLY", Sound::SE);
+	rGameFramework.AddFile(L"Sounds/magic-worp1.mp3", L"MOVE", Sound::SE);
+	rGameFramework.AddSimultaneousFile(L"Sounds/shakin2.mp3", L"ATTACK", Sound::SE);
+	rGameFramework.AddFile(L"Sounds/card-pick1.mp3", L"PICK_CARD", Sound::SE);
+	rGameFramework.AddFile(L"Sounds/magic04.mp3", L"MAGIC", Sound::SE);
+	rGameFramework.AddSimultaneousFile(L"Sounds/battle-start.wav", L"SUMMON", Sound::SE);
+	rGameFramework.AddFile(L"Sounds/soubi-01.wav", L"ARMED", Sound::SE);
+	rGameFramework.AddFile(L"Sounds/game_explosion3.mp3", L"DAMAGE", Sound::SE);
+	rGameFramework.AddFile(L"Sounds/pasin.mp3", L"ERASE_FOLLOWER", Sound::SE);
+	rGameFramework.AddFile(L"Sounds/error1.wav", L"ERROR", Sound::SE);
+	rGameFramework.AddFile(L"Sounds/栄光のファンファーレ.mp3", L"WIN", Sound::SE);
+	rGameFramework.AddFile(L"Sounds/st019.mp3", L"LOSE", Sound::SE);
+	rGameFramework.AddFile(L"Sounds/ta_ta_return02 (audio-cutter.com).mp3", L"ROTATE", Sound::SE);
+	rGameFramework.AddFile(L"Sounds/ta_ta_kira10.mp3", L"CLICK", Sound::SE);
+	rGameFramework.AddFile(L"Sounds/ta_ta_kira06.mp3", L"WINDOW", Sound::SE);
+
+	rGameFramework.AddFile(L"Sounds/loop_136_short.wav", L"BATTLE", Sound::BGM);
+	rGameFramework.AddFile(L"Sounds/loop_74.wav", L"EDIT", Sound::BGM);
+	rGameFramework.AddFile(L"Sounds/loop_95.wav", L"HOME", Sound::BGM);
+	rGameFramework.AddFile(L"Sounds/星間宇宙.mp3", L"TITLE", Sound::BGM);
+
+	rGameFramework.SetVolume(50, Sound::BGM);
+	rGameFramework.SetVolume(100, L"TITLE");
+
 }

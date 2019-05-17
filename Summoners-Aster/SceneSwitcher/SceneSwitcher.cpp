@@ -4,6 +4,10 @@ namespace summonersaster
 {
 	SceneSwitcher::~SceneSwitcher()
 	{
+		GameFramework& rGameFramework = GameFramework::GetRef();
+
+		rGameFramework.ReleaseAllTexture();
+		rGameFramework.ReleaseAllFont();
 
 	}
 

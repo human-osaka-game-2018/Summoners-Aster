@@ -63,6 +63,8 @@ void EditDeck::Update()
 	{
 		if (card->pEraseButton->IsReleased())
 		{
+			m_rGameFramework.OneShotStart(L"ERASE_FOLLOWER");
+
 			CardErase(card);
 			OutputDebugString(L"Deckから取り除きます\n");
 		}
@@ -74,6 +76,8 @@ void EditDeck::Destroy()
 	//外部からの読み込み時に動的確保するため
 	for (auto card : m_EditCards)
 	{
+		delete card->pEraseButton;
+		delete card->pCard;
 		delete card;
 	}
 	m_EditCards.clear();
@@ -108,9 +112,11 @@ void EditDeck::Load(PLAYER_KIND owner)
 	if (LIMIT_CAPACITY != m_EditCards.size())
 	{
 		ShowCursor(true);
+		m_rGameFramework.OneShotStart(L"ERROR");
 		MessageBox(m_Hwnd, _T("デッキ枚数が40枚ではありません"), _T("ERRROR"), MB_OK);
 		ShowCursor(false);
 	}
+
 	//デッキ読み込み
 	//読み込み枚数が規定枚数でない場合エラーを吐かせる
 }
@@ -122,6 +128,7 @@ void EditDeck::AddCard(Card* card)
 	if (LIMIT_CAPACITY <= m_EditCards.size())
 	{
 		ShowCursor(true);
+		m_rGameFramework.OneShotStart(L"ERROR");
 		MessageBox(m_Hwnd, _T("デッキ枚数が40枚を超えるので追加できませんでした"), _T("ERRROR"), MB_OK);
 		ShowCursor(false);
 		return;
@@ -143,6 +150,7 @@ bool EditDeck::CountCard(Card* card)
 		if (count > LIMIT_CARD_CAPACITY)
 		{
 			ShowCursor(true);
+			m_rGameFramework.OneShotStart(L"ERROR");
 			MessageBox(m_Hwnd, _T("同一カード枚数が制限枚数を超えるので追加できませんでした"), _T("ERRROR"), MB_OK);
 			ShowCursor(false);
 			return false;
@@ -181,6 +189,7 @@ void EditDeck::SaveDack()
 	if (LIMIT_CAPACITY != m_EditCards.size())
 	{
 		ShowCursor(true);
+		m_rGameFramework.OneShotStart(L"ERROR");
 		MessageBox(m_Hwnd, _T("デッキ枚数が40枚ではありません\nセーブできません"), _T("ERRROR"), MB_OK);
 		ShowCursor(false);
 		return;

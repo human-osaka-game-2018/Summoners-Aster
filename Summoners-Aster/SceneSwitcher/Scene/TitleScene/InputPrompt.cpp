@@ -57,10 +57,14 @@ namespace summonersaster
 
 		if (rGameFramework.KeyboardIsPressed(DIK_D))
 		{
+			rGameFramework.OneShotStart(L"CLICK");
+
 			SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(SCENE_KIND::HOME);
 		}
 		if (rGameFramework.MouseIsPressed(gameframework::DirectX8Mouse::DIM_LEFT))
 		{
+			rGameFramework.OneShotStart(L"CLICK");
+
 			SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(SCENE_KIND::HOME);
 		}
 
