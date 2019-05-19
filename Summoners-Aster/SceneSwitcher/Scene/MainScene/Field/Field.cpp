@@ -411,6 +411,18 @@ namespace summonersaster
 		*ppFollowerData = m_followerDatas;
 	}
 
+	Card* Field::Followers::SelectedCard()
+	{
+		for (auto& followerData : m_followerDatas)
+		{
+			if (!m_rGameFramework.IsCursorOnRect(*followerData.m_pVertices)) continue;
+
+			return followerData.m_pFollower;
+		}
+
+		return nullptr;
+	}
+
 	void Field::Followers::ActivateAbirity(int index)
 	{
 		//効果発動イベントディスパッチ

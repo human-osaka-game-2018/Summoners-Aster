@@ -63,6 +63,13 @@ namespace summonersaster
 			return &m_pWeapon;
 		}
 
+		inline const tstring HavingWeaponName()
+		{
+			if (!m_pWeapon) return _T("");
+
+			return m_pWeapon->Name();
+		}
+
 		inline bool ShouldDestroyed()
 		{
 			return m_pWeapon->ShouldDestroyed();

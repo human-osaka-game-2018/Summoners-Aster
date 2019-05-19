@@ -126,6 +126,14 @@ namespace summonersaster
 		void GetFollowerZone(FollowerData** ppFollowerData);
 
 		/// <summary>
+		/// 現在選択されているカードのポインタの取得
+		/// </summary>
+		inline Card* SelectedCard()
+		{
+			return m_pFollowers->SelectedCard();
+		}
+
+		/// <summary>
 		/// フォロワーを召喚する
 		/// </summary>
 		/// <param name="index">要素番号</param>
@@ -277,6 +285,11 @@ namespace summonersaster
 			/// </summary>
 			/// <param name="ppFollowerData">取得したゾーンの先頭アドレスを入れるポインタ</param>
 			void GetFollowerZone(FollowerData** ppFollowerData);
+
+			/// <summary>
+			/// 現在選択されているカードのポインタの取得
+			/// </summary>
+			Card* SelectedCard();
 
 			/// <summary>
 			/// フォロワーを召喚する

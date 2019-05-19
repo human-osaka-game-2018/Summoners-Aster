@@ -14,6 +14,8 @@ public:
 	/// </summary>
 	enum ActivationEvent
 	{
+		//! 発動イベントなし
+		NONE,
 		//! 回転時
 		ROTATE,
 		//! 召喚をしたとき

@@ -34,6 +34,8 @@ namespace summonersaster
 			m_rRotationOrderMediator.FinalizeInEndPhaseEnd();
 			m_rField.FinalizeInEndPhaseEnd();
 		}
+
+		m_rAbilityTextController.Update();
 	}
 
 	void EndPhase::Render()
@@ -42,5 +44,6 @@ namespace summonersaster
 		m_rPlayers.Render();
 		m_rField.RenderDummyButton();
 		m_rRotationOrderMediator.Render(false);
+		m_rAbilityTextController.Render();
 	}
 } // namespace summonersaster

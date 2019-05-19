@@ -10,6 +10,7 @@
 #include "FollowerOrderMediator.h"
 #include "RotationOrderMediator.h"
 #include "CardFolder.h"
+#include "Ability/AbilityTextController.h"
 
 namespace summonersaster
 {
