@@ -17,6 +17,7 @@ namespace summonersaster
 		StepSwitcher::CreateAndGetRef();
 		Players::CreateAndGetRef();
 		Field::CreateAndGetRef();
+		AbilityTextController::CreateAndGetRef();
 		LoadResources();
 		BattleInformation::Initialize();
 	}
@@ -29,6 +30,7 @@ namespace summonersaster
 		Field::GetRef().ReleaseInstance();
 		FollowerOrderMediator::GetRef().ReleaseInstance();
 		RotationOrderMediator::GetRef().ReleaseInstance();
+		AbilityTextController::GetRef().ReleaseInstance();
 
 		ReleaseResources();
 	}

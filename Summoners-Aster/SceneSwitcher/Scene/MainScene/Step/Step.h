@@ -3,6 +3,7 @@
 
 #include "KindBase.h"
 #include "BattlePlayer/Players.h"
+#include "Ability/AbilityTextController.h"
 #include "BattleEnums.h"
 #include "Field.h"
 
@@ -24,6 +25,7 @@ namespace summonersaster
 		Field& m_rField = Field::CreateAndGetRef();
 		Players& m_rPlayers = Players::CreateAndGetRef();
 		RotationOrderMediator& m_rRotationOrderMediator = RotationOrderMediator::CreateAndGetRef();
+		AbilityTextController& m_rAbilityTextController = AbilityTextController::CreateAndGetRef();
 	};
 } // namespace summonersaster
 

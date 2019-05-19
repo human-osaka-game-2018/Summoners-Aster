@@ -33,6 +33,8 @@ namespace summonersaster
 
 			m_rPlayers.InitializeInMainPhaseStart();
 		}
+
+		m_rAbilityTextController.Update();
 	}
 
 	void DrawPhase::Render()
@@ -41,5 +43,6 @@ namespace summonersaster
 		m_rPlayers.Render();
 		m_rField.RenderDummyButton();
 		m_rRotationOrderMediator.Render(false);
+		m_rAbilityTextController.Render();
 	}
 } // namespace summonersaster

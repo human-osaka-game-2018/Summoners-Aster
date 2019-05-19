@@ -31,6 +31,8 @@ namespace summonersaster
 		m_rField.Update();
 
 		m_rPlayers.Update(TURN_STAGE_KIND::UI_RENDERING);
+
+		m_rAbilityTextController.Update();
 	}
 
 	void TurnUIRenderingStage::Render()
@@ -39,6 +41,7 @@ namespace summonersaster
 		m_rPlayers.Render();
 		m_rField.RenderDummyButton();
 		m_rRotationOrderMediator.Render(false);
+		m_rAbilityTextController.Render();
 
 		static int frame = 0;
 		const int FRAME_MAX = 120;

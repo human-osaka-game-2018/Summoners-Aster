@@ -129,9 +129,19 @@ public:
 		return m_pMP;
 	}
 
+	inline WeaponHolder* HWeaponHolder()
+	{
+		return m_pWeaponHolder;
+	}
+
 	inline RotationTickets* HRotationTickets()
 	{
 		return m_pRotationTickets;
+	}
+
+	inline tstring HavingWeaponName()
+	{
+		return m_pWeaponHolder->HavingWeaponName();
 	}
 
 protected:

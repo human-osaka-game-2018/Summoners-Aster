@@ -30,6 +30,11 @@ namespace summonersaster
 		return pCardCopy;
 	}
 
+	void CardFolder::RenderCard(const tstring& cardName, const D3DXVECTOR3& center, const RectSize& size)
+	{
+		(*this)[cardName].Render(center, size);
+	}
+
 	CardFolder::CardFolder()
 	{
 		LoadCardsData();

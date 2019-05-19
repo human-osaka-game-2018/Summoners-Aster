@@ -5,6 +5,7 @@
 #include "BattleEnums.h"
 #include "BattlePlayer//Players.h"
 #include "Field.h"
+#include "Ability/AbilityTextController.h"
 
 namespace summonersaster
 {
@@ -22,6 +23,7 @@ namespace summonersaster
 		Field& m_rField = Field::CreateAndGetRef();
 		Players& m_rPlayers = Players::CreateAndGetRef();
 		RotationOrderMediator& m_rRotationOrderMediator = RotationOrderMediator::CreateAndGetRef();
+		AbilityTextController& m_rAbilityTextController = AbilityTextController::CreateAndGetRef();
 	};
 } // namespace summonersaster
 

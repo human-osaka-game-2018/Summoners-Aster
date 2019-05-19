@@ -357,6 +357,9 @@
     <ClInclude Include="SceneSwitcher\Scene\MainScene\BattleInformation.h">
       <Filter>SceneSwitcher\Scene\MainScene</Filter>
     </ClInclude>
+    <ClInclude Include="Card\Ability\AbilityTextController.h">
+      <Filter>Card\Ability</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneSwitcher\SceneSwitcher.cpp">
@@ -598,6 +601,9 @@
     </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\HomeScene\MenuWindow.cpp">
       <Filter>SceneSwitcher\Scene\HomeScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Card\Ability\AbilityTextController.cpp">
+      <Filter>Card\Ability</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -51,14 +51,27 @@ namespace summonersaster
 		/// <returns>コピーカード</returns>
 		Card* CreateCopy(const tstring& cardName, PLAYER_KIND owner);
 
-		int GetQuantity()
+		/// <summary>
+		/// カードの描画
+		/// </summary>
+		/// <param name="cardName">描画したいカードの名前</param>
+		/// <param name="center">中心座標</param>
+		/// <param name="size">サイズ</param>
+		void RenderCard(const tstring& cardName, const D3DXVECTOR3& center, const RectSize& size);
+
+		inline int GetQuantity()
 		{
 			return static_cast<int>(m_pCards.size());
 		}
 
-		tstring GetCardName(int index)
+		inline tstring GetCardName(int index)
 		{
 			return m_pCardsName[index];
+		}
+
+		inline Card& operator[](const tstring& cardName)
+		{
+			return *m_pCards[cardName];
 		}
 
 	private:

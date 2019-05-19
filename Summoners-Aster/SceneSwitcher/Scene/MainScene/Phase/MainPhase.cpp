@@ -41,6 +41,8 @@ namespace summonersaster
 
 		m_pEndButton->GetFrame().SetColor(0xFFFFFFFF);
 
+		m_rAbilityTextController.Update();
+
 		if (m_rPlayers.Update(PHASE_KIND::MAIN))
 		{
 			if (!isButtonClicked) return;
@@ -59,6 +61,7 @@ namespace summonersaster
 		m_rPlayers.Render();
 		m_rRotationOrderMediator.Render();
 		m_pEndButton->Render(m_rGameFramework.GetTexture(_T("END_MAIN_BUTTON")));
+		m_rAbilityTextController.Render();
 	}
 
 	void MainPhase::LocaleButton()
