@@ -43,8 +43,8 @@ namespace summonersaster
 				|| BattleInformation::IsWaitingAction()) continue;
 
 			PLAYER_KIND winner = algorithm::Tertiary(
-				player.first == PLAYER_KIND::OPPONENT, 
-				PLAYER_KIND::PROPONENT, PLAYER_KIND::OPPONENT);
+				player.first == PLAYER_KIND::PROPONENT,
+				PLAYER_KIND::OPPONENT, PLAYER_KIND::PROPONENT);
 
 			BattleInformation::Winner(winner);
 

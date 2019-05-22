@@ -60,6 +60,7 @@ namespace summonersaster
 		CreateTexture(_T("ROTATION_TICKET3"), _T("Textures/Battle_rotationTicket_03.png"));
 		CreateTexture(_T("END_MAIN_BUTTON"), _T("Textures/Battle_endMainButton.png"));
 		CreateTexture(_T("ROTATION_BUTTON"), _T("Textures/Battle_rotationButtonR.png"));
+		CreateTexture(_T("RESULT_BACK"), _T("Textures/ResultBack.png"));
 
 		CreateTexture(_T("CARD_BACK"), _T("Textures/Battle_cardBack.png"));
 
