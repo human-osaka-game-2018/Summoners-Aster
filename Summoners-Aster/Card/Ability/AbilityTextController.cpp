@@ -12,7 +12,7 @@ namespace summonersaster
 
 	void AbilityTextController::Update()
 	{
-		if (GameFramework::GetRef().MouseIsReleased(DirectX8Mouse::DIM_LEFT))
+		if (GameFramework::GetRef().MouseIsPressed(DirectX8Mouse::DIM_LEFT))
 		{
 			SearchSelectedCard();
 
@@ -175,18 +175,26 @@ namespace summonersaster
 
 	void AbilityTextController::SearchCardRiddenCursorInWeaponHolder()
 	{
-		WeaponHolder* pWeaponHolder = (*Players::GetRef().HBattlePlayers())[PLAYER_KIND::PROPONENT]->HWeaponHolder();
-		
-		if (!m_rGameFramework.IsCursorOnRect(*pWeaponHolder->HCollisionRect())) return;
-
-		if (pWeaponHolder->HWeapon() == nullptr)
+		auto SearchCard = [&](BattlePlayer* pPlayer)
 		{
-			m_selectedCardName = pNOT_FOUND;
+			WeaponHolder* pWeaponHolder = pPlayer->HWeaponHolder();
 
-			return;
+			if (!m_rGameFramework.IsCursorOnRect(*pWeaponHolder->HCollisionRect())) return;
+
+			if (pWeaponHolder->HWeapon() == nullptr)
+			{
+				m_selectedCardName = pNOT_FOUND;
+
+				return;
+			}
+
+			m_selectedCardName = pWeaponHolder->HWeapon()->Name();
+		};
+
+		for (auto& pPlayer : *Players::GetRef().HBattlePlayers())
+		{
+			SearchCard(pPlayer.second);
 		}
-
-		m_selectedCardName = pWeaponHolder->HWeapon()->Name();
 	}
 
 	const TCHAR* AbilityTextController::GetActivationText(const tstring& cardName)

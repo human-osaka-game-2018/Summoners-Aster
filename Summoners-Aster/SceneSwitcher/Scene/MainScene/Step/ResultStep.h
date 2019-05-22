@@ -46,10 +46,17 @@ namespace summonersaster
 		void LoadResult();
 
 		Stream* m_pStream = nullptr;
+		Vertices* m_pVertices = nullptr;
 
 		RectSize m_windowSize;
 
-		int m_stagingTakesFrames = 240;
+		static const int m_STAGING_TAKES_FRAME_MAX = 180;
+
+		int m_stagingTakesFrames = m_STAGING_TAKES_FRAME_MAX;
+
+		int m_periodOfFramesStagingEndToEnd = 240;
+
+		Color m_stagingColor = 0;
 
 		bool m_loadedResult = false;
 
