@@ -37,9 +37,9 @@ namespace summonersaster
 
 	}
 
-	void Card::Render(const D3DXVECTOR3& center, const RectSize& size, const Degree& rotationZ)
+	void Card::Render(const D3DXVECTOR3& center, const RectSize& size, RENDERING_TYPE renderingType, const Degree& rotationZ)
 	{
-		RenderCard(center, size, rotationZ);
+		RenderCard(center, size, renderingType, rotationZ);
 	}
 
 	Card::Card(TYPE type, const tstring& name, const tstring& texturePath, int cost, const Ability& ability)
@@ -55,7 +55,7 @@ namespace summonersaster
 		Initialize();
 	}
 
-	void Card::RenderCard(const D3DXVECTOR3& center, const RectSize& size, const Degree& rotationZ)
+	bool Card::RenderCard(const D3DXVECTOR3& center, const RectSize& size, RENDERING_TYPE renderingType, const Degree& rotationZ)
 	{
 		m_pRect->GetCenter() = { center.x, center.y, center.z };
 		m_pRect->SetSize(size);
@@ -63,21 +63,59 @@ namespace summonersaster
 
 		m_pRect->Render(m_rGameFramework.GetTexture(pTEXTURE_KEY));
 
-		m_pRect->GetColor()[Color::COMPONENT::RED]	 = algorithm::Tertiary(m_owner == PLAYER_KIND::OPPONENT, 0x00, 0xFF);
-		m_pRect->GetColor()[Color::COMPONENT::GREEN] = algorithm::Tertiary(m_owner == PLAYER_KIND::OPPONENT, 0x00, 0x00);
-		m_pRect->GetColor()[Color::COMPONENT::BLUE]	 = algorithm::Tertiary(m_owner == PLAYER_KIND::OPPONENT, 0xFF, 0x00);
+		if (renderingType == Card::RENDERING_TYPE::REVERSE)
+		{
+			m_pRect->Render(m_rGameFramework.GetTexture(_T("CARD_BACK")));
+
+			return true;
+		}
+
+		m_pRect->GetColor()[Color::COMPONENT::RED]	 = algorithm::Tertiary(m_owner == PLAYER_KIND::OPPONENT, 0xDD, 0xFF);
+		m_pRect->GetColor()[Color::COMPONENT::GREEN] = algorithm::Tertiary(m_owner == PLAYER_KIND::OPPONENT, 0xDD, 0xFF);
+		m_pRect->GetColor()[Color::COMPONENT::BLUE]	 = algorithm::Tertiary(m_owner == PLAYER_KIND::OPPONENT, 0xDD, 0xFF);
 		m_pRect->Render(m_rGameFramework.GetTexture(_T("CARD_FRAME")));
 
 		m_pRect->GetColor()[Color::COMPONENT::RED]   = 0xFF;
 		m_pRect->GetColor()[Color::COMPONENT::GREEN] = 0xFF;
 		m_pRect->GetColor()[Color::COMPONENT::BLUE]  = 0xFF;
 		m_pRect->Render(m_rGameFramework.GetTexture(_T("COST")));
-		if (-90.0f==rotationZ.Raw() ) return;
+		if (-90.0f==rotationZ.Raw() ) return false;
 
-		if (m_isInCemetery) return;
+		if (m_isInCemetery) return false;
 
 		(*m_pCostStream) = totstring(m_cost);
-		m_pCostStream->SetTopLeft(D3DXVECTOR2(center.x - size.m_width * 0.37f, center.y - size.m_height * 0.475f));
-		m_pCostStream->Render(m_rGameFramework.GetFont(_T("CARD")), DT_CENTER);
+		m_pCostStream->SetTopLeft(D3DXVECTOR2(center.x - size.m_width * 0.366f, center.y - size.m_height * 0.452f));
+		SetStreamColor(m_pCostStream);
+		m_pCostStream->Render(m_rGameFramework.GetFont(FontName(renderingType)), DT_CENTER);
+		
+		return false;
+	}
+
+	const TCHAR* Card::FontName(RENDERING_TYPE renderingType)
+	{
+		switch (renderingType)
+		{
+		case RENDERING_TYPE::SMALL:
+			return _T("CARD_S");
+
+		case RENDERING_TYPE::MIDDLE:
+			return _T("CARD_M");
+
+		case Card::RENDERING_TYPE::LARGE:
+			return _T("CARD_L");
+
+		case Card::RENDERING_TYPE::REVERSE:
+			return _T("CARD_M");
+		}
+
+		return _T("CARD_M");
+	}
+
+	void Card::SetStreamColor(Stream* pStream)
+	{
+		Color streamColor = 0xFFFFFFFF;
+		streamColor[Color::COMPONENT::ALPHA] = m_pRect->GetColor()[Color::COMPONENT::ALPHA];
+
+		pStream->SetColor(streamColor);
 	}
 } // namespace summonersaster

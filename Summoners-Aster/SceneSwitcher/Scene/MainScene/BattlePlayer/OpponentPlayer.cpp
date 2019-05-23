@@ -28,7 +28,7 @@ namespace summonersaster
 		m_pHP = new HP(hpPos);
 		m_pRotationTickets = new RotationTickets(D3DXVECTOR2(1.9f, 0.23f));
 		m_pMP = new MP(D3DXVECTOR3(1435.0f, 100.0f, 0.9f));
-		m_pWeaponHolder = new WeaponHolder(D3DXVECTOR3(1.15f, 0.0f, 0.9f));
+		m_pWeaponHolder = new WeaponHolder(D3DXVECTOR3(1.15f, 0.2f, 0.9f));
 
 		GameFrameworkFactory::Create(&m_pRect);
 

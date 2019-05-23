@@ -128,7 +128,7 @@ namespace summonersaster
 		/// <summary>
 		/// 現在選択されているカードのポインタの取得
 		/// </summary>
-		inline Card* SelectedCard()
+		inline FollowerData* SelectedCard()
 		{
 			return m_pFollowers->SelectedCard();
 		}
@@ -289,7 +289,7 @@ namespace summonersaster
 			/// <summary>
 			/// 現在選択されているカードのポインタの取得
 			/// </summary>
-			Card* SelectedCard();
+			FollowerData* SelectedCard();
 
 			/// <summary>
 			/// フォロワーを召喚する

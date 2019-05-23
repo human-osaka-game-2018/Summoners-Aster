@@ -26,7 +26,7 @@ void BattlePlayer::Initialize()
 	m_pHP = new HP(hpPos);
 	m_pRotationTickets = new RotationTickets(D3DXVECTOR2(0.23f, 1.785f));
 	m_pMP = new MP(D3DXVECTOR3(100.0f, 800.0f, 0.9f));
-	m_pWeaponHolder = new WeaponHolder(D3DXVECTOR3(0.85f, 2.0f, 0.9f));
+	m_pWeaponHolder = new WeaponHolder(D3DXVECTOR3(0.85f, 1.8f, 0.9f));
 
 	GameFrameworkFactory::Create(&m_pRect);
 

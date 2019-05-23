@@ -47,25 +47,21 @@ namespace summonersaster
 		/// <returns>thisの参照</returns>
 		Follower& operator-=(const Follower* pFollower);
 
-		void Render(const D3DXVECTOR3& center, const RectSize& size, const Degree& rotationZ = Degree(0))override;
+		void Render(const D3DXVECTOR3& center, const RectSize& size, RENDERING_TYPE renderingType = RENDERING_TYPE::MIDDLE, const Degree& rotationZ = Degree(0))override;
 
 	private:
 		Follower(Follower& follower) = delete;
 
 		Follower& operator=(Follower& follower) = delete;
 
-		void InitializeStream()
-		{
-			gameframework::GameFrameworkFactory::Create(&m_pAttackStream);
-			gameframework::GameFrameworkFactory::Create(&m_pHPStream);
-		}
+		void InitializeStream();
 
-		void RenderHP(const D3DXVECTOR3& center, const RectSize& size);
+		void RenderHP(const D3DXVECTOR3& center, const RectSize& size, RENDERING_TYPE renderingType);
 
-		void RenderAttack(const D3DXVECTOR3& center, const RectSize& size);
+		void RenderAttack(const D3DXVECTOR3& center, const RectSize& size, RENDERING_TYPE renderingType);
 
-		Stream* m_pAttackStream = 0;
-		Stream* m_pHPStream = 0;
+		Stream* m_pAttackStream = nullptr;
+		Stream* m_pHPStream = nullptr;
 
 		int m_hP = 0;
 		int m_attack = 0;

@@ -397,7 +397,7 @@ namespace summonersaster
 
 			Vertices& rVertices = *followerData.m_pVertices;
 
-			followerData.m_pFollower->Render(rVertices.GetCenter(), rVertices.GetSize());
+			followerData.m_pFollower->Render(rVertices.GetCenter(), rVertices.GetSize(), Card::RENDERING_TYPE::SMALL);
 
 			if (!followerData.m_isSelected)continue;
 
@@ -414,13 +414,13 @@ namespace summonersaster
 		*ppFollowerData = m_followerDatas;
 	}
 
-	Card* Field::Followers::SelectedCard()
+	FollowerData* Field::Followers::SelectedCard()
 	{
 		for (auto& followerData : m_followerDatas)
 		{
 			if (!m_rGameFramework.IsCursorOnRect(*followerData.m_pVertices)) continue;
 
-			return followerData.m_pFollower;
+			return &followerData;
 		}
 
 		return nullptr;

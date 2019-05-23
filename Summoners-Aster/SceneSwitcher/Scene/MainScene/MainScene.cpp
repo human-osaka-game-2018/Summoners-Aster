@@ -96,12 +96,22 @@ namespace summonersaster
 		mPFontSize.m_height = 2.0f * (mPFontSize.m_width = 18.0f);
 		CreateFont(_T("MP"), mPFontSize, _T("IPAex明朝"));
 
-		RectSize cardInfoFontSize;
-		cardInfoFontSize.m_width = windowSize.m_width * 0.008f;
-		cardInfoFontSize.m_height = 2.0f * cardInfoFontSize.m_width;
-		CreateFont(_T("CARD"), cardInfoFontSize, _T("IPAex明朝"));
-		isLoadEnd = true;
+		RectSize cardInfoFontSSize;
+		cardInfoFontSSize.m_width = windowSize.m_width * 0.006f;
+		cardInfoFontSSize.m_height = 2.0f * cardInfoFontSSize.m_width;
+		CreateFont(_T("CARD_S"), cardInfoFontSSize, _T("IPAex明朝"));
 
+		RectSize cardInfoFontMSize;
+		cardInfoFontMSize.m_width = windowSize.m_width * 0.008f;
+		cardInfoFontMSize.m_height = 2.0f * cardInfoFontMSize.m_width;
+		CreateFont(_T("CARD_M"), cardInfoFontMSize, _T("IPAex明朝"));
+
+		RectSize cardInfoFontLSize;
+		cardInfoFontLSize.m_width = windowSize.m_width * 0.0165f;
+		cardInfoFontLSize.m_height = 2.0f * cardInfoFontLSize.m_width;
+		CreateFont(_T("CARD_L"), cardInfoFontLSize, _T("IPAex明朝"));
+		
+		isLoadEnd = true;
 	}
 
 	void MainScene::Update()
