@@ -18,17 +18,24 @@ namespace summonersaster
 
 	void TitleScene::Initialize()
 	{
-		m_taskScheduler.Register(new TeamLogo(), 0);
-		m_taskScheduler.Register(new TitleBack(), 0, true);
-		m_taskScheduler.Register(new GameTitle(), 0, true);
-		m_taskScheduler.Register(new GameTitleStar(), 0, true);
-		m_taskScheduler.Register(new InputPrompt(), 0, true);
+		Load();
 	}
 
 	void TitleScene::Finalize()
 	{
 		m_rGameFramework.Stop(L"TITLE");
 		m_taskScheduler.ReleaseAll();
+	}
+
+	void TitleScene::LoadResources()
+	{
+		m_taskScheduler.Register(new TeamLogo(), 0);
+		m_taskScheduler.Register(new TitleBack(), 0, true);
+		m_taskScheduler.Register(new GameTitle(), 0, true);
+		m_taskScheduler.Register(new GameTitleStar(), 0, true);
+		m_taskScheduler.Register(new InputPrompt(), 0, true);
+		isLoadEnd = true;
+
 	}
 
 	void TitleScene::Update()

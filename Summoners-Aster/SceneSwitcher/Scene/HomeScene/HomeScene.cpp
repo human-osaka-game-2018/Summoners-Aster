@@ -12,6 +12,11 @@ namespace summonersaster
 	{
 		m_taskScheduler.ReleaseAll();
 
+		delete m_pMenuButton;
+		delete m_pDeckButton;
+		delete m_pCPUButton;
+		delete m_pConnectButton;
+		delete m_pMenuWindow;
 
 		GameFramework& rGameFramework = GameFramework::GetRef();
 
@@ -22,6 +27,11 @@ namespace summonersaster
 
 	void HomeScene::Initialize()
 	{
+		Load();
+	}
+
+	void HomeScene::LoadResources()
+	{
 		m_taskScheduler.Register(new HomeBack(), 0, true);
 		m_taskScheduler.Register(new PlayerName(), 0, true);
 		m_taskScheduler.Register(new Player(), 0, true);
@@ -31,6 +41,7 @@ namespace summonersaster
 		m_pConnectButton = new ConnectButton();
 		m_pMenuWindow = new MenuWindow();
 		m_rGameFramework.LoopStart(L"HOME");
+		isLoadEnd = true;
 
 	}
 

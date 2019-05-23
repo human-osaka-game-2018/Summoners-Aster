@@ -21,17 +21,7 @@ DeckEditScene::~DeckEditScene()
 
 void DeckEditScene::Initialize()
 {
-	GameFrameworkFactory::Create(&m_pRect);
-
-	LoadResources();
-	m_pDeck = new EditDeck(_T("SHION"),D3DXVECTOR2(100.f,300.f));
-	m_pDeck->Load(PLAYER_KIND::OPPONENT);
-	m_pHavingCards = new HavingCards(PLAYER_KIND::PROPONENT, D3DXVECTOR2(100.f, 700.f));
-	m_pExitButton = new Button(0xFF888888,false,_T("CARD"), RectSize(10.f, 20.f));
-	m_pSaveButton = new Button(0xFF888888,false,_T("CARD"), RectSize(10.f, 20.f));
-	LocaleButton();
-	m_rGameFramework.LoopStart(L"EDIT");
-
+	Load();
 }
 
 void DeckEditScene::Finalize()
@@ -99,6 +89,15 @@ void DeckEditScene::Render()
 
 void DeckEditScene::LoadResources()
 {
+	GameFrameworkFactory::Create(&m_pRect);
+
+	m_pDeck = new EditDeck(_T("SHION"), D3DXVECTOR2(100.f, 300.f));
+	m_pDeck->Load(PLAYER_KIND::OPPONENT);
+	m_pHavingCards = new HavingCards(PLAYER_KIND::PROPONENT, D3DXVECTOR2(100.f, 700.f));
+	m_pExitButton = new Button(0xFF888888, false, _T("CARD"), RectSize(10.f, 20.f));
+	m_pSaveButton = new Button(0xFF888888, false, _T("CARD"), RectSize(10.f, 20.f));
+	LocaleButton();
+
 	GameFramework& rGameFramework = GameFramework::GetRef();
 
 	RectSize windowSize;
@@ -139,6 +138,7 @@ void DeckEditScene::LoadResources()
 	cardInfoFontSize.m_width = windowSize.m_width * 0.008f;
 	cardInfoFontSize.m_height = 2.0f * cardInfoFontSize.m_width;
 	rGameFramework.CreateFont(_T("CARD"), cardInfoFontSize, _T("IPAex明朝"));
+	isLoadEnd = true;
 
 }
 
