@@ -36,9 +36,18 @@ namespace summonersaster
 
 		void ReleaseResources();
 
+		virtual void LoadResources() {};
+
+
+		void Load();
+
+		void LoadAnimation(gameframework::Stream* pStream, gameframework::Vertices* pRect);
+
+		void MouseEffecter(int* frameCount);
+
 		std::vector<const TCHAR*> m_pTextureKeys;
 		std::vector<const TCHAR*> m_pFontKeys;
-
+		static bool isLoadEnd;
 		GameFramework& m_rGameFramework = GameFramework::CreateAndGetRef();
 	};
 } // namespace summonersaster

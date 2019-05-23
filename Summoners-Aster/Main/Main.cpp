@@ -34,9 +34,6 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 
 	GameFramework& rGameFramework = GameFramework::CreateAndGetRef();
 
-	SceneSwitcher& sceneSwitcher = SceneSwitcher::CreateAndGetRef();
-	int frameCount = 0;
-
 	SoundsLoad();
 
 	rGameFramework.CreateTexture(_T("キラ十字円"), _T("Textures/キラ十字円.png"));
@@ -46,6 +43,10 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 	rGameFramework.CreateTexture(_T("キラ星"), _T("Textures/キラ星.png"));
 	rGameFramework.CreateTexture(_T("白正方形"), _T("Textures/白正方形.png"));
 	rGameFramework.CreateTexture(_T("円"), _T("Textures/円.png"));
+	SceneSwitcher& sceneSwitcher = SceneSwitcher::CreateAndGetRef();
+	int frameCount = 0;
+
+
 	gameframework::Cursor cursor;
 	
 	while (!pWindow->ReceivedQuitMessage())

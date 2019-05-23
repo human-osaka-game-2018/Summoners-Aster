@@ -14,14 +14,7 @@ namespace summonersaster
 
 	void MainScene::Initialize()
 	{
-		StepSwitcher::CreateAndGetRef();
-		Players::CreateAndGetRef();
-		Field::CreateAndGetRef();
-		AbilityTextController::CreateAndGetRef();
-		LoadResources();
-		BattleInformation::Initialize();
-		m_rGameFramework.LoopStart(L"BATTLE");
-
+		Load();
 	}
 
 	void MainScene::Finalize()
@@ -41,6 +34,12 @@ namespace summonersaster
 
 	void MainScene::LoadResources()
 	{
+		StepSwitcher::CreateAndGetRef();
+		Players::CreateAndGetRef();
+		Field::CreateAndGetRef();
+		AbilityTextController::CreateAndGetRef();
+		BattleInformation::Initialize();
+
 		GameFramework& rGameFramework = GameFramework::GetRef();
 
 		RectSize windowSize;
@@ -101,6 +100,8 @@ namespace summonersaster
 		cardInfoFontSize.m_width = windowSize.m_width * 0.008f;
 		cardInfoFontSize.m_height = 2.0f * cardInfoFontSize.m_width;
 		CreateFont(_T("CARD"), cardInfoFontSize, _T("IPAex明朝"));
+		isLoadEnd = true;
+
 	}
 
 	void MainScene::Update()

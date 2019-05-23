@@ -27,6 +27,8 @@ namespace summonersaster
 		/// </summary>
 		void Finalize()override;
 
+		void LoadResources();
+
 		/// <summary>
 		/// 更新を行う
 		/// </summary>
