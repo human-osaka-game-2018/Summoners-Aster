@@ -18,7 +18,7 @@ namespace summonersaster
 
 	void Players::Initialize()
 	{
-		m_pBattlePlayers[PLAYER_KIND::OPPONENT] = new OpponentPlayer(_T("FUJIZONO"));
+		m_pBattlePlayers[PLAYER_KIND::OPPONENT] = new AIPlayer(_T("FUJIZONO"));
 		m_pBattlePlayers[PLAYER_KIND::OPPONENT]->Initialize();
 
 		m_pBattlePlayers[PLAYER_KIND::PROPONENT] = new BattlePlayer(_T("SHION"));

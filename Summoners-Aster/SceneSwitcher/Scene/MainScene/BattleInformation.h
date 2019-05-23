@@ -55,6 +55,16 @@ namespace summonersaster
 			m_turn = turn;
 		}
 
+		static inline bool AIPlayerEnded()
+		{
+			return m_aIPlayerEnded;
+		}
+
+		static inline void AIPlayerEnded(bool AIPlayerEnded)
+		{
+			m_aIPlayerEnded = AIPlayerEnded;
+		}
+
 		static inline PLAYER_KIND Winner()
 		{
 			return m_winner;
@@ -125,6 +135,7 @@ namespace summonersaster
 		~BattleInformation() = delete;
 
 		static int m_turn;
+		static bool m_aIPlayerEnded;
 		static PLAYER_KIND m_winner;
 		static PLAYER_KIND m_startPlayer;
 		static PLAYER_KIND m_currentPlayer;

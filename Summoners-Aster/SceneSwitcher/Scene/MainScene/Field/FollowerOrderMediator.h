@@ -54,6 +54,26 @@ namespace summonersaster
 		/// <returns>終了したらtrue</returns>
 		bool UpdateAttackingPlayerRoutine();
 
+		/// <summary>
+		/// AIが自フォロワーで敵プレイヤーに攻撃する関数
+		/// </summary>
+		/// <param name="originIndex">攻撃するフォロワーが存在するFieldZoneIndex</param>
+		void ActivateAIAttackingPlayer(int originIndex);
+
+		/// <summary>
+		/// AIが自フォロワーで敵フォロワーを攻撃する関数
+		/// </summary>
+		/// <param name="originIndex">攻撃するフォロワーが存在するFieldZoneIndex</param>
+		/// <param name="destIndex">攻撃先のフォロワーが存在するFieldZoneIndex</param>
+		void ActivateAIAttackingFollower(int originIndex, int destIndex);
+
+		/// <summary>
+		/// AIが自フォロワーを移動させる関数
+		/// </summary>
+		/// <param name="originIndex">移動するフォロワーが存在するFieldZoneIndex</param>
+		/// <param name="destIndex">移動先のFieldZoneIndex</param>
+		void ActivateAIMovingFollower(int originIndex, int destIndex);
+
 	private:
 		using ActionInformation = BattleInformation::ActionInformation;
 
