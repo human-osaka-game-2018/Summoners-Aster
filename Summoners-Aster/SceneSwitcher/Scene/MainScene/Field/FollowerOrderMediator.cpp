@@ -46,6 +46,7 @@ namespace summonersaster
 	{
 		static bool isRoutineStart = true;
 
+		//攻撃したいプレイヤーは、必ず現在のターン中のプレイヤーの逆だから
 		PLAYER_KIND notCurrentPlayer =
 			algorithm::Tertiary(BattleInformation::CurrentPlayer() ==
 				PLAYER_KIND::OPPONENT, PLAYER_KIND::PROPONENT, PLAYER_KIND::OPPONENT);
@@ -68,6 +69,7 @@ namespace summonersaster
 		if (m_attackEffectFramesLeft-- > 0) return false;
 
 		//現在のプレイヤーじゃないほう
+		//m_attackingFollowerIndexは殴っている敵のIndexで、この関数が入る前に保存しているはず
 		m_rField.AttackPlayer(m_attackingFollowerIndex, m_playersAttackData[notCurrentPlayer].m_pHP);
 
 		m_playersAttackData[notCurrentPlayer].m_pWeaponHolder->ActivateWeapon();
@@ -144,6 +146,7 @@ namespace summonersaster
 
 		int selectedIndex = GetSelectingFollowerIndex();
 
+		//選択されているフォロワー、選択しようとしているフォロワー
 		m_rField.AttackOrMove(selectedIndex, index);
 
 		//攻撃か移動が行われたので選択を解除するため
@@ -159,12 +162,16 @@ namespace summonersaster
 		//現在のプレイヤーじゃないほう
 		Vertices* pNextTurnPlayer = m_playersAttackData[notCurrentPlayer].m_pPlayerIconVertices;
 		
+		//フィールドフォロワーが選択されているかどうか
 		if (!IsSelected())return;
 		
+		//敵プレイヤーの上にカーソルがあるかどうか
 		if (!m_rGameFramework.IsCursorOnRect(*pNextTurnPlayer)) return;
 
+		//選択されているキャラが行動可能か
 		if (!m_rField.CanTakeAction(GetSelectingFollowerIndex())) return;
 
+		//m_attackingFollowerIndexをここでつめないと、UpdateAttackingで攻撃できなくなる
 		m_attackingFollowerIndex = GetSelectingFollowerIndex();
 
 		if (!m_pFollowerZone[m_attackingFollowerIndex].m_isOpponentZone) return;
@@ -213,4 +220,30 @@ namespace summonersaster
 
 		return -1;
 	}
+
+	void FollowerOrderMediator::ActivateAIAttackingPlayer(int originIndex)
+	{
+		//メッセージキューで処理する際に、m_attackingFollowerIndexに攻撃するキャラのIndexが必要となる
+		m_attackingFollowerIndex = originIndex;
+
+		BattleInformation::PushQueBack(ActionInformation(BattleInformation::ACTION_KIND::ATTACKING_PLAYER,
+			BattleInformation::CurrentPlayer()));
+	}
+
+	void FollowerOrderMediator::ActivateAIAttackingFollower(int originIndex, int destIndex)
+	{
+		BattleInformation::PushQueBack(ActionInformation(BattleInformation::ACTION_KIND::ATTACK, BattleInformation::CurrentPlayer()));
+
+		m_rField.SetActionOriginIndex(originIndex);
+		m_rField.SetActionDestIndex(destIndex);
+	}
+
+	void FollowerOrderMediator::ActivateAIMovingFollower(int originIndex, int destIndex)
+	{
+		BattleInformation::PushQueBack(ActionInformation(BattleInformation::ACTION_KIND::MOVING, BattleInformation::CurrentPlayer()));
+
+		m_rField.SetActionOriginIndex(originIndex);
+		m_rField.SetActionDestIndex(destIndex);
+	}
+
 } // namespace summonersaster

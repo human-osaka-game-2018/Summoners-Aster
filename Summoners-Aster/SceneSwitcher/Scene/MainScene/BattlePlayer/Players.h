@@ -8,6 +8,15 @@
 
 #include "BattlePlayer.h"
 #include "OpponentPlayer.h"
+#include "AIPlayer.h"
+#include "Deck/Deck.h"
+#include "Hand/Hand.h"
+#include "Cemetery/Cemetery.h"
+#include "HP/HP.h"
+#include "MP/MP.h"
+#include "RotationTickets/RotationTickets.h"
+#include "FollowerOrderMediator.h"
+#include "RotationOrderMediator.h"
 #include "BattleEnums.h"
 #include "BattleInformation.h"
 

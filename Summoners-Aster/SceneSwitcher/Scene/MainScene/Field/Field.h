@@ -157,6 +157,18 @@ namespace summonersaster
 		void SetFollower(int index, Follower* pFollower);
 
 		/// <summary>
+		/// フィールドフォロワーの攻撃や移動を行う元のIndexのセッター
+		/// </summary>
+		/// <param name="originIndex">フィールドフォロワーの攻撃や移動を行う元のIndex</param>
+		inline void SetActionOriginIndex(int originIndex) { m_pFollowers->SetActionOriginIndex(originIndex); }
+
+		/// <summary>
+		/// フィールドフォロワーの攻撃や移動を行う先のIndexのセッター
+		/// </summary>
+		/// <param name="destIndex">フィールドフォロワーの攻撃や移動を行う先のIndex</param>
+		inline void SetActionDestIndex(int destIndex) { m_pFollowers->SetActionDestIndex(destIndex); }
+
+		/// <summary>
 		/// 引数のフォロワーの効果発動
 		/// </summary>
 		/// <param name="index">要素番号</param>
@@ -331,6 +343,16 @@ namespace summonersaster
 			/// </summary>
 			/// <returns>終了したらtrue</returns>
 			bool UpdateDestroyingRoutine();
+
+			/// <summary>
+			/// フィールドフォロワーの攻撃や移動を行う元のIndexのセッター
+			/// </summary>
+			inline void SetActionOriginIndex(int originIndex) { m_actionOriginIndex = originIndex; }
+
+			/// <summary>
+			/// フィールドフォロワーの攻撃や移動を行う先のIndexのセッター
+			/// </summary>
+			inline void SetActionDestIndex(int destIndex) { m_actionDestIndex = destIndex; }
 
 			/// <summary>
 			/// 行動を起こせるか

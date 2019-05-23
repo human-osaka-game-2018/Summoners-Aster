@@ -514,13 +514,17 @@ namespace summonersaster
 	{
 		if (!CanTakeAction(originIndex)) return;
 
+		//例えば、フィールドインデックスが５に+２すると７にならず、２と判断させる関数
 		auto Normalize = [&](int index)
 		{
 			return (index % (_countof(m_followerDatas)));
 		};
 
+		//フィールドの形状によって攻撃を制限する処理
+		//攻撃できる頂点でなければreturn
 		if (destIndex != Normalize(originIndex + 2) && destIndex != Normalize(originIndex + 3)) return;
 
+		//そこにフォロワーがいれば
 		if (m_followerDatas[destIndex].m_pFollower)
 		{
 			ActivateAttackRoutine(originIndex, destIndex);

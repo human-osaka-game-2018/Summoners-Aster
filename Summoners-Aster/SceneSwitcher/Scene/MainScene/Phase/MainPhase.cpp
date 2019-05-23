@@ -33,6 +33,7 @@ namespace summonersaster
 		m_rField.Update();
 
 		static bool isButtonClicked = false;
+		static bool shouldSwitchEndPhase = false;
 
 		if (m_pEndButton->IsReleased())
 		{
@@ -45,6 +46,20 @@ namespace summonersaster
 
 		if (m_rPlayers.Update(PHASE_KIND::MAIN))
 		{
+			if (BattleInformation::AIPlayerEnded())
+			{
+				shouldSwitchEndPhase = true;
+				BattleInformation::AIPlayerEnded(false);
+			}
+
+			if (shouldSwitchEndPhase)
+			{
+				shouldSwitchEndPhase = false;
+				SwitchEventMediatorBase<Phase>::GetRef().SendSwitchEvent(PHASE_KIND::END);
+
+				return;
+			}
+
 			if (!isButtonClicked) return;
 		
 			isButtonClicked = false;

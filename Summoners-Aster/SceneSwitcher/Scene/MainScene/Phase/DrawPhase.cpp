@@ -26,12 +26,21 @@ namespace summonersaster
 	{
 		m_rField.Update();
 
+		static bool initialized = false;
+
+		if (!initialized)
+		{
+			m_rPlayers.InitializeInMainPhaseStart();
+
+			initialized = true;
+		}
+
 		//ドローフェイズの処理が完了しているならばメインフェイズへ移行
 		if (m_rPlayers.Update(PHASE_KIND::DRAW))
 		{
-			SwitchEventMediatorBase<Phase>::GetRef().SendSwitchEvent(PHASE_KIND::MAIN);
+			initialized = false;
 
-			m_rPlayers.InitializeInMainPhaseStart();
+			SwitchEventMediatorBase<Phase>::GetRef().SendSwitchEvent(PHASE_KIND::MAIN);
 		}
 
 		m_rAbilityTextController.Update();

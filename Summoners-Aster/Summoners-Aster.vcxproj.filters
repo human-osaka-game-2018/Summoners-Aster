@@ -369,6 +369,9 @@
     <ClInclude Include="GraphicEffects\MovingEffect.h">
       <Filter>GraphicEffects</Filter>
     </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\MainScene\BattlePlayer\AIPlayer.h">
+      <Filter>SceneSwitcher\Scene\MainScene\BattlePlayer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneSwitcher\SceneSwitcher.cpp">
@@ -622,6 +625,9 @@
     </ClCompile>
     <ClCompile Include="GraphicEffects\MovingEffect.cpp">
       <Filter>GraphicEffects</Filter>
+	 </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\MainScene\BattlePlayer\AIPlayer.cpp">
+      <Filter>SceneSwitcher\Scene\MainScene\BattlePlayer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
