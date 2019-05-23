@@ -33,6 +33,14 @@ namespace summonersaster
 			FOLLOWER,
 		};
 
+		enum class RENDERING_TYPE : UCHAR
+		{
+			SMALL,
+			MIDDLE,
+			LARGE,
+			REVERSE,
+		};
+
 		virtual ~Card();
 
 		/// <summary>
@@ -65,7 +73,7 @@ namespace summonersaster
 		/// </summary>
 		/// <param name="center">描画する際の中心座標</param>
 		/// <param name="size">描画する際のカードの幅と高さ</param>
-		virtual void Render(const D3DXVECTOR3& center, const RectSize& size, const Degree& rotationZ = 0.0f);
+		virtual void Render(const D3DXVECTOR3& center, const RectSize& size, RENDERING_TYPE renderingType = RENDERING_TYPE::MIDDLE, const Degree& rotationZ = 0.0f);
 
 		/// <summary>
 		/// 自身のコピーを動的確保する
@@ -146,7 +154,12 @@ namespace summonersaster
 
 		Card& operator=(Card& card) = delete;
 
-		void RenderCard(const D3DXVECTOR3& center, const RectSize& size, const Degree& rotationZ);
+		/// <returns>裏側表示ならtrue</returns>
+		bool RenderCard(const D3DXVECTOR3& center, const RectSize& size, RENDERING_TYPE renderingType, const Degree& rotationZ);
+
+		const TCHAR* FontName(RENDERING_TYPE renderingType);
+
+		void SetStreamColor(Stream* pStream);
 
 		tstring m_name;
 		tstring m_texturePath;

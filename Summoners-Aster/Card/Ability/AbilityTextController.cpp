@@ -2,6 +2,8 @@
 
 namespace summonersaster
 {
+	using namespace gameframework;
+
 	AbilityTextController::~AbilityTextController()
 	{
 		delete m_pAbilityStream;
@@ -16,8 +18,10 @@ namespace summonersaster
 		{
 			SearchSelectedCard();
 
-			m_pStagingCount->ShouldIncreased(gameframework::algorithm::Tertiary(m_selectedCardName == pNOT_FOUND, false, true));
+			m_pStagingCount->ShouldIncreased(gameframework::algorithm::Tertiary(!m_renderingCardInformation.m_pCard, false, true));
 		}
+
+		SearchAndUpgateSummonedCardState();
 
 		m_pStagingCount->UpdateCount();
 	}
@@ -28,7 +32,7 @@ namespace summonersaster
 
 		if (m_pStagingCount->ProcessRatio() < 1.0f) return;
 
-		RenderRemarks(m_selectedCardName);
+		RenderRemarks();
 	}
 
 	void AbilityTextController::RenderBack()
@@ -46,18 +50,24 @@ namespace summonersaster
 		m_pBack->Render(nullptr);
 	}
 
-	void AbilityTextController::RenderRemarks(const tstring& cardName)
+	void AbilityTextController::RenderRemarks()
 	{
 		RectSize cardSize;
 		cardSize.m_height = 1.4f * (cardSize.m_width = 0.2f * m_windowBottomRight.x);
 		
 		D3DXVECTOR3 cardPos(0.5f * cardSize.m_width, m_windowBottomRight.y * 0.5f, 0.0f);
 
-		m_rCardFolder.RenderCard(cardName, cardPos, cardSize);
+		D3DXVECTOR3 cardPosTmp = m_renderingCardInformation.m_pCard->Rect().GetCenter();
+		RectSize cardSizeTmp = m_renderingCardInformation.m_pCard->Rect().GetSize();
+
+		m_renderingCardInformation.m_pCard->Rect().GetColor()[Color::COMPONENT::ALPHA] = 0xFF;
+		m_renderingCardInformation.m_pCard->Render(cardPos, cardSize, Card::RENDERING_TYPE::LARGE);
+
+		m_renderingCardInformation.m_pCard->Rect().SetCenterAndSize(cardPosTmp, cardSizeTmp);
 
 		D3DXVECTOR2 abilityTextTopLeft(0.0f, cardPos.y + 0.5f * cardSize.m_height);
 
-		RenderAbilityText(cardName, abilityTextTopLeft, m_rGameFramework.GetFont(_T("ABILITY_TEXT")));
+		RenderAbilityText(m_renderingCardInformation.m_pCard->Name(), abilityTextTopLeft, m_rGameFramework.GetFont(_T("ABILITY_TEXT")));
 	}
 
 	void AbilityTextController::RenderAbilityText(const tstring& cardName, const D3DXVECTOR2& topLeft, const LPFONT& pFont)
@@ -66,6 +76,7 @@ namespace summonersaster
 		*m_pAbilityStream = GetActivationText(cardName);
 		*m_pAbilityStream += gameframework::algorithm::Tertiary(*m_pAbilityStream == _T(""), _T(""), _T("\n"));
 		*m_pAbilityStream += GetExecuteText(cardName);
+		GetCardStateText();
 
 		m_pAbilityStream->Render(pFont, DT_LEFT);
 	}
@@ -124,7 +135,7 @@ namespace summonersaster
 		m_windowBottomRight = { windowSize.m_width, windowSize.m_height };
 
 		GameFrameworkFactory::Create(&m_pAbilityStream);
-		GameFrameworkFactory::Create(&m_pBack);;
+		GameFrameworkFactory::Create(&m_pBack);
 
 		m_pStagingCount = new Count(15);
 
@@ -143,18 +154,35 @@ namespace summonersaster
 		SearchCardRiddenCursorInWeaponHolder();
 	}
 
+	void AbilityTextController::SearchAndUpgateSummonedCardState()
+	{
+		FollowerData* pFieldCardDatas = nullptr;
+		Field::GetRef().GetFollowerZone(&pFieldCardDatas);
+
+		for (int i = 0; i < Field::FIELD_FOLLOWERS_NUM; ++i)
+		{
+			if (!pFieldCardDatas[i].m_pFollower) continue;
+
+			if (pFieldCardDatas[i].m_pFollower != m_renderingCardInformation.m_pCard) continue;
+
+			SubstituteFollowerData(pFieldCardDatas[i]);
+
+			return;
+		}
+	}
+
 	void AbilityTextController::SearchSelectedCardOnField()
 	{
-		Card* pSelectedCard = Field::GetRef().SelectedCard();
+		FollowerData* pSelectedCard = Field::GetRef().SelectedCard();
 
 		if (pSelectedCard)
 		{
-			m_selectedCardName = pSelectedCard->Name();
+			SubstituteFollowerData(*pSelectedCard);
 
 			return;
 		}
 
-		m_selectedCardName = pNOT_FOUND;
+		m_renderingCardInformation.Zero();
 	}
 
 	void AbilityTextController::SearchCardRiddenCursorInHand()
@@ -167,7 +195,7 @@ namespace summonersaster
 
 			if (!m_rGameFramework.IsCursorOnRect(pCard->Rect())) continue;
 
-			m_selectedCardName = pCard->Name();
+			m_renderingCardInformation.m_pCard = pCard;
 
 			return;
 		}
@@ -183,18 +211,27 @@ namespace summonersaster
 
 			if (pWeaponHolder->HWeapon() == nullptr)
 			{
-				m_selectedCardName = pNOT_FOUND;
+				m_renderingCardInformation.Zero();
 
 				return;
 			}
 
-			m_selectedCardName = pWeaponHolder->HWeapon()->Name();
+			m_renderingCardInformation.m_pCard = pWeaponHolder->HWeapon();
 		};
 
 		for (auto& pPlayer : *Players::GetRef().HBattlePlayers())
 		{
 			SearchCard(pPlayer.second);
 		}
+	}
+
+	void AbilityTextController::SubstituteFollowerData(const FollowerData& followerData)
+	{
+		m_renderingCardInformation.m_pCard = followerData.m_pFollower;
+
+		m_renderingCardInformation.m_isAttacked = followerData.m_isAttacked;
+		m_renderingCardInformation.m_isSummoned = followerData.m_isSummoned;
+		m_renderingCardInformation.m_isMoved = followerData.m_isMoved;
 	}
 
 	const TCHAR* AbilityTextController::GetActivationText(const tstring& cardName)
@@ -274,5 +311,13 @@ namespace summonersaster
 		}
 
 		return nullptr;
+	}
+
+	void AbilityTextController::GetCardStateText()
+	{
+		*m_pAbilityStream += _T("\n\n");
+		*m_pAbilityStream += algorithm::Tertiary(m_renderingCardInformation.m_isSummoned, _T("【-】召喚酔い\n"), _T(""));
+		*m_pAbilityStream += algorithm::Tertiary(m_renderingCardInformation.m_isAttacked, _T("【-】攻撃酔い\n"), _T(""));
+		*m_pAbilityStream += algorithm::Tertiary(m_renderingCardInformation.m_isMoved, _T("【-】移動酔い\n"), _T(""));
 	}
 }

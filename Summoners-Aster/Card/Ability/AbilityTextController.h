@@ -52,8 +52,7 @@ namespace summonersaster
 		/// <summary>
 		/// カードの詳細を描画する
 		/// </summary>
-		/// <param name="cardName">表示したいカードの名前</param>
-		void RenderRemarks(const tstring& cardName);
+		void RenderRemarks();
 
 		/// <summary>
 		/// カード効果の表示
@@ -92,6 +91,33 @@ namespace summonersaster
 			bool m_shoudIncreased = false;
 		};
 
+		struct RenderingCardInformation
+		{
+		public:
+			Card* m_pCard = nullptr;
+
+			/// <summary>
+			/// 現在のターン中に移動を行った
+			/// </summary>
+			bool m_isMoved = false;
+
+			/// <summary>
+			/// 現在のターン中に攻撃を行った
+			/// </summary>
+			bool m_isAttacked = false;
+
+			/// <summary>
+			/// 現在のターン中に召喚された
+			/// </summary>
+			bool m_isSummoned = false;
+
+			inline void Zero()
+			{
+				m_pCard = nullptr;
+				m_isMoved = m_isAttacked = m_isSummoned = false;
+			}
+		};
+
 		AbilityTextController();
 
 		AbilityTextController(AbilityTextController& abilityTextController) = delete;
@@ -102,24 +128,28 @@ namespace summonersaster
 
 		void SearchSelectedCardOnField();
 
+		void SearchAndUpgateSummonedCardState();
+
 		void SearchCardRiddenCursorInHand();
 
 		void SearchCardRiddenCursorInWeaponHolder();
+
+		void SubstituteFollowerData(const FollowerData& followerData);
 
 		const TCHAR* GetActivationText(const tstring& cardName);
 
 		const TCHAR* GetExecuteText(const tstring& cardName);
 
+		void GetCardStateText();
+
 		D3DXVECTOR2 m_windowBottomRight = { 0.0f, 0.0f };
 
 		Count* m_pStagingCount = nullptr;
 
-		const TCHAR* pNOT_FOUND = _T("404:Not_Found");
-
 		Stream* m_pAbilityStream = nullptr;
 		Vertices* m_pBack = nullptr;
 
-		tstring m_selectedCardName;
+		RenderingCardInformation m_renderingCardInformation;
 
 		CardFolder& m_rCardFolder = CardFolder::CreateAndGetRef();
 

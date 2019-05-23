@@ -25,10 +25,16 @@ namespace summonersaster
 			m_shouldDestroyed = true;
 		}
 
+		void Render(const D3DXVECTOR3& center, const RectSize& size, RENDERING_TYPE renderingType = RENDERING_TYPE::MIDDLE, const Degree& rotationZ = Degree(0))override;
+
 	private:
 		Weapon(Weapon& weapon) = delete;
 
 		Weapon& operator=(Weapon& weapon) = delete;
+
+		void RenderHP(const D3DXVECTOR3& center, const RectSize& size, RENDERING_TYPE renderingType);
+
+		Stream* m_pHPStream = nullptr;
 
 		int m_hP;
 	};
