@@ -9,6 +9,9 @@ namespace summonersaster
 	FollowerData::FollowerData()
 	{
 		GameFrameworkFactory::Create(&m_pVertices);
+		GameFrameworkFactory::Create(&m_pSummonedIcon);
+		GameFrameworkFactory::Create(&m_pAttackedIcon);
+		GameFrameworkFactory::Create(&m_pMovedIcon);
 		m_pVertices->SetColor(0xAA000000);
 	}
 
@@ -328,6 +331,39 @@ namespace summonersaster
 		}
 	}
 
+	void Field::Followers::RenderStateUI(int index)
+	{
+		FollowerData& rFollowerData = m_followerDatas[index];
+
+		//全てのアイコンサイズは同じ
+		RectSize iconSize;
+		iconSize.m_width = iconSize.m_height = m_windowSize.m_height * 0.05f;
+		rFollowerData.m_pSummonedIcon->GetSize() =
+		rFollowerData.m_pAttackedIcon->GetSize() =
+		rFollowerData.m_pMovedIcon->GetSize() = iconSize;
+
+		//表示すべきアイコンだけをベクターへ詰める
+		std::vector<std::tuple<gameframework::Vertices*, const TCHAR*>> followerStates;
+		if (rFollowerData.m_isSummoned) followerStates.emplace_back(rFollowerData.m_pSummonedIcon, _T("SUMMONED"));
+		if (rFollowerData.m_isAttacked) followerStates.emplace_back(rFollowerData.m_pAttackedIcon, _T("ATTACKED"));
+		if (rFollowerData.m_isMoved)	followerStates.emplace_back(rFollowerData.m_pMovedIcon,	   _T("MOVED"));
+
+		for (auto& followerState : followerStates)
+		{
+			int index = static_cast<int>(&followerState - &followerStates[0]);
+
+			D3DXVECTOR3 iconCenter = rFollowerData.m_pVertices->GetCenter();
+			iconCenter.x += 0.5f * rFollowerData.m_pVertices->GetSize().m_width + 0.5f * iconSize.m_width;
+			iconCenter.y += -0.5f * rFollowerData.m_pVertices->GetSize().m_height + iconSize.m_height * (index + 0.5f);
+
+			Vertices* pIcon = std::get<0>(followerState);
+			pIcon->GetColor()[Color::COMPONENT::ALPHA] = rFollowerData.m_pFollower->Rect().GetColor()[Color::COMPONENT::ALPHA];
+			pIcon->SetCenterAndSize(iconCenter, iconSize);
+
+			pIcon->Render(m_rGameFramework.GetTexture(std::get<1>(followerState)));
+		}
+	}
+
 	void Field::Followers::DestroyFollower(int index)
 	{
 		Follower** ppCard = &m_followerDatas[index].m_pFollower;
@@ -398,6 +434,8 @@ namespace summonersaster
 			Vertices& rVertices = *followerData.m_pVertices;
 
 			followerData.m_pFollower->Render(rVertices.GetCenter(), rVertices.GetSize(), Card::RENDERING_TYPE::SMALL);
+
+			RenderStateUI(index);
 
 			if (!followerData.m_isSelected)continue;
 
