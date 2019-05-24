@@ -13,6 +13,8 @@ namespace summonersaster
 	{
 		GameFrameworkFactory::Create(&m_pRect);
 		GameFrameworkFactory::Create(&m_pCostStream);
+		GameFrameworkFactory::Create(&m_pNameStream);
+
 		LoadResource();
 	}
 
@@ -30,6 +32,7 @@ namespace summonersaster
 	{
 		delete m_pRect;
 		delete m_pCostStream;
+		delete m_pNameStream;
 	}
 
 	void Card::Update()
@@ -87,7 +90,12 @@ namespace summonersaster
 		m_pCostStream->SetTopLeft(D3DXVECTOR2(center.x - size.m_width * 0.366f, center.y - size.m_height * 0.452f));
 		SetStreamColor(m_pCostStream);
 		m_pCostStream->Render(m_rGameFramework.GetFont(FontName(renderingType)), DT_CENTER);
-		
+
+		*m_pNameStream = m_name;
+		m_pNameStream->SetTopLeft(D3DXVECTOR2(center.x, center.y - size.m_height * 0.465f));
+		SetStreamColor(m_pNameStream);
+		m_pNameStream->Render(m_rGameFramework.GetFont(NameFontName(renderingType)), DT_CENTER);
+
 		return false;
 	}
 
@@ -109,6 +117,26 @@ namespace summonersaster
 		}
 
 		return _T("CARD_M");
+	}
+
+	const TCHAR* Card::NameFontName(RENDERING_TYPE renderingType)
+	{
+		switch (renderingType)
+		{
+		case RENDERING_TYPE::SMALL:
+			return _T("NAME_S");
+
+		case RENDERING_TYPE::MIDDLE:
+			return _T("NAME_M");
+
+		case Card::RENDERING_TYPE::LARGE:
+			return _T("NAME_L");
+
+		case Card::RENDERING_TYPE::REVERSE:
+			return _T("NAME_M");
+		}
+
+		return _T("NAME_M");
 	}
 
 	void Card::SetStreamColor(Stream* pStream)

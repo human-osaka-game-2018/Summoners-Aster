@@ -46,6 +46,21 @@ namespace summonersaster
 		Vertices* m_pVertices = nullptr;
 
 		/// <summary>
+		/// 召喚枠
+		/// </summary>
+		Vertices* m_pSummonedIcon = nullptr;
+
+		/// <summary>
+		/// 攻撃したときのUI
+		/// </summary>
+		Vertices* m_pAttackedIcon = nullptr;
+
+		/// <summary>
+		/// 移動したときのUI
+		/// </summary>
+		Vertices* m_pMovedIcon = nullptr;
+
+		/// <summary>
 		/// 2pゾーンにいるか
 		/// </summary>
 		bool m_isOpponentZone = false;
@@ -350,6 +365,11 @@ namespace summonersaster
 			Followers(Followers& followers) = delete;
 
 			Followers& operator=(Followers& followers) = delete;
+
+			/// <summary>
+			/// 移動アイコンなどの表示
+			/// </summary>
+			void RenderStateUI(int index);
 
 			/// <summary>
 			/// フォロワーを墓地へ送る

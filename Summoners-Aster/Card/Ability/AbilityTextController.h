@@ -94,6 +94,9 @@ namespace summonersaster
 		struct RenderingCardInformation
 		{
 		public:
+			RenderingCardInformation();
+			~RenderingCardInformation();
+
 			Card* m_pCard = nullptr;
 
 			/// <summary>
@@ -101,15 +104,24 @@ namespace summonersaster
 			/// </summary>
 			bool m_isMoved = false;
 
+			Stream* m_pMovedStream = nullptr;
+			Vertices* m_pMovedIcon = nullptr;
+
 			/// <summary>
 			/// 現在のターン中に攻撃を行った
 			/// </summary>
 			bool m_isAttacked = false;
 
+			Stream* m_pAttackedStream = nullptr;
+			Vertices* m_pAttackedIcon = nullptr;
+
 			/// <summary>
 			/// 現在のターン中に召喚された
 			/// </summary>
 			bool m_isSummoned = false;
+
+			Stream* m_pSummonedStream = nullptr;
+			Vertices* m_pSummonedIcon = nullptr;
 
 			inline void Zero()
 			{
@@ -140,7 +152,9 @@ namespace summonersaster
 
 		const TCHAR* GetExecuteText(const tstring& cardName);
 
-		void GetCardStateText();
+		void RenderCardStateText();
+
+		void PushBackRenderingState(std::vector<std::tuple<Vertices*, const TCHAR*, Stream*>>* pFollowerState);
 
 		D3DXVECTOR2 m_windowBottomRight = { 0.0f, 0.0f };
 

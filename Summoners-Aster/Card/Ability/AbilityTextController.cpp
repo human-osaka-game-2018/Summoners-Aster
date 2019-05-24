@@ -76,9 +76,9 @@ namespace summonersaster
 		*m_pAbilityStream = GetActivationText(cardName);
 		*m_pAbilityStream += gameframework::algorithm::Tertiary(*m_pAbilityStream == _T(""), _T(""), _T("\n"));
 		*m_pAbilityStream += GetExecuteText(cardName);
-		GetCardStateText();
 
 		m_pAbilityStream->Render(pFont, DT_LEFT);
+		RenderCardStateText();
 	}
 
 	AbilityTextController::Count::Count(int countMax) :COUNT_MAX(countMax)
@@ -125,6 +125,30 @@ namespace summonersaster
 		if (m_count <= 0) return;
 
 		--m_count;
+	}
+
+	AbilityTextController::RenderingCardInformation::RenderingCardInformation()
+	{
+		GameFrameworkFactory::Create(&m_pSummonedStream);
+		GameFrameworkFactory::Create(&m_pSummonedIcon);
+		GameFrameworkFactory::Create(&m_pAttackedStream);
+		GameFrameworkFactory::Create(&m_pAttackedIcon);
+		GameFrameworkFactory::Create(&m_pMovedStream);
+		GameFrameworkFactory::Create(&m_pMovedIcon);
+
+		*m_pSummonedStream = _T("召喚酔い\n");
+		*m_pAttackedStream = _T("攻撃酔い\n");
+		*m_pMovedStream = _T("移動酔い\n");
+	}
+
+	AbilityTextController::RenderingCardInformation::~RenderingCardInformation()
+	{
+		delete m_pSummonedStream;
+		delete m_pSummonedIcon;
+		delete m_pAttackedStream;
+		delete m_pAttackedIcon;
+		delete m_pMovedStream;
+		delete m_pMovedIcon;
 	}
 
 	AbilityTextController::AbilityTextController()
@@ -313,11 +337,59 @@ namespace summonersaster
 		return nullptr;
 	}
 
-	void AbilityTextController::GetCardStateText()
+	void AbilityTextController::PushBackRenderingState(std::vector<std::tuple<Vertices*, const TCHAR*, Stream*>>* pFollowerState)
 	{
-		*m_pAbilityStream += _T("\n\n");
-		*m_pAbilityStream += algorithm::Tertiary(m_renderingCardInformation.m_isSummoned, _T("【-】召喚酔い\n"), _T(""));
-		*m_pAbilityStream += algorithm::Tertiary(m_renderingCardInformation.m_isAttacked, _T("【-】攻撃酔い\n"), _T(""));
-		*m_pAbilityStream += algorithm::Tertiary(m_renderingCardInformation.m_isMoved, _T("【-】移動酔い\n"), _T(""));
+		if (m_renderingCardInformation.m_isSummoned)
+		{
+			pFollowerState->emplace_back(m_renderingCardInformation.m_pSummonedIcon,
+				_T("SUMMONED"), m_renderingCardInformation.m_pSummonedStream);
+		}
+
+		if (m_renderingCardInformation.m_isAttacked)
+		{
+			pFollowerState->emplace_back(m_renderingCardInformation.m_pAttackedIcon,
+				_T("ATTACKED"), m_renderingCardInformation.m_pAttackedStream);
+		}
+
+		if (m_renderingCardInformation.m_isMoved)
+		{
+			pFollowerState->emplace_back(m_renderingCardInformation.m_pMovedIcon,
+				_T("MOVED"), m_renderingCardInformation.m_pMovedStream);
+		}
+	}
+
+	void AbilityTextController::RenderCardStateText()
+	{
+		//全てのアイコンサイズは同じ
+		RectSize iconSize;
+		iconSize.m_width = iconSize.m_height = m_windowBottomRight.x * 0.03f;
+		m_renderingCardInformation.m_pSummonedIcon->GetSize() =
+		m_renderingCardInformation.m_pAttackedIcon->GetSize() =
+		m_renderingCardInformation.m_pMovedIcon->GetSize() = iconSize;
+
+		//表示すべきアイコンだけをベクターへ詰める
+		std::vector<std::tuple<Vertices*, const TCHAR* ,Stream*>> followerStates;
+		PushBackRenderingState(&followerStates);
+
+		RectSize fontHalfSize;
+		m_rGameFramework.GetFontSize(_T("ABILITY_TEXT"), &fontHalfSize);
+		fontHalfSize = fontHalfSize * 0.5f;
+
+		for (auto& followerState : followerStates)
+		{
+			int index = static_cast<int>(&followerState - &followerStates[0]);
+
+			D3DXVECTOR3 iconTopLeft(0.0f, m_windowBottomRight.y * 0.9f, 0.0f);
+			iconTopLeft.y += iconSize.m_height * index;
+
+			Vertices* pIcon = std::get<0>(followerState);
+			pIcon->SetPosByTopLeft(iconTopLeft, iconSize);
+			pIcon->Render(m_rGameFramework.GetTexture(std::get<1>(followerState)));
+
+			Stream* pStateStream = std::get<2>(followerState);
+
+			pStateStream->SetTopLeft(D3DXVECTOR2(iconSize.m_width, pIcon->GetCenter().y - fontHalfSize.m_height));
+			pStateStream->Render(m_rGameFramework.GetFont(_T("ABILITY_TEXT")), DT_LEFT);
+		}
 	}
 }

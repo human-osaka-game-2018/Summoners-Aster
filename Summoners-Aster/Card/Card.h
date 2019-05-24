@@ -136,7 +136,7 @@ namespace summonersaster
 			return m_ability.activationEvent;
 		}
 
-		void SetAbility(const Ability& ability) 
+		inline void SetAbility(const Ability& ability) 
 		{
 			m_ability.activationEvent = ability.activationEvent;
 			m_ability.execute = ability.execute;
@@ -158,10 +158,13 @@ namespace summonersaster
 		bool RenderCard(const D3DXVECTOR3& center, const RectSize& size, RENDERING_TYPE renderingType, const Degree& rotationZ);
 
 		const TCHAR* FontName(RENDERING_TYPE renderingType);
+		const TCHAR* NameFontName(RENDERING_TYPE renderingType);
 
 		void SetStreamColor(Stream* pStream);
 
 		tstring m_name;
+		Stream* m_pNameStream = nullptr;
+
 		tstring m_texturePath;
 
 		bool m_isInCemetery = false;

@@ -77,6 +77,10 @@ namespace summonersaster
 		CreateTexture(_T("HP"), _T("Textures/HP.png"));
 		CreateTexture(_T("CARD_FRAME"), _T("Textures/CardFrame.png"));
 
+		CreateTexture(_T("ATTACKED"), _T("Textures/Attacked.jpg"));
+		CreateTexture(_T("MOVED"), _T("Textures/Moved.jpg"));
+		CreateTexture(_T("SUMMONED"), _T("Textures/Summoned.jpg"));
+
 		RectSize turnFontSize;
 		turnFontSize.m_width = windowSize.m_width * 0.035f;
 		turnFontSize.m_height = 2.0f * turnFontSize.m_width;
@@ -110,6 +114,23 @@ namespace summonersaster
 		cardInfoFontLSize.m_width = windowSize.m_width * 0.0165f;
 		cardInfoFontLSize.m_height = 2.0f * cardInfoFontLSize.m_width;
 		CreateFont(_T("CARD_L"), cardInfoFontLSize, _T("IPAex明朝"));
+		
+		const float HEGHT_MULTIPLY = 4.0f;
+
+		RectSize cardInfoNameFontSSize;
+		cardInfoNameFontSSize.m_width = windowSize.m_width * 0.002f;
+		cardInfoNameFontSSize.m_height = HEGHT_MULTIPLY * cardInfoNameFontSSize.m_width;
+		CreateFont(_T("NAME_S"), cardInfoNameFontSSize, _T("IPAex明朝"));
+
+		RectSize cardInfoNameFontMSize;
+		cardInfoNameFontMSize.m_width = windowSize.m_width * 0.0027f;
+		cardInfoNameFontMSize.m_height = HEGHT_MULTIPLY * cardInfoNameFontMSize.m_width;
+		CreateFont(_T("NAME_M"), cardInfoNameFontMSize, _T("IPAex明朝"));
+
+		RectSize cardInfoNameFontLSize;
+		cardInfoNameFontLSize.m_width = windowSize.m_width * 0.006f;
+		cardInfoNameFontLSize.m_height = HEGHT_MULTIPLY * cardInfoNameFontLSize.m_width;
+		CreateFont(_T("NAME_L"), cardInfoNameFontLSize, _T("IPAex明朝"));
 		
 		isLoadEnd = true;
 	}
