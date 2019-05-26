@@ -58,7 +58,7 @@ namespace summonersaster
 		GameFrameworkFactory::Create(&pRect);
 		GameFrameworkFactory::Create(&pBGRect);
 		m_rGameFramework.CreateTexture(_T("LOADSTAR"), _T("Textures/SummonCircle.png"));
-		m_rGameFramework.CreateTexture(_T("BACK"), _T("Textures/HomeBack.png"));
+		m_rGameFramework.CreateTexture(_T("BACK"), _T("Textures/TitleBack.png"));
 
 		Cursor cursor;
 		int frameCount = 0;

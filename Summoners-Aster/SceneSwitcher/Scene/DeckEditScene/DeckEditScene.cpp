@@ -89,6 +89,8 @@ void DeckEditScene::Render()
 
 void DeckEditScene::LoadResources()
 {
+	m_rGameFramework.LoopStart(L"EDIT");
+
 	GameFrameworkFactory::Create(&m_pRect);
 
 	m_pDeck = new EditDeck(_T("SHION"), D3DXVECTOR2(100.f, 300.f));
@@ -134,10 +136,42 @@ void DeckEditScene::LoadResources()
 	mPFontSize.m_height = 2.0f * (mPFontSize.m_width = 18.0f);
 	rGameFramework.CreateFont(_T("MP"), mPFontSize, _T("IPAex明朝"));
 
-	RectSize cardInfoFontSize;
-	cardInfoFontSize.m_width = windowSize.m_width * 0.008f;
-	cardInfoFontSize.m_height = 2.0f * cardInfoFontSize.m_width;
-	rGameFramework.CreateFont(_T("CARD"), cardInfoFontSize, _T("IPAex明朝"));
+	//RectSize cardInfoFontSize;
+	//cardInfoFontSize.m_width = windowSize.m_width * 0.008f;
+	//cardInfoFontSize.m_height = 2.0f * cardInfoFontSize.m_width;
+	//rGameFramework.CreateFont(_T("CARD"), cardInfoFontSize, _T("IPAex明朝"));
+
+	RectSize cardInfoFontSSize;
+	cardInfoFontSSize.m_width = windowSize.m_width * 0.006f;
+	cardInfoFontSSize.m_height = 2.0f * cardInfoFontSSize.m_width;
+	CreateFont(_T("CARD_S"), cardInfoFontSSize, _T("IPAex明朝"));
+
+	RectSize cardInfoFontMSize;
+	cardInfoFontMSize.m_width = windowSize.m_width * 0.008f;
+	cardInfoFontMSize.m_height = 2.0f * cardInfoFontMSize.m_width;
+	CreateFont(_T("CARD_M"), cardInfoFontMSize, _T("IPAex明朝"));
+
+	RectSize cardInfoFontLSize;
+	cardInfoFontLSize.m_width = windowSize.m_width * 0.0165f;
+	cardInfoFontLSize.m_height = 2.0f * cardInfoFontLSize.m_width;
+	CreateFont(_T("CARD_L"), cardInfoFontLSize, _T("IPAex明朝"));
+
+	const float HEGHT_MULTIPLY = 4.0f;
+	RectSize cardInfoNameFontSSize;
+	cardInfoNameFontSSize.m_width = windowSize.m_width * 0.002f;
+	cardInfoNameFontSSize.m_height = HEGHT_MULTIPLY * cardInfoNameFontSSize.m_width;
+	CreateFont(_T("NAME_S"), cardInfoNameFontSSize, _T("IPAex明朝"));
+
+	RectSize cardInfoNameFontMSize;
+	cardInfoNameFontMSize.m_width = windowSize.m_width * 0.0027f;
+	cardInfoNameFontMSize.m_height = HEGHT_MULTIPLY * cardInfoNameFontMSize.m_width;
+	CreateFont(_T("NAME_M"), cardInfoNameFontMSize, _T("IPAex明朝"));
+
+	RectSize cardInfoNameFontLSize;
+	cardInfoNameFontLSize.m_width = windowSize.m_width * 0.006f;
+	cardInfoNameFontLSize.m_height = HEGHT_MULTIPLY * cardInfoNameFontLSize.m_width;
+	CreateFont(_T("NAME_L"), cardInfoNameFontLSize, _T("IPAex明朝"));
+
 	isLoadEnd = true;
 
 }

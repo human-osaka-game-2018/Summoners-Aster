@@ -112,6 +112,9 @@
     <Filter Include="Shader">
       <UniqueIdentifier>{a6b11ef9-0941-44f3-949d-338f7967057b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SceneSwitcher\Scene\CardShow">
+      <UniqueIdentifier>{918ea019-c9ca-4467-9975-c60b7540aec8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneSwitcher\SceneSwitcher.h">
@@ -365,6 +368,9 @@
     </ClInclude>
     <ClInclude Include="GraphicEffects\Part\ScalingFlashAbsorbedSquare.h">
       <Filter>GraphicEffects\Part</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitcher\Scene\CardShow\CardShow.h">
+      <Filter>SceneSwitcher\Scene\CardShow</Filter>
     </ClInclude>
     <ClInclude Include="GraphicEffects\MovingEffect.h">
       <Filter>GraphicEffects</Filter>
@@ -628,6 +634,9 @@
 	 </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\MainScene\BattlePlayer\AIPlayer.cpp">
       <Filter>SceneSwitcher\Scene\MainScene\BattlePlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitcher\Scene\CardShow\CardShow.cpp">
+      <Filter>SceneSwitcher\Scene\CardShow</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

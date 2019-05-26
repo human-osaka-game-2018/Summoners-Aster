@@ -20,7 +20,7 @@ namespace summonersaster
 			}
 		}
 
-		m_partScheduler.Register(new ScalingFlashSquare(_T("キラ十字不透明"), 0.0f, 0.0f, 0.0f, 7.0f, m_requireFrameNum, Color(0xFFFF1000), Color(0xFFFFAA10), m_destPos, 1.0f, 25));
+		m_partScheduler.Register(new ScalingFlashSquare(_T("キラ十字不透明"), 0.0f, 0.0f, 0.0f, 10.0f, m_requireFrameNum, Color(0xFFFF1000), Color(0xFFFFAA10), m_destPos, 1.0f, 25));
 		m_partScheduler.Register(new ScalingFlashSquare(_T("中空き円不透明"), 0.0f, 0.0f, 0.0f, 4.0f, m_requireFrameNum, Color(0xFFFF2000), Color(0xFFFFAA00), m_destPos, 0.0f, 20));
 		m_partScheduler.Register(new ScalingFlashSquare(_T("中空き円不透明"), 0.0f, 0.0f, 0.0f, 2.5f, m_requireFrameNum, Color(0xFFFF0020), Color(0xFFFFAA10), m_destPos, 0.0f, 30));
 

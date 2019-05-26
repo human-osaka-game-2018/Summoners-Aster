@@ -88,7 +88,10 @@ Card* HavingCards::OnButton()
 			OutputDebugString(L"Deckに送ります\n");
 			CardFolder& rCardFolder = CardFolder::CreateAndGetRef();
 			Card* buf = card->pCard;
-			return rCardFolder.CreateCopy(buf->Name(), buf->Owner());
+			PLAYER_KIND owner = algorithm::Tertiary(
+				PLAYER_KIND::PROPONENT== buf->Owner(),
+				PLAYER_KIND::OPPONENT, PLAYER_KIND::PROPONENT);
+			return rCardFolder.CreateCopy(buf->Name(), owner);
 		}
 	}
 	return nullptr;

@@ -24,6 +24,7 @@ namespace summonersaster
 		m_kinds[SCENE_KIND::HOME]   = new HomeScene();
 		m_kinds[SCENE_KIND::MAIN]   = new MainScene();
 		m_kinds[SCENE_KIND::DECKEDIT] = new DeckEditScene();
+		m_kinds[SCENE_KIND::CARDSHOW] = new CardShow();
 
 	}
 } // namespace summonersaster

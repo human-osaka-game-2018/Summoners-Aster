@@ -40,6 +40,13 @@ void AbilityExecutor::Execute(Card* card)
 
 void AbilityExecutor::Execute(FollowerData* followerData)
 {
+	GameFramework& rGameFramework = GameFramework::CreateAndGetRef();
+	rGameFramework.OneShotSimultaneous(L"ABILITY");
+	rGameFramework.RegisterGraphicEffect(
+		new MovingEffect(followerData->m_pVertices->GetCenter(),
+			followerData->m_pVertices->GetCenter(),
+			20));
+
 	switch (followerData->m_pFollower->GetExcute())
 	{
 	case Ability::Execute::DRAWCARD:
@@ -57,7 +64,6 @@ void AbilityExecutor::Execute(FollowerData* followerData)
 			(!followerData->m_isOpponentZone && followerData->m_pFollower->Owner() == PLAYER_KIND::OPPONENT)) break;
 
 		PLAYER_KIND kind = (followerData->m_pFollower->Owner() == PLAYER_KIND::OPPONENT) ? PLAYER_KIND::PROPONENT : PLAYER_KIND::OPPONENT;
-		GameFramework& rGameFramework = GameFramework::CreateAndGetRef();
 		rGameFramework.OneShotSimultaneous(L"ATTACK");
 		rGameFramework.OneShotStart(L"DAMAGE");
 		Players::GetPlayer(kind)->Damaged(followerData->m_pFollower->Attack());

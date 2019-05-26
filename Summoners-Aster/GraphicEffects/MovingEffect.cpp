@@ -11,7 +11,7 @@ namespace summonersaster
 
 		for (int i = DFFUSE_EFFECT_NUM; i > 0; --i)
 		{
-			m_partScheduler.Register(new ScalingFlashAbsorbedSquare(_T("キラ不透明"), 0.0f, 0.0f, 0, Color(0xFF0FF320), Color(0xFFFFFF20), 40.0f, 20.0f, m_originPos, 30));
+			m_partScheduler.Register(new ScalingFlashAbsorbedSquare(_T("キラ不透明"), 0.0f, 0.0f, 0, Color(0xFF0FF320), Color(0xFFFFFF20), 80.0f, 20.0f, m_originPos, 30));
 		}
 
 		for (int fi = 0; fi < requireFrameNum; ++fi)
@@ -20,14 +20,14 @@ namespace summonersaster
 			for (int ei = 0; ei < EFFECT_NUM_IN_FRAME; ++ei)
 			{
 				D3DXVECTOR3 dividedDistance = (m_destPos - m_originPos) / static_cast<float>(m_requireFrameNum);
-				m_partScheduler.Register(new ScalingFlashSquare(_T("キラ不透明"), 0.14f, 9.0f, 2.0f, 0.0f, fi,
+				m_partScheduler.Register(new ScalingFlashSquare(_T("キラ不透明"), 0.24f, 18.0f, 2.0f, 0.0f, fi,
 					Color(0xFF00FF00), Color(0xFFFFFF00), m_originPos + dividedDistance * (fi + (ei / static_cast<float>(EFFECT_NUM_IN_FRAME))), 2.0f, 30));
 			}
 		}
 
 		for (int i = DFFUSE_EFFECT_NUM; i > 0; --i)
 		{
-			m_partScheduler.Register(new ScalingFlashSquare(_T("キラ不透明"), 1.3f, 5.0f, 10.0f, 0.0f, m_requireFrameNum, Color(0xFF03FF20), Color(0xFFFFFF20), m_destPos, 0.0f, 30));
+			m_partScheduler.Register(new ScalingFlashSquare(_T("キラ不透明"), 3.3f, 10.0f, 10.0f, 0.0f, m_requireFrameNum, Color(0xFF03FF20), Color(0xFFFFFF20), m_destPos, 0.0f, 30));
 		}
 
 		m_isAdditionBlendMode = false;

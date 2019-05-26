@@ -343,6 +343,8 @@ void BattlePlayer::TransportCollideWeapon()
 
 void BattlePlayer::CheckSpelling()
 {
+	if (BattleInformation::IsWaitingAction()) return;
+
 	auto pHandCards = m_pHand->GetCards();
 
 	for (auto& handCard : *pHandCards)
