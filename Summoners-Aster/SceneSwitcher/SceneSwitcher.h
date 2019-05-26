@@ -11,6 +11,7 @@
 #include "Scene/HomeScene/HomeScene.h"
 #include "Scene/MainScene/MainScene.h"
 #include "Scene/DeckEditScene/DeckEditScene.h"
+#include "Scene/CardShow/CardShow.h"
 
 namespace summonersaster
 {

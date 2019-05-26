@@ -55,7 +55,7 @@ namespace summonersaster
 	{
 		gameframework::GameFramework& rGameFramework = gameframework::GameFramework::CreateAndGetRef();
 
-		if (rGameFramework.KeyboardIsPressed(DIK_D))
+		if (rGameFramework.KeyboardIsPressed(DIK_RETURN))
 		{
 			rGameFramework.OneShotStart(L"CLICK");
 

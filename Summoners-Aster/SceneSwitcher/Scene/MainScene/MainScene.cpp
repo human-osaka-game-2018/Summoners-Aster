@@ -52,7 +52,6 @@ namespace summonersaster
 		CreateTexture(Field::pTEXTURE_KEYS[2], _T("Textures/Battle_rotationStar3.png"));
 		CreateTexture(_T("DIGITAL_FILTER"), _T("Textures/Battle_digitalFilter.png"));
 		
-		CreateTexture(_T("PLAYER_ICON"), _T("Textures/Player.png"));
 		CreateTexture(_T("FUJIZONO"), _T("Textures/fujizono.jpg"));
 		CreateTexture(_T("SHION"), _T("Textures/nigaoe.jpg"));
 		CreateTexture(_T("PLAYER_BACK"), _T("Textures/Battle_playerBack.png"));
@@ -134,6 +133,8 @@ namespace summonersaster
 		cardInfoNameFontLSize.m_height = HEGHT_MULTIPLY * cardInfoNameFontLSize.m_width;
 		CreateFont(_T("NAME_L"), cardInfoNameFontLSize, _T("IPAex明朝"));
 		
+		m_rGameFramework.LoopStart(L"BATTLE");
+
 		isLoadEnd = true;
 	}
 

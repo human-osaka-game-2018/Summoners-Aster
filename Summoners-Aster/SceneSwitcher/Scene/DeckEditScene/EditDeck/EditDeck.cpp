@@ -33,7 +33,7 @@ void EditDeck::Render()
 		m_EditCards[i]->pCard->Render(D3DXVECTOR3(m_TexturCenter.x + 175 * i , m_TexturCenter.y, 0.0f),cardSize);
 		m_EditCards[i]->pEraseButton->Render(pTexture);
 		Vertices& vertices(m_EditCards[i]->pCard->Rect());
-		(*m_pStream) = totstring(i);
+		(*m_pStream) = totstring(i + 1);
 		WriteWords(D3DXVECTOR2(vertices.GetCenter().x, vertices.GetCenter().y + vertices.GetSize().m_height * 0.7f), _T("CARD"), DT_CENTER);
 	}
 }

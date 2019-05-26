@@ -68,6 +68,11 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 		if (rGameFramework.MouseIsPressed(DirectX8Mouse::DIM_LEFT))
 		{
 			rGameFramework.RegisterGraphicEffect(new ClickEffect());
+			//POINT cursorPoint = { 0, 0 };
+			//rGameFramework.CursorPos(&cursorPoint);
+			//D3DXVECTOR3 cursorPos(static_cast<float>(cursorPoint.x), static_cast<float>(cursorPoint.y), 0.0f);
+
+			//rGameFramework.RegisterGraphicEffect(new MovingEffect(cursorPos, cursorPos + D3DXVECTOR3(500.0f, 0.0f, 0.0f), 30));
 		}
 
 		if (rGameFramework.MouseIsHeld(DirectX8Mouse::DIM_LEFT) && !((frameCount++) % 3))
@@ -117,6 +122,8 @@ void SoundsLoad()
 	rGameFramework.AddFile(L"Sounds/ta_ta_return02 (audio-cutter.com).mp3", L"ROTATE", Sound::SE);
 	rGameFramework.AddFile(L"Sounds/ta_ta_kira10.mp3", L"CLICK", Sound::SE);
 	rGameFramework.AddFile(L"Sounds/ta_ta_kira06.mp3", L"WINDOW", Sound::SE);
+	rGameFramework.AddFile(L"Sounds/se_maoudamashii_element_fire01.mp3", L"TURNEND", Sound::SE);
+	rGameFramework.AddSimultaneousFile(L"Sounds/magic-attack-holy1.mp3", L"ABILITY", Sound::SE);
 
 	rGameFramework.AddFile(L"Sounds/loop_136_short.wav", L"BATTLE", Sound::BGM);
 	rGameFramework.AddFile(L"Sounds/loop_74.wav", L"EDIT", Sound::BGM);

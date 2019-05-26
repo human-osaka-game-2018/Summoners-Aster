@@ -66,18 +66,18 @@ namespace summonersaster
 		m_taskScheduler.Update();
 		gameframework::GameFramework& rGameFramework = gameframework::GameFramework::CreateAndGetRef();
 
-		if (rGameFramework.KeyboardIsPressed(DIK_D))
-		{
-			SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(SCENE_KIND::MAIN);
-		}
-		if (rGameFramework.KeyboardIsPressed(DIK_F))
-		{
-			SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(SCENE_KIND::TITLE);
-		}
-		if (rGameFramework.KeyboardIsPressed(DIK_G))
-		{
-			SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(SCENE_KIND:: DECKEDIT);
-		}
+		//if (rGameFramework.KeyboardIsPressed(DIK_D))
+		//{
+		//	SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(SCENE_KIND::MAIN);
+		//}
+		//if (rGameFramework.KeyboardIsPressed(DIK_F))
+		//{
+		//	SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(SCENE_KIND::TITLE);
+		//}
+		//if (rGameFramework.KeyboardIsPressed(DIK_G))
+		//{
+		//	SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(SCENE_KIND:: DECKEDIT);
+		//}
 		if (m_pConnectButton->IsClicked())
 		{
 			rGameFramework.OneShotStart(L"CLICK");
