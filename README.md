@@ -14,4 +14,7 @@
 * DOVA-SYNDROME                 https://dova-s.jp  
 * フリーBGM・音楽素材MusMus     http://musmus.main.jp  
 * On-Jin ～音人～               https://on-jin.com
+
+**○一部のカード画像素材**
+* ジュエルセイバーFREE  http://www.jewel-s.jp/
 ---
