@@ -10,6 +10,7 @@
 #include "HoldEffect.h"
 #include "SummonEffect.h"
 #include "SceneSwitcher.h"
+#include "MovingEffect.h"
 
 using namespace gameframework;
 using namespace summonersaster;
@@ -37,9 +38,13 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 	SoundsLoad();
 
 	rGameFramework.CreateTexture(_T("キラ十字円"), _T("Textures/キラ十字円.png"));
+	rGameFramework.CreateTexture(_T("キラ十字"), _T("Textures/キラ十字.png"));
+	rGameFramework.CreateTexture(_T("キラ十字不透明"), _T("Textures/キラ十字不透明.png"));
 	rGameFramework.CreateTexture(_T("カーソル"), _T("Textures/カーソル.png"));
 	rGameFramework.CreateTexture(_T("中空き円"), _T("Textures/中空き円.png"));
+	rGameFramework.CreateTexture(_T("中空き円不透明"), _T("Textures/中空き円不透明.png"));
 	rGameFramework.CreateTexture(_T("キラ"), _T("Textures/キラ.png"));
+	rGameFramework.CreateTexture(_T("キラ不透明"), _T("Textures/キラ不透明.png"));
 	rGameFramework.CreateTexture(_T("キラ星"), _T("Textures/キラ星.png"));
 	rGameFramework.CreateTexture(_T("白正方形"), _T("Textures/白正方形.png"));
 	rGameFramework.CreateTexture(_T("円"), _T("Textures/円.png"));
@@ -57,6 +62,9 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 
 		rGameFramework.PrepareInFrame();
 
+		POINT cursorPoint = { 0, 0 };
+		rGameFramework.CursorPos(&cursorPoint);
+
 		if (rGameFramework.MouseIsPressed(DirectX8Mouse::DIM_LEFT))
 		{
 			rGameFramework.RegisterGraphicEffect(new ClickEffect());
@@ -67,7 +75,6 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 			POINT cursorPoint = { 0, 0 };
 			rGameFramework.CursorPos(&cursorPoint);
 			D3DXVECTOR3 cursorPos(static_cast<float>(cursorPoint.x), static_cast<float>(cursorPoint.y), 0.0f);
-			//rGameFramework.RegisterGraphicEffect(new SummonEffect(cursorPos));
 
 			rGameFramework.RegisterGraphicEffect(new HoldEffect());
 		}

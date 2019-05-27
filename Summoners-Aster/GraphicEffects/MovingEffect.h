@@ -1,10 +1,11 @@
-﻿#ifndef ATTACK_EFFECT_H
-#define ATTACK_EFFECT_H
+﻿#ifndef MOVING_EFFECT_H
+#define MOVING_EFFECT_H
 
 #include <GameFramework.h>
 
 #include "Part/SquareMoveToDest.h"
 #include "Part/ScalingFlashSquare.h"
+#include "Part/ScalingFlashAbsorbedSquare.h"
 
 namespace summonersaster
 {
@@ -15,12 +16,12 @@ namespace summonersaster
 	/// <summary>
 	/// フォロワーの攻撃時のエフェクト
 	/// </summary>
-	class AttackEffect :public GraphicEffect
+	class MovingEffect :public GraphicEffect
 	{
 	public:
-		AttackEffect(const D3DXVECTOR3& originPos, const D3DXVECTOR3& destPos, int requireFrameNum);
+		MovingEffect(const D3DXVECTOR3& originPos, const D3DXVECTOR3& destPos, int requireFrameNum);
 
-		virtual ~AttackEffect();
+		virtual ~MovingEffect();
 
 		/// <summary>
 		/// 全てのパーツを更新する
@@ -34,4 +35,4 @@ namespace summonersaster
 	};
 }
 
-#endif //!ATTACK_EFFECT_H
+#endif //!MOVING_EFFECT_H

@@ -16,6 +16,7 @@
 #include "Follower/Follower.h"
 #include "HP/HP.h"
 #include "AttackEffect.h"
+#include "MovingEffect.h"
 #include "Shader.h"
 
 namespace summonersaster
@@ -68,7 +69,7 @@ namespace summonersaster
 		/// <summary>
 		/// 現在選択されているか
 		/// </summary>
-		bool m_isSelected = true;
+		bool m_isSelected = false;
 
 		/// <summary>
 		/// 現在のターン中に移動を行った
@@ -409,7 +410,14 @@ namespace summonersaster
 			/// </summary>
 			/// <param name="originIndex">発動地点</param>
 			/// <param name="destIndex">移動先</param>
-			void RegisterEffect(int originIndex, int destIndex);
+			void RegisterAttackEffect(int originIndex, int destIndex);
+
+			/// <summary>
+			/// エフェクトの登録
+			/// </summary>
+			/// <param name="originIndex">発動地点</param>
+			/// <param name="destIndex">移動先</param>
+			void RegisterMovingEffect(int originIndex, int destIndex);
 
 			/// <summary>
 			/// 攻撃

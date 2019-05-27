@@ -223,7 +223,7 @@ namespace summonersaster
 
 		if (isRoutineStart)
 		{
-			RegisterEffect(m_actionOriginIndex, m_actionDestIndex);
+			RegisterAttackEffect(m_actionOriginIndex, m_actionDestIndex);
 
 			isRoutineStart = false;
 		}
@@ -236,7 +236,7 @@ namespace summonersaster
 		{
 			Attack();
 
-			RegisterEffect(m_actionDestIndex, m_actionOriginIndex);
+			RegisterAttackEffect(m_actionDestIndex, m_actionOriginIndex);
 
 			spaceFramesAfterAttack = 0;
 
@@ -259,20 +259,45 @@ namespace summonersaster
 
 		if (isRoutineStart)
 		{
-			RegisterEffect(m_actionOriginIndex, m_actionDestIndex);
-
-			m_followerDatas[m_actionOriginIndex].m_pFollower->Rect().SetColor(0x00FFFFFF);
+			RegisterMovingEffect(m_actionOriginIndex, m_actionDestIndex);
 
 			isRoutineStart = false;
 		}
 
+		const int FADE_IO_TAKES_FRAMES_MAX = 15;
+		static int fadeIOTakesFramesNum = FADE_IO_TAKES_FRAMES_MAX;
+
+		if (m_attackEffectFramesLeft > 0 && fadeIOTakesFramesNum > 0)
+		{
+			m_followerDatas[m_actionOriginIndex].m_pFollower->Rect().FadeOut(FADE_IO_TAKES_FRAMES_MAX, 255, 0);
+
+			--fadeIOTakesFramesNum;
+		}
+
 		if ((m_attackEffectFramesLeft-- > 0)) return false;
 
-		Move(m_actionOriginIndex, m_actionDestIndex);
+		if (m_attackEffectFramesLeft == -1)
+		{
+			Move(m_actionOriginIndex, m_actionDestIndex);
 
-		m_followerDatas[m_actionDestIndex].m_pFollower->Rect().SetColor(0xFFFFFFFF);
+			fadeIOTakesFramesNum = FADE_IO_TAKES_FRAMES_MAX;
+		}
 
-		return isRoutineStart = true;
+		if (fadeIOTakesFramesNum-- > 0)
+		{
+			m_followerDatas[m_actionDestIndex].m_pFollower->Rect().FadeIn(FADE_IO_TAKES_FRAMES_MAX, 0, 255);
+		}
+
+		if (fadeIOTakesFramesNum < 0)
+		{
+			fadeIOTakesFramesNum = FADE_IO_TAKES_FRAMES_MAX;
+
+			m_followerDatas[m_actionDestIndex].m_pFollower->Rect().GetColor()[Color::COMPONENT::ALPHA] = 0xFF;
+
+			return isRoutineStart = true;
+		}
+
+		return false;
 	}
 
 	bool Field::Followers::UpdateDestroyingRoutine()
@@ -526,10 +551,19 @@ namespace summonersaster
 		m_actionDestIndex = destIndex;
 	}
 
-	void Field::Followers::RegisterEffect(int originIndex, int destIndex)
+	void Field::Followers::RegisterAttackEffect(int originIndex, int destIndex)
 	{
 		m_rGameFramework.RegisterGraphicEffect(
 			new AttackEffect(m_followerDatas[originIndex].m_pVertices->GetCenter(),
+				m_followerDatas[destIndex].m_pVertices->GetCenter(), ATTACK_EFFECT_TAKES_FRAMES));
+
+		m_attackEffectFramesLeft = ATTACK_EFFECT_TAKES_FRAMES + ATTACK_EFFECT_SPACE_TAKES_FRAMES;
+	}
+
+	void Field::Followers::RegisterMovingEffect(int originIndex, int destIndex)
+	{
+		m_rGameFramework.RegisterGraphicEffect(
+			new MovingEffect(m_followerDatas[originIndex].m_pVertices->GetCenter(),
 				m_followerDatas[destIndex].m_pVertices->GetCenter(), ATTACK_EFFECT_TAKES_FRAMES));
 
 		m_attackEffectFramesLeft = ATTACK_EFFECT_TAKES_FRAMES + ATTACK_EFFECT_SPACE_TAKES_FRAMES;
