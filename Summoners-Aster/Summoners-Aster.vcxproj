@@ -30,10 +30,13 @@
     <ClCompile Include="Card\Spell\Spell.cpp" />
     <ClCompile Include="Card\Weapon\Weapon.cpp" />
     <ClCompile Include="GraphicEffects\AttackEffect.cpp" />
+    <ClCompile Include="GraphicEffects\Behavior\LocaleOnCircumference.cpp" />
     <ClCompile Include="GraphicEffects\Behavior\Move.cpp" />
     <ClCompile Include="GraphicEffects\ClickEffect.cpp" />
     <ClCompile Include="GraphicEffects\Cursor.cpp" />
     <ClCompile Include="GraphicEffects\HoldEffect.cpp" />
+    <ClCompile Include="GraphicEffects\MovingEffect.cpp" />
+    <ClCompile Include="GraphicEffects\Part\ScalingFlashAbsorbedSquare.cpp" />
     <ClCompile Include="GraphicEffects\Part\ScalingFlashSquare.cpp" />
     <ClCompile Include="GraphicEffects\Part\SquareMoveToDest.cpp" />
     <ClCompile Include="GraphicEffects\SummonEffect.cpp" />
@@ -113,10 +116,13 @@
     <ClInclude Include="Card\Spell\Spell.h" />
     <ClInclude Include="Card\Weapon\Weapon.h" />
     <ClInclude Include="GraphicEffects\AttackEffect.h" />
+    <ClInclude Include="GraphicEffects\Behavior\LocaleOnCircumference.h" />
     <ClInclude Include="GraphicEffects\Behavior\Move.h" />
     <ClInclude Include="GraphicEffects\ClickEffect.h" />
     <ClInclude Include="GraphicEffects\Cursor.h" />
     <ClInclude Include="GraphicEffects\HoldEffect.h" />
+    <ClInclude Include="GraphicEffects\MovingEffect.h" />
+    <ClInclude Include="GraphicEffects\Part\ScalingFlashAbsorbedSquare.h" />
     <ClInclude Include="GraphicEffects\Part\ScalingFlashSquare.h" />
     <ClInclude Include="GraphicEffects\Part\SquareMoveToDest.h" />
     <ClInclude Include="GraphicEffects\SummonEffect.h" />

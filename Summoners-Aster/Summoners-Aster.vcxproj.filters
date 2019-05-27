@@ -360,6 +360,15 @@
     <ClInclude Include="Card\Ability\AbilityTextController.h">
       <Filter>Card\Ability</Filter>
     </ClInclude>
+    <ClInclude Include="GraphicEffects\Behavior\LocaleOnCircumference.h">
+      <Filter>GraphicEffects\Behavior</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicEffects\Part\ScalingFlashAbsorbedSquare.h">
+      <Filter>GraphicEffects\Part</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicEffects\MovingEffect.h">
+      <Filter>GraphicEffects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneSwitcher\SceneSwitcher.cpp">
@@ -604,6 +613,15 @@
     </ClCompile>
     <ClCompile Include="Card\Ability\AbilityTextController.cpp">
       <Filter>Card\Ability</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicEffects\Behavior\LocaleOnCircumference.cpp">
+      <Filter>GraphicEffects\Behavior</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicEffects\Part\ScalingFlashAbsorbedSquare.cpp">
+      <Filter>GraphicEffects\Part</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicEffects\MovingEffect.cpp">
+      <Filter>GraphicEffects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

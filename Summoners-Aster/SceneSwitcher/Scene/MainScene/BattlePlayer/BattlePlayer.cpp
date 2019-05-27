@@ -195,12 +195,12 @@ bool BattlePlayer::UpdateSummoningRoutine()
 
 	m_pFollowerZone[m_TransportingFieldIndex].m_pFollower->Rect().SetColor(0x00FFFFFF);
 
-	if (m_EffectTakesFrame < EFFECT_TAKES_FRAME_MAX / 2)
+	if (m_EffectTakesFrame <= EFFECT_TAKES_FRAME_MAX / 2)
 	{
 		m_pFollowerZone[m_TransportingFieldIndex].m_pFollower->Rect().FadeIn(EFFECT_TAKES_FRAME_MAX / 2, 0, 255);
 	}
 
-	if (--m_EffectTakesFrame - 1 > 0) return false;
+	if (--m_EffectTakesFrame > 0) return false;
 
 	return isRoutineStart = true;
 }
