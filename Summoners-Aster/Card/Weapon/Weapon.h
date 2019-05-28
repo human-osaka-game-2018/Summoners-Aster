@@ -8,8 +8,9 @@ namespace summonersaster
 	class Weapon :public Card
 	{
 	public:
-		Weapon(const tstring& name, const tstring& texturePath, int cost, int hitPoint, const Ability& ability);
-		Weapon(const tstring& name, const tstring& texturePath, int cost, int hitPoint, PLAYER_KIND owner, const TCHAR* pTextureKey, const Ability& ability);
+		Weapon(const tstring& name, const tstring& texturePath, int cost, int hitPoint, std::vector<Ability> abilities);
+		Weapon(const tstring& name, const tstring& texturePath, int cost, int hitPoint, PLAYER_KIND owner, const TCHAR* pTextureKey, std::vector<Ability> abilitiesy);
+
 		~Weapon();
 
 		/// <summary>

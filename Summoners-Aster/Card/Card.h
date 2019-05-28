@@ -126,20 +126,9 @@ namespace summonersaster
 			m_shouldDestroyed = shouldDestroyed;
 		}
 
-		inline Ability::Execute GetExcute() 
+		inline std::vector<Ability> Abilities()
 		{
-			return m_ability.execute;
-		}
-
-		inline Ability::ActivationEvent GetActivationEvent() 
-		{
-			return m_ability.activationEvent;
-		}
-
-		inline void SetAbility(const Ability& ability) 
-		{
-			m_ability.activationEvent = ability.activationEvent;
-			m_ability.execute = ability.execute;
+			return m_abilities;
 		}
 
 		const TYPE CARD_TYPE;
@@ -147,8 +136,8 @@ namespace summonersaster
 		const TCHAR* pTEXTURE_KEY = nullptr;
 
 	protected:
-		Card(TYPE type, const tstring& name, const tstring& texturePath, int cost, const Ability& ability);
-		Card(TYPE type, const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner, const TCHAR* pTextureKey, const Ability& ability);
+		Card(TYPE type, const tstring& name, const tstring& texturePath, int cost, std::vector<Ability> abilities);
+		Card(TYPE type, const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner, const TCHAR* pTextureKey, std::vector<Ability> abilities);
 
 		Card(Card& card) = delete;
 
@@ -175,7 +164,8 @@ namespace summonersaster
 
 		Vertices* m_pCostRect = nullptr;
 		Stream* m_pCostStream = 0;
-		Ability m_ability;
+
+		std::vector<Ability> m_abilities;
 
 		gameframework::Vertices* m_pRect = nullptr;
 

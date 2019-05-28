@@ -15,9 +15,9 @@ AbilityExecutor::~AbilityExecutor()
 {
 }
 
-void AbilityExecutor::Execute(Card* card)
+void AbilityExecutor::Execute(Card* card, Ability::Execute executeName)
 {
-	switch (card->GetExcute())
+	switch (executeName)
 	{
 	case Ability::Execute::DRAWCARD:
 		Players::GetPlayer(card->Owner())->DrawCard();
@@ -38,7 +38,7 @@ void AbilityExecutor::Execute(Card* card)
 	}
 }
 
-void AbilityExecutor::Execute(FollowerData* followerData)
+void AbilityExecutor::Execute(FollowerData* followerData, Ability::Execute executeName)
 {
 	GameFramework& rGameFramework = GameFramework::CreateAndGetRef();
 	rGameFramework.OneShotSimultaneous(L"ABILITY");
@@ -47,7 +47,7 @@ void AbilityExecutor::Execute(FollowerData* followerData)
 			followerData->m_pVertices->GetCenter(),
 			20));
 
-	switch (followerData->m_pFollower->GetExcute())
+	switch (executeName)
 	{
 	case Ability::Execute::DRAWCARD:
 		Players::GetPlayer(followerData->m_pFollower->Owner())->DrawCard();

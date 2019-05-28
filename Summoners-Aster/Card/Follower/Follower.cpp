@@ -4,14 +4,14 @@ namespace summonersaster
 {
 	using namespace gameframework;
 
-	Follower::Follower(const tstring& name, const tstring& texturePath, int cost, int attack, int hitPoint, const Ability& ability)
-		: Card(TYPE::FOLLOWER, name, texturePath, cost, ability), m_attack(attack), m_hP(hitPoint)
+	Follower::Follower(const tstring& name, const tstring& texturePath, int cost, int attack, int hitPoint, std::vector<Ability> abilities)
+		: Card(TYPE::FOLLOWER, name, texturePath, cost, abilities), m_attack(attack), m_hP(hitPoint), m_originalAttack(attack)
 	{
 		InitializeStream();
 	}
 
-	Follower::Follower(const tstring& name, const tstring& texturePath, int cost, int attack, int hitPoint, PLAYER_KIND owner, const TCHAR* pTextureKey, const Ability& ability)
-		: Card(TYPE::FOLLOWER, name, texturePath, cost, owner, pTextureKey, ability), m_attack(attack), m_hP(hitPoint)
+	Follower::Follower(const tstring& name, const tstring& texturePath, int cost, int attack, int hitPoint, PLAYER_KIND owner, const TCHAR* pTextureKey, std::vector<Ability> abilities)
+		: Card(TYPE::FOLLOWER, name, texturePath, cost, owner, pTextureKey, abilities), m_attack(attack), m_hP(hitPoint), m_originalAttack(attack)
 	{
 		InitializeStream();
 	}
@@ -24,7 +24,7 @@ namespace summonersaster
 
 	void Follower::CreateCopy(Card** ppCard, PLAYER_KIND owner)const
 	{
-		*ppCard = new Follower(m_name, m_texturePath, m_cost, m_attack, m_hP, owner, pTEXTURE_KEY, m_ability);
+		*ppCard = new Follower(m_name, m_texturePath, m_cost, m_attack, m_hP, owner, pTEXTURE_KEY, m_abilities);
 	}
 
 	Follower& Follower::operator-=(const Follower* pFollower)

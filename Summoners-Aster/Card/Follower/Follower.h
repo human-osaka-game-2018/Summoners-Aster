@@ -9,8 +9,8 @@ namespace summonersaster
 	class Follower :public Card
 	{
 	public:
-		Follower(const tstring& name, const tstring& texturePath, int cost, int attack, int hitPoint, const Ability& ability);
-		Follower(const tstring& name, const tstring& texturePath, int cost, int attack, int hitPoint, PLAYER_KIND owner, const TCHAR* pTextureKey, const Ability& ability);
+		Follower(const tstring& name, const tstring& texturePath, int cost, int attack, int hitPoint, std::vector<Ability> abilities);
+		Follower(const tstring& name, const tstring& texturePath, int cost, int attack, int hitPoint, PLAYER_KIND owner, const TCHAR* pTextureKey, std::vector<Ability> abilities);
 
 		~Follower();
 

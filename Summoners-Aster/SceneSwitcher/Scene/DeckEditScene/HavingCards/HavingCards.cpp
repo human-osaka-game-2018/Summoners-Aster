@@ -35,8 +35,6 @@ void HavingCards::Load(PLAYER_KIND owner)
 		Card* card = rCardFolder.CreateCopy(rCardFolder.GetCardName(i), owner);
 		Having* having = new Having(card, new Button());
 		m_HavingCards[i] = having;
-
-		m_HavingCards[i]->pCard->SetAbility(Ability(Ability::ROTATE, Ability::DRAWCARD));
 	}
 }
 

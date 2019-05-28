@@ -45,16 +45,28 @@ namespace summonersaster
 		RenderCard(center, size, renderingType, rotationZ);
 	}
 
-	Card::Card(TYPE type, const tstring& name, const tstring& texturePath, int cost, const Ability& ability)
+	Card::Card(TYPE type, const tstring& name, const tstring& texturePath, int cost, std::vector<Ability> abilities)
 		: CARD_TYPE(type), m_name(name), m_texturePath(texturePath), m_cost(cost), pTEXTURE_KEY(m_name.c_str()),
-		m_owner(PLAYER_KIND::PROPONENT), m_ability(ability)
+		m_owner(PLAYER_KIND::PROPONENT)
 	{
+		for (int abilityNum = 0; abilityNum < abilities.size(); ++abilityNum)
+		{
+			Ability ability((abilities[abilityNum].activationEvent), (abilities[abilityNum].execute));
+			m_abilities.push_back(ability);
+		}
+
 		Initialize();
 	}
 
-	Card::Card(TYPE type, const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner, const TCHAR* pTextureKey, const Ability& ability)
-		: CARD_TYPE(type), m_name(name), m_texturePath(texturePath), m_cost(cost), pTEXTURE_KEY(pTextureKey), m_owner(owner), m_ability(ability)
+	Card::Card(TYPE type, const tstring& name, const tstring& texturePath, int cost, PLAYER_KIND owner, const TCHAR* pTextureKey, std::vector<Ability> pAbilities)
+		: CARD_TYPE(type), m_name(name), m_texturePath(texturePath), m_cost(cost), pTEXTURE_KEY(pTextureKey), m_owner(owner)
 	{
+		for (int abilityNum = 0; abilityNum < pAbilities.size(); ++abilityNum)
+		{
+			Ability ability((pAbilities[abilityNum].activationEvent),(pAbilities[abilityNum].execute));
+			m_abilities.push_back(ability);
+		}
+
 		Initialize();
 	}
 

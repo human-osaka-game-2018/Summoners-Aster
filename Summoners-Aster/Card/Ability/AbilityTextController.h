@@ -148,9 +148,9 @@ namespace summonersaster
 
 		void SubstituteFollowerData(const FollowerData& followerData);
 
-		const TCHAR* GetActivationText(const tstring& cardName);
+		const TCHAR* GetActivationText(ActivationEvent eventName, const tstring& cardName);
 
-		const TCHAR* GetExecuteText(const tstring& cardName);
+		const TCHAR* GetExecuteText(Execute executeName, const tstring& cardName);
 
 		void RenderCardStateText();
 
