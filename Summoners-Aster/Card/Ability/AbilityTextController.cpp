@@ -341,6 +341,12 @@ namespace summonersaster
 
 		case Execute::DIRECT_ATTACK:
 			return _T("このカードはどの位置からでも\n相手プレイヤーに\n攻撃する。");
+
+		case Execute::RAISE_FRIEND_ATTACK:
+			return _T("このカード以外の味方フォロワーの\n攻撃力を+２する。");
+
+		case Execute::RESTORE_FRIEND_ATTACK:
+			return _T("このカードの効果で攻撃力が上昇した\n全てのフォロワーの攻撃力を\nもとに戻す。");
 		}
 
 		return nullptr;
