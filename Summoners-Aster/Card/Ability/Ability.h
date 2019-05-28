@@ -57,10 +57,14 @@ public:
 	enum Execute
 	{
 		//! ドロー
-		DRAWCARD,
+		DRAWCARD,  
 		//! スピードアタッカー
-		SPEED_ATTACK,
+		SPEED_ATTACK, 
 		DIRECT_ATTACK,
+		//! 自分以外の味方の攻撃力を上げる
+		RAISE_FRIEND_ATTACK,
+		//! 上昇した攻撃力を元に戻す
+		RESTORE_FRIEND_ATTACK
 	};
 	Ability(const ActivationEvent activationEvent, const Execute execute);
 	Ability();

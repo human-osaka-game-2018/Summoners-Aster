@@ -40,6 +40,16 @@ namespace summonersaster
 			m_attack = attack;
 		}
 
+		inline void RestoreAttack()
+		{
+			m_attack = m_originalAttack;
+		}
+
+		inline std::vector<Follower*>* GetTargegtFollowers() 
+		{
+			return &m_targetFollowers;
+		}
+
 		/// <summary>
 		/// フォロワーとのダメージ判定を行う
 		/// </summary>
@@ -65,6 +75,9 @@ namespace summonersaster
 
 		int m_hP = 0;
 		int m_attack = 0;
+		int m_originalAttack = 0;
+		//!<効果対象となったフォロワーを保存する、破壊された時に元に戻すときなどに使う
+		std::vector<Follower*> m_targetFollowers;
 	};
 } // namespace summonersaster
 
