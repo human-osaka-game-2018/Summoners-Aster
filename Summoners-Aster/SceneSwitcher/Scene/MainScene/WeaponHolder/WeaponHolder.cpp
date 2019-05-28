@@ -45,7 +45,12 @@ namespace summonersaster
 	{
 		if (!m_pWeapon) return;
 
-		AbilityExecutor::Execute(m_pWeapon);
+		//効果が複数あるときのためにfor文で回す
+		std::vector<Ability> abilities = m_pWeapon->Abilities();
+		for (auto ability : abilities)
+		{
+			AbilityExecutor::Execute(m_pWeapon, ability.execute);
+		}
 
 		m_pWeapon->DecrementHP();
 	}

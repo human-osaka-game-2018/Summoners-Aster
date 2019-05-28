@@ -107,7 +107,6 @@ void EditDeck::Load(PLAYER_KIND owner)
 		Card* card = rCardFolder.CreateCopy(tch, owner);
 		Editor* editor = new Editor(card, new Button());
 		m_EditCards[i] = editor;
-		m_EditCards[i]->pCard->SetAbility(Ability(Ability::ROTATE, Ability::DRAWCARD));
 	}
 	if (LIMIT_CAPACITY != m_EditCards.size())
 	{

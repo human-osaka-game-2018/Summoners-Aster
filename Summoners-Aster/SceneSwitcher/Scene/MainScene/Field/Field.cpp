@@ -492,7 +492,7 @@ namespace summonersaster
 	void Field::Followers::ActivateAbirity(int index)
 	{
 		//効果発動イベントディスパッチ
-		CardAbilityMediator::Activator(Ability::ODRERED,&m_followerDatas[index]);
+		CardAbilityMediator::Activator(Ability::ODRERED, &m_followerDatas[index]);
 	}
 
 	void Field::Followers::EmptyFollower(int index)

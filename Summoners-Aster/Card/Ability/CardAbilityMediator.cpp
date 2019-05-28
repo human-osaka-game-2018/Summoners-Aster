@@ -17,29 +17,23 @@ CardAbilityMediator::~CardAbilityMediator()
 
 }
 
-bool CardAbilityMediator::Activator(ActivationEvent activationEvent)
-{
-	bool isSuccess = false;
-	for (auto& card : m_pRegisteredCards)
-	{
-		if (activationEvent == card->m_pFollower->GetActivationEvent()) 
-		{
-			AbilityExecutor::Execute(card);
-			isSuccess = true;
-		}
-	}
-	return isSuccess;
-}
-
 bool CardAbilityMediator::Activator(ActivationEvent activationEvent,Card* card)
 {
 	if (nullptr == card) return false;
 	bool isSuccess = false;
-	if (activationEvent == card->GetActivationEvent())
+
+	//activationEventと同じEventがトリガーである効果が設定されているか確認する
+	std::vector<Ability> abilities = card->Abilities();
+	for (auto ability : abilities)
 	{
-		AbilityExecutor::Execute(card);
-		isSuccess = true;
+		if (activationEvent == ability.activationEvent)
+		{
+			//設定されていたら、効果を呼ぶ
+			AbilityExecutor::Execute(card, ability.execute);
+			isSuccess = true;
+		}
 	}
+
 	return isSuccess;
 }
 
@@ -47,11 +41,19 @@ bool CardAbilityMediator::Activator(ActivationEvent activationEvent, FollowerDat
 {
 	if (nullptr == pFollowerData->m_pFollower) return false;
 	bool isSuccess = false;
-	if (activationEvent == pFollowerData->m_pFollower->GetActivationEvent())
+
+	//activationEventと同じEventがトリガーである効果が設定されているか確認する
+	std::vector<Ability> abilities = pFollowerData->m_pFollower->Abilities();
+	for (auto ability: abilities)
 	{
-		AbilityExecutor::Execute(pFollowerData);
-		isSuccess = true;
+		if (activationEvent == ability.activationEvent)
+		{
+			//設定されていたら、効果を呼ぶ
+			AbilityExecutor::Execute(pFollowerData, ability.execute);
+			isSuccess = true;
+		}
 	}
+
 	return isSuccess;
 }
 

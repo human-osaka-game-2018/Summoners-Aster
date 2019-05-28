@@ -19,13 +19,13 @@ public:
 	/// 効果実行
 	/// </summary>
 	/// <param name="card">効果を実行するカード</param>
-	static void Execute(Card* card);
+	static void Execute(Card* card, Ability::Execute executeName);
 
 	/// <summary>
 	/// 効果実行
 	/// </summary>
-	/// <param name="followerData">効果を実行するフォロワーデータ</param>
-	static void Execute(FollowerData* followerData);
+	/// <param name="">効果の名前</param>
+	static void Execute(FollowerData* followerData, Ability::Execute executeName);
 };
 }
 #endif

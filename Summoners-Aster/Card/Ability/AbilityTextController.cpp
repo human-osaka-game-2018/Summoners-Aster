@@ -73,9 +73,18 @@ namespace summonersaster
 	void AbilityTextController::RenderAbilityText(const tstring& cardName, const D3DXVECTOR2& topLeft, const LPFONT& pFont)
 	{
 		m_pAbilityStream->SetTopLeft(topLeft);
-		*m_pAbilityStream = GetActivationText(cardName);
-		*m_pAbilityStream += gameframework::algorithm::Tertiary(*m_pAbilityStream == _T(""), _T(""), _T("\n"));
-		*m_pAbilityStream += GetExecuteText(cardName);
+
+		*m_pAbilityStream = _T("");
+
+		std::vector<Ability> abilities = m_rCardFolder[cardName].Abilities();
+		//カード効果全てを文字列に詰める
+		for (auto ability : abilities)
+		{
+			*m_pAbilityStream += GetActivationText(ability.activationEvent, cardName);
+			*m_pAbilityStream += gameframework::algorithm::Tertiary(*m_pAbilityStream == _T(""), _T(""), _T("\n"));
+			*m_pAbilityStream += GetExecuteText(ability.execute, cardName);
+			*m_pAbilityStream += gameframework::algorithm::Tertiary(*m_pAbilityStream == _T(""), _T(""), _T("\n\n"));
+		}
 
 		m_pAbilityStream->Render(pFont, DT_LEFT);
 		RenderCardStateText();
@@ -258,9 +267,9 @@ namespace summonersaster
 		m_renderingCardInformation.m_isMoved = followerData.m_isMoved;
 	}
 
-	const TCHAR* AbilityTextController::GetActivationText(const tstring& cardName)
+	const TCHAR* AbilityTextController::GetActivationText(ActivationEvent eventName, const tstring& cardName)
 	{
-		switch (m_rCardFolder[cardName].GetActivationEvent())
+		switch (eventName)
 		{
 		case ActivationEvent::NONE:
 			return _T("");
@@ -320,9 +329,9 @@ namespace summonersaster
 		return nullptr;
 	}
 
-	const TCHAR* AbilityTextController::GetExecuteText(const tstring& cardName)
+	const TCHAR* AbilityTextController::GetExecuteText(Execute executeName, const tstring& cardName)
 	{
-		switch (m_rCardFolder[cardName].GetExcute())
+		switch (executeName)
 		{
 		case Execute::DRAWCARD:
 			return _T("カードを一枚ドローする。");

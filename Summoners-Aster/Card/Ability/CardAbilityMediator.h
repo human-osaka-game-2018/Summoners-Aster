@@ -14,13 +14,7 @@ class CardAbilityMediator
 public:
 	CardAbilityMediator();
 	~CardAbilityMediator();
-	/// <summary>
-	/// イベント名によって登録カード効果を発動する
-	/// </summary>
-	/// <param name="activationEvent">イベント名</param>
-	/// <returns>実行の成否</returns>
-	static bool Activator(Ability::ActivationEvent activationEvent);
-
+	
 	/// <summary>
 	/// イベント名によって指定のカード効果を発動する
 	/// </summary>

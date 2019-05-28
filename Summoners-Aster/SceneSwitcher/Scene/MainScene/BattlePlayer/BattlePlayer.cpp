@@ -261,7 +261,12 @@ bool BattlePlayer::UpdateSpellingRoutine()
 
 	m_pCemetery->PreserveCard(m_pSpellTmp->HCard());
 
-	AbilityExecutor::Execute(m_pSpellTmp->HCard());
+	//効果が複数あるときのためにfor文で回す
+	std::vector<Ability> abilities = m_pSpellTmp->HCard()->Abilities();
+	for (auto ability : abilities)
+	{
+		AbilityExecutor::Execute(m_pSpellTmp->HCard(), ability.execute);
+	}
 
 	delete m_pSpellTmp;
 	m_pSpellTmp = nullptr;
