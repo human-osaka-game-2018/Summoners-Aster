@@ -345,9 +345,10 @@ namespace summonersaster
 
 			int index = static_cast<int>(&followerData - &m_followerDatas[0]);
 			CardAbilityMediator::Unregister(&followerData);
-			CardAbilityMediator::Activator(Ability::KILLED, &followerData);
 
 			if (IsSameDeadFollowerIndex(index)) continue;
+
+			CardAbilityMediator::Activator(Ability::KILLED, &followerData);
 
 			m_deadFollowerIndicies.push_back(index);
 
