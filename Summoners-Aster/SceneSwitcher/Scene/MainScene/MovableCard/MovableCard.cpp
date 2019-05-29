@@ -25,9 +25,9 @@ namespace summonersaster
 		Move(defaultCenter);
 	}
 
-	void MovableCard::Render(const RectSize& cardSize)
+	void MovableCard::Render(const RectSize& cardSize, Card::RENDERING_TYPE renderingType)
 	{
-		m_pCard->Render(m_cardCenter, cardSize);
+		m_pCard->Render(m_cardCenter, cardSize, renderingType);
 	}
 
 	void MovableCard::CalcCurosorMovementByPrev()

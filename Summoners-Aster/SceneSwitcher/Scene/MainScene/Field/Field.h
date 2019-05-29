@@ -17,6 +17,7 @@
 #include "HP/HP.h"
 #include "AttackEffect.h"
 #include "MovingEffect.h"
+#include "AbilityEffect.h"
 #include "Shader.h"
 
 namespace summonersaster
@@ -363,6 +364,7 @@ namespace summonersaster
 			{
 				if (m_followerDatas[index].m_isSummoned ||
 					m_followerDatas[index].m_isAttacked ||
+					!m_followerDatas[index].m_pFollower	||
 					m_followerDatas[index].m_isMoved) return false;
 
 				return true;

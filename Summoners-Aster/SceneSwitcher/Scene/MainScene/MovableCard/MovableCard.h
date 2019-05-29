@@ -35,7 +35,7 @@ namespace summonersaster
 		/// 描画
 		/// </summary>
 		/// <param name="cardSize">カードのサイズ</param>
-		void Render(const RectSize& cardSize);
+		void Render(const RectSize& cardSize, Card::RENDERING_TYPE renderingType = Card::RENDERING_TYPE::MIDDLE);
 
 		static inline void NeutralizeSelecting()
 		{

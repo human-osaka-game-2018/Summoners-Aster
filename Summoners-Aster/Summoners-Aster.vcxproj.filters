@@ -378,6 +378,9 @@
     <ClInclude Include="SceneSwitcher\Scene\MainScene\BattlePlayer\AIPlayer.h">
       <Filter>SceneSwitcher\Scene\MainScene\BattlePlayer</Filter>
     </ClInclude>
+    <ClInclude Include="GraphicEffects\AbilityEffect.h">
+      <Filter>GraphicEffects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneSwitcher\SceneSwitcher.cpp">
@@ -631,12 +634,15 @@
     </ClCompile>
     <ClCompile Include="GraphicEffects\MovingEffect.cpp">
       <Filter>GraphicEffects</Filter>
-	 </ClCompile>
+    </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\MainScene\BattlePlayer\AIPlayer.cpp">
       <Filter>SceneSwitcher\Scene\MainScene\BattlePlayer</Filter>
     </ClCompile>
     <ClCompile Include="SceneSwitcher\Scene\CardShow\CardShow.cpp">
       <Filter>SceneSwitcher\Scene\CardShow</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicEffects\AbilityEffect.cpp">
+      <Filter>GraphicEffects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -43,7 +43,7 @@ void AbilityExecutor::Execute(FollowerData* followerData, Ability::Execute execu
 	GameFramework& rGameFramework = GameFramework::CreateAndGetRef();
 	rGameFramework.OneShotSimultaneous(L"ABILITY");
 	rGameFramework.RegisterGraphicEffect(
-		new MovingEffect(followerData->m_pVertices->GetCenter(),
+		new AbilityEffect(followerData->m_pVertices->GetCenter(),
 			followerData->m_pVertices->GetCenter(),
 			20));
 
