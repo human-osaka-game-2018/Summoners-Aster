@@ -47,6 +47,13 @@ void Hand::Render()
 
 	for (auto& movableCard : m_MovableCards)
 	{
+		if (m_PlayerKind == PLAYER_KIND::OPPONENT)
+		{
+			movableCard->Render(cardSize, Card::RENDERING_TYPE::REVERSE);
+
+			continue;
+		}
+
 		movableCard->Render(cardSize);
 	}
 }

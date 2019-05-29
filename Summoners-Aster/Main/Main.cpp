@@ -71,8 +71,7 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 			//POINT cursorPoint = { 0, 0 };
 			//rGameFramework.CursorPos(&cursorPoint);
 			//D3DXVECTOR3 cursorPos(static_cast<float>(cursorPoint.x), static_cast<float>(cursorPoint.y), 0.0f);
-
-			//rGameFramework.RegisterGraphicEffect(new MovingEffect(cursorPos, cursorPos + D3DXVECTOR3(500.0f, 0.0f, 0.0f), 30));
+			//rGameFramework.RegisterGraphicEffect(new AbilityEffect(cursorPos, cursorPos , 30));
 		}
 
 		if (rGameFramework.MouseIsHeld(DirectX8Mouse::DIM_LEFT) && !((frameCount++) % 3))

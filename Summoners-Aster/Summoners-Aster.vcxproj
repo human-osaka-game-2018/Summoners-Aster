@@ -29,6 +29,7 @@
     <ClCompile Include="Card\Follower\Follower.cpp" />
     <ClCompile Include="Card\Spell\Spell.cpp" />
     <ClCompile Include="Card\Weapon\Weapon.cpp" />
+    <ClCompile Include="GraphicEffects\AbilityEffect.cpp" />
     <ClCompile Include="GraphicEffects\AttackEffect.cpp" />
     <ClCompile Include="GraphicEffects\Behavior\LocaleOnCircumference.cpp" />
     <ClCompile Include="GraphicEffects\Behavior\Move.cpp" />
@@ -117,6 +118,7 @@
     <ClInclude Include="Card\Follower\Follower.h" />
     <ClInclude Include="Card\Spell\Spell.h" />
     <ClInclude Include="Card\Weapon\Weapon.h" />
+    <ClInclude Include="GraphicEffects\AbilityEffect.h" />
     <ClInclude Include="GraphicEffects\AttackEffect.h" />
     <ClInclude Include="GraphicEffects\Behavior\LocaleOnCircumference.h" />
     <ClInclude Include="GraphicEffects\Behavior\Move.h" />
