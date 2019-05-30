@@ -52,6 +52,7 @@ namespace summonersaster
 		Stream* m_pStream = nullptr;
 		Vertices* m_pTurnCircule = nullptr;
 		Vertices* m_pTurnSubCircule = nullptr;
+		Vertices* m_pBlackFilter = nullptr;
 
 		GameFramework& m_rGameFramework = GameFramework::GetRef();
 	};

@@ -45,6 +45,8 @@ namespace summonersaster
 		PhaseSwitcher& rPhaseSwitcher = PhaseSwitcher::CreateAndGetRef();
 
 		SwitchEvent m_phaseSwitchEventPost;
+
+		gameframework::Stream* m_pTurnPlayerStream = nullptr;
 	};
 } // namespace summonersaster
 
