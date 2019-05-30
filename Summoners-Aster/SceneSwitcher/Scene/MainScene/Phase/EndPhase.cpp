@@ -30,6 +30,9 @@ namespace summonersaster
 		{
 			SwitchEventMediatorBase<Phase>::GetRef().SendSwitchEvent(PHASE_KIND::DRAW);
 			SwitchEventMediatorBase<TurnStage>::GetRef().SendSwitchEvent(TURN_STAGE_KIND::UI_RENDERING);
+			
+			GameFramework& rGameFramework = GameFramework::GetRef();
+			rGameFramework.OneShotStart(L"TURNEND");
 
 			m_rRotationOrderMediator.FinalizeInEndPhaseEnd();
 			m_rField.FinalizeInEndPhaseEnd();

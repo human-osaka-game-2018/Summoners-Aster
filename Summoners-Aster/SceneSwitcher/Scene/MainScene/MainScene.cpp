@@ -78,9 +78,9 @@ namespace summonersaster
 		CreateTexture(_T("HP"), _T("Textures/HP.png"));
 		CreateTexture(_T("CARD_FRAME"), _T("Textures/CardFrame.png"));
 
-		CreateTexture(_T("ATTACKED"), _T("Textures/Attacked.jpg"));
-		CreateTexture(_T("MOVED"), _T("Textures/Moved.jpg"));
-		CreateTexture(_T("SUMMONED"), _T("Textures/Summoned.jpg"));
+		CreateTexture(_T("ATTACKED"), _T("Textures/Attacked.png"));
+		CreateTexture(_T("MOVED"), _T("Textures/Moved.png"));
+		CreateTexture(_T("SUMMONED"), _T("Textures/Summoned.png"));
 
 		RectSize turnFontSize;
 		turnFontSize.m_width = windowSize.m_width * 0.035f;

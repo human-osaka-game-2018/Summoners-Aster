@@ -212,6 +212,9 @@ namespace summonersaster
 		{
 			SubstituteFollowerData(*pSelectedCard);
 
+			m_rGameFramework.OneShotSimultaneous(L"SELECTCARD");
+
+
 			return;
 		}
 
@@ -229,6 +232,8 @@ namespace summonersaster
 			if (!m_rGameFramework.IsCursorOnRect(pCard->Rect())) continue;
 
 			m_renderingCardInformation.m_pCard = pCard;
+
+			m_rGameFramework.OneShotSimultaneous(L"SELECTCARD");
 
 			return;
 		}
@@ -248,6 +253,8 @@ namespace summonersaster
 
 				return;
 			}
+
+			m_rGameFramework.OneShotSimultaneous(L"SELECTCARD");
 
 			m_renderingCardInformation.m_pCard = pWeaponHolder->HWeapon();
 		};
