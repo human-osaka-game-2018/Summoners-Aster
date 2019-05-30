@@ -4,13 +4,25 @@ namespace summonersaster
 {
 	using namespace gameframework;
 
-	TurnUIRenderingStage::TurnUIRenderingStage() 
+	TurnUIRenderingStage::TurnUIRenderingStage()
 	{
 		WindowParam::GetWindowSize(&m_windowSize);
 
 		GameFrameworkFactory::Create(&m_pStream);
 		GameFrameworkFactory::Create(&m_pTurnCircule);
 		GameFrameworkFactory::Create(&m_pTurnSubCircule);
+		GameFrameworkFactory::Create(&m_pBlackFilter);
+
+		RectSize circuleSize;
+		circuleSize.m_width = circuleSize.m_height = m_windowSize.m_width * 0.3f;
+
+		D3DXVECTOR3 windowCenter(m_windowSize.m_width * 0.5f, m_windowSize.m_height * 0.5f, 0.0f);
+
+		m_pTurnCircule->SetCenterAndSize(windowCenter, circuleSize);
+
+		m_pTurnSubCircule->SetCenterAndSize(windowCenter, circuleSize);
+
+		m_pBlackFilter->SetCenterAndSizeAndColor(windowCenter, RectSize(2.0f * windowCenter.x, 2.0f * windowCenter.y), 0xFF000000);
 	}
 
 	TurnUIRenderingStage::~TurnUIRenderingStage()
@@ -18,16 +30,17 @@ namespace summonersaster
 		delete m_pStream;
 		delete m_pTurnCircule;
 		delete m_pTurnSubCircule;
+		delete m_pBlackFilter;
 	}
 
 	void TurnUIRenderingStage::Initialize()
 	{
-		
+
 	}
 
 	void TurnUIRenderingStage::Finalize()
 	{
-		
+
 	}
 
 	void TurnUIRenderingStage::Update()
@@ -50,19 +63,16 @@ namespace summonersaster
 		static int frame = 0;
 		const int FRAME_MAX = 120;
 
-		RectSize circuleSize;
-		circuleSize.m_width = circuleSize.m_height = m_windowSize.m_width * 0.3f;
+		m_pBlackFilter->Flash(FRAME_MAX, 0, 120);
 
-		D3DXVECTOR3 windowCenter(m_windowSize.m_width * 0.5f, m_windowSize.m_height * 0.5f, 0.0f);
+		m_pBlackFilter->Render(nullptr);
 
-		m_pTurnCircule->SetCenterAndSize(windowCenter, circuleSize);
-		m_pTurnCircule->Scaling(FRAME_MAX, 5.0f, 2.0f);
+		m_pTurnCircule->Scaling(FRAME_MAX, 4.0f, 2.0f);
 		m_pTurnCircule->Flash(FRAME_MAX, 0, 255);
 		m_pTurnCircule->AddRotationZ(-0.5f);
 
 		m_pTurnCircule->Render(m_rGameFramework.GetTexture(_T("TURN_CIRCULE")));
-		
-		m_pTurnSubCircule->SetCenterAndSize(windowCenter, circuleSize);
+
 		m_pTurnSubCircule->Scaling(FRAME_MAX, 0.0f, 2.5f);
 		m_pTurnSubCircule->Flash(FRAME_MAX, 0, 255);
 		m_pTurnSubCircule->AddRotationZ(0.5f);
@@ -71,6 +81,7 @@ namespace summonersaster
 
 		CreateTurnStream();
 		m_pStream->Flash(FRAME_MAX, 0, 255);
+
 		m_pStream->Render(m_rGameFramework.GetFont(_T("TURN_NUM")), DT_CENTER);
 
 		if (++frame >= FRAME_MAX)
@@ -92,9 +103,9 @@ namespace summonersaster
 		(*m_pStream) = totstring(BattleInformation::Turn());
 		(*m_pStream) += _T("ターン\n");
 
-		m_pStream->SetColor(0xFFFFFFFF);
+		m_pStream->SetColor(algorithm::Tertiary(BattleInformation::CurrentPlayer() == PLAYER_KIND::OPPONENT, 0xFFDD23DD, 0xFFDDDD23));
 
-		tstring player = 
+		tstring player =
 			algorithm::Tertiary(BattleInformation::CurrentPlayer() == BattleInformation::StartPlayer(), _T("先行"), _T("後行"));
 
 		(*m_pStream) += player;

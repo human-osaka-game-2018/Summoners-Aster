@@ -45,12 +45,6 @@ namespace summonersaster
 		m_rField.RenderDummyButton();
 		m_rRotationOrderMediator.Render(false);
 
-		if (*m_pStream == _T("WIN")) m_rGameFramework.ToAddtionBlendMode();
-		m_pVertices->Render(m_rGameFramework.GetTexture(_T("RESULT_BACK")));
-		m_rGameFramework.ToDefaultBlendMode();
-
-		m_pStream->Render(m_rGameFramework.GetFont(_T("TURN_NUM")), DT_CENTER);
-
 		float alphaRatio = 1.0f - (m_stagingTakesFrames / static_cast<float>(m_STAGING_TAKES_FRAME_MAX));
 		alphaRatio = min(max(alphaRatio, 0.0f), 1.0f);
 
@@ -58,6 +52,12 @@ namespace summonersaster
 		m_pStream->SetColor(m_stagingColor);
 
 		m_pVertices->GetColor()[Color::COMPONENT::ALPHA] = static_cast<BYTE>(160 * alphaRatio);
+
+		if (*m_pStream == _T("WIN")) m_rGameFramework.ToAddtionBlendMode();
+		m_pVertices->Render(m_rGameFramework.GetTexture(_T("RESULT_BACK")));
+		m_rGameFramework.ToDefaultBlendMode();
+
+		m_pStream->Render(m_rGameFramework.GetFont(_T("TURN_NUM")), DT_CENTER);
 
 		if (m_stagingTakesFrames-- <= 0)
 		{
