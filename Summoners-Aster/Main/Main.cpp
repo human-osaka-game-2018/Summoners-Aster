@@ -123,6 +123,7 @@ void SoundsLoad()
 	rGameFramework.AddFile(L"Sounds/ta_ta_kira06.mp3", L"WINDOW", Sound::SE);
 	rGameFramework.AddFile(L"Sounds/se_maoudamashii_element_fire01.mp3", L"TURNEND", Sound::SE);
 	rGameFramework.AddSimultaneousFile(L"Sounds/magic-attack-holy1.mp3", L"ABILITY", Sound::SE);
+	rGameFramework.AddSimultaneousFile(L"Sounds/microwave-close1.mp3", L"SELECTCARD", Sound::SE);
 
 	rGameFramework.AddFile(L"Sounds/loop_136_short.wav", L"BATTLE", Sound::BGM);
 	rGameFramework.AddFile(L"Sounds/loop_74.wav", L"EDIT", Sound::BGM);

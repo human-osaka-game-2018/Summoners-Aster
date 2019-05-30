@@ -65,7 +65,6 @@ namespace summonersaster
 			isButtonClicked = false;
 		
 			m_pEndButton->GetFrame().SetColor(0xFF888888);
-			m_rGameFramework.OneShotStart(L"TURNEND");
 			SwitchEventMediatorBase<Phase>::GetRef().SendSwitchEvent(PHASE_KIND::END);
 		}
 	}
