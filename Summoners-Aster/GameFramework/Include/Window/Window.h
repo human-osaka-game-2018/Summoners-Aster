@@ -1,9 +1,13 @@
-﻿#ifndef WINDOW_H
+﻿//----------------------------------------------------------
+// <filename>Window.h</filename>
+//----------------------------------------------------------
+
+#ifndef WINDOW_H
 #define WINDOW_H
 
 #include <Windows.h>
 
-#include "../RectSize.h"
+#include "RectSize.h"
 #include "WindowParam.h"
 
 /// <summary>
@@ -20,6 +24,11 @@ namespace gameframework
 		Window(const TCHAR* pAppName, const WNDPROC pWndProc = nullptr)
 		{
 			Create(pAppName, pWndProc);
+		}
+
+		Window(const TCHAR* pAppName, WNDCLASSEX* pWndclass,const WNDPROC pWndProc = nullptr)
+		{
+				Create(pAppName,pWndclass,pWndProc);
 		}
 
 		~Window() {};
@@ -63,6 +72,13 @@ namespace gameframework
 		/// <param name="pAppName">ウィンドウの名前</param>
 		/// <param name="pWndProc">ウィンドウプロシージャのポインタ</param>
 		void Create(const TCHAR* pAppName, const WNDPROC pWndProc = nullptr);
+		/// <summary>
+		/// ウィンドウの生成を行う
+		/// </summary>
+		/// <param name="pAppName">ウィンドウの名前</param>
+		/// <param name="pWndProc">ウィンドウプロシージャのポインタ</param>
+		/// <param name="pWndclass">ウィンドウクラスのポインタ</param>
+		void Create(const TCHAR* pAppName, WNDCLASSEX* pWndclass, const WNDPROC pWndProc = nullptr);
 
 		/// <summary>
 		/// ウィンドウクラスを登録する
@@ -73,6 +89,16 @@ namespace gameframework
 		/// ウィンドウプロシージャが渡されていない場合このクラスのものが呼ばれる
 		/// </remarks>
 		void RegisterWindowClass(const TCHAR* pAppName, const WNDPROC pWndProc = nullptr);
+
+		/// <summary>
+		/// ウィンドウクラスを登録する
+		/// </summary>
+		/// <param name="pWndProc">ウィンドウプロシージャのポインタ</param>
+		/// <param name="pWndclass">ウィンドウクラスのポインタ</param>
+		/// <remarks>
+		/// ウィンドウプロシージャが渡されていない場合このクラスのものが呼ばれる
+		/// </remarks>
+		void RegisterWindowClass(const WNDPROC pWndProc, WNDCLASSEX* pWndclass);
 
 		/// <summary>
 		/// ウィンドウのクライアントサイズをウィンドウサイズにする

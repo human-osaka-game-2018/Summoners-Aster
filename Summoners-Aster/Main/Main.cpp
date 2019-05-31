@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <GameFramework.h>
+#include "resource.h"
 
 #include "Cursor.h"
 #include "ClickEffect.h"
@@ -24,8 +25,22 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 
 	//デフォルトでは1280.0f 720.0f
 	WindowParam::SetWindowSize(RectSize(1600.0f, 900.0f));
+	HINSTANCE hInstance = nullptr;
+	WindowParam::GetInstanceHandle(&hInstance);
 
-	Window* pWindow = new Window(_T("Summoners'Aster"));
+	WNDCLASSEX wndclass;
+	ZeroMemory(&wndclass, sizeof(wndclass));
+	//Windows初期化情報の設定
+	wndclass.style = CS_HREDRAW | CS_VREDRAW;
+	wndclass.cbClsExtra = wndclass.cbWndExtra = 0;
+	wndclass.hInstance = hInstance;
+	wndclass.hIcon = wndclass.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1));
+	wndclass.hCursor = LoadCursor(nullptr, IDC_ARROW);
+	wndclass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
+	wndclass.lpszMenuName = nullptr;
+	wndclass.cbSize = sizeof(wndclass);
+
+	Window* pWindow = new Window(_T("Summoners'Aster") ,&wndclass);
 
 	//インスタンスが一つしかないものを自動開放するように登録
 	SingletonHolder<Window>::Create(pWindow);
