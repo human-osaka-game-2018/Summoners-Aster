@@ -381,6 +381,7 @@
     <ClInclude Include="GraphicEffects\AbilityEffect.h">
       <Filter>GraphicEffects</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneSwitcher\SceneSwitcher.cpp">
@@ -644,5 +645,11 @@
     <ClCompile Include="GraphicEffects\AbilityEffect.cpp">
       <Filter>GraphicEffects</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Summoners-Aster.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Textures\icon1.ico" />
   </ItemGroup>
 </Project>
