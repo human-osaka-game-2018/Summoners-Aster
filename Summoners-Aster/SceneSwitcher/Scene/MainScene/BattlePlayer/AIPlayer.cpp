@@ -360,7 +360,7 @@ namespace summonersaster
 
 	bool AIPlayer::IsEquipedWeapon()
 	{
-		if (m_pWeaponHolder->HWeapon() == nullptr)return false;
+		if (m_pWeaponHolder->HCard() == nullptr)return false;
 
 		return true;
 	}
@@ -368,7 +368,7 @@ namespace summonersaster
 	void AIPlayer::EquipWeapon()
 	{
 		//ウェポン上書きの時のための処理
-		if (m_pWeaponHolder->HWeapon())
+		if (m_pWeaponHolder->HCard())
 		{
 			ActivateWeaponDestroying();
 		}

@@ -2,6 +2,7 @@
 #define WEAPON_H
 
 #include "Card\Card.h"
+#include "Field.h"
 
 namespace summonersaster
 {
@@ -26,6 +27,16 @@ namespace summonersaster
 			m_shouldDestroyed = true;
 		}
 
+		inline FollowerData* GetAttackingFollower()
+		{
+			return m_pAttackingFollower;
+		}
+
+		inline void SetAttackingFollower(FollowerData* pAttackingFollower)
+		{
+			m_pAttackingFollower = pAttackingFollower;
+		}
+
 		void Render(const D3DXVECTOR3& center, const RectSize& size, RENDERING_TYPE renderingType = RENDERING_TYPE::MIDDLE, const Degree& rotationZ = Degree(0))override;
 
 	private:
@@ -38,6 +49,9 @@ namespace summonersaster
 		Stream* m_pHPStream = nullptr;
 
 		int m_hP;
+
+		//! このウェポンに攻撃してきたフォロワーのインデックス、カード効果で使う
+		FollowerData* m_pAttackingFollower = nullptr;
 	};
 } // namespace summonersaster
 

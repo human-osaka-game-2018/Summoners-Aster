@@ -33,6 +33,22 @@ void AbilityExecutor::Execute(Card* card, Ability::Execute executeName)
 		OutputDebugString(L"相手プレイヤーに直接攻撃します\n");
 		break; 
 	}
+	case Ability::Execute::DESTROY_ALL_FOLLOWER:
+	{	
+		Field& rField = Field::GetRef();
+		rField.DestroyAllFollower();
+		OutputDebugString(L"フィールドのフォロワー全てを破壊します\n");
+		break;
+	}
+	case Ability::Execute::RECOVER_ROTATION:
+	{
+		auto pBattlePlayer = Players::GetPlayer(BattleInformation::CurrentPlayer());
+		auto pRotationTickets = pBattlePlayer->HRotationTickets();
+		int RetentionNumTmp = pRotationTickets->RetentionNum() + 1;
+		pRotationTickets->RetentionNum(RetentionNumTmp);
+		OutputDebugString(L"フィールド回転権を回復します\n");
+		break;
+	}
 	default:
 		OutputDebugString(L"発動できませんでした\n");
 	}
@@ -120,6 +136,29 @@ void AbilityExecutor::Execute(FollowerData* followerData, Ability::Execute execu
 	}
 	default:
 		OutputDebugString(L"発動できませんでした\n");
+	}
+}
+
+void AbilityExecutor::Execute(Weapon* weaponCard, Ability::Execute executeName)
+{
+	switch (executeName)
+	{
+	case Ability::Execute::DRAWCARD:
+		Players::GetPlayer(weaponCard->Owner())->DrawCard();
+		OutputDebugString(L"カードをドローします\n");
+		break;
+	case Ability::Execute::DESTROY_ATTACKING_FOLLOWER:
+	{
+		auto followerData = weaponCard->GetAttackingFollower();
+		followerData->m_pFollower->HP(0);
+		//HPをゼロにする
+		//じゃあ自動で破壊エフェクト入るのでは？
+		OutputDebugString(L"攻撃してきたフォロワーを破壊します\n");
+		break;
+	}
+	default:
+		OutputDebugString(L"発動できませんでした\n");
+		break;
 	}
 }
 

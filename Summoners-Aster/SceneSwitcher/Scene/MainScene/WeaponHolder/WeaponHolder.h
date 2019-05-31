@@ -48,7 +48,12 @@ namespace summonersaster
 
 		void ActivateWeapon();
 		
-		inline Card* HWeapon()
+		inline Card* HCard()
+		{
+			return m_pWeapon;
+		}
+
+		inline Weapon* HWeapon()
 		{
 			return m_pWeapon;
 		}
@@ -100,6 +105,7 @@ namespace summonersaster
 		Vertices* m_pRect = nullptr;
 
 		Weapon* m_pWeapon = nullptr;
+
 	};
 } // namespace summonersaster
 

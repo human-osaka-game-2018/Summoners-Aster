@@ -211,7 +211,7 @@ bool BattlePlayer::UpdateWeaponDestroyingRoutine()
 
 	CallOnce(&isRoutineStart, _T("DestroyWeapon"));
 
-	Vertices& rCard = m_pWeaponHolder->HWeapon()->Rect();
+	Vertices& rCard = m_pWeaponHolder->HCard()->Rect();
 
 	rCard.FadeOut(EFFECT_TAKES_FRAME_MAX, 255, 0);
 
@@ -228,11 +228,11 @@ bool BattlePlayer::UpdateArmingRoutine()
 
 	if (!CallOnce(&isRoutineStart, _T("Arm"))) return isRoutineStart = true;
 
-	m_pWeaponHolder->HWeapon()->Rect().SetColor(0x00FFFFFF);
+	m_pWeaponHolder->HCard()->Rect().SetColor(0x00FFFFFF);
 
 	if (m_EffectTakesFrame < EFFECT_TAKES_FRAME_MAX / 2)
 	{
-		m_pWeaponHolder->HWeapon()->Rect().FadeIn(EFFECT_TAKES_FRAME_MAX / 2, 0, 255);
+		m_pWeaponHolder->HCard()->Rect().FadeIn(EFFECT_TAKES_FRAME_MAX / 2, 0, 255);
 	}
 
 	if (m_EffectTakesFrame-- > 0) return false;
@@ -280,7 +280,7 @@ void BattlePlayer::DestroyWornOutCard()
 {
 	if (BattleInformation::IsWaitingAction()) return;
 
-	Card* pWeapon = m_pWeaponHolder->HWeapon();
+	Card* pWeapon = m_pWeaponHolder->HCard();
 
 	if (!pWeapon) return;
 
@@ -341,9 +341,9 @@ void BattlePlayer::TransportCollideWeapon()
 
 	m_pWeaponHolder->HCollisionRect()->SetColor(weaponHolderColor);
 
-	if (!m_pWeaponHolder->HWeapon()) return;
+	if (!m_pWeaponHolder->HCard()) return;
 
-	m_pWeaponHolder->HWeapon()->Rect().SetColor(weaponColor);
+	m_pWeaponHolder->HCard()->Rect().SetColor(weaponColor);
 }
 
 void BattlePlayer::CheckSpelling()
@@ -447,7 +447,7 @@ bool BattlePlayer::Summon()
 
 void BattlePlayer::ActivateWeaponDestroying()
 {
-	if (!m_pWeaponHolder->HWeapon()) return;
+	if (!m_pWeaponHolder->HCard()) return;
 
 	BattleInformation::ActionInformation actionInformation = { BattleInformation::ACTION_KIND::WEAPON_DESTROYING, m_PlayerKind };
 	BattleInformation::PushQueBack(actionInformation);
@@ -455,7 +455,7 @@ void BattlePlayer::ActivateWeaponDestroying()
 
 void BattlePlayer::ActivateArming(int handCardIndex)
 {
-	if (m_pWeaponHolder->HWeapon())
+	if (m_pWeaponHolder->HCard())
 	{
 		ActivateWeaponDestroying();
 	}
@@ -479,7 +479,7 @@ bool BattlePlayer::Arm()
 
 	m_rGameFramework.RegisterGraphicEffect(new SummonEffect(m_pWeaponHolder->HCollisionRect()->GetCenter()));
 
-	m_pWeaponHolder->HWeapon()->Rect().SetColor(0x00FFFFFF);
+	m_pWeaponHolder->HCard()->Rect().SetColor(0x00FFFFFF);
 
 	m_EffectTakesFrame = EFFECT_TAKES_FRAME_MAX;
 
