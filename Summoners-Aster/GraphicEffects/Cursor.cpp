@@ -8,7 +8,7 @@ namespace gameframework
 
 		m_isAdditionBlendMode = false;
 
-		ShowCursor(false);
+		//ShowCursor(false);
 	}
 
 	Cursor::~Cursor()
