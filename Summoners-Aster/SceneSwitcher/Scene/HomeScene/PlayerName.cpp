@@ -56,7 +56,7 @@ namespace summonersaster
 		m_pRect->Render(m_rGameFramework.GetTexture(_T("PLAYER_NAME")));
 		m_pStream->SetTopLeft(D3DXVECTOR2(center.x/* - size.m_width*/, center.y - size.m_height * 0.1f));
 
-		(*m_pStream) = _T("ブレイバー・シオン");
+		(*m_pStream) = _T("プレイヤー");
 		m_pStream->SetColor(0xFF000000);
 		m_pStream->Render(m_rGameFramework.GetFont(_T("CARD")), DT_CENTER);
 

@@ -55,9 +55,6 @@
     <Filter Include="SceneSwitcher\Scene\MainScene\Hand">
       <UniqueIdentifier>{73c81bd9-6d3e-4528-ad4b-75c52fcc0fa2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SceneSwitcher\Scene\MainScene\HP">
-      <UniqueIdentifier>{4117ba4e-a27c-4c64-9da6-4ed705250692}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Card\Follower">
       <UniqueIdentifier>{4e9bd5ca-dc4b-441b-94e6-21a8043c0414}</UniqueIdentifier>
     </Filter>
@@ -114,6 +111,9 @@
     </Filter>
     <Filter Include="SceneSwitcher\Scene\CardShow">
       <UniqueIdentifier>{918ea019-c9ca-4467-9975-c60b7540aec8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneSwitcher\Scene\MainScene\HP">
+      <UniqueIdentifier>{4117ba4e-a27c-4c64-9da6-4ed705250692}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
