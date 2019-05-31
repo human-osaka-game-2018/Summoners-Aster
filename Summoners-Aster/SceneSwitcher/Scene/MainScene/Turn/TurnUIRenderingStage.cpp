@@ -103,7 +103,7 @@ namespace summonersaster
 		(*m_pStream) = totstring(BattleInformation::Turn());
 		(*m_pStream) += _T("ターン\n");
 
-		m_pStream->SetColor(algorithm::Tertiary(BattleInformation::CurrentPlayer() == PLAYER_KIND::OPPONENT, 0xFFDD23DD, 0xFFDDDD23));
+		m_pStream->SetColor(algorithm::Tertiary(BattleInformation::CurrentPlayer() == PLAYER_KIND::OPPONENT, 0xFFFF00FF, 0xFFFFFF00));
 
 		tstring player =
 			algorithm::Tertiary(BattleInformation::CurrentPlayer() == BattleInformation::StartPlayer(), _T("先行"), _T("後行"));

@@ -83,7 +83,7 @@ namespace summonersaster
 		CreateTexture(_T("SUMMONED"), _T("Textures/Summoned.png"));
 
 		RectSize turnFontSize;
-		turnFontSize.m_width = windowSize.m_width * 0.035f;
+		turnFontSize.m_width = windowSize.m_width * 0.046f;
 		turnFontSize.m_height = 2.0f * turnFontSize.m_width;
 		CreateFont(_T("TURN_NUM"), turnFontSize, _T("IPAex明朝"));
 
