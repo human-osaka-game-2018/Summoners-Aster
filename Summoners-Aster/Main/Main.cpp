@@ -66,6 +66,7 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 	SceneSwitcher& sceneSwitcher = SceneSwitcher::CreateAndGetRef();
 	int frameCount = 0;
 
+	ShowCursor(false);
 
 	gameframework::Cursor cursor;
 	

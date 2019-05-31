@@ -84,7 +84,9 @@ namespace summonersaster
 			HWND hwnd;
 			gameframework::WindowParam::GetWindowHandle(&hwnd);
 
+			ShowCursor(true);
 			MessageBox(hwnd, _T("工事中"), _T("ERRROR"), MB_OK);
+			ShowCursor(false);
 
 			OutputDebugString(L"通信対戦\n");
 		}

@@ -41,11 +41,12 @@ namespace summonersaster
 	void TitleScene::Update()
 	{
 		m_taskScheduler.Update();
-
+#ifdef _DEBUG
 		if(m_rGameFramework.KeyboardIsPressed(DIK_P))
 		{
 			SwitchEventMediatorBase<Scene>::GetRef().SendSwitchEvent(SCENE_KIND::CARDSHOW);
 		}
+#endif
 	}
 
 	void TitleScene::Render()
