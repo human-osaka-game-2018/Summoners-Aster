@@ -44,6 +44,8 @@ namespace summonersaster
 
 	bool FollowerOrderMediator::UpdateAttackingPlayerRoutine()
 	{
+		FollowerData* pFollowerDatas = nullptr;
+		m_rField.GetFollowerZone(&pFollowerDatas);
 		static bool isRoutineStart = true;
 
 		//攻撃したいプレイヤーは、必ず現在のターン中のプレイヤーの逆だから
@@ -53,9 +55,6 @@ namespace summonersaster
 
 		if (isRoutineStart)
 		{
-			FollowerData* pFollowerDatas = nullptr;
-			m_rField.GetFollowerZone(&pFollowerDatas);
-
 			m_rGameFramework.RegisterGraphicEffect(
 				new AttackEffect(pFollowerDatas[m_attackingFollowerIndex].m_pVertices->GetCenter(),
 					m_playersAttackData[notCurrentPlayer].m_pPlayerIconVertices->GetCenter(),
@@ -72,6 +71,8 @@ namespace summonersaster
 		//m_attackingFollowerIndexは殴っている敵のIndexで、この関数が入る前に保存しているはず
 		m_rField.AttackPlayer(m_attackingFollowerIndex, m_playersAttackData[notCurrentPlayer].m_pHP);
 
+		if (m_playersAttackData[notCurrentPlayer].m_pWeaponHolder->HWeapon() == nullptr) return isRoutineStart = true;
+		m_playersAttackData[notCurrentPlayer].m_pWeaponHolder->HWeapon()->SetAttackingFollower(&pFollowerDatas[m_attackingFollowerIndex]);
 		m_playersAttackData[notCurrentPlayer].m_pWeaponHolder->ActivateWeapon();
 
 		return isRoutineStart = true;

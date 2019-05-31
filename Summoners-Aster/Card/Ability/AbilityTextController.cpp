@@ -247,16 +247,14 @@ namespace summonersaster
 
 			if (!m_rGameFramework.IsCursorOnRect(*pWeaponHolder->HCollisionRect())) return;
 
-			if (pWeaponHolder->HWeapon() == nullptr)
+			if (pWeaponHolder->HCard() == nullptr)
 			{
 				m_renderingCardInformation.Zero();
 
 				return;
 			}
-
 			m_rGameFramework.OneShotSimultaneous(L"SELECTCARD");
-
-			m_renderingCardInformation.m_pCard = pWeaponHolder->HWeapon();
+			m_renderingCardInformation.m_pCard = pWeaponHolder->HCard();
 		};
 
 		for (auto& pPlayer : *Players::GetRef().HBattlePlayers())
@@ -354,6 +352,15 @@ namespace summonersaster
 
 		case Execute::RESTORE_FRIEND_ATTACK:
 			return _T("このカードの効果で攻撃力が上昇した\n全てのフォロワーの攻撃力を\nもとに戻す。");
+
+		case Execute::DESTROY_ALL_FOLLOWER:
+			return _T("フィールド上のフォロワーを\n全て破壊する。");
+
+		case Execute::RECOVER_ROTATION:
+			return _T("フィールドの回転権を回復する。");
+
+		case Execute::DESTROY_ATTACKING_FOLLOWER:
+			return _T("攻撃してきたフォロワーを破壊する。");
 		}
 
 		return nullptr;

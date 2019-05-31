@@ -64,7 +64,13 @@ public:
 		//! 自分以外の味方の攻撃力を上げる
 		RAISE_FRIEND_ATTACK,
 		//! 上昇した攻撃力を元に戻す
-		RESTORE_FRIEND_ATTACK
+		RESTORE_FRIEND_ATTACK,
+		//! フィールドのフォロワー全てを破壊する
+		DESTROY_ALL_FOLLOWER,
+		//! 回転権を回復する
+		RECOVER_ROTATION,
+		//! 攻撃してきたフォロワーを破壊する
+		DESTROY_ATTACKING_FOLLOWER
 	};
 	Ability(const ActivationEvent activationEvent, const Execute execute);
 	Ability();

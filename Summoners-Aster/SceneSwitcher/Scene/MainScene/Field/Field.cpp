@@ -357,6 +357,35 @@ namespace summonersaster
 		}
 	}
 
+	void Field::Followers::DestroyAllFollower()
+	{
+		auto IsSameDeadFollowerIndex = [&](int index)->bool
+		{
+			for (auto& deadIndex : m_deadFollowerIndicies)
+			{
+				if (deadIndex == index) return true;
+			}
+
+			return false;
+		};
+
+		for (auto& followerData : m_followerDatas)
+		{
+			if (!followerData.m_pFollower) continue;
+
+			int index = static_cast<int>(&followerData - &m_followerDatas[0]);
+			CardAbilityMediator::Unregister(&followerData);
+			CardAbilityMediator::Activator(Ability::KILLED, &followerData);
+
+			if (IsSameDeadFollowerIndex(index)) continue;
+
+			m_deadFollowerIndicies.push_back(index);
+
+			BattleInformation::PushQueBack(ActionInformation(ACTION_KIND::FOLLOWER_DESTROYING,
+				followerData.m_pFollower->Owner()));
+		}
+	}
+
 	void Field::Followers::RenderStateUI(int index)
 	{
 		FollowerData& rFollowerData = m_followerDatas[index];

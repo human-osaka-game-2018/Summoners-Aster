@@ -242,6 +242,11 @@ namespace summonersaster
 		}
 
 		/// <summary>
+		/// フィールドのフォロワー全てを破壊する関数を呼ぶ関数
+		/// </summary>
+		inline void DestroyAllFollower() { m_pFollowers->DestroyAllFollower(); }
+
+		/// <summary>
 		/// フィールドのフォロワー数
 		/// </summary>
 		static const int FIELD_FOLLOWERS_NUM = 5;
@@ -344,6 +349,11 @@ namespace summonersaster
 			/// </summary>
 			/// <returns>終了したらtrue</returns>
 			bool UpdateDestroyingRoutine();
+
+			/// <summary>
+			/// フィールドのフォロワー全てを破壊する関数
+			/// </summary>
+			void DestroyAllFollower();
 
 			/// <summary>
 			/// フィールドフォロワーの攻撃や移動を行う元のIndexのセッター

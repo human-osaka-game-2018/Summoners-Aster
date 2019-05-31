@@ -44,7 +44,7 @@ namespace summonersaster
 			return m_retentionNum;
 		}
 
-		inline int RetentionNum(int rhs)
+		inline void RetentionNum(int rhs)
 		{
 			m_retentionNum = min(rhs, RETENTION_MAX);
 		}
