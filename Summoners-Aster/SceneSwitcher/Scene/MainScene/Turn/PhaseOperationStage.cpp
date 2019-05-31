@@ -27,7 +27,7 @@ namespace summonersaster
 
 	void PhaseOperationStage::Finalize()
 	{
-		
+
 	}
 
 	void PhaseOperationStage::Update()

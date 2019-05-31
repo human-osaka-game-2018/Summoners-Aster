@@ -27,9 +27,8 @@ namespace summonersaster
 
 	void InputPrompt::LoadResource()
 	{
-		m_rGameFramework.CreateFont(_T("INPUT_PROMPT"), RectSize(m_windowCenter.x * 0.016f, m_windowCenter.x * 0.032f), _T("IPAex明朝"));
+		m_rGameFramework.CreateFont(_T("INPUT_PROMPT"), RectSize(m_windowCenter.x * 0.024f, m_windowCenter.x * 0.096f), _T("IPAex明朝"));
 	}
-
 	void InputPrompt::Finalize()
 	{
 		Release();
@@ -43,7 +42,7 @@ namespace summonersaster
 
 	void InputPrompt::Render()
 	{
-		m_pStream->SetTopLeft(D3DXVECTOR2(m_windowCenter.x, m_windowCenter.y * 1.5f));
+		m_pStream->SetTopLeft(D3DXVECTOR2(m_windowCenter.x, m_windowCenter.y * 1.7f));
 		m_pStream->Flash(120, 60, 255);
 
 		m_pStream->Render(m_rGameFramework.GetFont(_T("INPUT_PROMPT")), DT_CENTER);
