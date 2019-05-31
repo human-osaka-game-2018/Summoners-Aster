@@ -52,8 +52,8 @@ namespace summonersaster
 		CreateTexture(Field::pTEXTURE_KEYS[2], _T("Textures/Battle_rotationStar3.png"));
 		CreateTexture(_T("DIGITAL_FILTER"), _T("Textures/Battle_digitalFilter.png"));
 		
-		CreateTexture(_T("FUJIZONO"), _T("Textures/fujizono.jpg"));
-		CreateTexture(_T("SHION"), _T("Textures/nigaoe.jpg"));
+		CreateTexture(_T("PLAYER2"), _T("Textures/playerIcon2.png"));
+		CreateTexture(_T("PLAYER"), _T("Textures/playerIcon.png"));
 		CreateTexture(_T("PLAYER_BACK"), _T("Textures/Battle_playerBack.png"));
 		CreateTexture(_T("PLAYER_FRAME"), _T("Textures/Battle_playerFrame.png"));
 		CreateTexture(_T("ROTATION_TICKET_FRAME"), _T("Textures/Battle_rotationTicketFrame.png"));

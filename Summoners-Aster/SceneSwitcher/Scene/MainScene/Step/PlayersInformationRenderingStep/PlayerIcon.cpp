@@ -32,7 +32,7 @@ namespace summonersaster
 
 		(*m_pStream = _T("RANK ")) += _T("999");
 		*m_pStream += _T("\n");
-		*m_pStream += Tertiary(m_isOpponent, _T("エフリ・レフル"), _T("ブレイバー・シオン"));
+		*m_pStream += Tertiary(m_isOpponent, _T("コンピュータ"), _T("プレイヤー"));
 
 		LoadResource();
 	}

@@ -110,6 +110,6 @@ namespace summonersaster
 
 		(*m_pStream) += player;
 		(*m_pStream) += _T("\n");
-		(*m_pStream) += algorithm::Tertiary(BattleInformation::CurrentPlayer() == PLAYER_KIND::OPPONENT, _T("エフリ・レフル"), _T("ブレイバー・シオン"));
+		(*m_pStream) += algorithm::Tertiary(BattleInformation::CurrentPlayer() == PLAYER_KIND::OPPONENT, _T("コンピュータ"), _T("プレイヤー"));
 	}
 } // namespace summonersaster
